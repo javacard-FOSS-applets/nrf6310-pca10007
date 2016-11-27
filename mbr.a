@@ -1,0 +1,13 @@
+ ;org 0xFFFFFFFE
+ 
+ AREA |MBR|, CODE, READONLY
+ ;ENTRY
+ NOP
+ NOP
+ NOP
+ NOP
+ LDR r0, =0x0d000
+ BX r0
+ ;MOV PC, R0
+  
+ end

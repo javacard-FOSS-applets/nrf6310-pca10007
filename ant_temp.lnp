@@ -1,0 +1,10 @@
+--cpu Cortex-M0
+".\main.o"
+".\system_nrf51.o"
+".\arm_startup_nrf51.o"
+".\segger_rtt.o"
+".\mbr.o"
+--strict --scatter ".\ant_temp.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\ant_temp.map" -o .\ant_temp.axf

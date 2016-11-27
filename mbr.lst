@@ -1,0 +1,40 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;org 0xFFFFFFFE
+    2 00000000         
+    3 00000000                 AREA             |MBR|, CODE, READONLY
+    4 00000000         ;ENTRY
+    5 00000000 BF00            NOP
+    6 00000002 BF00            NOP
+    7 00000004 BF00            NOP
+    8 00000006 BF00            NOP
+    9 00000008 4800            LDR              r0, =0x0d000
+   10 0000000A 4700            BX               r0
+   11 0000000C         ;MOV PC, R0
+   12 0000000C         
+   13 0000000C                 end
+              0000D000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0 --apcs=interw
+ork --depend=.\mbr.d -o.\mbr.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS
+\Include -IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include --predefine="__EVAL SE
+TA 1" --predefine="__UVISION_VERSION SETA 521" --list=.\mbr.lst mbr.a
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MBR 00000000
+
+Symbol: MBR
+   Definitions
+      At line 3 in file mbr.a
+   Uses
+      None
+Comment: MBR unused
+1 symbol
+335 symbols in table
