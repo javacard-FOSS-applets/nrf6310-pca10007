@@ -64,13 +64,26 @@ void PrepareButtons()
 
 uint8_t ReadButtons()
 {
-	return ~((( NRF_GPIO->IN )>> PORT2) & 0xFF);
+	 uint8_t value;
+	 static uint8_t previous;
+	 char *string;
+
+	 value = ~((( NRF_GPIO->IN )>> PORT2) & 0xFF);
+
+	 if(previous != value)
+	 {
+		 sprintf(string, "0x%02xh\n", value);
+		 SEGGER_RTT_WriteString(0, string);
+		 previous = value;
+	 }
+	 return value;
 }
 
 
 
 void JozefovaImplementacia()
 {
+	
 	for(;;)
 	{
 		nrf_gpio_cfg_output(PIN);
@@ -84,7 +97,7 @@ void JozefovaImplementacia()
 int main(void)
 {
 	int value;
-	
+	//JozefovaImplementacia();
 	//printf("Test\r\n");
 	SEGGER_RTT_WriteString(0, "Hello World!\n");
 	
