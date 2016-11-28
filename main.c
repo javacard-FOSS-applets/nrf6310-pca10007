@@ -38,14 +38,22 @@ todo :	set  orr 00000FF0000
 #define BUTTONS PORT2
 #define    LEDS PORT1
 
+void SetLEDS(uint8_t);
+
 void PrepareLEDS() {
 //__asm("ADD r1, r0, #1\n"
 //      "MOV r0, r1\n");
 		
 	NRF_GPIO->DIR=(uint32_t) NRF_GPIO->DIR | ((uint32_t)0xFF<<LEDS);
 	//NRF_GPIO->PIN_CNF[31]=0x01;
-	NRF_GPIO->OUT=((uint32_t)0xFF << LEDS);
-	NRF_GPIO->OUT=0x00000000;
+	
+	SetLEDS(0xFF);
+	nrf_delay_ms(500);
+	SetLEDS(0x00);
+	nrf_delay_ms(500);
+	
+	/*NRF_GPIO->OUT=((uint32_t)0xFF << LEDS);
+	NRF_GPIO->OUT=0x00000000;*/
 }
 
 void SetLEDS(uint8_t value)
