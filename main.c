@@ -1,3 +1,15 @@
+/*
+0xA000 0x37000
+0x20000900  0x3700
+
+0x10000 0x30000
+0x20000800 0x3800
+
+todo :	set  orr 00000FF0000
+				clear andd FFFF00ffffff
+
+*/
+
 //#pragma ARM
 
 #include "nrf51.h"
@@ -23,19 +35,31 @@
 #define PORT2 16 //BUTTONS
 #define PORT3 24 //LEDS
 
+#define BUTTONS PORT2
+#define    LEDS PORT1
+
 void PrepareLEDS() {
 //__asm("ADD r1, r0, #1\n"
 //      "MOV r0, r1\n");
 		
-	NRF_GPIO->DIR=0xFF000000;
+	NRF_GPIO->DIR=(uint32_t) NRF_GPIO->DIR | ((uint32_t)0xFF<<LEDS);
 	//NRF_GPIO->PIN_CNF[31]=0x01;
-	NRF_GPIO->OUT=0xFF000000;
+	NRF_GPIO->OUT=((uint32_t)0xFF << LEDS);
 	NRF_GPIO->OUT=0x00000000;
 }
 
 void SetLEDS(uint8_t value)
 {
-	NRF_GPIO->OUT=value<<PORT3;
+	uint32_t zeros;
+	uint32_t ones;
+	
+	zeros = 0;
+	ones = ~zeros;
+	
+	NRF_GPIO->OUT = (ones  & (0x00 << LEDS));
+	NRF_GPIO->OUT = (zeros | (value << LEDS));
+	
+	//NRF_GPIO->OUT = (value<<LEDS);
 }
 
 void BlinkLEDS()
@@ -68,7 +92,7 @@ uint8_t ReadButtons()
 	 static uint8_t previous;
 	 char *string;
 
-	 value = ~((( NRF_GPIO->IN )>> PORT2) & 0xFF);
+	 value = ~((( NRF_GPIO->IN )>> BUTTONS) & 0xFF);
 
 	 if(previous != value)
 	 {
