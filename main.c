@@ -40,6 +40,30 @@ todo :	set  orr 00000FF0000
 
 void SetLEDS(uint8_t);
 
+uint32_t ReadTemperature()
+{
+	uint32_t counter=0;
+	uint32_t value=~0;
+	NRF_TEMP->POWER=1;
+	NRF_TEMP->TASKS_START=1;
+		
+	while(NRF_TEMP->EVENTS_DATARDY==0 || counter<35000)
+	{
+			counter++;
+	}
+	if(NRF_TEMP->EVENTS_DATARDY==0)
+	{
+		return ~0x0;
+	}
+	
+	NRF_TEMP->EVENTS_DATARDY=0;
+	
+	value = NRF_TEMP->TEMP;
+	NRF_TEMP->TASKS_STOP=1;
+	NRF_TEMP->POWER=0;
+	return value;
+}
+
 void PrepareLEDS() {
 //__asm("ADD r1, r0, #1\n"
 //      "MOV r0, r1\n");
@@ -129,6 +153,7 @@ void JozefovaImplementacia()
 int main(void)
 {
 	int value;
+	uint32_t temperature;
 	//JozefovaImplementacia();
 	//printf("Test\r\n");
 	SEGGER_RTT_WriteString(0, "Hello World!\n");
@@ -144,6 +169,7 @@ int main(void)
 	while(1==1)
 	{
 		SetLEDS(ReadButtons() );
+		temperature = ReadTemperature();
 	}
 	
 	//return 0;
