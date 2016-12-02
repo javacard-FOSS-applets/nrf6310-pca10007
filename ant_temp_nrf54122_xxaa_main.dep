@@ -1,4 +1,4 @@
-Dependencies for Project 'ant_temp', Target 'Target 1': (DO NOT MODIFY !)
+Dependencies for Project 'ant_temp', Target 'nrf54122_xxaa_main': (DO NOT MODIFY !)
 F (C:\components\device\nrf51.h)(0x57F3AA02)()
 F (C:\components\device\nrf51422_peripherals.h)(0x57F3AA02)()
 F (C:\components\toolchain\arm\arm_startup_nrf51.s)(0x583A2E57)(--cpu Cortex-M0 --li --pd "__EVAL SETA 1" -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include--pd "__UVISION_VERSION SETA 521"--list .\arm_startup_nrf51.lst --xref -o .\arm_startup_nrf51.o --depend .\arm_startup_nrf51.d)
@@ -43,5 +43,5 @@ I (C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.h)(0x57F3A9FA)
 I (C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT_Conf.h)(0x57F3A9FA)
 I (C:\components\drivers_nrf\hal\nrf_temp.h)(0x57F3A9F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x574EA096)
+F (.\mbr.a)(0x58403E4B)(--cpu Cortex-M0 --li --pd "__EVAL SETA 1" -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include--pd "__UVISION_VERSION SETA 521"--list .\mbr.lst --xref -o .\mbr.o --depend .\mbr.d)
 F (..\..\..\components\drivers_nrf\hal\nrf_gpio.h)(0x57F3A9F8)()
-F (.\mbr.a)(0x583AF62E)(--cpu Cortex-M0 --li --pd "__EVAL SETA 1" -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include--pd "__UVISION_VERSION SETA 521"--list .\mbr.lst --xref -o .\mbr.o --depend .\mbr.d)

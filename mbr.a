@@ -2,11 +2,11 @@
  
  AREA |MBR|, CODE, READONLY
  ;ENTRY
- NOP
- NOP
- NOP
- NOP
- LDR r0, =0x0d000
+ ;NOP
+ ;NOP
+ ;NOP
+ ;NOP
+ LDR r0, =0x0a000
  BX r0
  ;MOV PC, R0
   

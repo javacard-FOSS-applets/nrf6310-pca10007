@@ -1,6 +1,18 @@
 #line 1 "main.c"
 
 
+
+
+
+
+
+
+
+
+ 
+
+
+
 #line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51.h"
 
  
@@ -2645,7 +2657,7 @@ typedef struct {
 
 
 
-#line 4 "main.c"
+#line 16 "main.c"
 #line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51422_peripherals.h"
 
 
@@ -2790,7 +2802,7 @@ typedef struct {
 
 
 
-#line 5 "main.c"
+#line 17 "main.c"
 #line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
 
 
@@ -8778,7 +8790,7 @@ typedef struct {
 
 
  
-#line 6 "main.c"
+#line 18 "main.c"
 
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
  
@@ -9679,7 +9691,7 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
  
 
-#line 8 "main.c"
+#line 20 "main.c"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdlib.h"
  
  
@@ -10417,7 +10429,7 @@ extern __declspec(__nothrow) int __C_library_version_number(void);
 
 
  
-#line 9 "main.c"
+#line 21 "main.c"
 #line 1 "C:\\components\\drivers_nrf\\delay\\nrf_delay.h"
 
 
@@ -10760,7 +10772,7 @@ static __inline void nrf_delay_ms(uint32_t number_of_ms)
 
 
 
-#line 10 "main.c"
+#line 22 "main.c"
 #line 1 "C:\\components\\drivers_nrf\\hal\\nrf_gpio.h"
 
 
@@ -11442,7 +11454,7 @@ static __inline void nrf_gpio_port_clear(nrf_gpio_port_select_t port, uint8_t cl
 
 
 
-#line 11 "main.c"
+#line 23 "main.c"
 #line 1 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
 
 
@@ -11697,7 +11709,7 @@ int SEGGER_RTT_printf(unsigned BufferIndex, const char * sFormat, ...);
 
 
  
-#line 12 "main.c"
+#line 24 "main.c"
 
 #line 1 "C:\\components\\drivers_nrf\\hal\\nrf_temp.h"
 
@@ -11763,9 +11775,9 @@ static __inline int32_t nrf_temp_read(void)
 
 
 
-#line 14 "main.c"
+#line 26 "main.c"
 
-#line 16 "main.c"
+#line 28 "main.c"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
  
  
@@ -12188,29 +12200,73 @@ extern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  ,
 
  
 
-#line 17 "main.c"
-#line 18 "main.c"
-#line 19 "main.c"
+#line 29 "main.c"
+#line 30 "main.c"
+#line 31 "main.c"
 
 
 
 
 
 
+
+
+
+
+void SetLEDS(uint8_t);
+
+uint32_t ReadTemperature()
+{
+	uint32_t counter=0;
+	uint32_t value=~0;
+	((NRF_TEMP_Type *) 0x4000C000UL)->POWER=1;
+	((NRF_TEMP_Type *) 0x4000C000UL)->TASKS_START=1;
+		
+	while(((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY==0 || counter<35000)
+	{
+			counter++;
+	}
+	if(((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY==0)
+	{
+		return ~0x0;
+	}
+	
+	((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY=0;
+	
+	value = ((NRF_TEMP_Type *) 0x4000C000UL)->TEMP;
+	((NRF_TEMP_Type *) 0x4000C000UL)->TASKS_STOP=1;
+	((NRF_TEMP_Type *) 0x4000C000UL)->POWER=0;
+	return value;
+}
 
 void PrepareLEDS() {
 
 
 		
-	((NRF_GPIO_Type *) 0x50000000UL)->DIR=0xFF000000;
+	((NRF_GPIO_Type *) 0x50000000UL)->DIR=(uint32_t) ((NRF_GPIO_Type *) 0x50000000UL)->DIR | ((uint32_t)0xFF<<8);
 	
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT=0xFF000000;
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT=0x00000000;
+	
+	SetLEDS(0xFF);
+	nrf_delay_ms(500);
+	SetLEDS(0x00);
+	nrf_delay_ms(500);
+	
+	
+ 
 }
 
 void SetLEDS(uint8_t value)
 {
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT=value<<24;
+	uint32_t zeros;
+	uint32_t ones;
+	
+	zeros = 0;
+	ones = ~zeros;
+	
+	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (ones  & (0x00 << 8));
+	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (zeros | (value << 8));
+	
+	
 }
 
 void BlinkLEDS()
@@ -12239,13 +12295,26 @@ void PrepareButtons()
 
 uint8_t ReadButtons()
 {
-	return ~((( ((NRF_GPIO_Type *) 0x50000000UL)->IN )>> 16) & 0xFF);
+	 uint8_t value;
+	 static uint8_t previous;
+	 char *string;
+
+	 value = ~((( ((NRF_GPIO_Type *) 0x50000000UL)->IN )>> 16) & 0xFF);
+
+	 if(previous != value)
+	 {
+		 sprintf(string, "0x%02xh\n", value);
+		 SEGGER_RTT_WriteString(0, string);
+		 previous = value;
+	 }
+	 return value;
 }
 
 
 
 void JozefovaImplementacia()
 {
+	
 	for(;;)
 	{
 		nrf_gpio_cfg_output(31);
@@ -12259,6 +12328,7 @@ void JozefovaImplementacia()
 int main(void)
 {
 	int value;
+	uint32_t temperature;
 	
 	
 	SEGGER_RTT_WriteString(0, "Hello World!\n");
@@ -12274,6 +12344,7 @@ int main(void)
 	while(1==1)
 	{
 		SetLEDS(ReadButtons() );
+		temperature = ReadTemperature();
 	}
 	
 	
