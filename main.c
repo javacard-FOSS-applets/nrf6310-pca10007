@@ -4,10 +4,6 @@
 
 0x10000 0x30000
 0x20000800 0x3800
-
-todo :	set  orr 00000FF0000
-				clear andd FFFF00ffffff
-
 */
 
 //#pragma ARM
@@ -40,10 +36,19 @@ todo :	set  orr 00000FF0000
 
 void SetLEDS(uint8_t);
 
+void PrepareTemp()
+{
+	nrf_temp_init();
+}
+
 uint32_t ReadTemperature()
 {
 	uint32_t counter=0;
 	uint32_t value=~0;
+
+  static uint32_t previous;
+	char *string;
+	
 	NRF_TEMP->POWER=1;
 	NRF_TEMP->TASKS_START=1;
 		
@@ -58,9 +63,17 @@ uint32_t ReadTemperature()
 	
 	NRF_TEMP->EVENTS_DATARDY=0;
 	
-	value = NRF_TEMP->TEMP;
+	value = nrf_temp_read();	//NRF_TEMP->TEMP;
 	NRF_TEMP->TASKS_STOP=1;
 	NRF_TEMP->POWER=0;
+		
+	if(previous != value)
+	{
+	 sprintf(string, "TEMP: %d\n", value);
+	 SEGGER_RTT_WriteString(0, string);
+	 previous = value;
+	}
+	
 	return value;
 }
 
@@ -128,44 +141,25 @@ uint8_t ReadButtons()
 
 	 if(previous != value)
 	 {
-		 sprintf(string, "0x%02xh\n", value);
+		 sprintf(string, "BUTTONS: 0x%02xh\n", value);
 		 SEGGER_RTT_WriteString(0, string);
 		 previous = value;
 	 }
 	 return value;
 }
 
-
-
-void JozefovaImplementacia()
-{
-	
-	for(;;)
-	{
-		nrf_gpio_cfg_output(PIN);
-		nrf_gpio_pin_set(PIN);
-		nrf_delay_ms(500);
-		nrf_gpio_pin_clear(PIN);
-		nrf_delay_ms(500);
-	}
-}
-
 int main(void)
 {
-	int value;
 	uint32_t temperature;
-	//JozefovaImplementacia();
-	//printf("Test\r\n");
-	SEGGER_RTT_WriteString(0, "Hello World!\n");
+	
+	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
+		//printf("Test\r\n");
 	
 	PrepareLEDS();
 	PrepareButtons();
-		
-	nrf_temp_init();
-	value = nrf_temp_read();
-	value=value;
-	BlinkLEDS();
+	PrepareTemp();	
 	
+	BlinkLEDS();
 	while(1==1)
 	{
 		SetLEDS(ReadButtons() );
