@@ -47,7 +47,7 @@ uint32_t ReadTemperature()
 	NRF_TEMP->POWER=1;
 	NRF_TEMP->TASKS_START=1;
 		
-	while(NRF_TEMP->EVENTS_DATARDY==0 || counter<35000)
+	while(NRF_TEMP->EVENTS_DATARDY==0 && counter<35000)
 	{
 			counter++;
 	}
