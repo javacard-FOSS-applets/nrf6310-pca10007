@@ -5,35 +5,13 @@
 
 
 
-
-
-
-
  
 
 
 
-#line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51.h"
+#line 1 ".\\Include\\nrf51.h"
 
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -106,7 +84,7 @@ typedef enum {
   WDT_IRQn                      =  16,               
   RTC1_IRQn                     =  17,               
   QDEC_IRQn                     =  18,               
-  LPCOMP_IRQn                   =  19,               
+  LPCOMP_COMP_IRQn              =  19,               
   SWI0_IRQn                     =  20,               
   SWI1_IRQn                     =  21,               
   SWI2_IRQn                     =  22,               
@@ -132,31 +110,8 @@ typedef enum {
 
    
 
-#line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\core_cm0.h"
+#line 1 ".\\Include\\gcc\\core_cm0.h"
  
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -175,6 +130,82 @@ typedef enum {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 100 ".\\Include\\gcc\\core_cm0.h"
+
+
+ 
+
+
+
+
+
+
+
+#line 125 ".\\Include\\gcc\\core_cm0.h"
 
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdint.h"
  
@@ -432,65 +463,12 @@ typedef unsigned     long long uintmax_t;
 
 
  
-#line 45 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\core_cm0.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#line 127 ".\\Include\\gcc\\core_cm0.h"
+#line 1 ".\\Include\\gcc\\core_cmInstr.h"
  
 
 
 
-
- 
-
-
-
- 
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 120 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\core_cm0.h"
-
-
-
- 
-
-
-
-
-
-
-
-#line 162 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\core_cm0.h"
-
-#line 1 "C:\\components\\toolchain\\cmsis\\include\\core_cmInstr.h"
- 
 
 
 
@@ -528,23 +506,11 @@ typedef unsigned     long long uintmax_t;
 
 
 
-
-
-
-
-
-
  
 
 
 
  
-
- 
-#line 1 "C:\\components\\toolchain\\cmsis\\include\\cmsis_armcc.h"
- 
-
-
 
 
  
@@ -557,194 +523,8 @@ typedef unsigned     long long uintmax_t;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  
 
-
-
-
-
-
-
-
-
-
- 
-
-
-
- 
-
- 
- 
-
-
-
-
-
- 
-static __inline uint32_t __get_CONTROL(void)
-{
-  register uint32_t __regControl         __asm("control");
-  return(__regControl);
-}
-
-
-
-
-
-
- 
-static __inline void __set_CONTROL(uint32_t control)
-{
-  register uint32_t __regControl         __asm("control");
-  __regControl = control;
-}
-
-
-
-
-
-
- 
-static __inline uint32_t __get_IPSR(void)
-{
-  register uint32_t __regIPSR          __asm("ipsr");
-  return(__regIPSR);
-}
-
-
-
-
-
-
- 
-static __inline uint32_t __get_APSR(void)
-{
-  register uint32_t __regAPSR          __asm("apsr");
-  return(__regAPSR);
-}
-
-
-
-
-
-
- 
-static __inline uint32_t __get_xPSR(void)
-{
-  register uint32_t __regXPSR          __asm("xpsr");
-  return(__regXPSR);
-}
-
-
-
-
-
-
- 
-static __inline uint32_t __get_PSP(void)
-{
-  register uint32_t __regProcessStackPointer  __asm("psp");
-  return(__regProcessStackPointer);
-}
-
-
-
-
-
-
- 
-static __inline void __set_PSP(uint32_t topOfProcStack)
-{
-  register uint32_t __regProcessStackPointer  __asm("psp");
-  __regProcessStackPointer = topOfProcStack;
-}
-
-
-
-
-
-
- 
-static __inline uint32_t __get_MSP(void)
-{
-  register uint32_t __regMainStackPointer     __asm("msp");
-  return(__regMainStackPointer);
-}
-
-
-
-
-
-
- 
-static __inline void __set_MSP(uint32_t topOfMainStack)
-{
-  register uint32_t __regMainStackPointer     __asm("msp");
-  __regMainStackPointer = topOfMainStack;
-}
-
-
-
-
-
-
- 
-static __inline uint32_t __get_PRIMASK(void)
-{
-  register uint32_t __regPriMask         __asm("primask");
-  return(__regPriMask);
-}
-
-
-
-
-
-
- 
-static __inline void __set_PRIMASK(uint32_t priMask)
-{
-  register uint32_t __regPriMask         __asm("primask");
-  __regPriMask = (priMask);
-}
-
-
-#line 263 "C:\\components\\toolchain\\cmsis\\include\\cmsis_armcc.h"
-
-
-#line 297 "C:\\components\\toolchain\\cmsis\\include\\cmsis_armcc.h"
-
-
-
- 
-
-
- 
-
-
-
- 
-
-
-
-
- 
 
 
 
@@ -783,6 +563,11 @@ static __inline void __set_PRIMASK(uint32_t priMask)
 
 
 
+ 
+
+
+
+
 
 
 
@@ -796,20 +581,8 @@ static __inline void __set_PRIMASK(uint32_t priMask)
 
 
 
-
  
 
-
-
-
-
-
-
-
-
-
-
- 
 
 
 
@@ -825,6 +598,7 @@ __attribute__((section(".rev16_text"))) static __inline __asm uint32_t __REV16(u
   rev16 r0, r0
   bx lr
 }
+
 
 
 
@@ -848,17 +622,10 @@ __attribute__((section(".revsh_text"))) static __inline __asm int32_t __REVSH(in
 
 
 
- 
-
-
-
-
-
-
-
-
 
  
+
+
 
 
 
@@ -871,20 +638,83 @@ __attribute__((section(".revsh_text"))) static __inline __asm int32_t __REVSH(in
 
 
 
-__attribute__((always_inline)) static __inline uint32_t __RBIT(uint32_t value)
+#line 292 ".\\Include\\gcc\\core_cmInstr.h"
+
+
+
+#line 685 ".\\Include\\gcc\\core_cmInstr.h"
+
+   
+
+#line 128 ".\\Include\\gcc\\core_cm0.h"
+#line 1 ".\\Include\\gcc\\core_cmFunc.h"
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+ 
+static __inline uint32_t __get_CONTROL(void)
 {
-  uint32_t result;
-  int32_t s = 4   * 8 - 1;  
-
-  result = value;                       
-  for (value >>= 1U; value; value >>= 1U)
-  {
-    result <<= 1U;
-    result |= value & 1U;
-    s--;
-  }
-  result <<= s;                         
-  return(result);
+  register uint32_t __regControl         __asm("control");
+  return(__regControl);
 }
 
 
@@ -893,59 +723,12 @@ __attribute__((always_inline)) static __inline uint32_t __RBIT(uint32_t value)
 
 
 
-
  
-
-
-
-#line 649 "C:\\components\\toolchain\\cmsis\\include\\cmsis_armcc.h"
-
-   
-
-
- 
-
-
-
- 
-
-#line 731 "C:\\components\\toolchain\\cmsis\\include\\cmsis_armcc.h"
- 
-
-
-#line 54 "C:\\components\\toolchain\\cmsis\\include\\core_cmInstr.h"
-
- 
-#line 84 "C:\\components\\toolchain\\cmsis\\include\\core_cmInstr.h"
-
-   
-
-#line 164 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\core_cm0.h"
-#line 1 "C:\\components\\toolchain\\cmsis\\include\\core_cmFunc.h"
- 
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+static __inline void __set_CONTROL(uint32_t control)
+{
+  register uint32_t __regControl         __asm("control");
+  __regControl = control;
+}
 
 
 
@@ -954,8 +737,151 @@ __attribute__((always_inline)) static __inline uint32_t __RBIT(uint32_t value)
 
 
  
+static __inline uint32_t __get_IPSR(void)
+{
+  register uint32_t __regIPSR          __asm("ipsr");
+  return(__regIPSR);
+}
 
 
+
+
+
+
+
+ 
+static __inline uint32_t __get_APSR(void)
+{
+  register uint32_t __regAPSR          __asm("apsr");
+  return(__regAPSR);
+}
+
+
+
+
+
+
+
+ 
+static __inline uint32_t __get_xPSR(void)
+{
+  register uint32_t __regXPSR          __asm("xpsr");
+  return(__regXPSR);
+}
+
+
+
+
+
+
+
+ 
+static __inline uint32_t __get_PSP(void)
+{
+  register uint32_t __regProcessStackPointer  __asm("psp");
+  return(__regProcessStackPointer);
+}
+
+
+
+
+
+
+
+ 
+static __inline void __set_PSP(uint32_t topOfProcStack)
+{
+  register uint32_t __regProcessStackPointer  __asm("psp");
+  __regProcessStackPointer = topOfProcStack;
+}
+
+
+
+
+
+
+
+ 
+static __inline uint32_t __get_MSP(void)
+{
+  register uint32_t __regMainStackPointer     __asm("msp");
+  return(__regMainStackPointer);
+}
+
+
+
+
+
+
+
+ 
+static __inline void __set_MSP(uint32_t topOfMainStack)
+{
+  register uint32_t __regMainStackPointer     __asm("msp");
+  __regMainStackPointer = topOfMainStack;
+}
+
+
+
+
+
+
+
+ 
+static __inline uint32_t __get_PRIMASK(void)
+{
+  register uint32_t __regPriMask         __asm("primask");
+  return(__regPriMask);
+}
+
+
+
+
+
+
+
+ 
+static __inline void __set_PRIMASK(uint32_t priMask)
+{
+  register uint32_t __regPriMask         __asm("primask");
+  __regPriMask = (priMask);
+}
+
+
+#line 271 ".\\Include\\gcc\\core_cmFunc.h"
+
+
+#line 307 ".\\Include\\gcc\\core_cmFunc.h"
+
+
+#line 632 ".\\Include\\gcc\\core_cmFunc.h"
+
+ 
+
+
+#line 129 ".\\Include\\gcc\\core_cm0.h"
+
+
+
+
+
+
+
+
+ 
+#line 154 ".\\Include\\gcc\\core_cm0.h"
+
+ 
+
+
+
+
+
+
+ 
+#line 170 ".\\Include\\gcc\\core_cm0.h"
+
+ 
 
 
 
@@ -969,76 +895,13 @@ __attribute__((always_inline)) static __inline uint32_t __RBIT(uint32_t value)
  
 
 
-
- 
-
- 
-#line 54 "C:\\components\\toolchain\\cmsis\\include\\core_cmFunc.h"
-
- 
-#line 84 "C:\\components\\toolchain\\cmsis\\include\\core_cmFunc.h"
-
- 
-
-#line 165 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\core_cm0.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-#line 198 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\core_cm0.h"
-
  
 
 
 
 
 
-
  
-#line 214 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\core_cm0.h"
-
- 
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
- 
-
-
-
-
-
-
- 
-
 
 
  
@@ -1046,7 +909,14 @@ typedef union
 {
   struct
   {
-    uint32_t _reserved0:28;               
+
+    uint32_t _reserved0:27;               
+
+
+
+
+
+    uint32_t Q:1;                         
     uint32_t V:1;                         
     uint32_t C:1;                         
     uint32_t Z:1;                         
@@ -1054,20 +924,6 @@ typedef union
   } b;                                    
   uint32_t w;                             
 } APSR_Type;
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1082,11 +938,6 @@ typedef union
   uint32_t w;                             
 } IPSR_Type;
 
- 
-
-
-
-
 
 
  
@@ -1095,9 +946,16 @@ typedef union
   struct
   {
     uint32_t ISR:9;                       
+
     uint32_t _reserved0:15;               
+
+
+
+
+
     uint32_t T:1;                         
-    uint32_t _reserved1:3;                
+    uint32_t IT:2;                        
+    uint32_t Q:1;                         
     uint32_t V:1;                         
     uint32_t C:1;                         
     uint32_t Z:1;                         
@@ -1106,26 +964,6 @@ typedef union
   uint32_t w;                             
 } xPSR_Type;
 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
  
@@ -1133,9 +971,10 @@ typedef union
 {
   struct
   {
-    uint32_t _reserved0:1;                
+    uint32_t nPRIV:1;                     
     uint32_t SPSEL:1;                     
-    uint32_t _reserved1:30;               
+    uint32_t FPCA:1;                      
+    uint32_t _reserved0:29;               
   } b;                                    
   uint32_t w;                             
 } CONTROL_Type;
@@ -1144,31 +983,25 @@ typedef union
 
 
 
- 
-
-
-
-
 
 
 
  
-
 
 
  
 typedef struct
 {
-  volatile uint32_t ISER[1U];                
-        uint32_t RESERVED0[31U];
-  volatile uint32_t ICER[1U];                
-        uint32_t RSERVED1[31U];
-  volatile uint32_t ISPR[1U];                
-        uint32_t RESERVED2[31U];
-  volatile uint32_t ICPR[1U];                
-        uint32_t RESERVED3[31U];
-        uint32_t RESERVED4[64U];
-  volatile uint32_t IP[8U];                  
+  volatile uint32_t ISER[1];                  
+       uint32_t RESERVED0[31];
+  volatile uint32_t ICER[1];                  
+       uint32_t RSERVED1[31];
+  volatile uint32_t ISPR[1];                  
+       uint32_t RESERVED2[31];
+  volatile uint32_t ICPR[1];                  
+       uint32_t RESERVED3[31];
+       uint32_t RESERVED4[64];
+  volatile uint32_t IP[8];                    
 }  NVIC_Type;
 
  
@@ -1178,23 +1011,21 @@ typedef struct
 
 
 
-
  
-
 
 
  
 typedef struct
 {
-  volatile const  uint32_t CPUID;                   
-  volatile uint32_t ICSR;                    
-        uint32_t RESERVED0;
-  volatile uint32_t AIRCR;                   
-  volatile uint32_t SCR;                     
-  volatile uint32_t CCR;                     
-        uint32_t RESERVED1;
-  volatile uint32_t SHP[2U];                 
-  volatile uint32_t SHCSR;                   
+  volatile const  uint32_t CPUID;                    
+  volatile uint32_t ICSR;                     
+       uint32_t RESERVED0;
+  volatile uint32_t AIRCR;                    
+  volatile uint32_t SCR;                      
+  volatile uint32_t CCR;                      
+       uint32_t RESERVED1;
+  volatile uint32_t SHP[2];                   
+  volatile uint32_t SHCSR;                    
 } SCB_Type;
 
  
@@ -1285,18 +1116,16 @@ typedef struct
 
 
 
-
  
-
 
 
  
 typedef struct
 {
-  volatile uint32_t CTRL;                    
-  volatile uint32_t LOAD;                    
-  volatile uint32_t VAL;                     
-  volatile const  uint32_t CALIB;                   
+  volatile uint32_t CTRL;                     
+  volatile uint32_t LOAD;                     
+  volatile uint32_t VAL;                      
+  volatile const  uint32_t CALIB;                    
 } SysTick_Type;
 
  
@@ -1347,33 +1176,6 @@ typedef struct
 
 
 
-
- 
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
- 
-
-
- 
-
-
-
-
-
-
-
  
 
  
@@ -1399,7 +1201,6 @@ typedef struct
 
  
 
-
  
 
 
@@ -1409,11 +1210,11 @@ typedef struct
 
 
 
-
  
 
  
  
+
 
 
 
@@ -1426,8 +1227,9 @@ typedef struct
  
 static __inline void NVIC_EnableIRQ(IRQn_Type IRQn)
 {
-  ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ISER[0U] = (uint32_t)(1UL << (((uint32_t)(int32_t)IRQn) & 0x1FUL));
+  ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
 }
+
 
 
 
@@ -1437,8 +1239,11 @@ static __inline void NVIC_EnableIRQ(IRQn_Type IRQn)
  
 static __inline void NVIC_DisableIRQ(IRQn_Type IRQn)
 {
-  ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ICER[0U] = (uint32_t)(1UL << (((uint32_t)(int32_t)IRQn) & 0x1FUL));
+  ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ICER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
 }
+
+
+
 
 
 
@@ -1450,8 +1255,9 @@ static __inline void NVIC_DisableIRQ(IRQn_Type IRQn)
  
 static __inline uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)
 {
-  return((uint32_t)(((((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ISPR[0U] & (1UL << (((uint32_t)(int32_t)IRQn) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
+  return((uint32_t) ((((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ISPR[0] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0));
 }
+
 
 
 
@@ -1461,8 +1267,9 @@ static __inline uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)
  
 static __inline void NVIC_SetPendingIRQ(IRQn_Type IRQn)
 {
-  ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ISPR[0U] = (uint32_t)(1UL << (((uint32_t)(int32_t)IRQn) & 0x1FUL));
+  ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ISPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
 }
+
 
 
 
@@ -1472,8 +1279,10 @@ static __inline void NVIC_SetPendingIRQ(IRQn_Type IRQn)
  
 static __inline void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
 {
-  ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ICPR[0U] = (uint32_t)(1UL << (((uint32_t)(int32_t)IRQn) & 0x1FUL));
+  ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->ICPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F));  
 }
+
+
 
 
 
@@ -1485,17 +1294,15 @@ static __inline void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
  
 static __inline void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
 {
-  if ((int32_t)(IRQn) < 0)
-  {
-    ((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->SHP[( (((((uint32_t)(int32_t)(IRQn)) & 0x0FUL)-8UL) >> 2UL) )] = ((uint32_t)(((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->SHP[( (((((uint32_t)(int32_t)(IRQn)) & 0x0FUL)-8UL) >> 2UL) )] & ~(0xFFUL << ( ((((uint32_t)(int32_t)(IRQn)) ) & 0x03UL) * 8UL))) |
-       (((priority << (8U - 2)) & (uint32_t)0xFFUL) << ( ((((uint32_t)(int32_t)(IRQn)) ) & 0x03UL) * 8UL)));
-  }
-  else
-  {
-    ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->IP[( (((uint32_t)(int32_t)(IRQn)) >> 2UL) )]  = ((uint32_t)(((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->IP[( (((uint32_t)(int32_t)(IRQn)) >> 2UL) )]  & ~(0xFFUL << ( ((((uint32_t)(int32_t)(IRQn)) ) & 0x03UL) * 8UL))) |
-       (((priority << (8U - 2)) & (uint32_t)0xFFUL) << ( ((((uint32_t)(int32_t)(IRQn)) ) & 0x03UL) * 8UL)));
-  }
+  if(IRQn < 0) {
+    ((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->SHP[( ((((uint32_t)(IRQn) & 0x0F)-8) >> 2) )] = (((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->SHP[( ((((uint32_t)(IRQn) & 0x0F)-8) >> 2) )] & ~(0xFF << ( (((uint32_t)(IRQn) ) & 0x03) * 8 ))) |
+        (((priority << (8 - 2)) & 0xFF) << ( (((uint32_t)(IRQn) ) & 0x03) * 8 )); }
+  else {
+    ((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->IP[( ((uint32_t)(IRQn) >> 2) )] = (((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->IP[( ((uint32_t)(IRQn) >> 2) )] & ~(0xFF << ( (((uint32_t)(IRQn) ) & 0x03) * 8 ))) |
+        (((priority << (8 - 2)) & 0xFF) << ( (((uint32_t)(IRQn) ) & 0x03) * 8 )); }
 }
+
+
 
 
 
@@ -1510,14 +1317,10 @@ static __inline void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
 static __inline uint32_t NVIC_GetPriority(IRQn_Type IRQn)
 {
 
-  if ((int32_t)(IRQn) < 0)
-  {
-    return((uint32_t)(((((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->SHP[( (((((uint32_t)(int32_t)(IRQn)) & 0x0FUL)-8UL) >> 2UL) )] >> ( ((((uint32_t)(int32_t)(IRQn)) ) & 0x03UL) * 8UL) ) & (uint32_t)0xFFUL) >> (8U - 2)));
-  }
-  else
-  {
-    return((uint32_t)(((((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->IP[ ( (((uint32_t)(int32_t)(IRQn)) >> 2UL) )] >> ( ((((uint32_t)(int32_t)(IRQn)) ) & 0x03UL) * 8UL) ) & (uint32_t)0xFFUL) >> (8U - 2)));
-  }
+  if(IRQn < 0) {
+    return((uint32_t)(((((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->SHP[( ((((uint32_t)(IRQn) & 0x0F)-8) >> 2) )] >> ( (((uint32_t)(IRQn) ) & 0x03) * 8 ) ) & 0xFF) >> (8 - 2)));  }  
+  else {
+    return((uint32_t)(((((NVIC_Type *) ((0xE000E000UL) + 0x0100UL) )->IP[ ( ((uint32_t)(IRQn) >> 2) )] >> ( (((uint32_t)(IRQn) ) & 0x03) * 8 ) ) & 0xFF) >> (8 - 2)));  }  
 }
 
 
@@ -1527,16 +1330,12 @@ static __inline uint32_t NVIC_GetPriority(IRQn_Type IRQn)
  
 static __inline void NVIC_SystemReset(void)
 {
-  do { __schedule_barrier(); __dsb(0xF); __schedule_barrier(); } while (0U);                                                          
+  __dsb(0xF);                                                     
  
-  ((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->AIRCR  = ((0x5FAUL << 16U) |
-                 (1UL << 2U));
-  do { __schedule_barrier(); __dsb(0xF); __schedule_barrier(); } while (0U);                                                           
-
-  for(;;)                                                            
-  {
-    __nop();
-  }
+  ((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->AIRCR  = ((0x5FA << 16)      |
+                 (1UL << 2));
+  __dsb(0xF);                                                      
+  while(1);                                                     
 }
 
  
@@ -1548,8 +1347,11 @@ static __inline void NVIC_SystemReset(void)
 
 
 
-
  
+
+
+
+
 
 
 
@@ -1566,18 +1368,15 @@ static __inline void NVIC_SystemReset(void)
  
 static __inline uint32_t SysTick_Config(uint32_t ticks)
 {
-  if ((ticks - 1UL) > (0xFFFFFFUL ))
-  {
-    return (1UL);                                                    
-  }
+  if ((ticks - 1) > (0xFFFFFFUL << 0))  return (1);       
 
-  ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->LOAD  = (uint32_t)(ticks - 1UL);                          
-  NVIC_SetPriority (SysTick_IRQn, (1UL << 2) - 1UL);  
-  ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->VAL   = 0UL;                                              
-  ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->CTRL  = (1UL << 2U) |
-                   (1UL << 1U)   |
-                   (1UL );                          
-  return (0UL);                                                      
+  ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->LOAD  = ticks - 1;                                   
+  NVIC_SetPriority (SysTick_IRQn, (1<<2) - 1);   
+  ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->VAL   = 0;                                           
+  ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->CTRL  = (1UL << 2) |
+                   (1UL << 1)   |
+                   (1UL << 0);                     
+  return (0);                                                   
 }
 
 
@@ -1591,28 +1390,8 @@ static __inline uint32_t SysTick_Config(uint32_t ticks)
 
 
 
-
-
-#line 120 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51.h"
-#line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\system_nrf51.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#line 102 ".\\Include\\nrf51.h"
+#line 1 ".\\Include\\system_nrf51.h"
 
 
 
@@ -1624,7 +1403,6 @@ static __inline uint32_t SysTick_Config(uint32_t ticks)
 
 
  
- 
 
 
 
@@ -1632,7 +1410,9 @@ static __inline uint32_t SysTick_Config(uint32_t ticks)
 
 
 
-#line 39 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\system_nrf51.h"
+
+
+#line 22 ".\\Include\\system_nrf51.h"
 
 
 extern uint32_t SystemCoreClock;     
@@ -1663,7 +1443,7 @@ extern void SystemCoreClockUpdate (void);
 
 
 
-#line 121 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51.h"
+#line 103 ".\\Include\\nrf51.h"
 
 
  
@@ -1680,8 +1460,17 @@ extern void SystemCoreClockUpdate (void);
 
   #pragma push
   #pragma anon_unions
-#line 148 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51.h"
+#line 130 ".\\Include\\nrf51.h"
 
+
+typedef struct {
+  volatile uint32_t  CPU0;                               
+  volatile uint32_t  SPIS1;                              
+  volatile uint32_t  RADIO;                              
+  volatile uint32_t  ECB;                                
+  volatile uint32_t  CCM;                                
+  volatile uint32_t  AAR;                                
+} AMLI_RAMPRI_Type;
 
 typedef struct {
   volatile  uint32_t  EN;                                 
@@ -1714,26 +1503,20 @@ typedef struct {
   volatile uint32_t  INTENCLR;                           
   volatile const  uint32_t  RESERVED3[61];
   volatile uint32_t  RESETREAS;                          
-  volatile const  uint32_t  RESERVED4[9];
-  volatile const  uint32_t  RAMSTATUS;                          
-  volatile const  uint32_t  RESERVED5[53];
+  volatile const  uint32_t  RESERVED4[63];
   volatile  uint32_t  SYSTEMOFF;                          
-  volatile const  uint32_t  RESERVED6[3];
+  volatile const  uint32_t  RESERVED5[3];
   volatile uint32_t  POFCON;                             
-  volatile const  uint32_t  RESERVED7[2];
+  volatile const  uint32_t  RESERVED6[2];
   volatile uint32_t  GPREGRET;                          
  
-  volatile const  uint32_t  RESERVED8;
+  volatile const  uint32_t  RESERVED7;
   volatile uint32_t  RAMON;                              
-  volatile const  uint32_t  RESERVED9[7];
+  volatile const  uint32_t  RESERVED8[7];
   volatile uint32_t  RESET;                             
  
-  volatile const  uint32_t  RESERVED10[3];
-  volatile uint32_t  RAMONB;                             
-  volatile const  uint32_t  RESERVED11[8];
+  volatile const  uint32_t  RESERVED9[12];
   volatile uint32_t  DCDCEN;                             
-  volatile const  uint32_t  RESERVED12[291];
-  volatile uint32_t  DCDCFORCE;                          
 } NRF_POWER_Type;
 
 
@@ -1763,15 +1546,11 @@ typedef struct {
   volatile const  uint32_t  RESERVED2[124];
   volatile uint32_t  INTENSET;                           
   volatile uint32_t  INTENCLR;                           
-  volatile const  uint32_t  RESERVED3[63];
-  volatile const  uint32_t  HFCLKRUN;                           
+  volatile const  uint32_t  RESERVED3[64];
   volatile const  uint32_t  HFCLKSTAT;                          
-  volatile const  uint32_t  RESERVED4;
-  volatile const  uint32_t  LFCLKRUN;                           
+  volatile const  uint32_t  RESERVED4[2];
   volatile const  uint32_t  LFCLKSTAT;                          
-  volatile const  uint32_t  LFCLKSRCCOPY;                      
- 
-  volatile const  uint32_t  RESERVED5[62];
+  volatile const  uint32_t  RESERVED5[63];
   volatile uint32_t  LFCLKSRC;                           
   volatile const  uint32_t  RESERVED6[7];
   volatile uint32_t  CTIV;                               
@@ -1797,8 +1576,43 @@ typedef struct {
   volatile uint32_t  PROTENSET0;                         
   volatile uint32_t  PROTENSET1;                         
   volatile uint32_t  DISABLEINDEBUG;                     
-  volatile uint32_t  PROTBLOCKSIZE;                      
 } NRF_MPU_Type;
+
+
+ 
+ 
+ 
+
+
+
+
+ 
+
+typedef struct {                                     
+  volatile const  uint32_t  RESERVED0[448];
+  volatile uint32_t  REPLACEADDR[8];                     
+  volatile const  uint32_t  RESERVED1[24];
+  volatile uint32_t  PATCHADDR[8];                       
+  volatile const  uint32_t  RESERVED2[24];
+  volatile uint32_t  PATCHEN;                            
+  volatile uint32_t  PATCHENSET;                         
+  volatile uint32_t  PATCHENCLR;                         
+} NRF_PU_Type;
+
+
+ 
+ 
+ 
+
+
+
+
+ 
+
+typedef struct {                                     
+  volatile const  uint32_t  RESERVED0[896];
+  AMLI_RAMPRI_Type RAMPRI;                           
+} NRF_AMLI_Type;
 
 
  
@@ -1842,7 +1656,7 @@ typedef struct {
   volatile const  uint32_t  RESERVED5;
   volatile const  uint32_t  RXMATCH;                            
   volatile const  uint32_t  RXCRC;                              
-  volatile const  uint32_t  DAI;                                
+  volatile uint32_t  DAI;                                
   volatile const  uint32_t  RESERVED6[60];
   volatile uint32_t  PACKETPTR;                          
   volatile uint32_t  FREQUENCY;                          
@@ -1861,7 +1675,7 @@ typedef struct {
   volatile uint32_t  CRCINIT;                            
   volatile uint32_t  TEST;                               
   volatile uint32_t  TIFS;                               
-  volatile const  uint32_t  RSSISAMPLE;                         
+  volatile uint32_t  RSSISAMPLE;                         
   volatile const  uint32_t  RESERVED7;
   volatile const  uint32_t  STATE;                              
   volatile uint32_t  DATAWHITEIV;                        
@@ -1957,7 +1771,7 @@ typedef struct {
   volatile uint32_t  PSELMOSI;                           
   volatile uint32_t  PSELMISO;                           
   volatile const  uint32_t  RESERVED4;
-  volatile const  uint32_t  RXD;                                
+  volatile uint32_t  RXD;                                
   volatile uint32_t  TXD;                                
   volatile const  uint32_t  RESERVED5;
   volatile uint32_t  FREQUENCY;                          
@@ -1995,28 +1809,26 @@ typedef struct {
   volatile uint32_t  EVENTS_ERROR;                       
   volatile const  uint32_t  RESERVED6[4];
   volatile uint32_t  EVENTS_BB;                          
-  volatile const  uint32_t  RESERVED7[3];
-  volatile uint32_t  EVENTS_SUSPENDED;                   
-  volatile const  uint32_t  RESERVED8[45];
+  volatile const  uint32_t  RESERVED7[49];
   volatile uint32_t  SHORTS;                             
-  volatile const  uint32_t  RESERVED9[64];
+  volatile const  uint32_t  RESERVED8[64];
   volatile uint32_t  INTENSET;                           
   volatile uint32_t  INTENCLR;                           
-  volatile const  uint32_t  RESERVED10[110];
+  volatile const  uint32_t  RESERVED9[110];
   volatile uint32_t  ERRORSRC;                           
-  volatile const  uint32_t  RESERVED11[14];
+  volatile const  uint32_t  RESERVED10[14];
   volatile uint32_t  ENABLE;                             
-  volatile const  uint32_t  RESERVED12;
+  volatile const  uint32_t  RESERVED11;
   volatile uint32_t  PSELSCL;                            
   volatile uint32_t  PSELSDA;                            
-  volatile const  uint32_t  RESERVED13[2];
-  volatile const  uint32_t  RXD;                                
+  volatile const  uint32_t  RESERVED12[2];
+  volatile uint32_t  RXD;                                
   volatile uint32_t  TXD;                                
-  volatile const  uint32_t  RESERVED14;
+  volatile const  uint32_t  RESERVED13;
   volatile uint32_t  FREQUENCY;                          
-  volatile const  uint32_t  RESERVED15[24];
+  volatile const  uint32_t  RESERVED14[24];
   volatile uint32_t  ADDRESS;                            
-  volatile const  uint32_t  RESERVED16[668];
+  volatile const  uint32_t  RESERVED15[668];
   volatile uint32_t  POWER;                              
 } NRF_TWI_Type;
 
@@ -2036,41 +1848,39 @@ typedef struct {
   volatile  uint32_t  TASKS_RELEASE;                      
   volatile const  uint32_t  RESERVED1[54];
   volatile uint32_t  EVENTS_END;                         
-  volatile const  uint32_t  RESERVED2[2];
-  volatile uint32_t  EVENTS_ENDRX;                       
-  volatile const  uint32_t  RESERVED3[5];
+  volatile const  uint32_t  RESERVED2[8];
   volatile uint32_t  EVENTS_ACQUIRED;                    
-  volatile const  uint32_t  RESERVED4[53];
+  volatile const  uint32_t  RESERVED3[53];
   volatile uint32_t  SHORTS;                             
-  volatile const  uint32_t  RESERVED5[64];
+  volatile const  uint32_t  RESERVED4[64];
   volatile uint32_t  INTENSET;                           
   volatile uint32_t  INTENCLR;                           
-  volatile const  uint32_t  RESERVED6[61];
+  volatile const  uint32_t  RESERVED5[61];
   volatile const  uint32_t  SEMSTAT;                            
-  volatile const  uint32_t  RESERVED7[15];
+  volatile const  uint32_t  RESERVED6[15];
   volatile uint32_t  STATUS;                             
-  volatile const  uint32_t  RESERVED8[47];
+  volatile const  uint32_t  RESERVED7[47];
   volatile uint32_t  ENABLE;                             
-  volatile const  uint32_t  RESERVED9;
+  volatile const  uint32_t  RESERVED8;
   volatile uint32_t  PSELSCK;                            
   volatile uint32_t  PSELMISO;                           
   volatile uint32_t  PSELMOSI;                           
   volatile uint32_t  PSELCSN;                            
-  volatile const  uint32_t  RESERVED10[7];
+  volatile const  uint32_t  RESERVED9[7];
   volatile uint32_t  RXDPTR;                             
   volatile uint32_t  MAXRX;                              
-  volatile const  uint32_t  AMOUNTRX;                           
-  volatile const  uint32_t  RESERVED11;
+  volatile uint32_t  AMOUNTRX;                           
+  volatile const  uint32_t  RESERVED10;
   volatile uint32_t  TXDPTR;                             
   volatile uint32_t  MAXTX;                              
-  volatile const  uint32_t  AMOUNTTX;                           
-  volatile const  uint32_t  RESERVED12;
+  volatile uint32_t  AMOUNTTX;                           
+  volatile const  uint32_t  RESERVED11;
   volatile uint32_t  CONFIG;                             
-  volatile const  uint32_t  RESERVED13;
+  volatile const  uint32_t  RESERVED12;
   volatile uint32_t  DEF;                                
-  volatile const  uint32_t  RESERVED14[24];
+  volatile const  uint32_t  RESERVED13[24];
   volatile uint32_t  ORC;                                
-  volatile const  uint32_t  RESERVED15[654];
+  volatile const  uint32_t  RESERVED14[654];
   volatile uint32_t  POWER;                              
 } NRF_SPIS_Type;
 
@@ -2142,8 +1952,7 @@ typedef struct {
   volatile  uint32_t  TASKS_STOP;                         
   volatile  uint32_t  TASKS_COUNT;                        
   volatile  uint32_t  TASKS_CLEAR;                        
-  volatile  uint32_t  TASKS_SHUTDOWN;                     
-  volatile const  uint32_t  RESERVED0[11];
+  volatile const  uint32_t  RESERVED0[12];
   volatile  uint32_t  TASKS_CAPTURE[4];                   
   volatile const  uint32_t  RESERVED1[60];
   volatile uint32_t  EVENTS_COMPARE[4];                  
@@ -2194,7 +2003,7 @@ typedef struct {
   volatile uint32_t  EVTENCLR;                          
  
   volatile const  uint32_t  RESERVED4[110];
-  volatile const  uint32_t  COUNTER;                            
+  volatile uint32_t  COUNTER;                            
   volatile uint32_t  PRESCALER;                         
  
   volatile const  uint32_t  RESERVED5[13];
@@ -2483,6 +2292,44 @@ typedef struct {
  
 
 typedef struct {                                     
+  volatile  uint32_t  TASKS_START;                        
+  volatile  uint32_t  TASKS_STOP;                         
+  volatile  uint32_t  TASKS_SAMPLE;                       
+  volatile const  uint32_t  RESERVED0[61];
+  volatile uint32_t  EVENTS_READY;                       
+  volatile uint32_t  EVENTS_DOWN;                        
+  volatile uint32_t  EVENTS_UP;                          
+  volatile uint32_t  EVENTS_CROSS;                       
+  volatile const  uint32_t  RESERVED1[60];
+  volatile uint32_t  SHORTS;                             
+  volatile const  uint32_t  RESERVED2[64];
+  volatile uint32_t  INTENSET;                           
+  volatile uint32_t  INTENCLR;                           
+  volatile const  uint32_t  RESERVED3[61];
+  volatile const  uint32_t  RESULT;                             
+  volatile const  uint32_t  RESERVED4[63];
+  volatile uint32_t  ENABLE;                             
+  volatile uint32_t  PSEL;                               
+  volatile uint32_t  REFSEL;                             
+  volatile uint32_t  EXTREFSEL;                          
+  volatile const  uint32_t  RESERVED5[8];
+  volatile uint32_t  TH;                                 
+  volatile uint32_t  MODE;                               
+  volatile const  uint32_t  RESERVED6[689];
+  volatile uint32_t  POWER;                              
+} NRF_COMP_Type;
+
+
+ 
+ 
+ 
+
+
+
+
+ 
+
+typedef struct {                                     
   volatile const  uint32_t  UNUSED;                             
 } NRF_SWI_Type;
 
@@ -2501,13 +2348,9 @@ typedef struct {
   volatile const  uint32_t  READY;                              
   volatile const  uint32_t  RESERVED1[64];
   volatile uint32_t  CONFIG;                             
-  
-  union {
-    volatile uint32_t  ERASEPCR1;                        
-    volatile uint32_t  ERASEPAGE;                        
-  };
+  volatile uint32_t  ERASEPAGE;                          
   volatile uint32_t  ERASEALL;                           
-  volatile uint32_t  ERASEPCR0;                          
+  volatile uint32_t  ERASEPROTECTEDPAGE;                 
   volatile uint32_t  ERASEUICR;                          
 } NRF_NVMC_Type;
 
@@ -2552,13 +2395,7 @@ typedef struct {
   volatile const  uint32_t  PPFC;                               
   volatile const  uint32_t  RESERVED2;
   volatile const  uint32_t  NUMRAMBLOCK;                        
-  
-  union {
-    volatile const  uint32_t  SIZERAMBLOCK[4];                 
-
- 
-    volatile const  uint32_t  SIZERAMBLOCKS;                    
-  };
+  volatile const  uint32_t  SIZERAMBLOCK[4];                    
   volatile const  uint32_t  RESERVED3[5];
   volatile const  uint32_t  CONFIGID;                           
   volatile const  uint32_t  DEVICEID[2];                        
@@ -2568,9 +2405,7 @@ typedef struct {
   volatile const  uint32_t  DEVICEADDRTYPE;                     
   volatile const  uint32_t  DEVICEADDR[2];                      
   volatile const  uint32_t  OVERRIDEEN;                         
-  volatile const  uint32_t  NRF_1MBIT[5];                      
- 
-  volatile const  uint32_t  RESERVED5[10];
+  volatile const  uint32_t  RESERVED5[15];
   volatile const  uint32_t  BLE_1MBIT[5];                      
  
 } NRF_FICR_Type;
@@ -2591,13 +2426,7 @@ typedef struct {
   volatile uint32_t  XTALFREQ;                           
   volatile const  uint32_t  RESERVED0;
   volatile const  uint32_t  FWID;                               
-  
-  union {
-    volatile uint32_t  NRFFW[15];                        
-    volatile uint32_t  BOOTLOADERADDR;                   
-  };
-  volatile uint32_t  NRFHW[12];                          
-  volatile uint32_t  CUSTOMER[32];                       
+  volatile uint32_t  BOOTLOADERADDR;                     
 } NRF_UICR_Type;
 
 
@@ -2627,7 +2456,7 @@ typedef struct {
  
 
   #pragma pop
-#line 1105 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51.h"
+#line 1136 ".\\Include\\nrf51.h"
 
 
 
@@ -2636,14 +2465,14 @@ typedef struct {
  
  
 
-#line 1144 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51.h"
+#line 1178 ".\\Include\\nrf51.h"
 
 
  
  
  
 
-#line 1181 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51.h"
+#line 1218 ".\\Include\\nrf51.h"
 
 
    
@@ -2657,7 +2486,7 @@ typedef struct {
 
 
 
-#line 16 "main.c"
+#line 12 "main.c"
 #line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51422_peripherals.h"
 
 
@@ -2802,8 +2631,8 @@ typedef struct {
 
 
 
-#line 17 "main.c"
-#line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 13 "main.c"
+#line 1 ".\\Include\\nrf51_bitfields.h"
 
 
 
@@ -2814,11 +2643,16 @@ typedef struct {
 
 
 
+ 
 
 
 
 
+
+ 
 
+#line 1 ".\\Include\\gcc\\core_cm0.h"
+ 
 
 
 
@@ -2826,19 +2660,53 @@ typedef struct {
 
 
 
+ 
 
 
 
 
 
 
- 
- 
+
+
+
+
+
+
+
+
 
 
 
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
 
+
+#line 131 ".\\Include\\gcc\\core_cm0.h"
+
+
+
+#line 677 ".\\Include\\gcc\\core_cm0.h"
+
+
+
+#line 20 ".\\Include\\nrf51_bitfields.h"
+
  
  
 
@@ -2867,14 +2735,38 @@ typedef struct {
 
 
  
+ 
+
+ 
+
+
+
+
+
+
  
+
+
+
 
+
+
  
+
+
 
 
 
 
+ 
+ 
+
+ 
 
+
+
+ 
+ 
 
  
 
@@ -2882,13 +2774,25 @@ typedef struct {
 
 
 
+ 
+ 
+
+ 
+
+
+
+ 
+ 
 
  
+
 
 
 
 
 
+ 
+ 
 
  
  
@@ -2897,10 +2801,14 @@ typedef struct {
 
 
 
+
+
+
  
  
 
  
+
 
 
 
@@ -2913,6 +2821,8 @@ typedef struct {
 
 
 
+
+
  
  
 
@@ -2922,17 +2832,36 @@ typedef struct {
 
 
 
+ 
+ 
 
  
+
+
+
+
+
+
  
+#line 168 ".\\Include\\nrf51_bitfields.h"
 
  
+#line 176 ".\\Include\\nrf51_bitfields.h"
+
  
+#line 185 ".\\Include\\nrf51_bitfields.h"
 
  
+
 
 
+
+
+
+ 
+ 
 
+ 
 
 
 
@@ -2940,70 +2869,126 @@ typedef struct {
  
 
  
+
+
 
 
 
 
+ 
+ 
 
+ 
+ 
 
  
+
+
+
  
+
 
+
  
+
 
+
+ 
 
 
 
+ 
+ 
 
  
+
+
+
  
+
 
+
  
+
 
 
+ 
+
 
 
+ 
+ 
 
  
+
+
+
  
+
 
+
  
+
 
 
+ 
 
 
 
+ 
+ 
 
  
-#line 183 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+
 
+
  
-#line 191 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+
 
+
  
-#line 200 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+
 
+
  
+
 
 
+ 
+ 
 
+ 
 
 
 
  
+
+
+
  
+
+
 
  
 
 
 
  
+ 
+
+ 
+
+
+
  
+
+
 
  
 
 
 
+ 
 
 
 
@@ -3169,42 +3154,82 @@ typedef struct {
 
 
 
+ 
  
+
  
+
 
+
+
+
  
 
 
 
 
 
+ 
  
+
  
+
+
+
 
+
  
+
 
 
 
 
+
+ 
+ 
 
  
+
+
+
 
 
 
+ 
+ 
+
+ 
 
 
+
  
  
 
  
+
+
+
 
 
 
+ 
+ 
 
+ 
+ 
 
  
+
+
+
+
+
  
+
+
+
 
+
  
 
 
@@ -3212,8 +3237,13 @@ typedef struct {
 
 
  
+
+
+
 
 
+ 
+
 
 
 
@@ -3229,8 +3259,19 @@ typedef struct {
 
 
  
+
+
+
+
+
+
  
 
+
+
+
+
+
  
 
 
@@ -3242,12 +3283,26 @@ typedef struct {
  
 
  
+
+
+
 
 
 
  
+
+
+
+
+
+
  
+
+
 
+
+
+
  
 
 
@@ -3255,18 +3310,38 @@ typedef struct {
 
 
 
+ 
  
+
  
+
+
+
 
+
  
  
 
  
+
+
+
 
 
+ 
+ 
+
+ 
+#line 677 ".\\Include\\nrf51_bitfields.h"
 
+ 
+ 
 
+ 
+#line 689 ".\\Include\\nrf51_bitfields.h"
 
+ 
+ 
 
  
 
@@ -3274,12 +3349,21 @@ typedef struct {
 
 
 
+ 
+ 
 
  
+
+
+
  
+
+
 
  
+ 
 
+ 
 
 
 
@@ -3296,41 +3380,79 @@ typedef struct {
  
 
  
+
+
 
 
 
 
+ 
+ 
 
+ 
+ 
 
  
+
+
+
+
+
+
  
+
+
 
+
+
+
+ 
  
+
  
+
+
+
 
+
+
  
 
 
 
 
 
+
  
  
 
  
+
 
 
+
+
+
+ 
+ 
+
+ 
+ 
 
  
 
 
 
+
+
  
  
 
  
 
 
+
+ 
 
 
 
@@ -3344,6 +3466,9 @@ typedef struct {
 
 
  
+ 
+
+ 
 
 
 
@@ -4857,7 +4982,7 @@ typedef struct {
 
 
  
-#line 2085 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 2342 ".\\Include\\nrf51_bitfields.h"
 
  
 
@@ -4968,8 +5093,12 @@ typedef struct {
 
 
  
-#line 2201 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+
 
+
+
+
+
  
 
 
@@ -5111,13 +5240,13 @@ typedef struct {
  
 
  
-#line 2353 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 2609 ".\\Include\\nrf51_bitfields.h"
 
  
  
 
  
-#line 2368 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 2624 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -5742,6 +5871,10 @@ typedef struct {
 
 
 
+
+
+ 
+ 
 
  
  
@@ -5756,7 +5889,14 @@ typedef struct {
  
 
  
+
+
+
+
+
+
  
+ 
 
  
 
@@ -5768,11 +5908,14 @@ typedef struct {
  
 
  
+
 
 
 
 
 
+ 
+ 
 
  
  
@@ -5783,6 +5926,7 @@ typedef struct {
 
 
 
+
  
  
 
@@ -5796,23 +5940,31 @@ typedef struct {
  
  
 
- 
  
 
+
+
  
 
 
 
+ 
 
 
 
  
+
+
+
  
+
+
 
  
 
 
 
+ 
 
 
 
@@ -5820,10 +5972,15 @@ typedef struct {
  
 
  
+
 
 
 
+ 
+ 
 
+ 
+#line 3363 ".\\Include\\nrf51_bitfields.h"
 
  
 
@@ -5831,11 +5988,15 @@ typedef struct {
 
 
 
+ 
  
 
+ 
 
 
 
+ 
+ 
 
  
 
@@ -5856,13 +6017,10 @@ typedef struct {
 
 
  
-
 
 
 
 
- 
- 
 
  
 
@@ -5896,25 +6054,20 @@ typedef struct {
 
 
 
+
  
  
 
  
-#line 3156 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
 
- 
 
 
 
 
 
  
- 
-
  
 
-
-
  
  
 
@@ -5941,18 +6094,12 @@ typedef struct {
 
 
 
-
- 
- 
 
  
-
 
 
 
 
- 
- 
 
  
 
@@ -5979,16 +6126,10 @@ typedef struct {
 
 
  
- 
-
- 
-
 
 
 
 
- 
- 
 
  
 
@@ -6002,13 +6143,12 @@ typedef struct {
 
 
 
-
- 
  
 
- 
- 
+
+
 
+
  
 
 
@@ -6094,10 +6234,13 @@ typedef struct {
 
 
  
+
 
 
 
 
+ 
+ 
 
  
 
@@ -6105,7 +6248,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6117,7 +6262,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6129,7 +6276,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6141,7 +6290,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6153,7 +6304,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6165,7 +6318,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6177,8 +6332,6 @@ typedef struct {
 
 
 
- 
- 
 
  
 
@@ -6284,6 +6437,9 @@ typedef struct {
 
 
 
+
+ 
+ 
 
  
 
@@ -6370,14 +6526,11 @@ typedef struct {
 
 
  
-
 
 
 
 
 
- 
- 
 
  
 
@@ -6485,7 +6638,9 @@ typedef struct {
 
 
  
+ 
 
+ 
 
 
 
@@ -6497,37 +6652,55 @@ typedef struct {
 
 
 
-
  
-
 
 
 
 
 
  
+
+
+
+
 
+ 
 
 
 
 
 
  
+
+
+
 
 
+ 
+
 
 
 
 
  
+
+
 
 
 
+ 
+
 
 
 
+
  
+
 
+
+
+
+ 
 
 
 
@@ -6539,45 +6712,84 @@ typedef struct {
 
 
 
+ 
+
+
+
 
+
  
+
+
+
 
 
+ 
+
 
 
 
 
  
+
+
 
 
 
+ 
+
 
 
 
+
  
+
 
 
 
 
+ 
+
+
+
 
 
  
+
+
+
+
 
+ 
 
 
 
 
 
  
+
+
+
 
 
+ 
+
 
 
 
 
  
+
+
+
+
+
  
+
 
+
+
+
  
 
 
@@ -6591,16 +6803,24 @@ typedef struct {
 
 
  
+
 
 
 
 
 
  
+ 
+
+ 
+ 
 
+ 
 
 
 
+ 
+ 
 
  
 
@@ -6645,10 +6865,13 @@ typedef struct {
 
 
  
+
 
 
 
 
+ 
+ 
 
  
 
@@ -6656,7 +6879,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6668,7 +6893,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6680,7 +6907,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6692,13 +6921,19 @@ typedef struct {
 
 
 
+
  
+
 
 
 
 
+
+ 
+ 
 
  
+
 
 
 
@@ -6710,7 +6945,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6722,7 +6959,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6734,7 +6973,9 @@ typedef struct {
 
 
 
+
  
+
 
 
 
@@ -6747,6 +6988,7 @@ typedef struct {
 
 
 
+
  
  
 
@@ -6835,7 +7077,7 @@ typedef struct {
  
 
  
-#line 4100 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 4469 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -6848,7 +7090,7 @@ typedef struct {
  
 
  
-#line 4122 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 4491 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7117,13 +7359,13 @@ typedef struct {
  
 
  
-#line 4400 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 4769 ".\\Include\\nrf51_bitfields.h"
 
  
  
 
  
-#line 4411 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 4780 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7273,7 +7515,7 @@ typedef struct {
 
 
  
-#line 4566 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 4935 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7322,7 +7564,7 @@ typedef struct {
  
 
  
-#line 4625 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 4994 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7833,7 +8075,7 @@ typedef struct {
  
 
  
-#line 5144 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 5513 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7878,16 +8120,9 @@ typedef struct {
 
 
 
- 
  
-
  
-
 
-
-
-
-
  
 
 
@@ -7904,14 +8139,7 @@ typedef struct {
 
  
  
-
- 
-
-
 
-
-
-
  
 
 
@@ -7930,7 +8158,7 @@ typedef struct {
  
 
  
-#line 5246 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 5601 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8193,7 +8421,7 @@ typedef struct {
  
 
  
-#line 5514 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 5869 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8230,16 +8458,9 @@ typedef struct {
 
 
 
- 
  
-
  
-
-
-
 
-
-
  
 
 
@@ -8276,15 +8497,8 @@ typedef struct {
 
 
  
- 
-
  
-
-
-
-
 
-
  
 
 
@@ -8320,15 +8534,8 @@ typedef struct {
 
 
 
- 
  
-
  
-
-
-
-
-
 
  
 
@@ -8560,7 +8767,7 @@ typedef struct {
  
 
  
-#line 5899 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_bitfields.h"
+#line 6232 ".\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8790,7 +8997,7 @@ typedef struct {
 
 
  
-#line 18 "main.c"
+#line 14 "main.c"
 
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
  
@@ -9691,7 +9898,7 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
  
 
-#line 20 "main.c"
+#line 16 "main.c"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdlib.h"
  
  
@@ -10429,30 +10636,12 @@ extern __declspec(__nothrow) int __C_library_version_number(void);
 
 
  
-#line 21 "main.c"
-#line 1 "C:\\components\\drivers_nrf\\delay\\nrf_delay.h"
+#line 17 "main.c"
+#line 1 ".\\Include\\nrf_delay.h"
 
 
 
-#line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#line 1 ".\\Include\\nrf.h"
 
 
 
@@ -10464,109 +10653,20 @@ extern __declspec(__nothrow) int __C_library_version_number(void);
 
 
  
- 
 
 
 
- 
 
 
 
 
-#line 46 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf.h"
+#line 1 ".\\Include\\compiler_abstraction.h"
 
-     
-#line 50 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf.h"
-#line 51 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf.h"
-#line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_deprecated.h"
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
-
-
-
- 
-
-
-
-
- 
-
- 
- 
-
-
- 
- 
- 
-
-
- 
-
- 
- 
- 
- 
-
-
-
-
- 
- 
- 
- 
-
-
-
-
- 
-
-
-
-
- 
-
-
-
-
- 
-
-
-
-
-
- 
- 
- 
-
- 
 
 
 
@@ -10583,142 +10683,16 @@ extern __declspec(__nothrow) int __C_library_version_number(void);
 
 
 
- 
- 
-
-
-
+#line 46 ".\\Include\\compiler_abstraction.h"
 
  
 
+#line 20 ".\\Include\\nrf.h"
 
  
-
-
-
-
- 
-
-
-
-
- 
-
-
-
-
- 
- 
-#line 139 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_deprecated.h"
- 
-#line 172 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_deprecated.h"
- 
-
-
-
-
- 
-#line 434 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51_deprecated.h"
-
-
-
- 
-
-
-
-#line 52 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf.h"
-#line 60 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf.h"
-
-#line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\compiler_abstraction.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 141 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\compiler_abstraction.h"
-
- 
-
-#line 62 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf.h"
-
-
-
-
-
-#line 5 "C:\\components\\drivers_nrf\\delay\\nrf_delay.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
-static __inline void nrf_delay_us(uint32_t number_of_us);
-
-
+#line 24 ".\\Include\\nrf.h"
+#line 25 ".\\Include\\nrf.h"
+#line 1 ".\\Include\\nrf51_deprecated.h"
 
 
 
@@ -10731,101 +10705,117 @@ static __inline void nrf_delay_us(uint32_t number_of_us);
 
  
 
+
+
+
+
  
-static __inline void nrf_delay_ms(uint32_t number_of_ms);
 
 
-static __inline void nrf_delay_us(uint32_t number_of_us)
+
+
+ 
+
+
+ 
+#line 42 ".\\Include\\nrf51_deprecated.h"
+
+
+ 
+#line 89 ".\\Include\\nrf51_deprecated.h"
+
+
+
+#line 156 ".\\Include\\nrf51_deprecated.h"
+
+#line 221 ".\\Include\\nrf51_deprecated.h"
+
+#line 286 ".\\Include\\nrf51_deprecated.h"
+
+#line 351 ".\\Include\\nrf51_deprecated.h"
+
+
+
+ 
+
+
+
+#line 26 ".\\Include\\nrf.h"
+
+
+
+
+
+
+
+
+#line 5 ".\\Include\\nrf_delay.h"
+
+ 
+
+static __asm void __inline nrf_delay_us(uint32_t volatile number_of_us)
 {
-    if(!number_of_us)
-        return;
-__asm
-    {
-loop:
-    NOP
-    NOP
-    NOP
-    NOP
-    NOP
-    NOP
-    NOP
-    NOP
-    CMP SystemCoreClock, (16000000UL)
-    BEQ cond
-    NOP
-#line 107 "C:\\components\\drivers_nrf\\delay\\nrf_delay.h"
-cond:
-    SUBS number_of_us,number_of_us, #1
-    BNE    loop
-    }
+loop
+        SUBS    R0, R0, #1
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+        NOP
+        BNE    loop
+        BX     LR
 }
+#line 71 ".\\Include\\nrf_delay.h"
 
-#line 213 "C:\\components\\drivers_nrf\\delay\\nrf_delay.h"
+void nrf_delay_ms(uint32_t volatile number_of_ms);
 
-static __inline void nrf_delay_ms(uint32_t number_of_ms)
+#line 18 "main.c"
+#line 1 ".\\Include\\nrf_gpio.h"
+
+
+
+#line 5 ".\\Include\\nrf_gpio.h"
+#line 6 ".\\Include\\nrf_gpio.h"
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+typedef enum
 {
-    nrf_delay_us(1000*number_of_ms);
-}
-
-
-
-
-
-
-#line 22 "main.c"
-#line 1 "C:\\components\\drivers_nrf\\hal\\nrf_gpio.h"
-
-
-
-
-
-
+    NRF_GPIO_PORT_DIR_OUTPUT,       
+    NRF_GPIO_PORT_DIR_INPUT         
+} nrf_gpio_port_dir_t;
 
 
 
 
  
-
-
-
-#line 16 "C:\\components\\drivers_nrf\\hal\\nrf_gpio.h"
-#line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdbool.h"
- 
-
-
-
-
-
-
- 
-
-
-
-
-
-#line 25 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdbool.h"
-
-
-
-#line 17 "C:\\components\\drivers_nrf\\hal\\nrf_gpio.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
+typedef enum
+{
+    NRF_GPIO_PIN_DIR_INPUT,   
+    NRF_GPIO_PIN_DIR_OUTPUT   
+} nrf_gpio_pin_dir_t;
 
 
 
@@ -10841,32 +10831,6 @@ typedef enum
 
 
 
- 
-typedef enum
-{
-    NRF_GPIO_PORT_DIR_OUTPUT,       
-    NRF_GPIO_PORT_DIR_INPUT         
-} nrf_gpio_port_dir_t;
-
-
-
- 
-typedef enum
-{
-    NRF_GPIO_PIN_DIR_INPUT  = (0UL),   
-    NRF_GPIO_PIN_DIR_OUTPUT = (1UL)   
-} nrf_gpio_pin_dir_t;
-
-
-
- 
-typedef enum
-{
-    NRF_GPIO_PIN_INPUT_CONNECT    = (0UL),   
-    NRF_GPIO_PIN_INPUT_DISCONNECT = (1UL) 
-} nrf_gpio_pin_input_t;
-
-
 
  
 typedef enum
@@ -10878,34 +10842,6 @@ typedef enum
 
 
 
- 
-typedef enum
-{
-    NRF_GPIO_PIN_S0S1 = (0x00UL), 
-    NRF_GPIO_PIN_H0S1 = (0x01UL), 
-    NRF_GPIO_PIN_S0H1 = (0x02UL), 
-    NRF_GPIO_PIN_H0H1 = (0x03UL), 
-    NRF_GPIO_PIN_D0S1 = (0x04UL), 
-    NRF_GPIO_PIN_D0H1 = (0x05UL), 
-    NRF_GPIO_PIN_S0D1 = (0x06UL), 
-    NRF_GPIO_PIN_H0D1 = (0x07UL), 
-} nrf_gpio_pin_drive_t;
-
-
-
- 
-typedef enum
-{
-    NRF_GPIO_PIN_NOSENSE    = (0x00UL),              
-    NRF_GPIO_PIN_SENSE_LOW  = (0x03UL),                   
-    NRF_GPIO_PIN_SENSE_HIGH = (0x02UL),                  
-} nrf_gpio_pin_sense_t;
-
-
-
-
-
-
 
 
 
@@ -10915,467 +10851,163 @@ typedef enum
 
 
  
-static __inline void nrf_gpio_range_cfg_output(uint32_t pin_range_start, uint32_t pin_range_end);
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_range_cfg_input(uint32_t pin_range_start, uint32_t pin_range_end, nrf_gpio_pin_pull_t pull_config);
-
-
-
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_cfg(
-        uint32_t             pin_number,
-        nrf_gpio_pin_dir_t   dir,
-        nrf_gpio_pin_input_t input,
-        nrf_gpio_pin_pull_t  pull,
-        nrf_gpio_pin_drive_t drive,
-        nrf_gpio_pin_sense_t sense);
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_cfg_output(uint32_t pin_number);
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_cfg_input(uint32_t pin_number, nrf_gpio_pin_pull_t pull_config);
-
-
-
-
-
- 
-static __inline void nrf_gpio_cfg_default(uint32_t pin_number);
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_cfg_watcher(uint32_t pin_number);
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_input_disconnect(uint32_t pin_number);
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_cfg_sense_input(uint32_t pin_number, nrf_gpio_pin_pull_t pull_config, nrf_gpio_pin_sense_t sense_config);
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_cfg_sense_set(uint32_t pin_number, nrf_gpio_pin_sense_t sense_config);
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_pin_dir_set(uint32_t pin_number, nrf_gpio_pin_dir_t direction);
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_pin_set(uint32_t pin_number);
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_pins_set(uint32_t pin_mask);
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_pin_clear(uint32_t pin_number);
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_pins_clear(uint32_t pin_mask);
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_pin_toggle(uint32_t pin_number);
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_pins_toggle(uint32_t pin_mask);
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_pin_write(uint32_t pin_number, uint32_t value);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-static __inline uint32_t nrf_gpio_pin_read(uint32_t pin_number);
-
-
-
-
-
-
-
-
- 
-static __inline uint32_t nrf_gpio_pins_read(void);
-
-
-
-
-
-
-
-
- 
-static __inline nrf_gpio_pin_sense_t nrf_gpio_pin_sense_get(uint32_t pin_number);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_word_byte_write(volatile uint32_t * word_address, uint8_t byte_no, uint8_t value);
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-static __inline uint8_t nrf_gpio_word_byte_read(const volatile uint32_t* word_address, uint8_t byte_no);
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_port_dir_set(nrf_gpio_port_select_t port, nrf_gpio_port_dir_t dir);
-
-
-
-
-
-
-
- 
-static __inline uint8_t nrf_gpio_port_read(nrf_gpio_port_select_t port);
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_port_write(nrf_gpio_port_select_t port, uint8_t value);
-
-
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_port_set(nrf_gpio_port_select_t port, uint8_t set_mask);
-
-
-
-
-
-
-
-
-
-
-
- 
-static __inline void nrf_gpio_port_clear(nrf_gpio_port_select_t port, uint8_t clr_mask);
-
-
-
-
-
 static __inline void nrf_gpio_range_cfg_output(uint32_t pin_range_start, uint32_t pin_range_end)
 {
      
     for (; pin_range_start <= pin_range_end; pin_range_start++)
     {
-        nrf_gpio_cfg_output(pin_range_start);
+        ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_range_start] = ((0x00UL) << (16UL))
+                                        | ((0x00UL) << (8UL))
+                                        | ((0x00UL) << (2UL))
+                                        | ((0UL) << (1UL))
+                                        | ((1UL) << (0UL));
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_range_cfg_input(uint32_t pin_range_start, uint32_t pin_range_end, nrf_gpio_pin_pull_t pull_config)
 {
      
     for (; pin_range_start <= pin_range_end; pin_range_start++)
     {
-        nrf_gpio_cfg_input(pin_range_start, pull_config);
+        ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_range_start] = ((0x00UL) << (16UL))
+                                        | ((0x00UL) << (8UL))
+                                        | (pull_config << (2UL))
+                                        | ((0UL) << (1UL))
+                                        | ((0UL) << (0UL));
     }
 }
 
-static __inline void nrf_gpio_cfg(
-        uint32_t             pin_number,
-        nrf_gpio_pin_dir_t   dir,
-        nrf_gpio_pin_input_t input,
-        nrf_gpio_pin_pull_t  pull,
-        nrf_gpio_pin_drive_t drive,
-        nrf_gpio_pin_sense_t sense)
-{
-    ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] = ((uint32_t)dir   << (0UL))
-                                  | ((uint32_t)input << (1UL))
-                                  | ((uint32_t)pull  << (2UL))
-                                  | ((uint32_t)drive << (8UL))
-                                  | ((uint32_t)sense << (16UL));
-}
 
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_cfg_output(uint32_t pin_number)
 {
-    nrf_gpio_cfg(
-            pin_number,
-            NRF_GPIO_PIN_DIR_OUTPUT,
-            NRF_GPIO_PIN_INPUT_DISCONNECT,
-            NRF_GPIO_PIN_NOPULL,
-            NRF_GPIO_PIN_S0S1,
-            NRF_GPIO_PIN_NOSENSE);
+     
+    ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] = ((0x00UL) << (16UL))
+                                            | ((0x00UL) << (8UL))
+                                            | ((0x00UL) << (2UL))
+                                            | ((0UL) << (1UL))
+                                            | ((1UL) << (0UL));
 }
 
+
+
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_cfg_input(uint32_t pin_number, nrf_gpio_pin_pull_t pull_config)
 {
-    nrf_gpio_cfg(
-            pin_number,
-            NRF_GPIO_PIN_DIR_INPUT,
-            NRF_GPIO_PIN_INPUT_CONNECT,
-            pull_config,
-            NRF_GPIO_PIN_S0S1,
-            NRF_GPIO_PIN_NOSENSE);
-}
-
-static __inline void nrf_gpio_cfg_default(uint32_t pin_number)
-{
-    nrf_gpio_cfg(
-            pin_number,
-            NRF_GPIO_PIN_DIR_INPUT,
-            NRF_GPIO_PIN_INPUT_DISCONNECT,
-            NRF_GPIO_PIN_NOPULL,
-            NRF_GPIO_PIN_S0S1,
-            NRF_GPIO_PIN_NOSENSE);
-}
-
-static __inline void nrf_gpio_cfg_watcher(uint32_t pin_number)
-{
      
-    uint32_t cnf = ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] & ~(0x1UL << (1UL));
-    ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] = cnf | ((0UL) << (1UL));
+    ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] = ((0x00UL) << (16UL))
+                                        | ((0x00UL) << (8UL))
+                                        | (pull_config << (2UL))
+                                        | ((0UL) << (1UL))
+                                        | ((0UL) << (0UL));
 }
 
-static __inline void nrf_gpio_input_disconnect(uint32_t pin_number)
-{
-     
-    uint32_t cnf = ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] & ~(0x1UL << (1UL));
-    ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] = cnf | ((1UL) << (1UL));
-}
 
-static __inline void nrf_gpio_cfg_sense_input(uint32_t pin_number, nrf_gpio_pin_pull_t pull_config, nrf_gpio_pin_sense_t sense_config)
-{
-    nrf_gpio_cfg(
-            pin_number,
-            NRF_GPIO_PIN_DIR_INPUT,
-            NRF_GPIO_PIN_INPUT_CONNECT,
-            pull_config,
-            NRF_GPIO_PIN_S0S1,
-            sense_config);
-}
 
-static __inline void nrf_gpio_cfg_sense_set(uint32_t pin_number, nrf_gpio_pin_sense_t sense_config)
-{
-     
-    
-    ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] &= ~(0x3UL << (16UL));
-    ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] |= (sense_config << (16UL));
-}
 
+
+
+
+
+ 
 static __inline void nrf_gpio_pin_dir_set(uint32_t pin_number, nrf_gpio_pin_dir_t direction)
 {
-    if (direction == NRF_GPIO_PIN_DIR_INPUT)
+    if(direction == NRF_GPIO_PIN_DIR_INPUT)
     {
-        nrf_gpio_cfg(
-                pin_number,
-                NRF_GPIO_PIN_DIR_INPUT,
-                NRF_GPIO_PIN_INPUT_CONNECT,
-                NRF_GPIO_PIN_NOPULL,
-                NRF_GPIO_PIN_S0S1,
-                NRF_GPIO_PIN_NOSENSE);
+        ((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] =
+          ((0x00UL) << (16UL))
+        | ((0x00UL) << (8UL))
+        | ((0x00UL) << (2UL))
+        | ((0UL) << (1UL))
+        | ((0UL) << (0UL));
     }
     else
     {
-        ((NRF_GPIO_Type *) 0x50000000UL)->DIRSET = (1UL << pin_number);
+        ((NRF_GPIO_Type *) 0x50000000UL) -> DIRSET = (1UL << pin_number);
     }
 }
 
+
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_pin_set(uint32_t pin_number)
 {
     ((NRF_GPIO_Type *) 0x50000000UL)->OUTSET = (1UL << pin_number);
 }
 
-static __inline void nrf_gpio_pins_set(uint32_t pin_mask)
-{
-    ((NRF_GPIO_Type *) 0x50000000UL)->OUTSET = pin_mask;
-}
 
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_pin_clear(uint32_t pin_number)
 {
     ((NRF_GPIO_Type *) 0x50000000UL)->OUTCLR = (1UL << pin_number);
 }
 
-static __inline void nrf_gpio_pins_clear(uint32_t pin_mask)
-{
-    ((NRF_GPIO_Type *) 0x50000000UL)->OUTCLR = pin_mask;
-}
 
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_pin_toggle(uint32_t pin_number)
 {
-    nrf_gpio_pins_toggle(1UL << pin_number);
+    ((NRF_GPIO_Type *) 0x50000000UL)->OUT ^= (1UL << pin_number);
 }
 
-static __inline void nrf_gpio_pins_toggle(uint32_t pin_mask)
-{
-    uint32_t pins_state = ((NRF_GPIO_Type *) 0x50000000UL)->OUT;
-    ((NRF_GPIO_Type *) 0x50000000UL)->OUTSET = (~pins_state & pin_mask);
-    ((NRF_GPIO_Type *) 0x50000000UL)->OUTCLR = ( pins_state & pin_mask);
-}
 
+
+
+
+
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_pin_write(uint32_t pin_number, uint32_t value)
 {
     if (value == 0)
@@ -11388,31 +11020,69 @@ static __inline void nrf_gpio_pin_write(uint32_t pin_number, uint32_t value)
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 static __inline uint32_t nrf_gpio_pin_read(uint32_t pin_number)
 {
     return  ((((NRF_GPIO_Type *) 0x50000000UL)->IN >> pin_number) & 1UL);
 }
 
-static __inline uint32_t nrf_gpio_pins_read(void)
-{
-    return ((NRF_GPIO_Type *) 0x50000000UL)->IN;
-}
 
-static __inline nrf_gpio_pin_sense_t nrf_gpio_pin_sense_get(uint32_t pin_number)
-{
-    return (nrf_gpio_pin_sense_t)((((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[pin_number] & (0x3UL << (16UL))) >> (16UL));
-}
 
+
+
+
+
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_word_byte_write(volatile uint32_t * word_address, uint8_t byte_no, uint8_t value)
 {
     *((volatile uint8_t*)(word_address) + byte_no) = value;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 static __inline uint8_t nrf_gpio_word_byte_read(const volatile uint32_t* word_address, uint8_t byte_no)
 {
     return (*((const volatile uint8_t*)(word_address) + byte_no));
 }
 
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_port_dir_set(nrf_gpio_port_select_t port, nrf_gpio_port_dir_t dir)
 {
     if (dir == NRF_GPIO_PORT_DIR_OUTPUT)
@@ -11425,36 +11095,67 @@ static __inline void nrf_gpio_port_dir_set(nrf_gpio_port_select_t port, nrf_gpio
     }
 }
 
+
+
+
+
+
+
+ 
 static __inline uint8_t nrf_gpio_port_read(nrf_gpio_port_select_t port)
 {
     return nrf_gpio_word_byte_read(&((NRF_GPIO_Type *) 0x50000000UL)->IN, port);
 }
 
+
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_port_write(nrf_gpio_port_select_t port, uint8_t value)
 {
     nrf_gpio_word_byte_write(&((NRF_GPIO_Type *) 0x50000000UL)->OUT, port, value);
 }
 
+
+
+
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_port_set(nrf_gpio_port_select_t port, uint8_t set_mask)
 {
     nrf_gpio_word_byte_write(&((NRF_GPIO_Type *) 0x50000000UL)->OUTSET, port, set_mask);
 }
 
+
+
+
+
+
+
+
+
+
+
+ 
 static __inline void nrf_gpio_port_clear(nrf_gpio_port_select_t port, uint8_t clr_mask)
 {
     nrf_gpio_word_byte_write(&((NRF_GPIO_Type *) 0x50000000UL)->OUTCLR, port, clr_mask);
 }
 
-
-
  
 
-
-
-
-
-
-#line 23 "main.c"
+#line 19 "main.c"
 #line 1 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
 
 
@@ -11709,26 +11410,9 @@ int SEGGER_RTT_printf(unsigned BufferIndex, const char * sFormat, ...);
 
 
  
-#line 24 "main.c"
+#line 20 "main.c"
 
-#line 1 "C:\\components\\drivers_nrf\\hal\\nrf_temp.h"
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-#line 17 "C:\\components\\drivers_nrf\\hal\\nrf_temp.h"
-
+#line 1 ".\\Include\\nrf_temp.h"
 
 
 
@@ -11741,7 +11425,20 @@ int SEGGER_RTT_printf(unsigned BufferIndex, const char * sFormat, ...);
 
  
 
+
+
+
+#line 17 ".\\Include\\nrf_temp.h"
+
+
+
+
+
+
+
  
+
+
 
 
 
@@ -11760,24 +11457,25 @@ static __inline void nrf_temp_init(void)
 
 
 
+
+
+
+
+
+
+
  
 static __inline int32_t nrf_temp_read(void)
-{
+{    
      
-    return ((((NRF_TEMP_Type *) 0x4000C000UL)->TEMP & (0x00000200UL)) != 0) ? (((NRF_TEMP_Type *) 0x4000C000UL)->TEMP | (0xFFFFFC00UL)) : (((NRF_TEMP_Type *) 0x4000C000UL)->TEMP);
+    return ((((NRF_TEMP_Type *) 0x4000C000UL)->TEMP & (0x00000200UL)) != 0) ? (((NRF_TEMP_Type *) 0x4000C000UL)->TEMP | (0xFFFFFC00UL)) : (((NRF_TEMP_Type *) 0x4000C000UL)->TEMP);    
 }
- 
 
  
 
+#line 22 "main.c"
 
-
-
-
-
-#line 26 "main.c"
-
-#line 28 "main.c"
+#line 24 "main.c"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
  
  
@@ -12200,9 +11898,27 @@ extern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  ,
 
  
 
-#line 29 "main.c"
-#line 30 "main.c"
-#line 31 "main.c"
+#line 25 "main.c"
+#line 26 "main.c"
+#line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdbool.h"
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+#line 25 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdbool.h"
+
+
+
+#line 27 "main.c"
 
 
 
@@ -12215,14 +11931,23 @@ extern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  ,
 
 void SetLEDS(uint8_t);
 
+void PrepareTemp()
+{
+	nrf_temp_init();
+}
+
 uint32_t ReadTemperature()
 {
 	uint32_t counter=0;
 	uint32_t value=~0;
+
+  static uint32_t previous;
+	char *string;
+	
 	((NRF_TEMP_Type *) 0x4000C000UL)->POWER=1;
 	((NRF_TEMP_Type *) 0x4000C000UL)->TASKS_START=1;
 		
-	while(((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY==0 || counter<35000)
+	while(((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY==0 && counter<35000)
 	{
 			counter++;
 	}
@@ -12233,9 +11958,17 @@ uint32_t ReadTemperature()
 	
 	((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY=0;
 	
-	value = ((NRF_TEMP_Type *) 0x4000C000UL)->TEMP;
+	value = nrf_temp_read();	
 	((NRF_TEMP_Type *) 0x4000C000UL)->TASKS_STOP=1;
 	((NRF_TEMP_Type *) 0x4000C000UL)->POWER=0;
+		
+	if(previous != value)
+	{
+	 sprintf(string, "TEMP: %d\n", value);
+	 SEGGER_RTT_WriteString(0, string);
+	 previous = value;
+	}
+	
 	return value;
 }
 
@@ -12266,7 +11999,7 @@ void SetLEDS(uint8_t value)
 	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (ones  & (0x00 << 8));
 	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (zeros | (value << 8));
 	
-	
+	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (value<<8);
 }
 
 void BlinkLEDS()
@@ -12303,48 +12036,40 @@ uint8_t ReadButtons()
 
 	 if(previous != value)
 	 {
-		 sprintf(string, "0x%02xh\n", value);
+		 sprintf(string, "BUTTONS: 0x%02xh\n", value);
 		 SEGGER_RTT_WriteString(0, string);
 		 previous = value;
 	 }
 	 return value;
 }
 
-
-
-void JozefovaImplementacia()
-{
-	
-	for(;;)
-	{
-		nrf_gpio_cfg_output(31);
-		nrf_gpio_pin_set(31);
-		nrf_delay_ms(500);
-		nrf_gpio_pin_clear(31);
-		nrf_delay_ms(500);
-	}
+void init() {
+	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
+	PrepareLEDS();
+	PrepareButtons();
+	PrepareTemp();
 }
 
 int main(void)
 {
-	int value;
 	uint32_t temperature;
-	
-	
-	SEGGER_RTT_WriteString(0, "Hello World!\n");
-	
-	PrepareLEDS();
-	PrepareButtons();
 		
-	nrf_temp_init();
-	value = nrf_temp_read();
-	value=value;
-	BlinkLEDS();
 	
+		
+	init();
+
+	
+	
+		
+	BlinkLEDS();
 	while(1==1)
 	{
-		SetLEDS(ReadButtons() );
-		temperature = ReadTemperature();
+		SetLEDS( ReadButtons() );
+		
+		
+		
+		
+		
 	}
 	
 	

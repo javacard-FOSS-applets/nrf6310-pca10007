@@ -2,6 +2,7 @@
 ".\arm_startup_nrf51.o"
 ".\system_nrf51.o"
 ".\segger_rtt.o"
+".\nrf_delay.o"
 ".\main.o"
 ".\mbr.o"
 --strict --scatter ".\ant_temp.sct"

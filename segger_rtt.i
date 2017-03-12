@@ -126,25 +126,7 @@
 
 
 
-#line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\compiler_abstraction.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#line 1 ".\\Include\\compiler_abstraction.h"
 
 
 
@@ -156,37 +138,18 @@
 
 
  
+
+
+
+
  
 
 
 
- 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 141 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\compiler_abstraction.h"
+#line 46 ".\\Include\\compiler_abstraction.h"
 
  
 

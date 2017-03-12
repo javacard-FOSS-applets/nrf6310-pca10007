@@ -104,7 +104,7 @@ void SetLEDS(uint8_t value)
 	NRF_GPIO->OUT = (ones  & (0x00 << LEDS));
 	NRF_GPIO->OUT = (zeros | (value << LEDS));
 	
-	//NRF_GPIO->OUT = (value<<LEDS);
+	NRF_GPIO->OUT = (value<<LEDS);
 }
 
 void BlinkLEDS()
@@ -148,22 +148,33 @@ uint8_t ReadButtons()
 	 return value;
 }
 
+void init() {
+	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
+	PrepareLEDS();
+	PrepareButtons();
+	PrepareTemp();
+}
+
 int main(void)
 {
 	uint32_t temperature;
+		
 	
-	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
 		//printf("Test\r\n");
+	init();
+
 	
-	PrepareLEDS();
-	PrepareButtons();
-	PrepareTemp();	
 	
+		
 	BlinkLEDS();
 	while(1==1)
 	{
-		SetLEDS(ReadButtons() );
-		temperature = ReadTemperature();
+		SetLEDS( ReadButtons() );
+		
+		//SetLEDS ( iterator++ );
+		//nrf_delay_ms(1000);
+		
+		//temperature = ReadTemperature();
 	}
 	
 	//return 0;

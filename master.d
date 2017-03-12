@@ -1,0 +1,32 @@
+.\master.o: Master.c
+.\master.o: .\Include\nrf51.h
+.\master.o: .\Include\gcc\core_cm0.h
+.\master.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\master.o: .\Include\gcc\core_cmInstr.h
+.\master.o: .\Include\gcc\core_cmFunc.h
+.\master.o: .\Include\system_nrf51.h
+.\master.o: C:\Keil_v5\ARM\Device\Nordic\nRF51422\Include\nrf51422_peripherals.h
+.\master.o: .\Include\nrf51_bitfields.h
+.\master.o: .\Include\gcc\core_cm0.h
+.\master.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\master.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\master.o: .\Include\nrf_gpio.h
+.\master.o: C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.h
+.\master.o: C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT_Conf.h
+.\master.o: .\Include\compiler_abstraction.h
+.\master.o: .\Include\nrf_temp.h
+.\master.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\master.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\master.o: .\Include\app_common\app_error.h
+.\master.o: .\Include\ant\softdevice\nrf_error.h
+.\master.o: .\Include\nrf.h
+.\master.o: .\Include\nrf51_deprecated.h
+.\master.o: .\Include\ant\softdevice\ant_interface.h
+.\master.o: .\Include\ant\softdevice\ant_parameters.h
+.\master.o: .\Include\ant\softdevice\nrf_soc.h
+.\master.o: .\Include\ant\softdevice\nrf_error_soc.h
+.\master.o: .\Include\ant\softdevice\nrf_sdm.h
+.\master.o: .\Include\ant\softdevice\nrf_error_sdm.h
+.\master.o: .\Include\nrf_delay.h
+.\master.o: .\Include\boards.h
+.\master.o: .\Include\boards/nrf6310.h

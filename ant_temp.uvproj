@@ -503,6 +503,19 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Master</GroupName>
+          <Files>
+            <File>
+              <FileName>Master.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Master.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Slave</GroupName>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -811,7 +824,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0xa000</StartAddress>
-                <Size>0x37000</Size>
+                <Size>0x36000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -963,6 +976,19 @@
               <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>Master</GroupName>
+          <Files>
+            <File>
+              <FileName>Master.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Master.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Slave</GroupName>
         </Group>
       </Groups>
     </Target>
