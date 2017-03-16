@@ -1,0 +1,32 @@
+.\functions.o: functions.c
+.\functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\functions.o: .\Include\nrf51.h
+.\functions.o: .\Include\gcc\core_cm0.h
+.\functions.o: .\Include\gcc\core_cmInstr.h
+.\functions.o: .\Include\gcc\core_cmFunc.h
+.\functions.o: .\Include\system_nrf51.h
+.\functions.o: C:\Keil_v5\ARM\Device\Nordic\nRF51422\Include\nrf51422_peripherals.h
+.\functions.o: .\Include\nrf51_bitfields.h
+.\functions.o: .\Include\gcc\core_cm0.h
+.\functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\functions.o: .\Include\nrf_gpio.h
+.\functions.o: C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.h
+.\functions.o: C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT_Conf.h
+.\functions.o: .\Include\compiler_abstraction.h
+.\functions.o: .\Include\nrf_temp.h
+.\functions.o: .\Include\app_common\app_error.h
+.\functions.o: .\Include\ant\softdevice\nrf_error.h
+.\functions.o: .\Include\nrf.h
+.\functions.o: .\Include\nrf51_deprecated.h
+.\functions.o: .\Include\ant\softdevice\ant_interface.h
+.\functions.o: .\Include\ant\softdevice\ant_parameters.h
+.\functions.o: .\Include\ant\softdevice\nrf_soc.h
+.\functions.o: .\Include\ant\softdevice\nrf_error_soc.h
+.\functions.o: .\Include\ant\softdevice\nrf_sdm.h
+.\functions.o: .\Include\ant\softdevice\nrf_error_sdm.h
+.\functions.o: .\Include\nrf_delay.h
+.\functions.o: .\Include\boards.h
+.\functions.o: .\Include\boards/nrf6310.h

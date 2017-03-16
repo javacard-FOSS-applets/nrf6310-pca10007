@@ -11920,148 +11920,20 @@ extern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  ,
 
 #line 27 "main.c"
 
-
-
-
-
-
-
-
-
-
+void init(void);
+void BlinkLEDS(uint8_t);
 void SetLEDS(uint8_t);
-
-void PrepareTemp()
-{
-	nrf_temp_init();
-}
-
-uint32_t ReadTemperature()
-{
-	uint32_t counter=0;
-	uint32_t value=~0;
-
-  static uint32_t previous;
-	char *string;
-	
-	((NRF_TEMP_Type *) 0x4000C000UL)->POWER=1;
-	((NRF_TEMP_Type *) 0x4000C000UL)->TASKS_START=1;
-		
-	while(((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY==0 && counter<35000)
-	{
-			counter++;
-	}
-	if(((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY==0)
-	{
-		return ~0x0;
-	}
-	
-	((NRF_TEMP_Type *) 0x4000C000UL)->EVENTS_DATARDY=0;
-	
-	value = nrf_temp_read();	
-	((NRF_TEMP_Type *) 0x4000C000UL)->TASKS_STOP=1;
-	((NRF_TEMP_Type *) 0x4000C000UL)->POWER=0;
-		
-	if(previous != value)
-	{
-	 sprintf(string, "TEMP: %d\n", value);
-	 SEGGER_RTT_WriteString(0, string);
-	 previous = value;
-	}
-	
-	return value;
-}
-
-void PrepareLEDS() {
-
-
-		
-	((NRF_GPIO_Type *) 0x50000000UL)->DIR=(uint32_t) ((NRF_GPIO_Type *) 0x50000000UL)->DIR | ((uint32_t)0xFF<<8);
-	
-	
-	SetLEDS(0xFF);
-	nrf_delay_ms(500);
-	SetLEDS(0x00);
-	nrf_delay_ms(500);
-	
-	
- 
-}
-
-void SetLEDS(uint8_t value)
-{
-	uint32_t zeros;
-	uint32_t ones;
-	
-	zeros = 0;
-	ones = ~zeros;
-	
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (ones  & (0x00 << 8));
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (zeros | (value << 8));
-	
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (value<<8);
-}
-
-void BlinkLEDS()
-{
-	uint8_t counter=20;
-	
-	while(counter--){
-		SetLEDS(255);
-		nrf_delay_ms(100);
-		SetLEDS(0);
-		nrf_delay_ms(100);
-	}
-}
-
-void PrepareButtons()
-{
-	uint8_t counter=0;
-	int value = 0;
-	
-	for(counter=0; counter<8; counter++)
-	{
-		value = (16+counter);
-		((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[value] = 0;
-	}
-}
-
-uint8_t ReadButtons()
-{
-	 uint8_t value;
-	 static uint8_t previous;
-	 char *string;
-
-	 value = ~((( ((NRF_GPIO_Type *) 0x50000000UL)->IN )>> 16) & 0xFF);
-
-	 if(previous != value)
-	 {
-		 sprintf(string, "BUTTONS: 0x%02xh\n", value);
-		 SEGGER_RTT_WriteString(0, string);
-		 previous = value;
-	 }
-	 return value;
-}
-
-void init() {
-	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
-	PrepareLEDS();
-	PrepareButtons();
-	PrepareTemp();
-}
+uint8_t ReadButtons(void);
+void write_hex_value(uint8_t value);
 
 int main(void)
 {
 	uint32_t temperature;
-		
-	
-		
+				
 	init();
 
-	
-	
 		
-	BlinkLEDS();
+	BlinkLEDS(10);
 	while(1==1)
 	{
 		SetLEDS( ReadButtons() );
@@ -12071,6 +11943,5 @@ int main(void)
 		
 		
 	}
-	
 	
 }

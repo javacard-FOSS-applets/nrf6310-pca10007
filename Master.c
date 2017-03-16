@@ -34,94 +34,6 @@
 #include "nrf_gpio.h"
 #include "boards.h"
 
-
-#define PIN 31
-#define PORT0 0
-#define PORT1 8
-#define PORT2 16 //BUTTONS
-#define PORT3 24 //LEDS
-
-#define BUTTONS PORT2
-#define    LEDS PORT1
-
-uint8_t recieved_value=0;
-uint8_t button_value=0;
-
-void SetLEDS(uint8_t);
-
-void PrepareLEDS() {
-//__asm("ADD r1, r0, #1\n"
-//      "MOV r0, r1\n");
-		
-	NRF_GPIO->DIR=(uint32_t) NRF_GPIO->DIR | ((uint32_t)0xFF<<LEDS);
-	//NRF_GPIO->PIN_CNF[31]=0x01;
-	
-	SetLEDS(0xFF);
-	nrf_delay_ms(500);
-	SetLEDS(0x00);
-	nrf_delay_ms(500);
-	
-	/*NRF_GPIO->OUT=((uint32_t)0xFF << LEDS);
-	NRF_GPIO->OUT=0x00000000;*/
-}
-
-void SetLEDS(uint8_t value)
-{
-	uint32_t zeros;
-	uint32_t ones;
-	
-	zeros = 0;
-	ones = ~zeros;
-	
-	NRF_GPIO->OUT = (ones  & (0x00 << LEDS));
-	NRF_GPIO->OUT = (zeros | (value << LEDS));
-	
-	NRF_GPIO->OUT = (value<<LEDS);
-}
-
-void BlinkOnce()
-{
-		SetLEDS(255);
-		nrf_delay_ms(50);
-		SetLEDS(0);
-}
-
-void PrepareButtons()
-{
-	uint8_t counter=0;
-	int value = 0;
-	
-	for(counter=0; counter<8; counter++)
-	{
-		value = (PORT2+counter);
-		NRF_GPIO->PIN_CNF[value] = 0;
-	}
-}
-
-uint8_t ReadButtons()
-{
-	 uint8_t value;
-	 static uint8_t previous;
-	 char string[80];
-
-	 value = ~((( NRF_GPIO->IN )>> BUTTONS) & 0xFF);
-
-	 if(previous != value)
-	 {
-		 sprintf(string, "BUTTONS: 0x%02xh\n", value);
-		 SEGGER_RTT_WriteString(0, string);
-		 previous = value;
-	 }
-	 return value;
-}
-
-void init() {
-	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
-	PrepareLEDS();
-	PrepareButtons();
-	//PrepareTemp();
-}
-
 // Channel configuration. 
 #define CHANNEL_0                       0x00                 /**< ANT Channel 0. */
 #define CHANNEL_0_TX_CHANNEL_PERIOD     8192u                /**< Channel period 4 Hz. */
@@ -134,14 +46,24 @@ void init() {
 
 // Miscellaneous defines. 
 #define ANT_CHANNEL_DEFAULT_NETWORK     0x00                 /**< ANT Channel Network. */
-#define ANT_MSG_IDX_ID                  1u                 /**< ANT message ID index. */
+#define ANT_MSG_IDX_ID                  1u   		             /**< ANT message ID index. */
 #define ANT_EVENT_MSG_BUFFER_MIN_SIZE   32u                  /**< Minimum size of ANT event message buffer. */
 #define BROADCAST_DATA_BUFFER_SIZE      8u                   /**< Size of the broadcast data buffer. */
 
 // Static variables and buffers. 
 static uint8_t m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE]; /**< Primary data transmit buffer. */
-static uint8_t m_counter = 1u;                               /**< Counter to increment the ANT broadcast data payload. */
+//static uint8_t m_counter = 1u;                               /**< Counter to increment the ANT broadcast data payload. */
 
+uint8_t recieved_value=0;
+
+#define DEVICEID 0xffff
+
+void init(void);
+void SetLEDS(uint8_t);
+void BlinkLEDS(uint8_t);
+uint8_t ReadButtons(void);
+int AddMessage(uint8_t*);
+void write_hex_value(uint8_t value);
 
 /**@brief Function for handling an error. 
  *
@@ -153,7 +75,6 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 {
     for (;;)
     {
-        // No implementation needed.
     }
 }
 
@@ -189,19 +110,6 @@ static void ant_channel_master_broadcast_setup(void)
     APP_ERROR_CHECK(err_code);
 }
 
-static void write_hex_value(uint8_t value){
-						char str[20];
-						int count;
-							
-						count = sprintf(str, "Value: 0x%02xh\n", value);
-						if(count == 0 )
-						{
-							SEGGER_RTT_WriteString(0, "Couldnt write to string.\n");
-						}
-						else {
-							SEGGER_RTT_WriteString(0, str);
-						}
-}
 
 /**@brief Function for handling ANT TX channel events. 
  *
@@ -224,14 +132,6 @@ static void channel_event_handle_transmit(uint32_t event)
                                                    BROADCAST_DATA_BUFFER_SIZE, 
                                                    m_broadcast_data);
             APP_ERROR_CHECK(err_code);
-            
-            // Increment the counter.
-            m_counter++;
-            
-            // Activate LED0 for 20 ms. 
-            //nrf_gpio_pin_set(LED0);
-            //nrf_delay_ms(20);
-            //nrf_gpio_pin_clear(LED0);
             break;
 
         default:
@@ -248,13 +148,8 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 			switch (p_event_message_buffer[ANT_MSG_IDX_ID])
 			{
 				case MESG_BROADCAST_DATA_ID:    
-						// Activate LED for 20 ms.
 						recieved_value=p_event_message_buffer[10];
-
-
-						//nrf_gpio_pin_set(LED0);
-						//nrf_delay_ms(20);
-						//nrf_gpio_pin_clear(LED0);
+						AddMessage(p_event_message_buffer);
 						break;
 						
 				default:      
@@ -270,7 +165,6 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
  */
 void PROTOCOL_EVENT_IRQHandler(void)
 {
-
 }
 
 /**@brief Function for handling SoftDevice asserts. 
@@ -283,38 +177,24 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
 {
     for (;;)
     {
-        // No implementation needed. 
 				SEGGER_RTT_WriteString(0, "Assert callback.\n");
     }
 }
 
 
-/**@brief Function for handling HardFault.
- */
 void HardFault_Handler(void)
 {
     for (;;)
     {
-        // No implementation needed. 
 				SEGGER_RTT_WriteString(0, "Hard fault occured\n");
     }
 }
 
-/**@brief Function for application main entry. Does not return.
- */ 
 int main(void)
 {    
-	
 		init();
-    // ANT event message buffer. 
     static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
-    
-    // Configure pins LED0 and LED1 as outputs. 
-    //nrf_gpio_range_cfg_output(LED_START, LED_STOP);
 
-    // Set LED0 and LED1 high to indicate that the application is running. 
-    //NRF_GPIO->OUTSET = (1 << LED0) | (1 << LED1);
-    
     // Enable SoftDevice. 
     uint32_t err_code;
     err_code = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_XTAL_50_PPM, softdevice_assert_callback);
@@ -339,26 +219,22 @@ int main(void)
     // Initiate the broadcast loop by sending a packet on air, 
     // then start waiting for an event on this broadcast message.
     err_code = sd_ant_broadcast_message_tx(CHANNEL_0, BROADCAST_DATA_BUFFER_SIZE, m_broadcast_data);
-    APP_ERROR_CHECK(err_code);
-  
-    // Set LED0 and LED1 low to indicate that stack is enabled. 
-    //NRF_GPIO->OUTCLR = (1 << LED0) | (1 << LED1);
+		
+		//static uint8_t burst_setup[]={ADV_BURST_MODE_ENABLE, ADV_BURST_MODES_MAX_SIZE, 0,0,0,0,0,0};
+		//err_code = sd_ant_adv_burst_config_set(burst_setup,sizeof(burst_setup));
     
+		APP_ERROR_CHECK(err_code);
+  
+  	BlinkLEDS(2);
+		
     uint8_t event;
     uint8_t ant_channel;
   	  
-    // Main loop. 
     for (;;)
     {   
-        // Light up LED1 to indicate that CPU is going to sleep. 
-        //nrf_gpio_pin_set(LED1);
-        
         // Put CPU in sleep if possible. 
         err_code = sd_app_event_wait();
         APP_ERROR_CHECK(err_code);
-        
-        // Turn off LED1 to indicate that CPU is going out of sleep. 
-        //nrf_gpio_pin_clear(LED1);
     
         // Extract and process all pending ANT events as long as there are any left. 
         do
@@ -372,17 +248,18 @@ int main(void)
                 {
                     case EVENT_TX:
 												channel_event_handle_transmit(event);
-												//SetLEDS(m_counter);
-												//BlinkOnce();
-												//SEGGER_RTT_WriteString(0, "Sending.\n");
                         break;
 
                     case EVENT_RX:				
                         channel_event_handle_recieve(event_message_buffer);
 											  SetLEDS(recieved_value);
-												SEGGER_RTT_WriteString(0, "Receiving.\n");
+												//SEGGER_RTT_WriteString(0, "Receiving.\n");
                         break;
-
+										//case BURST_SEGMENT_START:
+													//SVC_ANT_ADV_BURST_CONFIG_SET();
+										//
+										//ADV_BURST_MODES_SIZE_24_BYTES
+//												break;
                     default:
                         break;
                 }

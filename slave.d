@@ -1,4 +1,8 @@
 .\slave.o: Slave.c
+.\slave.o: C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.h
+.\slave.o: C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT_Conf.h
+.\slave.o: .\Include\compiler_abstraction.h
+.\slave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\slave.o: .\Include\nrf51.h
 .\slave.o: .\Include\gcc\core_cm0.h
 .\slave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -11,12 +15,8 @@
 .\slave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\slave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\slave.o: .\Include\nrf_gpio.h
-.\slave.o: C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.h
-.\slave.o: C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT_Conf.h
-.\slave.o: .\Include\compiler_abstraction.h
 .\slave.o: .\Include\nrf_temp.h
 .\slave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-.\slave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\slave.o: .\Include\app_common\app_error.h
 .\slave.o: .\Include\ant\softdevice\nrf_error.h
 .\slave.o: .\Include\nrf.h

@@ -11,6 +11,711 @@
 
  
 
+#line 1 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+#line 1 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT_Conf.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+#line 1 ".\\Include\\compiler_abstraction.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+#line 46 ".\\Include\\compiler_abstraction.h"
+
+ 
+
+#line 23 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT_Conf.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+#line 97 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT_Conf.h"
+
+
+
+
+ 
+#line 123 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT_Conf.h"
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+ 
+#line 51 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+typedef struct {
+  const     char*    sName;         
+            char*    pBuffer;       
+            unsigned SizeOfBuffer;  
+  volatile  unsigned WrOff;         
+  volatile  unsigned RdOff;         
+            unsigned Flags;         
+} SEGGER_RTT_RING_BUFFER;
+
+
+
+
+
+
+typedef struct {
+  char                    acID[16];                                 
+  int                     MaxNumUpBuffers;                          
+  int                     MaxNumDownBuffers;                        
+  SEGGER_RTT_RING_BUFFER  aUp[(2)];       
+  SEGGER_RTT_RING_BUFFER  aDown[(2)];   
+} SEGGER_RTT_CB;
+
+
+
+
+
+
+ 
+extern SEGGER_RTT_CB _SEGGER_RTT;
+
+
+
+
+
+
+ 
+int          SEGGER_RTT_ConfigUpBuffer   (unsigned BufferIndex, const char* sName, void* pBuffer, unsigned BufferSize, unsigned Flags);
+int          SEGGER_RTT_ConfigDownBuffer (unsigned BufferIndex, const char* sName, void* pBuffer, unsigned BufferSize, unsigned Flags);
+int          SEGGER_RTT_GetKey           (void);
+unsigned     SEGGER_RTT_HasData          (unsigned BufferIndex);
+int          SEGGER_RTT_HasKey           (void);
+void         SEGGER_RTT_Init             (void);
+unsigned     SEGGER_RTT_Read             (unsigned BufferIndex,       void* pBuffer, unsigned BufferSize);
+unsigned     SEGGER_RTT_ReadNoLock       (unsigned BufferIndex,       void* pData,   unsigned BufferSize);
+int          SEGGER_RTT_SetNameDownBuffer(unsigned BufferIndex, const char* sName);
+int          SEGGER_RTT_SetNameUpBuffer  (unsigned BufferIndex, const char* sName);
+int          SEGGER_RTT_WaitKey          (void);
+unsigned     SEGGER_RTT_Write            (unsigned BufferIndex, const void* pBuffer, unsigned NumBytes);
+unsigned     SEGGER_RTT_WriteNoLock      (unsigned BufferIndex, const void* pBuffer, unsigned NumBytes);
+unsigned     SEGGER_RTT_WriteSkipNoLock  (unsigned BufferIndex, const void* pBuffer, unsigned NumBytes);
+unsigned     SEGGER_RTT_WriteString      (unsigned BufferIndex, const char* s);
+
+
+
+
+
+
+
+
+
+
+ 
+int     SEGGER_RTT_SetTerminal        (char TerminalId);
+int     SEGGER_RTT_TerminalOut        (char TerminalId, const char* s);
+
+
+
+
+
+
+ 
+int SEGGER_RTT_printf(unsigned BufferIndex, const char * sFormat, ...);
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 173 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
+
+#line 182 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
+
+#line 191 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
+
+#line 200 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
+
+
+
+
+ 
+#line 14 "Slave.c"
+#line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+ 
+ 
+ 
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+#line 38 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+
+
+  
+
+
+
+    typedef unsigned int size_t;    
+#line 54 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+
+
+
+
+extern __declspec(__nothrow) void *memcpy(void * __restrict  ,
+                    const void * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) void *memmove(void *  ,
+                    const void *  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) char *strcpy(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) char *strncpy(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) char *strcat(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) char *strncat(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int memcmp(const void *  , const void *  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int strcmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) int strncmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int strcasecmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int strncasecmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int strcoll(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) size_t strxfrm(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+#line 193 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+extern __declspec(__nothrow) void *memchr(const void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+
+   
+
+
+
+
+
+ 
+
+#line 209 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+extern __declspec(__nothrow) char *strchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+
+   
+
+
+
+
+ 
+
+extern __declspec(__nothrow) size_t strcspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+ 
+
+#line 232 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+extern __declspec(__nothrow) char *strpbrk(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+
+   
+
+
+
+
+ 
+
+#line 247 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+extern __declspec(__nothrow) char *strrchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+
+   
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) size_t strspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+ 
+
+#line 270 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+extern __declspec(__nothrow) char *strstr(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+
+   
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) char *strtok(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(2)));
+extern __declspec(__nothrow) char *_strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+
+extern __declspec(__nothrow) char *strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) void *memset(void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+extern __declspec(__nothrow) char *strerror(int  );
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) size_t strlen(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+
+extern __declspec(__nothrow) size_t strlcpy(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) size_t strlcat(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) void _membitcpybl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitcpybb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitcpyhl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitcpyhb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitcpywl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitcpywb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitmovebl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitmovebb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitmovehl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitmovehb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitmovewl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+#line 502 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
+
+
+
+ 
+
+#line 15 "Slave.c"
 #line 1 ".\\Include\\nrf51.h"
 
  
@@ -2488,7 +3193,7 @@ typedef struct {
 
 
 
-#line 14 "Slave.c"
+#line 16 "Slave.c"
 
 #line 1 "C:\\Keil_v5\\ARM\\Device\\Nordic\\nRF51422\\Include\\nrf51422_peripherals.h"
 
@@ -2634,7 +3339,7 @@ typedef struct {
 
 
 
-#line 16 "Slave.c"
+#line 18 "Slave.c"
 #line 1 ".\\Include\\nrf51_bitfields.h"
 
 
@@ -9000,7 +9705,7 @@ typedef struct {
 
 
  
-#line 17 "Slave.c"
+#line 19 "Slave.c"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
  
  
@@ -9900,7 +10605,7 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
  
 
-#line 18 "Slave.c"
+#line 20 "Slave.c"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdlib.h"
  
  
@@ -10638,7 +11343,7 @@ extern __declspec(__nothrow) int __C_library_version_number(void);
 
 
  
-#line 19 "Slave.c"
+#line 21 "Slave.c"
 #line 1 ".\\Include\\nrf_gpio.h"
 
 
@@ -11017,289 +11722,8 @@ static __inline void nrf_gpio_port_clear(nrf_gpio_port_select_t port, uint8_t cl
 
  
 
-#line 20 "Slave.c"
-#line 1 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-#line 1 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT_Conf.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-#line 1 ".\\Include\\compiler_abstraction.h"
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
- 
-
-
-
-
-
-
-#line 46 ".\\Include\\compiler_abstraction.h"
-
- 
-
-#line 23 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT_Conf.h"
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-#line 97 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT_Conf.h"
-
-
-
-
- 
-#line 123 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT_Conf.h"
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
- 
-#line 51 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
-
-
-
-
-
-
- 
-
-
-
-
-
-
- 
-
-
-
-
-
-typedef struct {
-  const     char*    sName;         
-            char*    pBuffer;       
-            unsigned SizeOfBuffer;  
-  volatile  unsigned WrOff;         
-  volatile  unsigned RdOff;         
-            unsigned Flags;         
-} SEGGER_RTT_RING_BUFFER;
-
-
-
-
-
-
-typedef struct {
-  char                    acID[16];                                 
-  int                     MaxNumUpBuffers;                          
-  int                     MaxNumDownBuffers;                        
-  SEGGER_RTT_RING_BUFFER  aUp[(2)];       
-  SEGGER_RTT_RING_BUFFER  aDown[(2)];   
-} SEGGER_RTT_CB;
-
-
-
-
-
-
- 
-extern SEGGER_RTT_CB _SEGGER_RTT;
-
-
-
-
-
-
- 
-int          SEGGER_RTT_ConfigUpBuffer   (unsigned BufferIndex, const char* sName, void* pBuffer, unsigned BufferSize, unsigned Flags);
-int          SEGGER_RTT_ConfigDownBuffer (unsigned BufferIndex, const char* sName, void* pBuffer, unsigned BufferSize, unsigned Flags);
-int          SEGGER_RTT_GetKey           (void);
-unsigned     SEGGER_RTT_HasData          (unsigned BufferIndex);
-int          SEGGER_RTT_HasKey           (void);
-void         SEGGER_RTT_Init             (void);
-unsigned     SEGGER_RTT_Read             (unsigned BufferIndex,       void* pBuffer, unsigned BufferSize);
-unsigned     SEGGER_RTT_ReadNoLock       (unsigned BufferIndex,       void* pData,   unsigned BufferSize);
-int          SEGGER_RTT_SetNameDownBuffer(unsigned BufferIndex, const char* sName);
-int          SEGGER_RTT_SetNameUpBuffer  (unsigned BufferIndex, const char* sName);
-int          SEGGER_RTT_WaitKey          (void);
-unsigned     SEGGER_RTT_Write            (unsigned BufferIndex, const void* pBuffer, unsigned NumBytes);
-unsigned     SEGGER_RTT_WriteNoLock      (unsigned BufferIndex, const void* pBuffer, unsigned NumBytes);
-unsigned     SEGGER_RTT_WriteSkipNoLock  (unsigned BufferIndex, const void* pBuffer, unsigned NumBytes);
-unsigned     SEGGER_RTT_WriteString      (unsigned BufferIndex, const char* s);
-
-
-
-
-
-
-
-
-
-
- 
-int     SEGGER_RTT_SetTerminal        (char TerminalId);
-int     SEGGER_RTT_TerminalOut        (char TerminalId, const char* s);
-
-
-
-
-
-
- 
-int SEGGER_RTT_printf(unsigned BufferIndex, const char * sFormat, ...);
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 173 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
-
-#line 182 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
-
-#line 191 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
-
-#line 200 "C:\\Nordic Semiconductor\\external\\segger_rtt\\SEGGER_RTT.h"
-
-
-
-
- 
-#line 21 "Slave.c"
+#line 22 "Slave.c"
+#line 23 "Slave.c"
 #line 1 ".\\Include\\nrf_temp.h"
 
 
@@ -11361,8 +11785,8 @@ static __inline int32_t nrf_temp_read(void)
 
  
 
-#line 22 "Slave.c"
-#line 23 "Slave.c"
+#line 24 "Slave.c"
+#line 25 "Slave.c"
 
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdbool.h"
  
@@ -11382,431 +11806,8 @@ static __inline int32_t nrf_temp_read(void)
 
 
 
-#line 25 "Slave.c"
-#line 26 "Slave.c"
-#line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
- 
- 
- 
- 
-
-
-
-
- 
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-#line 38 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
-
-
-  
-
-
-
-    typedef unsigned int size_t;    
-#line 54 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
-
-
-
-
-extern __declspec(__nothrow) void *memcpy(void * __restrict  ,
-                    const void * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
- 
-extern __declspec(__nothrow) void *memmove(void *  ,
-                    const void *  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) char *strcpy(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
- 
-extern __declspec(__nothrow) char *strncpy(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) char *strcat(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
- 
-extern __declspec(__nothrow) char *strncat(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
- 
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int memcmp(const void *  , const void *  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
- 
-extern __declspec(__nothrow) int strcmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
- 
-extern __declspec(__nothrow) int strncmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int strcasecmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
- 
-extern __declspec(__nothrow) int strncasecmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int strcoll(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) size_t strxfrm(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-#line 193 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
-extern __declspec(__nothrow) void *memchr(const void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
-
-   
-
-
-
-
-
- 
-
-#line 209 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
-extern __declspec(__nothrow) char *strchr(const char *  , int  ) __attribute__((__nonnull__(1)));
-
-   
-
-
-
-
- 
-
-extern __declspec(__nothrow) size_t strcspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
- 
-
-#line 232 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
-extern __declspec(__nothrow) char *strpbrk(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
-
-   
-
-
-
-
- 
-
-#line 247 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
-extern __declspec(__nothrow) char *strrchr(const char *  , int  ) __attribute__((__nonnull__(1)));
-
-   
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) size_t strspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
- 
-
-#line 270 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
-extern __declspec(__nothrow) char *strstr(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
-
-   
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) char *strtok(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(2)));
-extern __declspec(__nothrow) char *_strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
-
-extern __declspec(__nothrow) char *strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) void *memset(void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-extern __declspec(__nothrow) char *strerror(int  );
-   
-
-
-
-
-
- 
-extern __declspec(__nothrow) size_t strlen(const char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-
-extern __declspec(__nothrow) size_t strlcpy(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) size_t strlcat(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) void _membitcpybl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitcpybb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitcpyhl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitcpyhb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitcpywl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitcpywb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitmovebl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitmovebb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitmovehl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitmovehb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitmovewl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-#line 502 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\string.h"
-
-
-
- 
-
 #line 27 "Slave.c"
+#line 28 "Slave.c"
 #line 1 ".\\Include\\app_common\\app_error.h"
 
 
@@ -11904,7 +11905,7 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 
 
  
-#line 28 "Slave.c"
+#line 29 "Slave.c"
 #line 1 ".\\Include\\nrf.h"
 
 
@@ -11986,7 +11987,7 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 
 
 
-#line 29 "Slave.c"
+#line 30 "Slave.c"
 #line 1 ".\\Include\\ant\\softdevice\\ant_interface.h"
 
 
@@ -12828,7 +12829,7 @@ uint32_t __svc(SVC_ANT_COEX_CONFIG_GET) sd_ant_coex_config_get (uint8_t ucChanne
 
 
  
-#line 30 "Slave.c"
+#line 31 "Slave.c"
 #line 1 ".\\Include\\ant\\softdevice\\ant_parameters.h"
 
 
@@ -13237,7 +13238,7 @@ typedef union
 
 
  
-#line 31 "Slave.c"
+#line 32 "Slave.c"
 #line 1 ".\\Include\\ant\\softdevice\\nrf_soc.h"
 
 
@@ -13789,7 +13790,7 @@ uint32_t __svc(SD_PPI_GROUP_GET) sd_ppi_group_get(uint8_t group_num, uint32_t * 
 
 
  
-#line 32 "Slave.c"
+#line 33 "Slave.c"
 #line 1 ".\\Include\\ant\\softdevice\\nrf_sdm.h"
 
 
@@ -13950,7 +13951,7 @@ uint32_t __svc(SD_NRF_SOFTDEVICE_IS_ENABLED) sd_softdevice_is_enabled(uint8_t * 
 
 
  
-#line 33 "Slave.c"
+#line 34 "Slave.c"
 #line 1 ".\\Include\\nrf_delay.h"
 
 
@@ -13982,8 +13983,8 @@ loop
 
 void nrf_delay_ms(uint32_t volatile number_of_ms);
 
-#line 34 "Slave.c"
 #line 35 "Slave.c"
+#line 36 "Slave.c"
 #line 1 ".\\Include\\boards.h"
 
 
@@ -14036,95 +14037,7 @@ void nrf_delay_ms(uint32_t volatile number_of_ms);
 #line 17 ".\\Include\\boards.h"
 #line 26 ".\\Include\\boards.h"
 
-#line 36 "Slave.c"
-
-
-
-
-
-
-
-
-
-
-
-uint8_t recieved_value=0;
-uint8_t button_value=0;
-
-void SetLEDS(uint8_t);
-
-void PrepareLEDS() {
-
-
-		
-	((NRF_GPIO_Type *) 0x50000000UL)->DIR=(uint32_t) ((NRF_GPIO_Type *) 0x50000000UL)->DIR | ((uint32_t)0xFF<<8);
-	
-	
-	SetLEDS(0xFF);
-	nrf_delay_ms(500);
-	SetLEDS(0x00);
-	nrf_delay_ms(500);
-	
-	
- 
-}
-
-void SetLEDS(uint8_t value)
-{
-	uint32_t zeros;
-	uint32_t ones;
-	
-	zeros = 0;
-	ones = ~zeros;
-	
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (ones  & (0x00 << 8));
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (zeros | (value << 8));
-	
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (value<<8);
-}
-
-void BlinkOnce()
-{
-		SetLEDS(255);
-		nrf_delay_ms(50);
-		SetLEDS(0);
-}
-
-void PrepareButtons()
-{
-	uint8_t counter=0;
-	int value = 0;
-	
-	for(counter=0; counter<8; counter++)
-	{
-		value = (16+counter);
-		((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[value] = 0;
-	}
-}
-
-uint8_t ReadButtons()
-{
-	 uint8_t value;
-	 static uint8_t previous;
-	 char string[80];
-
-	 value = ~((( ((NRF_GPIO_Type *) 0x50000000UL)->IN )>> 16) & 0xFF);
-
-	 if(previous != value)
-	 {
-		 sprintf(string, "BUTTONS: 0x%02xh\n", value);
-		 SEGGER_RTT_WriteString(0, string);
-		 previous = value;
-	 }
-	 return value;
-}
-
-void init() {
-	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
-	PrepareLEDS();
-	PrepareButtons();
-	
-}
+#line 37 "Slave.c"
 
 
 
@@ -14144,8 +14057,11 @@ void init() {
 
 
 static uint8_t m_broadcast_data[8u];  
-static uint8_t m_counter = 1u;                                
 
+
+uint8_t recieved_value=0;
+
+void write_hex_value(uint8_t);
 
 
 
@@ -14157,7 +14073,6 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 {
     for (;;)
     {
-        
     }
 }
 
@@ -14167,44 +14082,40 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 
 
 
-
  
-static void ant_channel_master_broadcast_setup(void)
+static void ant_channel_slave_broadcast_setup(void)
 {
     uint32_t err_code;
-    
+
     
     err_code = sd_ant_channel_assign(0x00, 
-                                     ((uint8_t) 0x10), 
+                                     ((uint8_t) 0x00), 
                                      0x00, 
                                      0x00);
-    
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 178, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 91, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
     err_code = sd_ant_channel_id_set(0x00, 
-                                     0x02u, 
-                                     0x02u, 
-                                     0x01u);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 185, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+                                     0x00, 
+                                     0x00, 
+                                     0x00);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 98, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
     err_code = sd_ant_channel_open(0x00);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 189, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 102, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 }
 
-static void write_hex_value(uint8_t value){
-						char str[20];
-						int count;
-							
-						count = sprintf(str, "Value: 0x%02xh\n", value);
-						if(count == 0 )
-						{
-							SEGGER_RTT_WriteString(0, "Couldnt write to string.\n");
-						}
-						else {
-							SEGGER_RTT_WriteString(0, str);
-						}
+static void send_reverse_data() {
+            uint32_t err_code;
+
+            m_broadcast_data[8u - 1] = recieved_value;
+            
+            
+            err_code = sd_ant_broadcast_message_tx(0x00, 
+                                                   8u, 
+                                                   m_broadcast_data);
+            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 114, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 }
 
 
@@ -14217,25 +14128,17 @@ static void channel_event_handle_transmit(uint32_t event)
     
     switch (event)
     {
-        
-        
         case ((uint8_t)0x03):
             
-            m_broadcast_data[8u - 1] = ReadButtons();
+            m_broadcast_data[8u - 1] = recieved_value;
             
             
             err_code = sd_ant_broadcast_message_tx(0x00, 
                                                    8u, 
                                                    m_broadcast_data);
-            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 226, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 135, (uint8_t*) "Slave.c"); } while (0); } } while (0);
             
-            
-            m_counter++;
-            
-            
-            
-            
-            
+						
             break;
 
         default:
@@ -14254,11 +14157,11 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 				case ((uint8_t)0x4E):    
 						
 						recieved_value=p_event_message_buffer[10];
-
-
-						
-						
-						
+						send_reverse_data();
+				
+						nrf_gpio_pin_set(8);
+						nrf_delay_ms(20);
+						nrf_gpio_pin_clear(8);
 						break;
 						
 				default:      
@@ -14287,11 +14190,9 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
 {
     for (;;)
     {
-        
 				SEGGER_RTT_WriteString(0, "Assert callback.\n");
     }
 }
-
 
 
  
@@ -14299,71 +14200,43 @@ void HardFault_Handler(void)
 {
     for (;;)
     {
-        
 				SEGGER_RTT_WriteString(0, "Hard fault occured\n");
     }
 }
 
 
-  
+ 
 int main(void)
-{    
-	
-		init();
+{
     
-    static uint8_t event_message_buffer[32u];
-    
-    
-    
-
-    
-    
-    
+    static uint8_t event_message_buffer[32u]; 
+      
     
     uint32_t err_code;
     err_code = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_XTAL_50_PPM, softdevice_assert_callback);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 321, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 213, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
     err_code = sd_nvic_SetPriority(SWI3_IRQn, NRF_APP_PRIORITY_LOW); 
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 325, (uint8_t*) "Slave.c"); } while (0); } } while (0);
-  
-    
-    err_code = sd_nvic_EnableIRQ(SWI3_IRQn);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 329, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 217, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
-    ant_channel_master_broadcast_setup();
+    err_code = sd_nvic_EnableIRQ(SWI3_IRQn);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 221, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+
     
-    
-    
-    
-    m_broadcast_data[8u - 1] = ReadButtons();
-  
-    
-    
-    err_code = sd_ant_broadcast_message_tx(0x00, 8u, m_broadcast_data);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 342, (uint8_t*) "Slave.c"); } while (0); } } while (0);
-  
-    
-    
-    
+    ant_channel_slave_broadcast_setup();
+ 
     uint8_t event;
     uint8_t ant_channel;
-  	  
+  
     
     for (;;)
     {   
         
-        
-        
-        
         err_code = sd_app_event_wait();
-        do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 358, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+        do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 234, (uint8_t*) "Slave.c"); } while (0); } } while (0);
         
-        
-        
-    
         
         do
         {
@@ -14374,19 +14247,14 @@ int main(void)
                 
                 switch (event)
                 {
-                    case ((uint8_t)0x03):
-												channel_event_handle_transmit(event);
-												
-												
-												
-                        break;
+										case ((uint8_t)0x03):
+                        channel_event_handle_transmit(event);
 
-                    case ((uint8_t)0x80):				
+                        break;
+                    case ((uint8_t)0x80):
                         channel_event_handle_recieve(event_message_buffer);
-											  SetLEDS(recieved_value);
-												SEGGER_RTT_WriteString(0, "Receiving.\n");
-                        break;
 
+                        break;
                     default:
                         break;
                 }

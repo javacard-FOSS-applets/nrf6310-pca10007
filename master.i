@@ -14048,94 +14048,6 @@ void nrf_delay_ms(uint32_t volatile number_of_ms);
 
 
 
-uint8_t recieved_value=0;
-uint8_t button_value=0;
-
-void SetLEDS(uint8_t);
-
-void PrepareLEDS() {
-
-
-		
-	((NRF_GPIO_Type *) 0x50000000UL)->DIR=(uint32_t) ((NRF_GPIO_Type *) 0x50000000UL)->DIR | ((uint32_t)0xFF<<8);
-	
-	
-	SetLEDS(0xFF);
-	nrf_delay_ms(500);
-	SetLEDS(0x00);
-	nrf_delay_ms(500);
-	
-	
- 
-}
-
-void SetLEDS(uint8_t value)
-{
-	uint32_t zeros;
-	uint32_t ones;
-	
-	zeros = 0;
-	ones = ~zeros;
-	
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (ones  & (0x00 << 8));
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (zeros | (value << 8));
-	
-	((NRF_GPIO_Type *) 0x50000000UL)->OUT = (value<<8);
-}
-
-void BlinkOnce()
-{
-		SetLEDS(255);
-		nrf_delay_ms(50);
-		SetLEDS(0);
-}
-
-void PrepareButtons()
-{
-	uint8_t counter=0;
-	int value = 0;
-	
-	for(counter=0; counter<8; counter++)
-	{
-		value = (16+counter);
-		((NRF_GPIO_Type *) 0x50000000UL)->PIN_CNF[value] = 0;
-	}
-}
-
-uint8_t ReadButtons()
-{
-	 uint8_t value;
-	 static uint8_t previous;
-	 char string[80];
-
-	 value = ~((( ((NRF_GPIO_Type *) 0x50000000UL)->IN )>> 16) & 0xFF);
-
-	 if(previous != value)
-	 {
-		 sprintf(string, "BUTTONS: 0x%02xh\n", value);
-		 SEGGER_RTT_WriteString(0, string);
-		 previous = value;
-	 }
-	 return value;
-}
-
-void init() {
-	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
-	PrepareLEDS();
-	PrepareButtons();
-	
-}
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -14144,8 +14056,18 @@ void init() {
 
 
 static uint8_t m_broadcast_data[8u];  
-static uint8_t m_counter = 1u;                                
 
+
+uint8_t recieved_value=0;
+
+
+
+void init(void);
+void SetLEDS(uint8_t);
+void BlinkLEDS(uint8_t);
+uint8_t ReadButtons(void);
+int AddMessage(uint8_t*);
+void write_hex_value(uint8_t value);
 
 
 
@@ -14157,7 +14079,6 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 {
     for (;;)
     {
-        
     }
 }
 
@@ -14179,33 +14100,20 @@ static void ant_channel_master_broadcast_setup(void)
                                      0x00, 
                                      0x00);
     
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 178, (uint8_t*) "Master.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 99, (uint8_t*) "Master.c"); } while (0); } } while (0);
 
     
     err_code = sd_ant_channel_id_set(0x00, 
                                      0x02u, 
                                      0x02u, 
                                      0x01u);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 185, (uint8_t*) "Master.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 106, (uint8_t*) "Master.c"); } while (0); } } while (0);
 
     
     err_code = sd_ant_channel_open(0x00);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 189, (uint8_t*) "Master.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 110, (uint8_t*) "Master.c"); } while (0); } } while (0);
 }
 
-static void write_hex_value(uint8_t value){
-						char str[20];
-						int count;
-							
-						count = sprintf(str, "Value: 0x%02xh\n", value);
-						if(count == 0 )
-						{
-							SEGGER_RTT_WriteString(0, "Couldnt write to string.\n");
-						}
-						else {
-							SEGGER_RTT_WriteString(0, str);
-						}
-}
 
 
 
@@ -14227,15 +14135,7 @@ static void channel_event_handle_transmit(uint32_t event)
             err_code = sd_ant_broadcast_message_tx(0x00, 
                                                    8u, 
                                                    m_broadcast_data);
-            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 226, (uint8_t*) "Master.c"); } while (0); } } while (0);
-            
-            
-            m_counter++;
-            
-            
-            
-            
-            
+            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 134, (uint8_t*) "Master.c"); } while (0); } } while (0);
             break;
 
         default:
@@ -14252,13 +14152,8 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 			switch (p_event_message_buffer[1u])
 			{
 				case ((uint8_t)0x4E):    
-						
 						recieved_value=p_event_message_buffer[10];
-
-
-						
-						
-						
+						AddMessage(p_event_message_buffer);
 						break;
 						
 				default:      
@@ -14274,7 +14169,6 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
  
 void (SWI3_IRQHandler)(void)
 {
-
 }
 
 
@@ -14287,50 +14181,36 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
 {
     for (;;)
     {
-        
 				SEGGER_RTT_WriteString(0, "Assert callback.\n");
     }
 }
 
 
-
- 
 void HardFault_Handler(void)
 {
     for (;;)
     {
-        
 				SEGGER_RTT_WriteString(0, "Hard fault occured\n");
     }
 }
 
-
-  
 int main(void)
 {    
-	
 		init();
-    
     static uint8_t event_message_buffer[32u];
-    
-    
-    
 
-    
-    
-    
     
     uint32_t err_code;
     err_code = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_XTAL_50_PPM, softdevice_assert_callback);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 321, (uint8_t*) "Master.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 201, (uint8_t*) "Master.c"); } while (0); } } while (0);
 
     
     err_code = sd_nvic_SetPriority(SWI3_IRQn, NRF_APP_PRIORITY_LOW); 
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 325, (uint8_t*) "Master.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 205, (uint8_t*) "Master.c"); } while (0); } } while (0);
   
     
     err_code = sd_nvic_EnableIRQ(SWI3_IRQn);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 329, (uint8_t*) "Master.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 209, (uint8_t*) "Master.c"); } while (0); } } while (0);
 
     
     ant_channel_master_broadcast_setup();
@@ -14343,26 +14223,22 @@ int main(void)
     
     
     err_code = sd_ant_broadcast_message_tx(0x00, 8u, m_broadcast_data);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 342, (uint8_t*) "Master.c"); } while (0); } } while (0);
+		
+		
+		
+    
+		do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 226, (uint8_t*) "Master.c"); } while (0); } } while (0);
   
-    
-    
-    
+  	BlinkLEDS(2);
+		
     uint8_t event;
     uint8_t ant_channel;
   	  
-    
     for (;;)
     {   
         
-        
-        
-        
         err_code = sd_app_event_wait();
-        do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 358, (uint8_t*) "Master.c"); } while (0); } } while (0);
-        
-        
-        
+        do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 237, (uint8_t*) "Master.c"); } while (0); } } while (0);
     
         
         do
@@ -14376,16 +14252,17 @@ int main(void)
                 {
                     case ((uint8_t)0x03):
 												channel_event_handle_transmit(event);
-												
-												
-												
                         break;
 
                     case ((uint8_t)0x80):				
                         channel_event_handle_recieve(event_message_buffer);
 											  SetLEDS(recieved_value);
-												SEGGER_RTT_WriteString(0, "Receiving.\n");
+												
                         break;
+										
+													
+										
+										
 
                     default:
                         break;

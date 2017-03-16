@@ -1,10 +1,12 @@
 --cpu Cortex-M0
-".\arm_startup_nrf51.o"
-".\system_nrf51.o"
-".\segger_rtt.o"
 ".\nrf_delay.o"
-".\main.o"
+".\arm_startup_nrf51.o"
+".\system_nrf51422.o"
+".\segger_rtt.o"
+".\functions.o"
+".\segmenter.o"
 ".\mbr.o"
+".\master.o"
 --strict --scatter ".\ant_temp.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
