@@ -46,7 +46,7 @@ I (C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.h)(0x57F3A9FA)
 I (C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT_Conf.h)(0x57F3A9FA)
 I (.\Include\compiler_abstraction.h)(0x5277BE52)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x574EA096)
-F (.\functions.c)(0x58CAA494)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\functions.o --omf_browse .\functions.crf --depend .\functions.d)
+F (.\functions.c)(0x58CB1D07)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\functions.o --omf_browse .\functions.crf --depend .\functions.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x574EA096)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x574EA096)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574EA096)
@@ -77,7 +77,37 @@ I (.\Include\ant\softdevice\nrf_error_sdm.h)(0x5113A30E)
 I (.\Include\nrf_delay.h)(0x5277BE52)
 I (.\Include\boards.h)(0x5277BE54)
 I (.\Include\boards/nrf6310.h)(0x5277BE50)
-F (.\main.c)(0x58CAA4EA)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+F (.\Segmenter.c)(0x58CB2317)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\segmenter.o --omf_browse .\segmenter.crf --depend .\segmenter.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x574EA096)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x574EA096)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574EA096)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x574EA096)
+I (.\Include\nrf51.h)(0x52725D1A)
+I (.\Include\gcc\core_cm0.h)(0x5277BE52)
+I (.\Include\gcc\core_cmInstr.h)(0x5277BE52)
+I (.\Include\gcc\core_cmFunc.h)(0x5277BE52)
+I (.\Include\system_nrf51.h)(0x52725D1C)
+I (C:\Keil_v5\ARM\Device\Nordic\nRF51422\Include\nrf51422_peripherals.h)(0x57EE7442)
+I (.\Include\nrf51_bitfields.h)(0x52725D1A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x574EA096)
+I (.\Include\nrf_gpio.h)(0x5277BE52)
+I (C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.h)(0x57F3A9FA)
+I (C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT_Conf.h)(0x57F3A9FA)
+I (.\Include\compiler_abstraction.h)(0x5277BE52)
+I (.\Include\nrf_temp.h)(0x5277BE54)
+I (.\Include\app_common\app_error.h)(0x5277BE52)
+I (.\Include\ant\softdevice\nrf_error.h)(0x5113A30E)
+I (.\Include\nrf.h)(0x52725D1C)
+I (.\Include\nrf51_deprecated.h)(0x52725D1C)
+I (.\Include\ant\softdevice\ant_interface.h)(0x5113A308)
+I (.\Include\ant\softdevice\ant_parameters.h)(0x5113A308)
+I (.\Include\ant\softdevice\nrf_soc.h)(0x5113A30E)
+I (.\Include\ant\softdevice\nrf_error_soc.h)(0x5113A30E)
+I (.\Include\ant\softdevice\nrf_sdm.h)(0x5113A30E)
+I (.\Include\ant\softdevice\nrf_error_sdm.h)(0x5113A30E)
+I (.\Include\boards.h)(0x5277BE54)
+I (.\Include\boards/nrf6310.h)(0x5277BE50)
+F (.\main.c)(0x58CAD900)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\main.o --omf_browse .\main.crf --depend .\main.d)
 I (.\Include\nrf51.h)(0x52725D1A)
 I (.\Include\gcc\core_cm0.h)(0x5277BE52)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574EA096)
@@ -100,7 +130,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x574EA096)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x574EA096)
 F (.\mbr.a)(0x58403E4B)(--cpu Cortex-M0 --li --pd "__EVAL SETA 1" -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include--pd "__UVISION_VERSION SETA 521"--list .\mbr.lst --xref -o .\mbr.o --depend .\mbr.d)
 F (..\..\..\components\drivers_nrf\hal\nrf_gpio.h)(0x57F3A9F8)()
-F (.\Master.c)(0x58CAC9DF)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\master.o --omf_browse .\master.crf --depend .\master.d)
+F (.\Master.c)(0x58CB240A)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\master.o --omf_browse .\master.crf --depend .\master.d)
 I (.\Include\nrf51.h)(0x52725D1A)
 I (.\Include\gcc\core_cm0.h)(0x5277BE52)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574EA096)
@@ -131,7 +161,7 @@ I (.\Include\ant\softdevice\nrf_error_sdm.h)(0x5113A30E)
 I (.\Include\nrf_delay.h)(0x5277BE52)
 I (.\Include\boards.h)(0x5277BE54)
 I (.\Include\boards/nrf6310.h)(0x5277BE50)
-F (.\Slave.c)(0x58CACDD0)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\slave.o --omf_browse .\slave.crf --depend .\slave.d)
+F (.\Slave.c)(0x58CB2616)(--c99 -c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I .\Include -I .\Include\ant\softdevice -I .\Include\app_common -I .\Include\gcc -I C:\components\toolchain\arm -I C:\components\drivers_nrf\hal -I C:\components\drivers_nrf\delay -I C:\components\toolchain\ -I C:\components\toolchain\cmsis -I C:\components\toolchain\cmsis\include -I "C:\Nordic Semiconductor\external\segger_rtt"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\Device\Nordic\nRF51422\Include-D__UVISION_VERSION="521" -DNRF51 -DBOARD_NRF6310 -DSOFTDEVICE_PRESENT -DANT_STACK_SUPPORT_REQD -DENABLE_DEBUG_LOG_SUPPORT -DS210 -DBOARD_PCA10007-o .\slave.o --omf_browse .\slave.crf --depend .\slave.d)
 I (C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.h)(0x57F3A9FA)
 I (C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT_Conf.h)(0x57F3A9FA)
 I (.\Include\compiler_abstraction.h)(0x5277BE52)

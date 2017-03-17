@@ -14061,7 +14061,10 @@ static uint8_t m_broadcast_data[8u];
 
 uint8_t recieved_value=0;
 
+
+
 void write_hex_value(uint8_t);
+void write_one_hex_value(uint8_t);
 
 
 
@@ -14092,30 +14095,35 @@ static void ant_channel_slave_broadcast_setup(void)
                                      ((uint8_t) 0x00), 
                                      0x00, 
                                      0x00);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 91, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 94, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
     err_code = sd_ant_channel_id_set(0x00, 
                                      0x00, 
                                      0x00, 
                                      0x00);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 98, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 101, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
     err_code = sd_ant_channel_open(0x00);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 102, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 105, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 }
 
 static void send_reverse_data() {
             uint32_t err_code;
 
-            m_broadcast_data[8u - 1] = recieved_value;
+            m_broadcast_data[2] = recieved_value; 
             
             
             err_code = sd_ant_broadcast_message_tx(0x00, 
                                                    8u, 
                                                    m_broadcast_data);
-            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 114, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 117, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+	
+						
+
+
+ 
 }
 
 
@@ -14130,17 +14138,16 @@ static void channel_event_handle_transmit(uint32_t event)
     {
         case ((uint8_t)0x03):
             
-            m_broadcast_data[8u - 1] = recieved_value;
+            m_broadcast_data[2] = recieved_value; 
             
             
             err_code = sd_ant_broadcast_message_tx(0x00, 
                                                    8u, 
                                                    m_broadcast_data);
-            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 135, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+            do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 143, (uint8_t*) "Slave.c"); } while (0); } } while (0);
             
-						
+			
             break;
-
         default:
             break;
     }
@@ -14155,13 +14162,13 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 			switch (p_event_message_buffer[1u])
 			{
 				case ((uint8_t)0x4E):    
-						
-						recieved_value=p_event_message_buffer[10];
+						recieved_value=p_event_message_buffer[5];
 						send_reverse_data();
-				
-						nrf_gpio_pin_set(8);
-						nrf_delay_ms(20);
-						nrf_gpio_pin_clear(8);
+							
+						
+
+
+ 
 						break;
 						
 				default:      
@@ -14214,15 +14221,15 @@ int main(void)
     
     uint32_t err_code;
     err_code = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_XTAL_50_PPM, softdevice_assert_callback);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 213, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 220, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
     err_code = sd_nvic_SetPriority(SWI3_IRQn, NRF_APP_PRIORITY_LOW); 
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 217, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 224, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
     err_code = sd_nvic_EnableIRQ(SWI3_IRQn);
-    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 221, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+    do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 228, (uint8_t*) "Slave.c"); } while (0); } } while (0);
 
     
     ant_channel_slave_broadcast_setup();
@@ -14235,7 +14242,7 @@ int main(void)
     {   
         
         err_code = sd_app_event_wait();
-        do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 234, (uint8_t*) "Slave.c"); } while (0); } } while (0);
+        do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 241, (uint8_t*) "Slave.c"); } while (0); } } while (0);
         
         
         do
@@ -14247,7 +14254,7 @@ int main(void)
                 
                 switch (event)
                 {
-										case ((uint8_t)0x03):
+					case ((uint8_t)0x03):
                         channel_event_handle_transmit(event);
 
                         break;

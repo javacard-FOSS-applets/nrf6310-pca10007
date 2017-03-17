@@ -60,6 +60,7 @@ uint8_t recieved_value=0;
 #define DEVICEID 0xaaaa
 
 void write_hex_value(uint8_t);
+void write_one_hex_value(uint8_t);
 
 /**@brief Function for handling an error. 
  *
@@ -107,13 +108,18 @@ static void ant_channel_slave_broadcast_setup(void)
 static void send_reverse_data() {
             uint32_t err_code;
 
-            m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE - 1] = recieved_value;
+            m_broadcast_data[2] = recieved_value; //this does the job
             
             // Broadcast the data. 
             err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
                                                    BROADCAST_DATA_BUFFER_SIZE, 
                                                    m_broadcast_data);
             APP_ERROR_CHECK(err_code);
+	
+						/*SEGGER_RTT_WriteString(0, "Sending values:");
+						for(uint16_t i=0; i<8; i++)
+							write_one_hex_value(m_broadcast_data[i]);
+						SEGGER_RTT_WriteString(0, "\n");*/
 }
 
 /**@brief Function for handling ANT TX channel events. 
@@ -128,7 +134,7 @@ static void channel_event_handle_transmit(uint32_t event)
     {
         case EVENT_TX:
             // Assign a new value to the broadcast data. 
-            m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE - 1] = recieved_value;
+            m_broadcast_data[2] = recieved_value; //BROADCAST_DATA_BUFFER_SIZE - 1
             
             // Broadcast the data. 
             err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
@@ -136,9 +142,8 @@ static void channel_event_handle_transmit(uint32_t event)
                                                    m_broadcast_data);
             APP_ERROR_CHECK(err_code);
             
-						//SEGGER_RTT_WriteString(0, "Sending2.\n");
+			//SEGGER_RTT_WriteString(0, "Sending2.\n");
             break;
-
         default:
             break;
     }
@@ -153,13 +158,13 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 			switch (p_event_message_buffer[ANT_MSG_IDX_ID])
 			{
 				case MESG_BROADCAST_DATA_ID:    
-						// Activate LED for 20 ms.
-						recieved_value=p_event_message_buffer[10];
+						recieved_value=p_event_message_buffer[5];
 						send_reverse_data();
-				
-						nrf_gpio_pin_set(LED0);
-						nrf_delay_ms(20);
-						nrf_gpio_pin_clear(LED0);
+							
+						/*SEGGER_RTT_WriteString(0, "Recieved values:");
+						for(uint16_t i=0; i<12; i++)
+							write_one_hex_value(p_event_message_buffer[i]);			
+						SEGGER_RTT_WriteString(0, "\n");*/
 						break;
 						
 				default:      
@@ -245,7 +250,7 @@ int main(void)
                 // Handle event.
                 switch (event)
                 {
-										case EVENT_TX:
+					case EVENT_TX:
                         channel_event_handle_transmit(event);
 //												SEGGER_RTT_WriteString(0, "Sending1.\n");
                         break;

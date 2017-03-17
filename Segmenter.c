@@ -3,9 +3,32 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define SYNC 		1
-#define MSGLNG 	1
-#define MSGID 	1
+#include "nrf51.h"
+
+#include "nrf51422_peripherals.h"
+#include "nrf51_bitfields.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "nrf_gpio.h"
+#include "SEGGER_RTT.h"
+#include "nrf_temp.h"
+#include <stdio.h>
+
+#include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
+#include "app_error.h"
+#include "nrf.h"
+#include "ant_interface.h"
+#include "ant_parameters.h"
+#include "nrf_soc.h"
+#include "nrf_sdm.h"
+#include "nrf_gpio.h"
+#include "boards.h"
+
+#define H_SYNC 		0x01
+#define H_MSGLNG 	0x01
+#define H_MSGID 	0x01
 
 typedef struct {
 	uint16_t length;
@@ -17,20 +40,16 @@ typedef struct {
 MessageBuffer transmit;
 MessageBuffer recieve;
 
-#define SYNC 	1
-#define MSGLNG 	1
-#define MSGID 	1
-
-void HandleMessage(MessageBuffer recievee) {
-	recievee.count=0;
-}
+//void HandleMessage(MessageBuffer recievee) {
+//	recievee.count=0;
+//}
 
 uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	uint16_t segment_start;
 	uint16_t segment_end;
 	
-	segment_start = p_event_message_buffer[SYNC+MSGLNG+MSGID];
-	segment_end = p_event_message_buffer[SYNC+MSGLNG+MSGID+1];
+	segment_start = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID];
+	segment_end = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+1];
 	
 	if(segment_end<segment_start)
 		segment_end+=255;
@@ -41,7 +60,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 
 	for(int i=0; i<6 && count--; i++)
 	{
-		recieve.message[recieve.count++] = p_event_message_buffer[SYNC+MSGLNG+MSGID+i+2];
+		recieve.message[recieve.count++] = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+i+2];
 		thisCount++;
 	}
 	
@@ -55,7 +74,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 			//spracuj message
 			//data ready
 			recieve.ready=1;
-			HandleMessage(recieve);
+//			HandleMessage(recieve);
 			recieve.count=0;
 			return 1;
 		}
@@ -68,6 +87,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	return 0;
 }
 
+/*
 uint8_t message1[] ={	0xaa, 0x08, 0x01,
 						0x00, 0x06,
 							0x00, 0x01, 0x02, 0x03, 0x04, 0x05,
@@ -114,36 +134,36 @@ uint8_t sender[]= {0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0
 uint8_t sender2[]= {0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0xff,
 				   0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0xff};
 
+*/
 
+static uint8_t send_counter=0;
 
-uint8_t send_counter=0;
-void FillSendData(uint16_t count, uint8_t * message) {
+void FillSendData(uint16_t count, uint8_t* message) {
+	transmit.ready=0;
+	transmit.count=0;
 	transmit.length=count;
 
-	for(int i=0; i<count; i++) {
+	for(uint16_t i=0; i<count; i++) {
 		transmit.message[i]=message[i];
 	}
-
-	transmit.count=0;
-	transmit.ready=0;
 }
 
-void SendData(){
-	uint8_t buffer[12];
+void SendData(uint8_t* messagebuffer){
+	//uint8_t buffer[12];
 	
-	buffer[SYNC+MSGLNG+MSGID]=send_counter;
-	buffer[SYNC+MSGLNG+MSGID+1]=send_counter + transmit.length - transmit.count;
+	messagebuffer[0]=send_counter;
+	messagebuffer[1]=send_counter + transmit.length - transmit.count;
 	
 	if(transmit.length==0 && transmit.count==0)
 	{
-		buffer[SYNC+MSGLNG+MSGID+2]=0;
+		messagebuffer[H_SYNC+H_MSGLNG+H_MSGID+2]=0; 
 		send_counter++;
 	}
 	else
 	{
 		for(int i=0; i<6 && transmit.count<transmit.length; i++)
 		{
-			buffer[SYNC+MSGLNG+MSGID+2+i] = transmit.message[transmit.count++];
+			messagebuffer[2+i] = transmit.message[transmit.count++];
 			send_counter++;
 		}
 	}
@@ -153,14 +173,15 @@ void SendData(){
 		transmit.count=0;
 		transmit.length=0;
 		transmit.ready=1;
+		SEGGER_RTT_WriteString(0, "Finishing.\n");
 	}
 	else
 	{
 		transmit.ready=0;
+		SEGGER_RTT_WriteString(0, "Fragmenting.\n");
 	}
 
-
-	AddMessage(buffer);
+	//AddMessage(buffer);
 }
 
 /*

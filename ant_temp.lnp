@@ -6,7 +6,7 @@
 ".\functions.o"
 ".\segmenter.o"
 ".\mbr.o"
-".\master.o"
+".\slave.o"
 --strict --scatter ".\ant_temp.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

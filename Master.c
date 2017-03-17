@@ -64,6 +64,7 @@ void BlinkLEDS(uint8_t);
 uint8_t ReadButtons(void);
 int AddMessage(uint8_t*);
 void write_hex_value(uint8_t value);
+void write_one_hex_value(uint8_t value);
 
 /**@brief Function for handling an error. 
  *
@@ -115,6 +116,20 @@ static void ant_channel_master_broadcast_setup(void)
  *
  * @param[in] event The received ANT event to handle.
  */
+
+uint8_t* SendData(uint8_t*);
+void FillSendData(uint16_t, uint8_t*);
+
+typedef struct {
+	uint16_t length;
+	uint8_t count;
+	uint8_t message[64];
+	uint8_t ready;
+} MessageBuffer;
+
+extern MessageBuffer transmit;
+extern uint8_t dataready;
+
 static void channel_event_handle_transmit(uint32_t event)
 {
     uint32_t err_code;
@@ -125,15 +140,32 @@ static void channel_event_handle_transmit(uint32_t event)
         // Send a new broadcast and increment the counter.
         case EVENT_TX:
             // Assign a new value to the broadcast data. 
-            m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE - 1] = ReadButtons();
             
+						ReadButtons();
+						if(dataready==1 && transmit.ready==1){
+							uint8_t message[1];
+							message[0] = ReadButtons();
+							FillSendData(1, message);
+							SEGGER_RTT_WriteString(0, "Event.\n");
+							dataready=0; //!!!!
+						}
+						else
+						{
+							SEGGER_RTT_WriteString(0, "Sending empty.\n");
+						}
+							
+				
+						SendData(m_broadcast_data);
+					
             // Broadcast the data. 
             err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
                                                    BROADCAST_DATA_BUFFER_SIZE, 
                                                    m_broadcast_data);
-            APP_ERROR_CHECK(err_code);
-            break;
+            APP_ERROR_CHECK(err_code);						
+						break;
 
+						
+						
         default:
             break;
     }
@@ -148,8 +180,12 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 			switch (p_event_message_buffer[ANT_MSG_IDX_ID])
 			{
 				case MESG_BROADCAST_DATA_ID:    
-						recieved_value=p_event_message_buffer[10];
-						AddMessage(p_event_message_buffer);
+						recieved_value=p_event_message_buffer[5];
+						//AddMessage(p_event_message_buffer);
+						SEGGER_RTT_WriteString(0, "Recieved values:");
+						for(uint16_t i=0; i<12; i++)
+							write_one_hex_value(p_event_message_buffer[i]);
+						SEGGER_RTT_WriteString(0, "\n");
 						break;
 						
 				default:      

@@ -514,6 +514,11 @@
               <FilePath>.\functions.c</FilePath>
             </File>
             <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
@@ -1181,6 +1186,11 @@
               <FileName>functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -1852,6 +1862,11 @@
               <FilePath>.\functions.c</FilePath>
             </File>
             <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
@@ -2489,6 +2504,11 @@
               <FileName>functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
