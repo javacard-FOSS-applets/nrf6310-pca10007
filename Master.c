@@ -54,17 +54,36 @@
 static uint8_t m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE]; /**< Primary data transmit buffer. */
 //static uint8_t m_counter = 1u;                               /**< Counter to increment the ANT broadcast data payload. */
 
-uint8_t recieved_value=0;
 
 #define DEVICEID 0xffff
 
 void init(void);
+
 void SetLEDS(uint8_t);
 void BlinkLEDS(uint8_t);
 uint8_t ReadButtons(void);
-int AddMessage(uint8_t*);
+
 void write_hex_value(uint8_t value);
 void write_one_hex_value(uint8_t value);
+
+int AddMessage(uint8_t*);
+
+uint8_t* SendData(uint8_t*);
+void FillSendData(uint16_t, uint8_t*);
+
+uint8_t recieved_value=0;
+
+typedef struct {
+	uint16_t length;
+	uint8_t count;
+	uint8_t message[64];
+	uint8_t ready;
+} MessageBuffer;
+
+extern MessageBuffer transmit;
+extern uint8_t dataready;
+
+
 
 /**@brief Function for handling an error. 
  *
@@ -117,18 +136,6 @@ static void ant_channel_master_broadcast_setup(void)
  * @param[in] event The received ANT event to handle.
  */
 
-uint8_t* SendData(uint8_t*);
-void FillSendData(uint16_t, uint8_t*);
-
-typedef struct {
-	uint16_t length;
-	uint8_t count;
-	uint8_t message[64];
-	uint8_t ready;
-} MessageBuffer;
-
-extern MessageBuffer transmit;
-extern uint8_t dataready;
 
 static void channel_event_handle_transmit(uint32_t event)
 {
@@ -136,8 +143,6 @@ static void channel_event_handle_transmit(uint32_t event)
     
     switch (event)
     {
-        // ANT broadcast success.
-        // Send a new broadcast and increment the counter.
         case EVENT_TX:
             // Assign a new value to the broadcast data. 
             
@@ -177,15 +182,28 @@ static void channel_event_handle_transmit(uint32_t event)
  */
 static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)        
 {
+		uint8_t success=0;
+	
 			switch (p_event_message_buffer[ANT_MSG_IDX_ID])
 			{
 				case MESG_BROADCAST_DATA_ID:    
-						recieved_value=p_event_message_buffer[5];
-						//AddMessage(p_event_message_buffer);
+						//recieved_value=p_event_message_buffer[5];
+						
+						success = AddMessage(p_event_message_buffer);	
+						
+						if(success==1){
+							SEGGER_RTT_WriteString(0, "Recieve SUCCESS\n");
+							recieved_value=p_event_message_buffer[5];
+						}
+						else {
+							SEGGER_RTT_WriteString(0, "Recieved EMPTY\n");
+						}
+						
 						SEGGER_RTT_WriteString(0, "Recieved values:");
 						for(uint16_t i=0; i<12; i++)
 							write_one_hex_value(p_event_message_buffer[i]);
 						SEGGER_RTT_WriteString(0, "\n");
+				
 						break;
 						
 				default:      

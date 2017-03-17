@@ -73,6 +73,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 		if(recieve.count!=0) {
 			//spracuj message
 			//data ready
+			
 			recieve.ready=1;
 //			HandleMessage(recieve);
 			recieve.count=0;

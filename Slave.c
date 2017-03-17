@@ -62,6 +62,24 @@ uint8_t recieved_value=0;
 void write_hex_value(uint8_t);
 void write_one_hex_value(uint8_t);
 
+void write_hex_value(uint8_t value);
+void write_one_hex_value(uint8_t value);
+
+int AddMessage(uint8_t*);
+
+uint8_t* SendData(uint8_t*);
+void FillSendData(uint16_t, uint8_t*);
+
+typedef struct {
+	uint16_t length;
+	uint8_t count;
+	uint8_t message[64];
+	uint8_t ready;
+} MessageBuffer;
+
+extern MessageBuffer transmit;
+extern uint8_t dataready;
+
 /**@brief Function for handling an error. 
  *
  * @param[in] error_code  Error code supplied to the handler.
@@ -109,7 +127,21 @@ static void send_reverse_data() {
             uint32_t err_code;
 
             m_broadcast_data[2] = recieved_value; //this does the job
-            
+						
+						if(dataready==1 && transmit.ready==1){
+							uint8_t message[1];
+							message[0] = recieved_value;
+							FillSendData(1, message);
+							SEGGER_RTT_WriteString(0, "Event.\n");
+							dataready=0; //!!!!
+						}
+						else
+						{
+							SEGGER_RTT_WriteString(0, "Sending empty.\n");
+						}
+	
+						SendData(m_broadcast_data);
+						
             // Broadcast the data. 
             err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
                                                    BROADCAST_DATA_BUFFER_SIZE, 
@@ -133,14 +165,15 @@ static void channel_event_handle_transmit(uint32_t event)
     switch (event)
     {
         case EVENT_TX:
-            // Assign a new value to the broadcast data. 
+            /*// Assign a new value to the broadcast data. 
             m_broadcast_data[2] = recieved_value; //BROADCAST_DATA_BUFFER_SIZE - 1
             
             // Broadcast the data. 
             err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
                                                    BROADCAST_DATA_BUFFER_SIZE, 
                                                    m_broadcast_data);
-            APP_ERROR_CHECK(err_code);
+            APP_ERROR_CHECK(err_code);*/
+						send_reverse_data();
             
 			//SEGGER_RTT_WriteString(0, "Sending2.\n");
             break;
@@ -155,12 +188,22 @@ static void channel_event_handle_transmit(uint32_t event)
  */
 static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)        
 {
+	uint8_t success=0;
 			switch (p_event_message_buffer[ANT_MSG_IDX_ID])
 			{
 				case MESG_BROADCAST_DATA_ID:    
-						recieved_value=p_event_message_buffer[5];
-						send_reverse_data();
-							
+						success = AddMessage(p_event_message_buffer);	
+						
+						if(success==1){
+							//SEGGER_RTT_WriteString(0, "Recieve SUCCESS\n");
+							recieved_value=p_event_message_buffer[5];
+							dataready=1;
+							send_reverse_data();
+						}
+						else {
+							//SEGGER_RTT_WriteString(0, "Recieved EMPTY\n");
+						}
+						
 						/*SEGGER_RTT_WriteString(0, "Recieved values:");
 						for(uint16_t i=0; i<12; i++)
 							write_one_hex_value(p_event_message_buffer[i]);			
