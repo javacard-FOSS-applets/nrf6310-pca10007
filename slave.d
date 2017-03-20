@@ -30,3 +30,4 @@
 .\slave.o: .\Include\nrf_delay.h
 .\slave.o: .\Include\boards.h
 .\slave.o: .\Include\boards/nrf6310.h
+.\slave.o: Universal.h

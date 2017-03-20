@@ -30,3 +30,4 @@
 .\functions.o: .\Include\nrf_delay.h
 .\functions.o: .\Include\boards.h
 .\functions.o: .\Include\boards/nrf6310.h
+.\functions.o: Universal.h

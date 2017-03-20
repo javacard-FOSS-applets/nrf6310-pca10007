@@ -13999,9 +13999,15 @@ uint32_t __svc(SD_NRF_SOFTDEVICE_IS_ENABLED) sd_softdevice_is_enabled(uint8_t * 
 
 #line 28 "Segmenter.c"
 
+#line 1 "Universal.h"
+#line 2 "Universal.h"
 
+typedef enum {MSG_EMPTY=0x00,
+							MSG_UNSECURED=0x01,
+							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
+							MSG_HW_SYMM=0x04, MSG_HW_ASYMM=0x05} security_type;
 
-
+							
 
 typedef struct {
 	uint16_t length;
@@ -14009,6 +14015,49 @@ typedef struct {
 	uint8_t message[64];
 	uint8_t ready;
 } MessageBuffer;
+
+
+
+
+
+
+
+
+
+
+
+void 			init(void);
+
+void 			SetLEDS(uint8_t);
+void 			BlinkLEDS(uint8_t);
+uint8_t 	ReadButtons(void);
+
+void 			write_hex_value(uint8_t value);
+void			write_one_hex_value(uint8_t value);
+
+uint8_t 	AddMessage(uint8_t*);
+
+void		 	SendData(uint8_t*);
+void 			FillSendData(uint16_t, uint8_t*);
+
+
+void Decode(uint16_t, uint8_t*);
+void EnCode(security_type, uint8_t);
+
+
+extern 		MessageBuffer transmit;
+extern 		MessageBuffer recieve;
+extern 		uint8_t dataready;
+
+extern 		uint8_t recieved_value;
+
+
+
+#line 30 "Segmenter.c"
+
+
+
+
 
 MessageBuffer transmit;
 MessageBuffer recieve;
@@ -14020,6 +14069,8 @@ MessageBuffer recieve;
 uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	uint16_t segment_start;
 	uint16_t segment_end;
+	
+
 	
 	segment_start = p_event_message_buffer[0x01+0x01+0x01];
 	segment_end = p_event_message_buffer[0x01+0x01+0x01+1];
@@ -14035,6 +14086,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	{
 		recieve.message[recieve.count++] = p_event_message_buffer[0x01+0x01+0x01+i+2];
 		thisCount++;
+		recieve.length++;
 	}
 	
 	if( (segment_start + thisCount) == segment_end) {
@@ -14044,6 +14096,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 		}
 			
 		if(recieve.count!=0) {
+			
 			
 			
 			recieve.ready=1;
@@ -14058,6 +14111,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 		return 0;
 	}
 	return 0;
+
 }
 
 

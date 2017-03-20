@@ -26,16 +26,11 @@
 #include "nrf_gpio.h"
 #include "boards.h"
 
+#include "Universal.h"
+
 #define H_SYNC 		0x01
 #define H_MSGLNG 	0x01
 #define H_MSGID 	0x01
-
-typedef struct {
-	uint16_t length;
-	uint8_t count;
-	uint8_t message[64];
-	uint8_t ready;
-} MessageBuffer;
 
 MessageBuffer transmit;
 MessageBuffer recieve;
@@ -47,6 +42,8 @@ MessageBuffer recieve;
 uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	uint16_t segment_start;
 	uint16_t segment_end;
+	
+//	if(!recieve.ready){
 	
 	segment_start = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID];
 	segment_end = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+1];
@@ -62,6 +59,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	{
 		recieve.message[recieve.count++] = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+i+2];
 		thisCount++;
+		recieve.length++;
 	}
 	
 	if( (segment_start + thisCount) == segment_end) {
@@ -86,6 +84,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 		return 0;
 	}
 	return 0;
+//}
 }
 
 /*

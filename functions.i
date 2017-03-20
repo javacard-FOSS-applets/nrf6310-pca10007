@@ -14031,6 +14031,22 @@ void nrf_delay_ms(uint32_t volatile number_of_ms);
 
 #line 29 "functions.c"
 
+#line 1 "Universal.h"
+#line 2 "Universal.h"
+
+typedef enum {MSG_EMPTY=0x00,
+							MSG_UNSECURED=0x01,
+							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
+							MSG_HW_SYMM=0x04, MSG_HW_ASYMM=0x05} security_type;
+
+							
+
+typedef struct {
+	uint16_t length;
+	uint8_t count;
+	uint8_t message[64];
+	uint8_t ready;
+} MessageBuffer;
 
 
 
@@ -14039,6 +14055,37 @@ void nrf_delay_ms(uint32_t volatile number_of_ms);
 
 
 
+
+
+
+void 			init(void);
+
+void 			SetLEDS(uint8_t);
+void 			BlinkLEDS(uint8_t);
+uint8_t 	ReadButtons(void);
+
+void 			write_hex_value(uint8_t value);
+void			write_one_hex_value(uint8_t value);
+
+uint8_t 	AddMessage(uint8_t*);
+
+void		 	SendData(uint8_t*);
+void 			FillSendData(uint16_t, uint8_t*);
+
+
+void Decode(uint16_t, uint8_t*);
+void EnCode(security_type, uint8_t);
+
+
+extern 		MessageBuffer transmit;
+extern 		MessageBuffer recieve;
+extern 		uint8_t dataready;
+
+extern 		uint8_t recieved_value;
+
+
+
+#line 31 "functions.c"
 
 uint8_t button_value=0;
 
@@ -14128,6 +14175,9 @@ void init() {
 	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
 	PrepareLEDS();
 	PrepareButtons();
+	
+	transmit.ready=1;
+	recieve.ready=0;
 	
 }
 

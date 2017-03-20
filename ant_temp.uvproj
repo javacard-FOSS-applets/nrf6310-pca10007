@@ -434,6 +434,11 @@
               <FilePath>.\PSK.h</FilePath>
             </File>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -507,6 +512,11 @@
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
               <FilePath>C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
             </File>
             <File>
               <FileName>functions.c</FileName>
@@ -1108,6 +1118,11 @@
               <FilePath>.\PSK.h</FilePath>
             </File>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -1181,6 +1196,11 @@
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
               <FilePath>C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
             </File>
             <File>
               <FileName>functions.c</FileName>
@@ -1782,6 +1802,11 @@
               <FilePath>.\PSK.h</FilePath>
             </File>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -1855,6 +1880,11 @@
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
               <FilePath>C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
             </File>
             <File>
               <FileName>functions.c</FileName>
@@ -2438,6 +2468,11 @@
               <FilePath>.\PSK.h</FilePath>
             </File>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -2499,6 +2534,11 @@
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
               <FilePath>C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
             </File>
             <File>
               <FileName>functions.c</FileName>

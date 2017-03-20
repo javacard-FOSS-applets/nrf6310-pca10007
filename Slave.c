@@ -35,6 +35,8 @@
 #include "nrf_gpio.h"
 #include "boards.h"
 
+#include "Universal.h"
+
 // Channel configuration. 
 #define CHANNEL_0                       0x00 /**< ANT Channel 0. */
 //#define CHANNEL_0_TX_CHANNEL_PERIOD     8192u                /**< Channel period 4 Hz. */
@@ -59,26 +61,7 @@ uint8_t recieved_value=0;
 
 #define DEVICEID 0xaaaa
 
-void write_hex_value(uint8_t);
-void write_one_hex_value(uint8_t);
 
-void write_hex_value(uint8_t value);
-void write_one_hex_value(uint8_t value);
-
-int AddMessage(uint8_t*);
-
-uint8_t* SendData(uint8_t*);
-void FillSendData(uint16_t, uint8_t*);
-
-typedef struct {
-	uint16_t length;
-	uint8_t count;
-	uint8_t message[64];
-	uint8_t ready;
-} MessageBuffer;
-
-extern MessageBuffer transmit;
-extern uint8_t dataready;
 
 /**@brief Function for handling an error. 
  *
@@ -126,20 +109,29 @@ static void ant_channel_slave_broadcast_setup(void)
 static void send_reverse_data() {
             uint32_t err_code;
 
-            m_broadcast_data[2] = recieved_value; //this does the job
+            //m_broadcast_data[2] = ; //this does the job
+						
+//						SEGGER
+						write_one_hex_value(dataready);
+						write_one_hex_value(transmit.ready);
 						
 						if(dataready==1 && transmit.ready==1){
-							uint8_t message[1];
-							message[0] = recieved_value;
-							FillSendData(1, message);
-							SEGGER_RTT_WriteString(0, "Event.\n");
+							//transmit.ready=0;
+							//uint8_t message[1];
+							//message[0] = recieved_value;
+							//FillSendData(1, message);
+							//SEGGER_RTT_WriteString(0, "Event.\n");
+							
+							EnCode(MSG_UNSECURED, recieved_value);
+							
+							//recieve.length=0;
 							dataready=0; //!!!!
 						}
 						else
 						{
 							SEGGER_RTT_WriteString(0, "Sending empty.\n");
 						}
-	
+
 						SendData(m_broadcast_data);
 						
             // Broadcast the data. 
@@ -148,10 +140,10 @@ static void send_reverse_data() {
                                                    m_broadcast_data);
             APP_ERROR_CHECK(err_code);
 	
-						/*SEGGER_RTT_WriteString(0, "Sending values:");
+						SEGGER_RTT_WriteString(0, "Sending values:");
 						for(uint16_t i=0; i<8; i++)
 							write_one_hex_value(m_broadcast_data[i]);
-						SEGGER_RTT_WriteString(0, "\n");*/
+						SEGGER_RTT_WriteString(0, "\n");
 }
 
 /**@brief Function for handling ANT TX channel events. 
@@ -189,25 +181,38 @@ static void channel_event_handle_transmit(uint32_t event)
 static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)        
 {
 	uint8_t success=0;
-			switch (p_event_message_buffer[ANT_MSG_IDX_ID])
-			{
+	int err_code;
+	
+			switch (p_event_message_buffer[ANT_MSG_IDX_ID]) {
+				
 				case MESG_BROADCAST_DATA_ID:    
+					SEGGER_RTT_WriteString(0, "Recieved values:");
+					for(uint16_t i=0; i<12; i++)
+						write_one_hex_value(p_event_message_buffer[i]);			
+					SEGGER_RTT_WriteString(0, "\n");	
+				
 						success = AddMessage(p_event_message_buffer);	
-						
 						if(success==1){
-							//SEGGER_RTT_WriteString(0, "Recieve SUCCESS\n");
-							recieved_value=p_event_message_buffer[5];
+							SEGGER_RTT_WriteString(0, "Recieve SUCCESS\n");
+							
+							//recieved_value=p_event_message_buffer[5];
+							Decode(recieve.length, recieve.message);
+							
+							recieve.length=0;
 							dataready=1;
-							send_reverse_data();
+							
+							//send_reverse_data();
+							
+							err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
+                                                   BROADCAST_DATA_BUFFER_SIZE, 
+                                                   m_broadcast_data);
+							APP_ERROR_CHECK(err_code);
 						}
 						else {
 							//SEGGER_RTT_WriteString(0, "Recieved EMPTY\n");
 						}
 						
-						/*SEGGER_RTT_WriteString(0, "Recieved values:");
-						for(uint16_t i=0; i<12; i++)
-							write_one_hex_value(p_event_message_buffer[i]);			
-						SEGGER_RTT_WriteString(0, "\n");*/
+						
 						break;
 						
 				default:      

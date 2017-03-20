@@ -29,3 +29,4 @@
 .\segmenter.o: .\Include\ant\softdevice\nrf_error_sdm.h
 .\segmenter.o: .\Include\boards.h
 .\segmenter.o: .\Include\boards/nrf6310.h
+.\segmenter.o: Universal.h

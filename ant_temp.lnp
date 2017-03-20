@@ -3,6 +3,7 @@
 ".\arm_startup_nrf51.o"
 ".\system_nrf51422.o"
 ".\segger_rtt.o"
+".\encodedecode.o"
 ".\functions.o"
 ".\segmenter.o"
 ".\mbr.o"

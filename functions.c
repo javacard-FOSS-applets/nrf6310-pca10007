@@ -27,14 +27,7 @@
 #include "nrf_gpio.h"
 #include "boards.h"
 
-#define PIN 31
-#define PORT0 0
-#define PORT1 8
-#define PORT2 16 //BUTTONS
-#define PORT3 24 //LEDS
-
-#define BUTTONS PORT2
-#define    LEDS PORT1
+#include "Universal.h"
 
 uint8_t button_value=0;
 
@@ -124,6 +117,9 @@ void init() {
 	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
 	PrepareLEDS();
 	PrepareButtons();
+	
+	transmit.ready=1;
+	recieve.ready=0;
 	//PrepareTemp();
 }
 

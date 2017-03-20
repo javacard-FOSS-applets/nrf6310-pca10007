@@ -34,6 +34,8 @@
 #include "nrf_gpio.h"
 #include "boards.h"
 
+#include "Universal.h"
+
 // Channel configuration. 
 #define CHANNEL_0                       0x00                 /**< ANT Channel 0. */
 #define CHANNEL_0_TX_CHANNEL_PERIOD     8192u                /**< Channel period 4 Hz. */
@@ -57,32 +59,7 @@ static uint8_t m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE]; /**< Primary data t
 
 #define DEVICEID 0xffff
 
-void init(void);
-
-void SetLEDS(uint8_t);
-void BlinkLEDS(uint8_t);
-uint8_t ReadButtons(void);
-
-void write_hex_value(uint8_t value);
-void write_one_hex_value(uint8_t value);
-
-int AddMessage(uint8_t*);
-
-uint8_t* SendData(uint8_t*);
-void FillSendData(uint16_t, uint8_t*);
-
 uint8_t recieved_value=0;
-
-typedef struct {
-	uint16_t length;
-	uint8_t count;
-	uint8_t message[64];
-	uint8_t ready;
-} MessageBuffer;
-
-extern MessageBuffer transmit;
-extern uint8_t dataready;
-
 
 
 /**@brief Function for handling an error. 
@@ -135,8 +112,6 @@ static void ant_channel_master_broadcast_setup(void)
  *
  * @param[in] event The received ANT event to handle.
  */
-
-
 static void channel_event_handle_transmit(uint32_t event)
 {
     uint32_t err_code;
@@ -147,19 +122,26 @@ static void channel_event_handle_transmit(uint32_t event)
             // Assign a new value to the broadcast data. 
             
 						ReadButtons();
-						if(dataready==1 && transmit.ready==1){
-							uint8_t message[1];
-							message[0] = ReadButtons();
-							FillSendData(1, message);
+						if(dataready==1 && transmit.ready==1){ // imp
+							//uint8_t message[1];
+							//message[0] = ReadButtons();
+							//FillSendData(1, message);
 							SEGGER_RTT_WriteString(0, "Event.\n");
+							
+							EnCode(MSG_UNSECURED, ReadButtons());
+							
+						SEGGER_RTT_WriteString(0, "Sending values:");
+						for(uint16_t i=0; i<8; i++)
+							write_one_hex_value(m_broadcast_data[i]);
+						SEGGER_RTT_WriteString(0, "\n");
+						
 							dataready=0; //!!!!
 						}
 						else
 						{
 							SEGGER_RTT_WriteString(0, "Sending empty.\n");
 						}
-							
-				
+
 						SendData(m_broadcast_data);
 					
             // Broadcast the data. 
@@ -168,8 +150,6 @@ static void channel_event_handle_transmit(uint32_t event)
                                                    m_broadcast_data);
             APP_ERROR_CHECK(err_code);						
 						break;
-
-						
 						
         default:
             break;
@@ -193,7 +173,21 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 						
 						if(success==1){
 							SEGGER_RTT_WriteString(0, "Recieve SUCCESS\n");
-							recieved_value=p_event_message_buffer[5];
+							
+							//recieved_value=p_event_message_buffer[5];
+							
+							//copy string
+							/*uint8_t message_received[64];
+							for(uint16_t i=0; i<recieve.count; i++){
+								message_received[i]=recieve.message[i];
+							}*/
+							//decode
+							Decode(recieve.length, recieve.message);
+							recieve.ready=0;
+							recieve.length=0;
+							
+							//SetLEDS
+							//SetLEDS(recieved_value);
 						}
 						else {
 							SEGGER_RTT_WriteString(0, "Recieved EMPTY\n");
@@ -203,11 +197,10 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 						for(uint16_t i=0; i<12; i++)
 							write_one_hex_value(p_event_message_buffer[i]);
 						SEGGER_RTT_WriteString(0, "\n");
-				
-						break;
+					break;
 						
 				default:      
-						break;
+					break;
 			}
 			write_hex_value(recieved_value);
 }
@@ -268,7 +261,9 @@ int main(void)
     // Write counter value to last byte of the broadcast data.
     // The last byte is chosen to get the data more visible in the end of an printout
     // on the recieving end. 
-    m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE - 1] = ReadButtons();
+		dataready=1;
+    EnCode(MSG_UNSECURED, ReadButtons());
+		//m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE - 1] = ReadButtons();
   
     // Initiate the broadcast loop by sending a packet on air, 
     // then start waiting for an event on this broadcast message.
@@ -284,27 +279,23 @@ int main(void)
     uint8_t event;
     uint8_t ant_channel;
   	  
-    for (;;)
-    {   
+    for (;;) {   
         // Put CPU in sleep if possible. 
         err_code = sd_app_event_wait();
         APP_ERROR_CHECK(err_code);
     
         // Extract and process all pending ANT events as long as there are any left. 
-        do
-        {
+        do {
             // Fetch the event. 
             err_code = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
-            if (err_code == NRF_SUCCESS)
-            {
+            if (err_code == NRF_SUCCESS) {
                 // Handle event. 
-                switch (event)
-                {
+                switch (event) {
                     case EVENT_TX:
 												channel_event_handle_transmit(event);
                         break;
 
-                    case EVENT_RX:				
+                    case EVENT_RX:
                         channel_event_handle_recieve(event_message_buffer);
 											  SetLEDS(recieved_value);
 												//SEGGER_RTT_WriteString(0, "Receiving.\n");
