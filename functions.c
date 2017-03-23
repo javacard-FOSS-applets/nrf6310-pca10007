@@ -32,6 +32,7 @@
 uint8_t button_value=0;
 
 void SetLEDS(uint8_t);
+void ENC_DEC_Test(void);
 
 void PrepareLEDS() {
 //__asm("ADD r1, r0, #1\n"
@@ -117,6 +118,8 @@ void init() {
 	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
 	PrepareLEDS();
 	PrepareButtons();
+	
+	ENC_DEC_Test();
 	
 	transmit.ready=1;
 	recieve.ready=0;

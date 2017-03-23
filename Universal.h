@@ -1,3 +1,8 @@
+#include "stdio.h"
+#include "stdlib.h"
+#include <stdbool.h>
+#include <stdint.h>
+
 #include "SEGGER_RTT.h"
 
 typedef enum {MSG_EMPTY=0x00,
@@ -30,8 +35,8 @@ void 			SetLEDS(uint8_t);
 void 			BlinkLEDS(uint8_t);
 uint8_t 	ReadButtons(void);
 
-void 			write_hex_value(uint8_t value);
-void			write_one_hex_value(uint8_t value);
+void 			write_hex_value(uint8_t);
+void			write_one_hex_value(uint8_t);
 
 uint8_t 	AddMessage(uint8_t*);
 
@@ -48,6 +53,5 @@ extern 		MessageBuffer recieve;
 extern 		uint8_t dataready;
 
 extern 		uint8_t recieved_value;
-
 
 

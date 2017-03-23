@@ -372,9 +372,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
+              <Define>DEBUG NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
+              <IncludePath>.\;.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -416,6 +416,46 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>MBR</GroupName>
+          <Files>
+            <File>
+              <FileName>mbr.a</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\mbr.a</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Crypto</GroupName>
+          <Files>
+            <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
+              <FileName>aes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Include\TinyAES\aes.h</FilePath>
+            </File>
+            <File>
+              <FileName>aes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\TinyAES\aes.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\TinyAES\test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>main</GroupName>
           <Files>
             <File>
@@ -432,11 +472,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -586,31 +621,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>MBR</GroupName>
-          <Files>
-            <File>
-              <FileName>mbr.a</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\mbr.a</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Master</GroupName>
-          <Files>
-            <File>
-              <FileName>Master.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Master.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Slave</GroupName>
           <GroupOption>
             <CommonProperty>
@@ -685,6 +695,16 @@
               <FileName>Slave.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Slave.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Master</GroupName>
+          <Files>
+            <File>
+              <FileName>Master.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Master.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1056,9 +1076,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
+              <Define>DEBUG NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
+              <IncludePath>.\;.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1100,6 +1120,46 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>MBR</GroupName>
+          <Files>
+            <File>
+              <FileName>mbr.a</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\mbr.a</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Crypto</GroupName>
+          <Files>
+            <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
+              <FileName>aes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Include\TinyAES\aes.h</FilePath>
+            </File>
+            <File>
+              <FileName>aes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\TinyAES\aes.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\TinyAES\test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>main</GroupName>
           <Files>
             <File>
@@ -1116,11 +1176,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -1270,17 +1325,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>MBR</GroupName>
+          <GroupName>Slave</GroupName>
           <Files>
             <File>
-              <FileName>mbr.a</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\mbr.a</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
+              <FileName>Slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Slave.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1359,16 +1409,6 @@
               <FileName>Master.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Master.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Slave</GroupName>
-          <Files>
-            <File>
-              <FileName>Slave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Slave.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1740,9 +1780,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
+              <Define>DEBUG NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
+              <IncludePath>.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1784,6 +1824,46 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>MBR</GroupName>
+          <Files>
+            <File>
+              <FileName>mbr.a</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\mbr.a</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Crypto</GroupName>
+          <Files>
+            <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
+              <FileName>aes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Include\TinyAES\aes.h</FilePath>
+            </File>
+            <File>
+              <FileName>aes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\TinyAES\aes.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\TinyAES\test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>main</GroupName>
           <Files>
             <File>
@@ -1800,11 +1880,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -1904,27 +1979,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>MBR</GroupName>
+          <GroupName>Slave</GroupName>
           <Files>
             <File>
-              <FileName>mbr.a</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\mbr.a</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Master</GroupName>
-          <Files>
-            <File>
-              <FileName>Master.c</FileName>
+              <FileName>Slave.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Master.c</FilePath>
+              <FilePath>.\Slave.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -1979,12 +2039,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Slave</GroupName>
+          <GroupName>Master</GroupName>
           <Files>
             <File>
-              <FileName>Slave.c</FileName>
+              <FileName>Master.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Slave.c</FilePath>
+              <FilePath>.\Master.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2450,6 +2510,46 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>MBR</GroupName>
+          <Files>
+            <File>
+              <FileName>mbr.a</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\mbr.a</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Crypto</GroupName>
+          <Files>
+            <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
+              <FileName>aes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Include\TinyAES\aes.h</FilePath>
+            </File>
+            <File>
+              <FileName>aes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\TinyAES\aes.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\TinyAES\test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>main</GroupName>
           <Files>
             <File>
@@ -2466,11 +2566,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -2558,17 +2653,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>MBR</GroupName>
+          <GroupName>Slave</GroupName>
           <Files>
             <File>
-              <FileName>mbr.a</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\mbr.a</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
+              <FileName>Slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Slave.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2579,16 +2669,6 @@
               <FileName>Master.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Master.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Slave</GroupName>
-          <Files>
-            <File>
-              <FileName>Slave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Slave.c</FilePath>
             </File>
           </Files>
         </Group>

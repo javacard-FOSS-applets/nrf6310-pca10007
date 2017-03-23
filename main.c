@@ -25,11 +25,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+
 void init(void);
 void BlinkLEDS(uint8_t);
 void SetLEDS(uint8_t);
 uint8_t ReadButtons(void);
 void write_hex_value(uint8_t value);
+
 
 int main(void)
 {
