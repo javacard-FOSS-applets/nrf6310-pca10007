@@ -43,7 +43,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	uint16_t segment_start;
 	uint16_t segment_end;
 	
-//	if(!recieve.ready){
+
 	
 	segment_start = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID];
 	segment_end = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+1];
@@ -55,16 +55,24 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	uint16_t thisCount = 0;
 	int16_t count = segment_end-segment_start;
 
-	for(int i=0; i<6 && count--; i++)
-	{
-		recieve.message[recieve.count++] = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+i+2];
-		thisCount++;
-		recieve.length++;
-	}
+	//if(!recieve.ready){
+	
+	//if(recieve.ready!=1){
+		for(int i=0; i<6 && count--; i++)
+		{
+			recieve.message[recieve.count++] = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+i+2];
+			thisCount++;
+			recieve.length++;
+		}
+//	}
+	
+	//}
 	
 	if( (segment_start + thisCount) == segment_end) {
-		if(recieve.count==0) {
+		if((segment_end-segment_start)==0) { //recieve.count==0
 			//recieved empty packet
+			recieve.ready=0;
+			recieve.count=0;
 			return 0;
 		}
 			
@@ -84,7 +92,6 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 		return 0;
 	}
 	return 0;
-//}
 }
 
 /*
@@ -139,12 +146,14 @@ uint8_t sender2[]= {0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 
 static uint8_t send_counter=0;
 
 void FillSendData(uint16_t count, uint8_t* message) {
-	transmit.ready=0;
-	transmit.count=0;
-	transmit.length=count;
+	if(transmit.ready==1){
+		transmit.ready=0;
+		transmit.count=0;
+		transmit.length=count;
 
-	for(uint16_t i=0; i<count; i++) {
-		transmit.message[i]=message[i];
+		for(uint16_t i=0; i<count; i++) {
+			transmit.message[i]=message[i];
+		}
 	}
 }
 
@@ -154,10 +163,16 @@ void SendData(uint8_t* messagebuffer){
 	messagebuffer[0]=send_counter;
 	messagebuffer[1]=send_counter + transmit.length - transmit.count;
 	
-	if(transmit.length==0 && transmit.count==0)
+	if(transmit.length==0 && transmit.count==0) //empty
 	{
-		messagebuffer[H_SYNC+H_MSGLNG+H_MSGID+2]=0; 
+		messagebuffer[2]=0; 
+		
+		for(int i=0; i<6 && i<6; i++)
+		{
+			messagebuffer[2+i] = 0;
+		}
 		send_counter++;
+		SEGGER_RTT_WriteString(0, "Sending empty.\n");
 	}
 	else
 	{
@@ -173,7 +188,7 @@ void SendData(uint8_t* messagebuffer){
 		transmit.count=0;
 		transmit.length=0;
 		transmit.ready=1;
-		SEGGER_RTT_WriteString(0, "Finishing.\n");
+		SEGGER_RTT_WriteString(0, "FINISHED.\n");
 	}
 	else
 	{

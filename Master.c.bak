@@ -60,7 +60,7 @@ static uint8_t m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE]; /**< Primary data t
 #define DEVICEID 0xffff
 
 uint8_t recieved_value=0;
-uint8_t recieved_security=0;
+
 
 /**@brief Function for handling an error. 
  *
@@ -72,7 +72,6 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 {
     for (;;)
     {
-			SEGGER_RTT_WriteString(0, "App error! \n");
     }
 }
 
@@ -129,13 +128,14 @@ static void channel_event_handle_transmit(uint32_t event)
 							//FillSendData(1, message);
 							SEGGER_RTT_WriteString(0, "Event.\n");
 							
-							EnCode(DEFAULT_SECURITY, ReadButtons());
-							
+							EnCode(MSG_UNSECURED, ReadButtons());
+
+						
 							dataready=0; //!!!!
 						}
 						else
 						{
-							//SEGGER_RTT_WriteString(0, "Sending empty.\n");
+							SEGGER_RTT_WriteString(0, "Sending empty.\n");
 						}
 
 						SendData(m_broadcast_data);
@@ -215,7 +215,6 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
  */
 void PROTOCOL_EVENT_IRQHandler(void)
 {
-	//SEGGER_RTT_WriteString(0, "IRQHandler! \n");
 }
 
 /**@brief Function for handling SoftDevice asserts. 
@@ -266,8 +265,7 @@ int main(void)
     // The last byte is chosen to get the data more visible in the end of an printout
     // on the recieving end. 
 		dataready=1;
-    //EnCode(MSG_UNSECURED, ReadButtons());
-EnCode(DEFAULT_SECURITY, ReadButtons());
+    EnCode(MSG_UNSECURED, ReadButtons());
 		//m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE - 1] = ReadButtons();
   
     // Initiate the broadcast loop by sending a packet on air, 

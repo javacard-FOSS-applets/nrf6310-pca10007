@@ -434,6 +434,11 @@
           <GroupName>Crypto</GroupName>
           <Files>
             <File>
+              <FileName>PSK.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PSK.h</FilePath>
+            </File>
+            <File>
               <FileName>Universal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Universal.h</FilePath>
@@ -467,11 +472,6 @@
               <FileName>nrf51422_peripherals.h</FileName>
               <FileType>5</FileType>
               <FilePath>C:\components\device\nrf51422_peripherals.h</FilePath>
-            </File>
-            <File>
-              <FileName>PSK.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\PSK.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -1138,6 +1138,11 @@
           <GroupName>Crypto</GroupName>
           <Files>
             <File>
+              <FileName>PSK.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PSK.h</FilePath>
+            </File>
+            <File>
               <FileName>Universal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Universal.h</FilePath>
@@ -1171,11 +1176,6 @@
               <FileName>nrf51422_peripherals.h</FileName>
               <FileType>5</FileType>
               <FilePath>C:\components\device\nrf51422_peripherals.h</FilePath>
-            </File>
-            <File>
-              <FileName>PSK.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\PSK.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -1842,6 +1842,11 @@
           <GroupName>Crypto</GroupName>
           <Files>
             <File>
+              <FileName>PSK.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PSK.h</FilePath>
+            </File>
+            <File>
               <FileName>Universal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Universal.h</FilePath>
@@ -1875,11 +1880,6 @@
               <FileName>nrf51422_peripherals.h</FileName>
               <FileType>5</FileType>
               <FilePath>C:\components\device\nrf51422_peripherals.h</FilePath>
-            </File>
-            <File>
-              <FileName>PSK.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\PSK.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -2528,6 +2528,11 @@
           <GroupName>Crypto</GroupName>
           <Files>
             <File>
+              <FileName>PSK.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PSK.h</FilePath>
+            </File>
+            <File>
               <FileName>Universal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Universal.h</FilePath>
@@ -2561,11 +2566,6 @@
               <FileName>nrf51422_peripherals.h</FileName>
               <FileType>5</FileType>
               <FilePath>C:\components\device\nrf51422_peripherals.h</FilePath>
-            </File>
-            <File>
-              <FileName>PSK.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\PSK.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>

@@ -114,11 +114,24 @@ uint8_t ReadButtons()
 	return value;
 }
 
+#include "PSK.h"
+
 void init() {
 	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
 	PrepareLEDS();
 	PrepareButtons();
 	
+	SEGGER_RTT_WriteString(0, "PSK: ");
+	for(int i=0; i<16; i++)
+		write_one_hex_value(PSK[i]);
+	SEGGER_RTT_WriteString(0, "\n");
+	
+	SEGGER_RTT_WriteString(0, "VECTOR: ");
+	for(int i=0; i<16; i++)
+		write_one_hex_value(IVECTOR[i]);
+	SEGGER_RTT_WriteString(0, "\n");
+	
+	ENC_DEC_Test();
 	ENC_DEC_Test();
 	
 	transmit.ready=1;

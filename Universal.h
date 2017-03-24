@@ -3,13 +3,19 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "aes.h"
+
 #include "SEGGER_RTT.h"
+
+
 
 typedef enum {MSG_EMPTY=0x00,
 							MSG_UNSECURED=0x01,
 							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
 							MSG_HW_SYMM=0x04, MSG_HW_ASYMM=0x05} security_type;
 
+							#define DEFAULT_SECURITY (MSG_SW_SYMM)
+							
 							//security_type security = MSG_EMPTY;
 
 typedef struct {
@@ -53,5 +59,7 @@ extern 		MessageBuffer recieve;
 extern 		uint8_t dataready;
 
 extern 		uint8_t recieved_value;
+extern 		uint8_t recieved_security;
 
-
+void AES128_CBC_decrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length, const uint8_t* key, const uint8_t* iv);
+void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length, const uint8_t* key, const uint8_t* iv);
