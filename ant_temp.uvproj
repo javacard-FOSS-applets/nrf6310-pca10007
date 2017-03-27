@@ -374,7 +374,7 @@
               <MiscControls></MiscControls>
               <Define>DEBUG NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
               <Undefine></Undefine>
-              <IncludePath>.\;.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
+              <IncludePath>.\;.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;.\Include\segger_rtt</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -422,11 +422,44 @@
               <FileName>mbr.a</FileName>
               <FileType>2</FileType>
               <FilePath>.\mbr.a</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Aads>
+                    <interw>2</interw>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <thumb>2</thumb>
+                    <SplitLS>2</SplitLS>
+                    <SwStkChk>2</SwStkChk>
+                    <NoWarn>2</NoWarn>
+                    <uSurpInc>2</uSurpInc>
+                    <useXO>2</useXO>
+                    <uClangAs>2</uClangAs>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Aads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -464,14 +497,9 @@
           <GroupName>main</GroupName>
           <Files>
             <File>
-              <FileName>nrf51.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>C:\components\device\nrf51.h</FilePath>
-            </File>
-            <File>
-              <FileName>nrf51422_peripherals.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>C:\components\device\nrf51422_peripherals.h</FilePath>
+              <FileName>arm_startup_nrf51.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -479,64 +507,9 @@
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
-              <FileName>arm_startup_nrf51.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>C:\components\toolchain\arm\arm_startup_nrf51.s</FilePath>
-            </File>
-            <File>
               <FileName>system_nrf51.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\toolchain\system_nrf51.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>2</vShortEn>
-                    <vShortWch>2</vShortWch>
-                    <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
-                    <v6Rtti>2</v6Rtti>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
+              <FilePath>.\Include\toolchain\system_nrf51.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51422.c</FileName>
@@ -546,7 +519,7 @@
             <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.c</FilePath>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
             </File>
             <File>
               <FileName>EncodeDecode.c</FileName>
@@ -1078,7 +1051,7 @@
               <MiscControls></MiscControls>
               <Define>DEBUG NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
               <Undefine></Undefine>
-              <IncludePath>.\;.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
+              <IncludePath>.\;.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;.\Include\segger_rtt</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1126,11 +1099,44 @@
               <FileName>mbr.a</FileName>
               <FileType>2</FileType>
               <FilePath>.\mbr.a</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Aads>
+                    <interw>2</interw>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <thumb>2</thumb>
+                    <SplitLS>2</SplitLS>
+                    <SwStkChk>2</SwStkChk>
+                    <NoWarn>2</NoWarn>
+                    <uSurpInc>2</uSurpInc>
+                    <useXO>2</useXO>
+                    <uClangAs>2</uClangAs>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Aads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -1168,14 +1174,9 @@
           <GroupName>main</GroupName>
           <Files>
             <File>
-              <FileName>nrf51.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>C:\components\device\nrf51.h</FilePath>
-            </File>
-            <File>
-              <FileName>nrf51422_peripherals.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>C:\components\device\nrf51422_peripherals.h</FilePath>
+              <FileName>arm_startup_nrf51.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -1183,64 +1184,9 @@
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
-              <FileName>arm_startup_nrf51.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>C:\components\toolchain\arm\arm_startup_nrf51.s</FilePath>
-            </File>
-            <File>
               <FileName>system_nrf51.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\toolchain\system_nrf51.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>2</vShortEn>
-                    <vShortWch>2</vShortWch>
-                    <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
-                    <v6Rtti>2</v6Rtti>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
+              <FilePath>.\Include\toolchain\system_nrf51.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51422.c</FileName>
@@ -1250,7 +1196,7 @@
             <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.c</FilePath>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
             </File>
             <File>
               <FileName>EncodeDecode.c</FileName>
@@ -1782,7 +1728,7 @@
               <MiscControls></MiscControls>
               <Define>DEBUG NRF51 BOARD_NRF6310 SOFTDEVICE_PRESENT ANT_STACK_SUPPORT_REQD ENABLE_DEBUG_LOG_SUPPORT S210 BOARD_PCA10007</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;C:\components\toolchain\arm;C:\components\drivers_nrf\hal;C:\components\drivers_nrf\delay;C:\components\toolchain\;C:\components\toolchain\cmsis;C:\components\toolchain\cmsis\include;C:\Nordic Semiconductor\external\segger_rtt</IncludePath>
+              <IncludePath>.\;.\Include;.\Include\ant\softdevice;.\Include\app_common;.\Include\gcc;.\Include\TinyAES;.\Include\segger_rtt</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1831,11 +1777,6 @@
               <FileType>2</FileType>
               <FilePath>.\mbr.a</FilePath>
             </File>
-            <File>
-              <FileName>nrf_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1872,14 +1813,9 @@
           <GroupName>main</GroupName>
           <Files>
             <File>
-              <FileName>nrf51.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>C:\components\device\nrf51.h</FilePath>
-            </File>
-            <File>
-              <FileName>nrf51422_peripherals.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>C:\components\device\nrf51422_peripherals.h</FilePath>
+              <FileName>arm_startup_nrf51.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -1887,14 +1823,9 @@
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
-              <FileName>arm_startup_nrf51.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>C:\components\toolchain\arm\arm_startup_nrf51.s</FilePath>
-            </File>
-            <File>
               <FileName>system_nrf51.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\toolchain\system_nrf51.c</FilePath>
+              <FilePath>.\Include\toolchain\system_nrf51.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51422.c</FileName>
@@ -1954,7 +1885,7 @@
             <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.c</FilePath>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
             </File>
             <File>
               <FileName>EncodeDecode.c</FileName>
@@ -2517,11 +2448,6 @@
               <FileType>2</FileType>
               <FilePath>.\mbr.a</FilePath>
             </File>
-            <File>
-              <FileName>nrf_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\components\drivers_nrf\hal\nrf_gpio.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -2558,14 +2484,9 @@
           <GroupName>main</GroupName>
           <Files>
             <File>
-              <FileName>nrf51.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>C:\components\device\nrf51.h</FilePath>
-            </File>
-            <File>
-              <FileName>nrf51422_peripherals.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>C:\components\device\nrf51422_peripherals.h</FilePath>
+              <FileName>arm_startup_nrf51.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -2573,52 +2494,9 @@
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
-              <FileName>arm_startup_nrf51.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>C:\components\toolchain\arm\arm_startup_nrf51.s</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>4</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Aads>
-                    <interw>2</interw>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <thumb>2</thumb>
-                    <SplitLS>2</SplitLS>
-                    <SwStkChk>2</SwStkChk>
-                    <NoWarn>2</NoWarn>
-                    <uSurpInc>2</uSurpInc>
-                    <useXO>2</useXO>
-                    <uClangAs>2</uClangAs>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Aads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
               <FileName>system_nrf51.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\toolchain\system_nrf51.c</FilePath>
+              <FilePath>.\Include\toolchain\system_nrf51.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51422.c</FileName>
@@ -2628,7 +2506,7 @@
             <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Nordic Semiconductor\external\segger_rtt\SEGGER_RTT.c</FilePath>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
             </File>
             <File>
               <FileName>EncodeDecode.c</FileName>

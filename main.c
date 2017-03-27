@@ -34,6 +34,8 @@ void SetLEDS(uint8_t);
 uint8_t ReadButtons(void);
 void write_hex_value(uint8_t value);
 
+uint8_t recieved_value=0;
+uint8_t recieved_security=0;
 
 int main(void)
 {

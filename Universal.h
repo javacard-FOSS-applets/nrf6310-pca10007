@@ -7,8 +7,6 @@
 
 #include "SEGGER_RTT.h"
 
-
-
 typedef enum {MSG_EMPTY=0x00,
 							MSG_UNSECURED=0x01,
 							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
