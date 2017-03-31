@@ -1,5 +1,5 @@
 // converted by version  [v3.0.5]
-// on Fri Mar 31 21:54:29 CEST 2017
+// on Sat Apr 01 00:35:33 CEST 2017
 
 .package com/sun/jcclassic/samples/helloworld {
 	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1;
@@ -44,7 +44,7 @@
 		// 13
 		virtualMethodRef 0.10.3(S)S;		// receiveBytes(S)S
 		// 14
-		virtualMethodRef HelloWorld/SendResponse(Ljavacard/framework/APDU;SS)V;
+		virtualMethodRef HelloWorld/SendResponse(Ljavacard/framework/APDU;S)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 15
@@ -77,7 +77,7 @@
 			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
 			select()Z;
 			process(Ljavacard/framework/APDU;)V;
-			SendResponse(Ljavacard/framework/APDU;SS)V;
+			SendResponse(Ljavacard/framework/APDU;S)V;
 			AES_DUMMY(B[B)V;
 			RSA_DUMMY(B[B)V;
 		}
@@ -115,7 +115,7 @@
 					return;
 		}
 
-		.method public SendResponse(Ljavacard/framework/APDU;SS)V 8 {
+		.method public SendResponse(Ljavacard/framework/APDU;S)V 8 {
 			.stack 4;
 			.locals 0;
 
@@ -126,7 +126,7 @@
 					pop;
 					aload_1;
 					sconst_5;
-					sload_3;
+					sload_2;
 					sadd;
 					invokevirtual 7;		// setOutgoingLength(S)V
 					aload_1;
@@ -136,7 +136,7 @@
 					aload_1;
 					getfield_a_this 1;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.SendStatic
 					sconst_0;
-					sload_3;
+					sload_2;
 					invokevirtual 9;		// sendBytesLong([BSS)V
 					return;
 		}
@@ -208,7 +208,7 @@
 					sload_1;
 					sload_3;
 					ssub;
-					sconst_1;
+					sconst_0;
 					sadd;
 					baload;
 					bastore;
@@ -297,9 +297,8 @@
 					bastore;
 					aload_0;
 					aload_1;
-					sload 4;
 					sconst_1;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;SS)V
+					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto_w L24;
 				L12:	sload 4;
 					bspush 17;
@@ -310,9 +309,8 @@
 					invokevirtual 15;		// AES_DUMMY(B[B)V
 					aload_0;
 					aload_1;
-					sload 4;
 					bspush 16;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;SS)V
+					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto L24;
 				L14:	sload 4;
 					bspush 17;
@@ -323,9 +321,8 @@
 					invokevirtual 15;		// AES_DUMMY(B[B)V
 					aload_0;
 					aload_1;
-					sload 4;
 					bspush 16;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;SS)V
+					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto L24;
 				L16:	sload 4;
 					bspush 18;
@@ -336,9 +333,8 @@
 					invokevirtual 16;		// RSA_DUMMY(B[B)V
 					aload_0;
 					aload_1;
-					sload 4;
 					bspush 17;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;SS)V
+					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto L24;
 				L18:	sload 4;
 					bspush 18;
@@ -349,9 +345,8 @@
 					invokevirtual 16;		// RSA_DUMMY(B[B)V
 					aload_0;
 					aload_1;
-					sload 4;
 					bspush 17;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;SS)V
+					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto L24;
 				L20:	sconst_0;
 					sstore 6;
@@ -372,9 +367,8 @@
 					goto L21;
 				L23:	aload_0;
 					aload_1;
-					sload 4;
 					sconst_5;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;SS)V
+					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
 				L24:	return;
 		}
 

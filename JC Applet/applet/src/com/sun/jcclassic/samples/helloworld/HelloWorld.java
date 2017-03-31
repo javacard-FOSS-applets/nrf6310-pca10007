@@ -12,6 +12,7 @@ import javacard.framework.Util;
 public class HelloWorld extends Applet {
     private byte[] RecievedStatic;
     private byte[] SendStatic;
+    
     private static final short LENGTH_ECHO_BYTES = 256;
 
     static final byte HW_AES_ENCRYPT = (byte)  0x03;
@@ -29,14 +30,13 @@ public class HelloWorld extends Applet {
         register();
     }
 
-    
     public static void install(byte[] bArray, short bOffset, byte bLength) {
         new HelloWorld();
     }
 
-    public void SendResponse(APDU apdu, short Offset, short lenght){
+    public void SendResponse(APDU apdu, short lenght){
     	apdu.setOutgoing();
-        apdu.setOutgoingLength((short) (5 + lenght));
+        apdu.setOutgoingLength((short) (ISO7816.OFFSET_CDATA + lenght));
         
         apdu.sendBytes((short) 0, (short) 5);
         apdu.sendBytesLong(SendStatic, (short) 0, lenght);
@@ -55,10 +55,9 @@ public class HelloWorld extends Applet {
     		}
     	}
     }
-    
     public void RSA_DUMMY(byte count, byte[] bMessage){
     	for(byte iterator = (byte) 0; iterator < count; iterator++ ) {
-    		SendStatic[iterator]=bMessage[(short)(count-iterator+(short)1)];
+    		SendStatic[iterator]=bMessage[(short)(count-iterator+(short)0)];
     	}
     }
     
@@ -90,21 +89,21 @@ public class HelloWorld extends Applet {
 		        		SendStatic[iterator] = RecievedStatic[iterator];
 		        	}
 	        		SendStatic[0]=(byte)0xAA;
-	        		SendResponse(apdu, (short) Offset, (short) 1);
+	        		SendResponse(apdu, (short) 1);
 	        		break;
 		        
 	        	case HW_AES_ENCRYPT:
 		        	//Call encrypt over data 16 bytov
 		        	if( Offset == AES_MESSAGE_LGTH + 1) {
 		        		AES_DUMMY(AES_MESSAGE_LGTH, RecievedStatic);
-		        		SendResponse(apdu, (short) Offset, (short) AES_MESSAGE_LGTH);
+		        		SendResponse(apdu, (short) AES_MESSAGE_LGTH);
 		        	}
 		        	break;
 		        case HW_AES_DECRYPT:
 		        	//Call decrypt over data 16 bytov
-		        	if( Offset==AES_MESSAGE_LGTH  + 1) {
+		        	if( Offset==AES_MESSAGE_LGTH + 1) {
 		        		AES_DUMMY(AES_MESSAGE_LGTH, RecievedStatic);
-		        		SendResponse(apdu, (short) Offset, (short) AES_MESSAGE_LGTH);
+		        		SendResponse(apdu, (short) AES_MESSAGE_LGTH);
 		        	}
 		        	break;
 		        	
@@ -112,14 +111,14 @@ public class HelloWorld extends Applet {
 		        	//Call encrypt over data N bytov
 		        	if( Offset==RSA_MESSAGE_LGTH + 1 ) {
 		        		RSA_DUMMY(RSA_MESSAGE_LGTH, RecievedStatic);
-		        		SendResponse(apdu, (short) Offset, (short) RSA_MESSAGE_LGTH);
+		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
 		        	}
 		        	break;
 		        case HW_RSA_DECRYPT:
 		        	//Call decrypt over data N bytov
 		        	if( Offset==RSA_MESSAGE_LGTH + 1 ) {
 		        		RSA_DUMMY(RSA_MESSAGE_LGTH, RecievedStatic);
-		        		SendResponse(apdu, (short) Offset, (short) RSA_MESSAGE_LGTH);
+		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
 		        	}
 		        	break;
 		        
@@ -129,7 +128,7 @@ public class HelloWorld extends Applet {
 		        	for(byte iterator=0;iterator<Offset;iterator++){
 		        		SendStatic[iterator] = RecievedStatic[iterator];
 		        	}
-		        	SendResponse(apdu, Offset, (short) 5);
+		        	SendResponse(apdu, (short) 5);
 		        	break;
 	        }
 	    }
