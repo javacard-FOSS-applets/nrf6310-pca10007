@@ -32,7 +32,6 @@ void test(uint8_t value) {
 	AES128_CBC_decrypt_buffer(bufferout, message+1,  16, PSK, IVECTOR);
 				//SW_AES_decode();
 	recieved_value=bufferout[1];
-
 }
 
 /*int main(void)

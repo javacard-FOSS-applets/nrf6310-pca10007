@@ -7,14 +7,30 @@
 
 #include "SEGGER_RTT.h"
 
+
+
+#define PIN 						31
+#define PORT0 					0
+#define PORT1 					8
+#define PORT2 					16 //BUTTONS
+#define PORT3 					24 //LEDS
+
+#define GPIOTE_CHANNEL  0
+#define PPI_CHANNEL 1
+#define CLK							8
+
+#define BUTTONS 				PORT2
+#define    LEDS 				PORT1
+
+
+
 typedef enum {MSG_EMPTY=0x00,
 							MSG_UNSECURED=0x01,
 							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
 							MSG_HW_SYMM=0x04, MSG_HW_ASYMM=0x05} security_type;
 
-							#define DEFAULT_SECURITY (MSG_SW_SYMM)
-							
-							//security_type security = MSG_EMPTY;
+		#define DEFAULT_SECURITY (MSG_SW_SYMM)
+		//security_type security = MSG_EMPTY;
 
 typedef struct {
 	uint16_t length;
@@ -24,14 +40,6 @@ typedef struct {
 } MessageBuffer;
 
 
-#define PIN 	31
-#define PORT0 0
-#define PORT1 8
-#define PORT2 16 //BUTTONS
-#define PORT3 24 //LEDS
-
-#define BUTTONS PORT2
-#define    LEDS PORT1
 
 void 			init(void);
 
@@ -48,8 +56,10 @@ void		 	SendData(uint8_t*);
 void 			FillSendData(uint16_t, uint8_t*);
 
 
+
 void Decode(uint16_t, uint8_t*);
 void EnCode(security_type, uint8_t);
+
 
 
 extern 		MessageBuffer transmit;
@@ -59,5 +69,16 @@ extern 		uint8_t dataready;
 extern 		uint8_t recieved_value;
 extern 		uint8_t recieved_security;
 
+
+
 void AES128_CBC_decrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length, const uint8_t* key, const uint8_t* iv);
 void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length, const uint8_t* key, const uint8_t* iv);
+
+
+
+void Timer_Start(void);
+void Timer_Stop(void);
+
+void init_gpiote(void);
+void init_ppi(void);
+void init_timer2(void);
