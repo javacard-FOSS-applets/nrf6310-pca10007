@@ -1,5 +1,5 @@
 // converted by version  [v3.0.5]
-// on Sat Apr 01 00:35:33 CEST 2017
+// on Sun Apr 02 16:34:51 CEST 2017
 
 .package com/sun/jcclassic/samples/helloworld {
 	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1;
@@ -7,6 +7,8 @@
 
 	.imports {
 		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.6;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x2:0x1 1.6;		//javacardx/crypto
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x2 1.6;		//javacard/security
 		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
 	}
 
@@ -20,36 +22,38 @@
 		// 1
 		instanceFieldRef byte[] HelloWorld/SendStatic;
 		// 2
-		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		instanceFieldRef byte[] HelloWorld/AESPSKKey;
 		// 3
-		virtualMethodRef 0.3.1()V;		// register()V
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
 		// 4
-		.classRef HelloWorld;
+		virtualMethodRef 0.3.1()V;		// register()V
 		// 5
-		staticMethodRef HelloWorld/<init>()V;
+		.classRef HelloWorld;
 		// 6
-		virtualMethodRef 0.10.7()S;		// setOutgoing()S
+		staticMethodRef HelloWorld/<init>()V;
 		// 7
-		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
+		virtualMethodRef 0.10.7()S;		// setOutgoing()S
 		// 8
-		virtualMethodRef 0.10.4(SS)V;		// sendBytes(SS)V
+		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
 		// 9
-		virtualMethodRef 0.10.5([BSS)V;		// sendBytesLong([BSS)V
+		virtualMethodRef 0.10.4(SS)V;		// sendBytes(SS)V
 		// 10
-		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		virtualMethodRef 0.10.5([BSS)V;		// sendBytesLong([BSS)V
 		// 11
-		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
 		// 12
-		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
 		// 13
-		virtualMethodRef 0.10.3(S)S;		// receiveBytes(S)S
+		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 		// 14
+		virtualMethodRef 0.10.3(S)S;		// receiveBytes(S)S
+		// 15
 		virtualMethodRef HelloWorld/SendResponse(Ljavacard/framework/APDU;S)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
-		// 15
-		virtualMethodRef HelloWorld/AES_DUMMY(B[B)V;
 		// 16
+		virtualMethodRef HelloWorld/AES_DUMMY(B[B)V;
+		// 17
 		virtualMethodRef HelloWorld/RSA_DUMMY(B[B)V;
 	}
 
@@ -58,6 +62,8 @@
 		.fields {
 			private byte[] RecievedStatic 0;		// [B
 			private byte[] SendStatic 1;		// [B
+			private byte[] AESPSKKey 2;		// [B
+			public static final boolean DEBUG = 1;		// Z
 			private static final short LENGTH_ECHO_BYTES = 256;		// S
 			static final byte HW_AES_ENCRYPT = 3;		// B
 			static final byte HW_AES_DECRYPT = 4;		// B
@@ -66,6 +72,8 @@
 			static final byte TEST_INPUTHEAD = -1;		// B
 			static final byte AES_MESSAGE_LGTH = 16;		// B
 			static final byte RSA_MESSAGE_LGTH = 17;		// B
+			private static 1.1 AES_ECB;		// Ljavacardx/crypto/Cipher;
+			private static 2.20 AES_Key;		// Ljavacard/security/AESKey;
 		}
 
 		.publicMethodTable 7 {
@@ -86,11 +94,11 @@
 		}
 
 		.method protected <init>()V 0 {
-			.stack 2;
+			.stack 5;
 			.locals 0;
 
 				L0:	aload_0;
-					invokespecial 2;		// javacard/framework/Applet.<init>()V
+					invokespecial 3;		// javacard/framework/Applet.<init>()V
 					aload_0;
 					sspush 256;
 					newarray 11;
@@ -100,7 +108,75 @@
 					newarray 11;
 					putfield_a 1;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.SendStatic
 					aload_0;
-					invokevirtual 3;		// register()V
+					bspush 16;
+					newarray 11;
+					dup;
+					sconst_0;
+					bspush 43;
+					bastore;
+					dup;
+					sconst_1;
+					bspush 126;
+					bastore;
+					dup;
+					sconst_2;
+					bspush 21;
+					bastore;
+					dup;
+					sconst_3;
+					bspush 22;
+					bastore;
+					dup;
+					sconst_4;
+					bspush 40;
+					bastore;
+					dup;
+					sconst_5;
+					bspush -82;
+					bastore;
+					dup;
+					bspush 6;
+					bspush -46;
+					bastore;
+					dup;
+					bspush 7;
+					bspush -90;
+					bastore;
+					dup;
+					bspush 8;
+					bspush -85;
+					bastore;
+					dup;
+					bspush 9;
+					bspush -9;
+					bastore;
+					dup;
+					bspush 10;
+					bspush 21;
+					bastore;
+					dup;
+					bspush 11;
+					bspush -120;
+					bastore;
+					dup;
+					bspush 12;
+					bspush 9;
+					bastore;
+					dup;
+					bspush 13;
+					bspush -49;
+					bastore;
+					dup;
+					bspush 14;
+					bspush 79;
+					bastore;
+					dup;
+					bspush 15;
+					bspush 60;
+					bastore;
+					putfield_a 2;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.AESPSKKey
+					aload_0;
+					invokevirtual 4;		// register()V
 					return;
 		}
 
@@ -108,9 +184,9 @@
 			.stack 2;
 			.locals 0;
 
-				L0:	new 4;		// com/sun/jcclassic/samples/helloworld/HelloWorld
+				L0:	new 5;		// com/sun/jcclassic/samples/helloworld/HelloWorld
 					dup;
-					invokespecial 5;		// com/sun/jcclassic/samples/helloworld/HelloWorld.<init>()V
+					invokespecial 6;		// com/sun/jcclassic/samples/helloworld/HelloWorld.<init>()V
 					pop;
 					return;
 		}
@@ -122,22 +198,22 @@
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 				L0:	aload_1;
-					invokevirtual 6;		// setOutgoing()S
+					invokevirtual 7;		// setOutgoing()S
 					pop;
 					aload_1;
 					sconst_5;
 					sload_2;
 					sadd;
-					invokevirtual 7;		// setOutgoingLength(S)V
+					invokevirtual 8;		// setOutgoingLength(S)V
 					aload_1;
 					sconst_0;
 					sconst_5;
-					invokevirtual 8;		// sendBytes(SS)V
+					invokevirtual 9;		// sendBytes(SS)V
 					aload_1;
 					getfield_a_this 1;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.SendStatic
 					sconst_0;
 					sload_2;
-					invokevirtual 9;		// sendBytesLong([BSS)V
+					invokevirtual 10;		// sendBytesLong([BSS)V
 					return;
 		}
 
@@ -228,7 +304,7 @@
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 				L0:	aload_1;
-					invokevirtual 10;		// getBuffer()[B
+					invokevirtual 11;		// getBuffer()[B
 					astore_2;
 					aload_2;
 					sconst_0;
@@ -241,7 +317,7 @@
 					if_scmpne L3;
 				L2:	return;
 				L3:	aload_1;
-					invokevirtual 11;		// setIncomingAndReceive()S
+					invokevirtual 12;		// setIncomingAndReceive()S
 					sstore_3;
 					sconst_0;
 					sstore 4;
@@ -254,7 +330,7 @@
 					getfield_a_this 0;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.RecievedStatic
 					sload 4;
 					sload_3;
-					invokestatic 12;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					invokestatic 13;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sload 4;
 					sload_3;
@@ -262,7 +338,7 @@
 					sstore 4;
 					aload_1;
 					sconst_5;
-					invokevirtual 13;		// receiveBytes(S)S
+					invokevirtual 14;		// receiveBytes(S)S
 					sstore_3;
 					goto L4;
 				L6:	getfield_a_this 0;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.RecievedStatic
@@ -298,7 +374,7 @@
 					aload_0;
 					aload_1;
 					sconst_1;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
+					invokevirtual 15;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto_w L24;
 				L12:	sload 4;
 					bspush 17;
@@ -306,11 +382,11 @@
 				L13:	aload_0;
 					bspush 16;
 					getfield_a_this 0;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.RecievedStatic
-					invokevirtual 15;		// AES_DUMMY(B[B)V
+					invokevirtual 16;		// AES_DUMMY(B[B)V
 					aload_0;
 					aload_1;
 					bspush 16;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
+					invokevirtual 15;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto L24;
 				L14:	sload 4;
 					bspush 17;
@@ -318,11 +394,11 @@
 				L15:	aload_0;
 					bspush 16;
 					getfield_a_this 0;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.RecievedStatic
-					invokevirtual 15;		// AES_DUMMY(B[B)V
+					invokevirtual 16;		// AES_DUMMY(B[B)V
 					aload_0;
 					aload_1;
 					bspush 16;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
+					invokevirtual 15;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto L24;
 				L16:	sload 4;
 					bspush 18;
@@ -330,11 +406,11 @@
 				L17:	aload_0;
 					bspush 17;
 					getfield_a_this 0;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.RecievedStatic
-					invokevirtual 16;		// RSA_DUMMY(B[B)V
+					invokevirtual 17;		// RSA_DUMMY(B[B)V
 					aload_0;
 					aload_1;
 					bspush 17;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
+					invokevirtual 15;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto L24;
 				L18:	sload 4;
 					bspush 18;
@@ -342,11 +418,11 @@
 				L19:	aload_0;
 					bspush 17;
 					getfield_a_this 0;		// reference com/sun/jcclassic/samples/helloworld/HelloWorld.RecievedStatic
-					invokevirtual 16;		// RSA_DUMMY(B[B)V
+					invokevirtual 17;		// RSA_DUMMY(B[B)V
 					aload_0;
 					aload_1;
 					bspush 17;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
+					invokevirtual 15;		// SendResponse(Ljavacard/framework/APDU;S)V
 					goto L24;
 				L20:	sconst_0;
 					sstore 6;
@@ -368,7 +444,7 @@
 				L23:	aload_0;
 					aload_1;
 					sconst_5;
-					invokevirtual 14;		// SendResponse(Ljavacard/framework/APDU;S)V
+					invokevirtual 15;		// SendResponse(Ljavacard/framework/APDU;S)V
 				L24:	return;
 		}
 
