@@ -18,13 +18,14 @@
 #define PORT3 					24 //LEDS
 
 // UART
+#define PIN_TX_RX				0
 #define PIN_TX					0
 #define PIN_RX 					1
 
 // CLK
 #define GPIOTE_CHANNEL  0
 #define PPI_CHANNEL 		1
-#define CLK							8
+#define CLK							7
 
 // LEDS and buttons
 #define BUTTONS 				PORT2
@@ -100,9 +101,9 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 void Timer_Start(void);
 void Timer_Stop(void);
 
-void init_gpiote(void);
-void init_ppi(void);
-void init_timer2(void);
+void init_GPIOTE(void);
+void init_PPI(void);
+void init_Timer2(void);
 
 
 //########################	UART												###############################

@@ -31,22 +31,17 @@
 
 #include "Universal.h"
 
-void init_PINS_UART() {
-	// input
-	nrf_gpio_cfg_input(PIN_TX, NRF_GPIO_PIN_NOPULL);
-	// output
-	nrf_gpio_cfg_output(PIN_RX);
-	
-	//nrf_gpio_cfg_input_output(PIN_TX);
+void Set_Pin_Output() {
+	nrf_gpio_cfg_output(PIN_TX_RX);
 }
 
-void init_UART_interupt() {
-	
+void Set_Pin_Input() {
+	nrf_gpio_cfg_input(PIN_TX_RX, NRF_GPIO_PIN_NOPULL);
 }
 
 void init_UART() {
-	init_PINS_UART();
-	init_UART_interupt();
+	Set_Pin_Output();
+	Set_Pin_Input();
 	
 	NRF_UART0->PSELRXD=PIN_RX;
 	NRF_UART0->PSELTXD=PIN_TX;
@@ -62,7 +57,10 @@ void init_UART() {
 	NRF_UART0->TASKS_STARTRX=1;
 }
 
+
 void Send_UART(uint8_t byte) {
+	Set_Pin_Output();
+	
 	NRF_UART0->TXD=byte;
 	
 	while(NRF_UART0->EVENTS_TXDRDY == 0 ) {
@@ -70,11 +68,11 @@ void Send_UART(uint8_t byte) {
 	}
 		
 	NRF_UART0->EVENTS_TXDRDY=0;
-	
-	//NRF_UART0->TASKS_STOPTX=1;
 }
 
 uint8_t Recieve_UART(void) {
+	Set_Pin_Input();
+	
 	uint8_t value=0;
 	
 	while(NRF_UART0->EVENTS_RXDRDY == 0 ) {
@@ -88,3 +86,5 @@ uint8_t Recieve_UART(void) {
 	
 	return value;
 }
+
+

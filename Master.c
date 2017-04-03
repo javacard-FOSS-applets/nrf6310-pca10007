@@ -244,6 +244,12 @@ void HardFault_Handler(void)
 int main(void)
 {    
 		init();
+
+		init_GPIOTE();
+		init_Timer2();
+		init_PPI();
+		Timer_Start();
+	
     static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
 
     // Enable SoftDevice. 
