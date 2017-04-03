@@ -22,10 +22,11 @@
 #define PIN_TX					0
 #define PIN_RX 					1
 
-// CLK
+// CLK ISO 7816 related
 #define GPIOTE_CHANNEL  0
 #define PPI_CHANNEL 		1
 #define CLK							7
+#define RESET_PIN				9
 
 // LEDS and buttons
 #define BUTTONS 				PORT2
@@ -38,8 +39,8 @@ typedef enum {MSG_EMPTY=0x00,
 							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
 							MSG_HW_SYMM=0x04, MSG_HW_ASYMM=0x05} security_type;
 
-		#define DEFAULT_SECURITY (MSG_SW_SYMM)
-		//security_type security = MSG_EMPTY;
+							#define DEFAULT_SECURITY (MSG_SW_SYMM)
+							//security_type security = MSG_EMPTY;
 
 typedef struct {
 	uint16_t length;
@@ -89,6 +90,7 @@ extern 		uint8_t dataready;
 extern 		uint8_t recieved_value;
 extern 		uint8_t recieved_security;
 
+void 			init_RF_segmenter(void);
 
 //########################	Encryption decryption				###############################
 
@@ -98,13 +100,13 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 
 //########################	CLK_GEN											###############################
 
+void init_CLK(void);
 void Timer_Start(void);
 void Timer_Stop(void);
 
-void init_GPIOTE(void);
-void init_PPI(void);
-void init_Timer2(void);
-
+void init_RESET(void);
+void Clear_RESET(void);
+void Set_RESET(void);
 
 //########################	UART												###############################
 

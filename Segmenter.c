@@ -43,8 +43,6 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	uint16_t segment_start;
 	uint16_t segment_end;
 	
-
-	
 	segment_start = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID];
 	segment_end = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+1];
 	
@@ -199,6 +197,10 @@ void SendData(uint8_t* messagebuffer){
 	//AddMessage(buffer);
 }
 
+void init_RF_segmenter() {
+	transmit.ready=1;
+	recieve.ready=0;
+}
 /*
 int main(){
 

@@ -50,6 +50,12 @@ void init_Timer2(void) {
 	NRF_TIMER2->SHORTS    = (TIMER_SHORTS_COMPARE0_CLEAR_Enabled << TIMER_SHORTS_COMPARE0_CLEAR_Pos);
 }
 
+void init_CLK() {
+	init_GPIOTE();
+	init_Timer2();
+	init_PPI();
+}
+
 void Timer_Start() {
 	NRF_TIMER2->TASKS_START = 1;    // Start event generation.
 }

@@ -245,9 +245,7 @@ int main(void)
 {    
 		init();
 
-		init_GPIOTE();
-		init_Timer2();
-		init_PPI();
+		// CLK Start
 		Timer_Start();
 	
     static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];

@@ -467,6 +467,16 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>nrf_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
               <FileName>Segger_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segger_functions.c</FilePath>
@@ -475,6 +485,16 @@
               <FileName>GPIO_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GPIO_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>Reset_Pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Reset_Pin.c</FilePath>
+            </File>
+            <File>
+              <FileName>CLK_Gen_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CLK_Gen_functions.c</FilePath>
             </File>
             <File>
               <FileName>UART_same_pin.c</FileName>
@@ -519,7 +539,7 @@
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>0</v6WtE>
+                    <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -537,14 +557,19 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
-              <FileName>CLK_Gen_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\CLK_Gen_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>GlobalInit_functions.c</FileName>
@@ -590,11 +615,6 @@
               <FileName>arm_startup_nrf51.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51.c</FileName>
@@ -655,21 +675,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>SEGGER_RTT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
-            </File>
-            <File>
-              <FileName>EncodeDecode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EncodeDecode.c</FilePath>
-            </File>
-            <File>
-              <FileName>Segmenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -819,11 +824,6 @@
         <Group>
           <GroupName>GPIO_CLK</GroupName>
           <Files>
-            <File>
-              <FileName>nrf_gpiote.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Include\hal\nrf_gpiote.h</FilePath>
-            </File>
             <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
@@ -1409,6 +1409,16 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>nrf_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
               <FileName>Segger_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segger_functions.c</FilePath>
@@ -1419,14 +1429,9 @@
               <FilePath>.\GPIO_functions.c</FilePath>
             </File>
             <File>
-              <FileName>UART_same_pin.c</FileName>
+              <FileName>Reset_Pin.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\UART_same_pin.c</FilePath>
-            </File>
-            <File>
-              <FileName>UART_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\UART_functions.c</FilePath>
+              <FilePath>.\Reset_Pin.c</FilePath>
             </File>
             <File>
               <FileName>CLK_Gen_functions.c</FileName>
@@ -1434,9 +1439,79 @@
               <FilePath>.\CLK_Gen_functions.c</FilePath>
             </File>
             <File>
+              <FileName>UART_same_pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\UART_same_pin.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>0</v6Lto>
+                    <v6WtE>0</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>UART_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\UART_functions.c</FilePath>
+            </File>
+            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>GlobalInit_functions.c</FileName>
@@ -1482,11 +1557,6 @@
               <FileName>arm_startup_nrf51.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51.c</FileName>
@@ -1547,21 +1617,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>SEGGER_RTT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
-            </File>
-            <File>
-              <FileName>EncodeDecode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EncodeDecode.c</FilePath>
-            </File>
-            <File>
-              <FileName>Segmenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -1711,11 +1766,6 @@
         <Group>
           <GroupName>GPIO_CLK</GroupName>
           <Files>
-            <File>
-              <FileName>nrf_gpiote.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Include\hal\nrf_gpiote.h</FilePath>
-            </File>
             <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
@@ -2263,6 +2313,16 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>nrf_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
               <FileName>Segger_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segger_functions.c</FilePath>
@@ -2273,14 +2333,9 @@
               <FilePath>.\GPIO_functions.c</FilePath>
             </File>
             <File>
-              <FileName>UART_same_pin.c</FileName>
+              <FileName>Reset_Pin.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\UART_same_pin.c</FilePath>
-            </File>
-            <File>
-              <FileName>UART_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\UART_functions.c</FilePath>
+              <FilePath>.\Reset_Pin.c</FilePath>
             </File>
             <File>
               <FileName>CLK_Gen_functions.c</FileName>
@@ -2288,9 +2343,79 @@
               <FilePath>.\CLK_Gen_functions.c</FilePath>
             </File>
             <File>
+              <FileName>UART_same_pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\UART_same_pin.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>0</v6Lto>
+                    <v6WtE>0</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>UART_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\UART_functions.c</FilePath>
+            </File>
+            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>GlobalInit_functions.c</FileName>
@@ -2336,11 +2461,6 @@
               <FileName>arm_startup_nrf51.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51.c</FileName>
@@ -2401,21 +2521,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>SEGGER_RTT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
-            </File>
-            <File>
-              <FileName>EncodeDecode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EncodeDecode.c</FilePath>
-            </File>
-            <File>
-              <FileName>Segmenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -2547,11 +2652,6 @@
         <Group>
           <GroupName>GPIO_CLK</GroupName>
           <Files>
-            <File>
-              <FileName>nrf_gpiote.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Include\hal\nrf_gpiote.h</FilePath>
-            </File>
             <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
@@ -3099,6 +3199,16 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>nrf_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
               <FileName>Segger_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segger_functions.c</FilePath>
@@ -3107,6 +3217,16 @@
               <FileName>GPIO_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GPIO_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>Reset_Pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Reset_Pin.c</FilePath>
+            </File>
+            <File>
+              <FileName>CLK_Gen_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CLK_Gen_functions.c</FilePath>
             </File>
             <File>
               <FileName>UART_same_pin.c</FileName>
@@ -3119,14 +3239,19 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
-              <FileName>CLK_Gen_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\CLK_Gen_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>GlobalInit_functions.c</FileName>
@@ -3174,11 +3299,6 @@
               <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
             </File>
             <File>
-              <FileName>nrf_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
-            </File>
-            <File>
               <FileName>system_nrf51.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\toolchain\system_nrf51.c</FilePath>
@@ -3187,21 +3307,6 @@
               <FileName>system_nrf51422.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\templates\system_nrf51422.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEGGER_RTT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
-            </File>
-            <File>
-              <FileName>EncodeDecode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EncodeDecode.c</FilePath>
-            </File>
-            <File>
-              <FileName>Segmenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -3233,11 +3338,6 @@
         <Group>
           <GroupName>GPIO_CLK</GroupName>
           <Files>
-            <File>
-              <FileName>nrf_gpiote.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Include\hal\nrf_gpiote.h</FilePath>
-            </File>
             <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
@@ -3723,6 +3823,16 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>nrf_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
               <FileName>Segger_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segger_functions.c</FilePath>
@@ -3731,6 +3841,16 @@
               <FileName>GPIO_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GPIO_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>Reset_Pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Reset_Pin.c</FilePath>
+            </File>
+            <File>
+              <FileName>CLK_Gen_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CLK_Gen_functions.c</FilePath>
             </File>
             <File>
               <FileName>UART_same_pin.c</FileName>
@@ -3775,7 +3895,7 @@
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>0</v6WtE>
+                    <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -3793,14 +3913,19 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
-              <FileName>CLK_Gen_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\CLK_Gen_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>GlobalInit_functions.c</FileName>
@@ -3846,11 +3971,6 @@
               <FileName>arm_startup_nrf51.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51.c</FileName>
@@ -3911,21 +4031,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>SEGGER_RTT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
-            </File>
-            <File>
-              <FileName>EncodeDecode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EncodeDecode.c</FilePath>
-            </File>
-            <File>
-              <FileName>Segmenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -4125,11 +4230,6 @@
         <Group>
           <GroupName>GPIO_CLK</GroupName>
           <Files>
-            <File>
-              <FileName>nrf_gpiote.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Include\hal\nrf_gpiote.h</FilePath>
-            </File>
             <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
@@ -4665,6 +4765,16 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>nrf_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
               <FileName>Segger_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segger_functions.c</FilePath>
@@ -4673,6 +4783,16 @@
               <FileName>GPIO_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GPIO_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>Reset_Pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Reset_Pin.c</FilePath>
+            </File>
+            <File>
+              <FileName>CLK_Gen_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CLK_Gen_functions.c</FilePath>
             </File>
             <File>
               <FileName>UART_same_pin.c</FileName>
@@ -4722,7 +4842,7 @@
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>0</v6WtE>
+                    <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -4735,14 +4855,19 @@
               </FileOption>
             </File>
             <File>
-              <FileName>CLK_Gen_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\CLK_Gen_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncodeDecode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segmenter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>GlobalInit_functions.c</FileName>
@@ -4788,11 +4913,6 @@
               <FileName>arm_startup_nrf51.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\Include\toolchain\arm\arm_startup_nrf51.s</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
             </File>
             <File>
               <FileName>system_nrf51.c</FileName>
@@ -4853,21 +4973,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>SEGGER_RTT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Include\segger_rtt\SEGGER_RTT.c</FilePath>
-            </File>
-            <File>
-              <FileName>EncodeDecode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EncodeDecode.c</FilePath>
-            </File>
-            <File>
-              <FileName>Segmenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Segmenter.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -5067,11 +5172,6 @@
         <Group>
           <GroupName>GPIO_CLK</GroupName>
           <Files>
-            <File>
-              <FileName>nrf_gpiote.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Include\hal\nrf_gpiote.h</FilePath>
-            </File>
             <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>

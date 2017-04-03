@@ -44,6 +44,14 @@ void init() {
 	PrepareLEDS();
 	PrepareButtons();
 	
+	init_RF_segmenter();
+		
+	init_CLK();
+	init_RESET();
+	//init_UART();
+	//PrepareTemp();
+	
+	// Debug strings Segger
 	SEGGER_RTT_WriteString(0, "PSK: ");
 	for(int i=0; i<16; i++)
 		write_one_hex_value(PSK[i]);
@@ -54,10 +62,8 @@ void init() {
 		write_one_hex_value(IVECTOR[i]);
 	SEGGER_RTT_WriteString(0, "\n");
 	
+	// Test Encryption/Decryption
 	ENC_DEC_Test();
 	ENC_DEC_Test();
 	
-	transmit.ready=1;
-	recieve.ready=0;
-	//PrepareTemp();
 }
