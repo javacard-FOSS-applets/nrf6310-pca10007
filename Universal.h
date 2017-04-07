@@ -17,16 +17,18 @@
 #define PORT2 					16 //BUTTONS
 #define PORT3 					24 //LEDS
 
-// UART
-#define PIN_TX_RX				0
-#define PIN_TX					0
-#define PIN_RX 					1
-
 // CLK ISO 7816 related
 #define GPIOTE_CHANNEL  0
 #define PPI_CHANNEL 		1
+
 #define CLK							7
-#define RESET_PIN				9
+#define RESET_PIN				6
+
+// UART
+#define PIN_TX_RX				0
+#define PIN_TX					0
+#define PIN_RX 					2
+
 
 // LEDS and buttons
 #define BUTTONS 				PORT2
