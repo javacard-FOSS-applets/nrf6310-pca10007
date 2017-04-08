@@ -11,24 +11,21 @@
 
 void Decode(uint16_t count, uint8_t* message) {
 		
-	SEGGER_RTT_WriteString(0, "Count: ");
-	write_one_hex_value(count);
-	SEGGER_RTT_WriteString(0, "\n");
+	Segger_write_string_value("Count: ", count);
 	
 	if(count==0){
 		//Empty message recieved	
 		return;
 	}
 	
-	SEGGER_RTT_WriteString(0, "Message recieved: ");
+	Segger_write_string("Message recieved: ");
 	for(int i=0; i<count; i++)
-		write_one_hex_value(message[i]);
-	SEGGER_RTT_WriteString(0, "\n");
+		Segger_write_one_hex_value(message[i]);
+	Segger_write_string("\n");
 	
 	recieved_security=message[0];
 	
-	SEGGER_RTT_WriteString(0, "  Security type: ");
-	write_one_hex_value(recieved_security);
+	Segger_write_string_value("  Security type: ", recieved_security);
 	
 	switch((security_type)message[0]){
 		case MSG_UNSECURED:
@@ -68,9 +65,7 @@ void Decode(uint16_t count, uint8_t* message) {
 			break;
 	}
 	
-	SEGGER_RTT_WriteString(0, "\nReceived value: ");
-				write_one_hex_value(recieved_value);
-	SEGGER_RTT_WriteString(0, "\n");
+	Segger_write_string_value("\nReceived value: ", recieved_value);
 }
 
 //!!!! does not know, if the data will be sent, because, transmiter can be busy

@@ -31,6 +31,19 @@
 
 #include "Universal.h"
 
+#define UART_BAUDRATE_BAUDRATE_Baud7467 0x001e9000
+
+/*
+https://devzone.nordicsemi.com/question/1181/uart-baudrate-register-values/?answer=1194#post-id-1194
+
+The formula is: Baudrate = desired baudrate * 2^32 / 16000000
+Example: Baudrate of 31250 should then be 8388608 decimal = 0x800000.
+Note that you will have to round the number afterwards: rounded_value = (value + 0x800) & 0xFFFFF000
+Since the baudrate generator will be sourced by the 16 M (Either RC or XOSC, depending on your configuration), then your error rate will be ~equal to the overall drift of the system clock and the accuracy of the baudrate generator towards your target baudrate.
+Other way around: Check out this define in nrf51_bitfields.h line 5702:
+UART_BAUDRATE_BAUDRATE_Baud115200 (0x01D7E000UL) !< 115200 baud. 
+The actual baudrate set with the above define is:
+baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 
 void UART_input() {
 	nrf_gpio_cfg_input(PIN_TX_RX, NRF_GPIO_PIN_NOPULL);
@@ -65,17 +78,21 @@ void init_UART() {
 	NRF_UART0->PSELRXD=PIN_RX;
 	NRF_UART0->PSELTXD=PIN_TX;
 	
-	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud4800;
+	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud7467;
 				
-	NRF_UART0->POWER=1;
-	NRF_UART0->ENABLE=4;
+	Segger_write_one_hex_value_32(NRF_UART0->BAUDRATE);
 	
 	NRF_UART0->EVENTS_RXDRDY=0;
 	
 	NRF_UART0->TASKS_STARTTX=1;
 	NRF_UART0->TASKS_STARTRX=1;
 	
+	NRF_UART0->CONFIG=0x0E;
+	
 	UART_input();
+	
+	NRF_UART0->POWER=1;
+	NRF_UART0->ENABLE=4;
 }
 
 
@@ -95,6 +112,8 @@ void Send_UART(uint8_t byte) {
 uint8_t Recieve_UART(void) {
 	UART_input();
 	
+	NRF_UART0->TASKS_STARTRX=1;
+	
 	uint8_t value=0;
 	
 	while(NRF_UART0->EVENTS_RXDRDY == 0 ) {
@@ -106,5 +125,16 @@ uint8_t Recieve_UART(void) {
 		NRF_UART0->EVENTS_RXDRDY=0;
 	}
 	
+	if(NRF_UART0->EVENTS_ERROR) {
+		Segger_write_string_value("UART ERROR: ", NRF_UART0->ERRORSRC);
+		//3 overrun
+		//2 parity
+		//1 framing
+		//0 no error
+		NRF_UART0->ERRORSRC=1;
+		NRF_UART0->EVENTS_ERROR=0;
+	}
+	
+	NRF_UART0->TASKS_STOPRX=1;
 	return value;
 }

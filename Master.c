@@ -72,7 +72,7 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 {
     for (;;)
     {
-			SEGGER_RTT_WriteString(0, "App error! \n");
+			Segger_write_string("App error! \n");
     }
 }
 
@@ -127,7 +127,7 @@ static void channel_event_handle_transmit(uint32_t event)
 							//uint8_t message[1];
 							//message[0] = ReadButtons();
 							//FillSendData(1, message);
-							SEGGER_RTT_WriteString(0, "Event.\n");
+							Segger_write_string("Event.\n");
 							
 							EnCode(DEFAULT_SECURITY, ReadButtons());
 							
@@ -147,10 +147,10 @@ static void channel_event_handle_transmit(uint32_t event)
             APP_ERROR_CHECK(err_code);						
 						
 													
-						SEGGER_RTT_WriteString(0, "Sending values:");
+						Segger_write_string("Sending values:");
 						for(uint16_t i=0; i<8; i++)
-							write_one_hex_value(m_broadcast_data[i]);
-						SEGGER_RTT_WriteString(0, "\n");
+							Segger_write_one_hex_value(m_broadcast_data[i]);
+						Segger_write_string("\n");
 						break;
 						
         default:
@@ -174,7 +174,7 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 						success = AddMessage(p_event_message_buffer);	
 						
 						if(success==1){
-							SEGGER_RTT_WriteString(0, "Recieve SUCCESS\n");
+							Segger_write_string("Recieve SUCCESS\n");
 							
 							//recieved_value=p_event_message_buffer[5];
 							
@@ -192,20 +192,20 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 							//SetLEDS(recieved_value);
 						}
 						else {
-							SEGGER_RTT_WriteString(0, "Recieved EMPTY\n");
+							Segger_write_string("Recieved EMPTY\n");
 						}
 						
-						SEGGER_RTT_WriteString(0, "Recieved values:");
+						Segger_write_string("Recieved values:");
 						for(uint16_t i=0; i<12; i++)
-							write_one_hex_value(p_event_message_buffer[i]);
-						SEGGER_RTT_WriteString(0, "\n");
+							Segger_write_one_hex_value(p_event_message_buffer[i]);
+						Segger_write_string("\n");
 						
 					break;
 						
 				default:      
 					break;
 			}
-			write_hex_value(recieved_value);
+			Segger_write_hex_value(recieved_value);
 }
 
 /**@brief Function for stack interrupt handling.
@@ -228,7 +228,7 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
 {
     for (;;)
     {
-				SEGGER_RTT_WriteString(0, "Assert callback.\n");
+				Segger_write_string("Assert callback.\n");
     }
 }
 
@@ -237,7 +237,7 @@ void HardFault_Handler(void)
 {
     for (;;)
     {
-				SEGGER_RTT_WriteString(0, "Hard fault occured\n");
+				Segger_write_string("Hard fault occured\n");
     }
 }
 

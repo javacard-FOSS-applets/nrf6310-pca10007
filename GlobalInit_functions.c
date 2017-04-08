@@ -52,15 +52,15 @@ void init() {
 	//PrepareTemp();
 	
 	// Debug strings Segger
-	SEGGER_RTT_WriteString(0, "PSK: ");
+	Segger_write_string("PSK: ");
 	for(int i=0; i<16; i++)
-		write_one_hex_value(PSK[i]);
-	SEGGER_RTT_WriteString(0, "\n");
+		Segger_write_one_hex_value(PSK[i]);
+	Segger_write_string("\n");
 	
-	SEGGER_RTT_WriteString(0, "VECTOR: ");
+	Segger_write_string("VECTOR: ");
 	for(int i=0; i<16; i++)
-		write_one_hex_value(IVECTOR[i]);
-	SEGGER_RTT_WriteString(0, "\n");
+		Segger_write_one_hex_value(IVECTOR[i]);
+	Segger_write_string("\n");
 	
 	// Test Encryption/Decryption
 	ENC_DEC_Test();

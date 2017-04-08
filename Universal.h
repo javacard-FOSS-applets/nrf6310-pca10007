@@ -12,10 +12,10 @@
 //#define PIN 						31
 
 // Ports
-#define PORT0 					0
-#define PORT1 					8
-#define PORT2 					16 //BUTTONS
-#define PORT3 					24 //LEDS
+#define	 	PORT0 					0
+#define	 	PORT1 					8
+#define 	PORT2 					16 //BUTTONS
+#define 	PORT3 					24 //LEDS
 
 // CLK ISO 7816 related
 	#define CHANNEL_GPIOTE  0
@@ -32,8 +32,10 @@
 
 
 // LEDS and buttons
-#define BUTTONS 				PORT2
-#define    LEDS 				PORT1
+#define 	BUTTONS 				PORT2
+#define   LEDS 						PORT1
+
+#define 	SYSCLK					16000000
 
 //########################	Structs for project				###############################
 
@@ -66,9 +68,11 @@ uint8_t 	ReadButtons(void);
 
 //########################	Segger debugging && info				###############################
 
-void 			write_hex_value(uint8_t);
-void			write_one_hex_value(uint8_t);
-
+void 			Segger_write_hex_value(uint8_t);
+void			Segger_write_one_hex_value(uint8_t);
+void 			Segger_write_string(const char *string);
+void 			Segger_write_string_value(const char *string, uint8_t);
+void 			Segger_write_one_hex_value_32(uint32_t) ;
 
 //########################	Radio message segmentation functions		###############################
 

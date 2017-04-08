@@ -113,11 +113,11 @@ static void send_reverse_data() {
             //m_broadcast_data[2] = ; //this does the job
 						
 //						SEGGER
-						SEGGER_RTT_WriteString(0, "Dataready: ");
-						write_one_hex_value(dataready);
-						SEGGER_RTT_WriteString(0, " Transmitready: ");
-						write_one_hex_value(transmit.ready);
-						SEGGER_RTT_WriteString(0, "\n");
+						Segger_write_string("Dataready: ");
+						Segger_write_one_hex_value(dataready);
+						Segger_write_string(" Transmitready: ");
+						Segger_write_one_hex_value(transmit.ready);
+						Segger_write_string("\n");
 	
 						if(dataready==1 && transmit.ready==1){
 							//transmit.ready=0;
@@ -140,10 +140,10 @@ static void send_reverse_data() {
                                                    m_broadcast_data);
             APP_ERROR_CHECK(err_code);
 	
-						SEGGER_RTT_WriteString(0, "Sending values:");
+						Segger_write_string("Sending values:");
 						for(uint16_t i=0; i<8; i++)
-							write_one_hex_value(m_broadcast_data[i]);
-						SEGGER_RTT_WriteString(0, "\n");
+							Segger_write_one_hex_value(m_broadcast_data[i]);
+						Segger_write_string("\n");
 }
 
 /**@brief Function for handling ANT TX channel events. 
@@ -188,14 +188,14 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 			switch (p_event_message_buffer[ANT_MSG_IDX_ID]) {
 				
 				case MESG_BROADCAST_DATA_ID:    
-					SEGGER_RTT_WriteString(0, "Recieved values:");
+					Segger_write_string("Recieved values:");
 					for(uint16_t i=0; i<12; i++)
-						write_one_hex_value(p_event_message_buffer[i]);			
+						Segger_write_one_hex_value(p_event_message_buffer[i]);			
 					SEGGER_RTT_WriteString(0, "\n");	
 				
 						success = AddMessage(p_event_message_buffer);	
 						if(success==1){
-							SEGGER_RTT_WriteString(0, "Recieve SUCCESS\n");
+							Segger_write_string("Recieve SUCCESS\n");
 							
 							//recieved_value=p_event_message_buffer[5];
 							Decode(recieve.length, recieve.message);
@@ -218,7 +218,7 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
 				default:      
 						break;
 			}
-			write_hex_value(recieved_value);
+			Segger_write_hex_value(recieved_value);
 }
 
 /**@brief Function for stack interrupt handling.
@@ -237,28 +237,23 @@ void PROTOCOL_EVENT_IRQHandler(void)
  * @param[in] line_num    Line number where the assert occurred.
  * @param[in] p_file_name Pointer to the file name. 
  */
-void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * p_file_name)
-{
-    for (;;)
-    {
-				SEGGER_RTT_WriteString(0, "Assert callback.\n");
+void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * p_file_name) {
+    for (;;) {
+				Segger_write_string("Assert callback.\n");
     }
 }
 
 /**@brief Function for handling HardFault.
  */
-void HardFault_Handler(void)
-{
-    for (;;)
-    {
-				SEGGER_RTT_WriteString(0, "Hard fault occured\n");
+void HardFault_Handler(void) {
+    for (;;) {
+				Segger_write_string("Hard fault occured\n");
     }
 }
 
 /**@brief Function for application main entry. Does not return.
  */
-int main(void)
-{
+int main(void) {
     // ANT event message buffer.
 		init();
     static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE]; 
