@@ -1,5 +1,9 @@
 #include "nrf_delay.h"
+#include "nrf51.h"
+#include "nrf_gpio.h"
+
 #include "Universal.h"
+
 
 void PrepareLEDS() {
 //__asm("ADD r1, r0, #1\n"
@@ -18,7 +22,7 @@ void PrepareLEDS() {
 }
 
 void SetLEDS(uint8_t value) {
-	uint32_t zeros;
+	/*uint32_t zeros;
 	uint32_t ones;
 	
 	zeros = 0;
@@ -27,7 +31,17 @@ void SetLEDS(uint8_t value) {
 	NRF_GPIO->OUT = (ones  & (0x00 << LEDS));
 	NRF_GPIO->OUT = (zeros | (value << LEDS));
 	
-	NRF_GPIO->OUT = (value<<LEDS);
+	NRF_GPIO->OUT = (value<<LEDS);*/
+	
+	for(uint8_t i=0; i<8; i++) {
+		if( value & (1<<i) ) {
+			nrf_gpio_pin_set(i+LEDS);
+		}
+		else {
+			nrf_gpio_pin_clear(i+LEDS);
+		}
+			
+	}
 }
 
 void BlinkOnce() {

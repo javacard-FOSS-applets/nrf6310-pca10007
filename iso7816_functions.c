@@ -11,6 +11,8 @@
 #define one_CLK_cycle 	 6
 
 // http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0095a/ch03s02s07.html
+//http://www.ruimtools.com/atr.php
+//http://ludovic.rousseau.free.fr/softwares/pcsc-tools/smartcard_list.txt
 
 //https://smartcard-atr.appspot.com/parse?ATR=3bea00008131fe450031c173c840000090007a
 	//p5cn145
@@ -20,12 +22,17 @@
 //https://smartcard-atr.appspot.com/parse?ATR=3bf81300008131fe454a434f5076323431b7
 	//p5cn080
 		//0x3bh 0xf8h 0x13h 0x00h 0x00h 0x81h 0x31h 0xfeh 0x45h 0x4ah 0x43h 0x4fh 0x50h 0x76h 0x32h 0x34h 0x31h 0xb7h
-		//3b f8 13 00 00 81 31 fe 45 4a 43 4f 50 76 32 34 31 b7
+		//3B F8 13 00 00 81 31 FR 45 4A 43 4F 50 76 32 34 31 B7
+
+
+uint8_t ATR_Message[35];
+uint8_t ATR_count=0;
+uint8_t success=0;
 
 
 void Card_Deactivate(void);
 
-uint8_t ATR_Message[35];
+
 
 void Card_wait() {
 	nrf_delay_us(DELAY_ETU_CYCLES * one_CLK_cycle);
@@ -118,13 +125,21 @@ void init_ISO7816_pins(void) {
 }
 
 void test_Card(void ){
+	ATR_count=0;
+
 	Card_Activate();
 	Warm_Reset();
 
-	for(uint8_t i=0;i<19;i++) {
-		ATR_Message[i]=Recieve_UART();
+	for(uint8_t i=0;i<25;i++) {
+		success=0;
+		ATR_Message[i]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+		if(!success) {
+			break;
+		}
 		Segger_write_one_hex_value(ATR_Message[i]);
+		ATR_count++;
 	}
+	
 	Card_wait();
 	Segger_write_string("\n");
 	Card_Deactivate();
@@ -135,19 +150,24 @@ void init_Card(void) {
 	init_ISO7816_pins();
 	
 	test_Card();
-	
 	Card_Activate();
 	//Card_Cold_Reset();
 	//ATR();
-	
 	Warm_Reset();
-	for(uint8_t i=0;i<19;i++) {
+	
+	for(uint8_t i=0;i<25;i++) {
 		//value=InverseByte(value);
-		ATR_Message[i]=Recieve_UART();
+		success=0;
+		ATR_Message[i]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+		if(!success) {
+			break;
+		}
 		Segger_write_one_hex_value(ATR_Message[i]);
-		
+		ATR_count++;
 	}
+	
 	Card_wait();
+	
 	Segger_write_string("\n");
 	
 	if(ATR_Message[0]==0x3B || ATR_Message[0]==0x3F) {

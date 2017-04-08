@@ -129,6 +129,7 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	void UART_input(void);
 	void UART_output(void);
 	uint8_t Recieve_UART(void);
+	uint8_t Recieve_UART_timeout(uint32_t, uint8_t*);
 	
 	//########################	ISO7816  										###############################
 	void nrf_delay_us(uint32_t);

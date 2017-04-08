@@ -45,6 +45,7 @@ UART_BAUDRATE_BAUDRATE_Baud115200 (0x01D7E000UL) !< 115200 baud.
 The actual baudrate set with the above define is:
 baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 
+
 void UART_input() {
 	nrf_gpio_cfg_input(PIN_TX_RX, NRF_GPIO_PIN_NOPULL);
 }
@@ -107,6 +108,46 @@ void Send_UART(uint8_t byte) {
 		
 	NRF_UART0->EVENTS_TXDRDY=0;
 	//NRF_UART0->TASKS_STOPTX=1;
+}
+
+uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
+	*success=0;
+	static uint32_t timeout=0;
+	timeout=0;
+	UART_input();
+	
+	NRF_UART0->TASKS_STARTRX=1;
+	
+	uint8_t value=0;
+	
+	while(NRF_UART0->EVENTS_RXDRDY == 0  && timeout<delay) {
+		timeout++;
+		nrf_delay_us(0x01);
+	}
+	
+	if(NRF_UART0->EVENTS_RXDRDY==0) {
+		*success=0;
+		return 0;
+	}
+	
+	if(NRF_UART0->EVENTS_RXDRDY) {
+		value = NRF_UART0->RXD;
+		NRF_UART0->EVENTS_RXDRDY=0;
+	}
+	
+	if(NRF_UART0->EVENTS_ERROR) {
+		Segger_write_string_value("UART ERROR: ", NRF_UART0->ERRORSRC);
+		//3 overrun
+		//2 parity
+		//1 framing
+		//0 no error
+		NRF_UART0->ERRORSRC=1;
+		NRF_UART0->EVENTS_ERROR=0;
+	}
+	
+	NRF_UART0->TASKS_STOPRX=1;
+	*success=1;
+	return value;
 }
 
 uint8_t Recieve_UART(void) {
