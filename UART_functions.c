@@ -31,27 +31,41 @@
 
 #include "Universal.h"
 
+
+void UART_input() {
+	nrf_gpio_cfg_input(PIN_TX_RX, NRF_GPIO_PIN_NOPULL);
+}
+
+void UART_output() {
+	nrf_gpio_cfg_output(PIN_TX_RX);
+}
+
+void Clear_UART() {
+	UART_output();
+	nrf_gpio_pin_clear(PIN_TX_RX);
+}
+
 void init_PINS_UART() {
 	// input
-	nrf_gpio_cfg_input(PIN_TX, NRF_GPIO_PIN_NOPULL);
+	nrf_gpio_cfg_input(PIN_RX, NRF_GPIO_PIN_NOPULL);
 	// output
-	nrf_gpio_cfg_output(PIN_RX);
+	nrf_gpio_cfg_output(PIN_TX);
 	
 	//nrf_gpio_cfg_input_output(PIN_TX);
 }
 
-void init_UART_interupt() {
-	
-}
+//void init_UART_interupt() {
+//}
 
 void init_UART() {
 	init_PINS_UART();
-	init_UART_interupt();
+	//init_UART_interupt();
 	
+	// TODO  PIN_TX_RX
 	NRF_UART0->PSELRXD=PIN_RX;
 	NRF_UART0->PSELTXD=PIN_TX;
 	
-	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud9600;
+	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud4800;
 				
 	NRF_UART0->POWER=1;
 	NRF_UART0->ENABLE=4;
@@ -60,9 +74,14 @@ void init_UART() {
 	
 	NRF_UART0->TASKS_STARTTX=1;
 	NRF_UART0->TASKS_STARTRX=1;
+	
+	UART_input();
 }
 
+
 void Send_UART(uint8_t byte) {
+	UART_output();
+	
 	NRF_UART0->TXD=byte;
 	
 	while(NRF_UART0->EVENTS_TXDRDY == 0 ) {
@@ -70,11 +89,12 @@ void Send_UART(uint8_t byte) {
 	}
 		
 	NRF_UART0->EVENTS_TXDRDY=0;
-	
 	//NRF_UART0->TASKS_STOPTX=1;
 }
 
 uint8_t Recieve_UART(void) {
+	UART_input();
+	
 	uint8_t value=0;
 	
 	while(NRF_UART0->EVENTS_RXDRDY == 0 ) {

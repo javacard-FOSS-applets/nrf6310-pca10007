@@ -45,10 +45,10 @@ void init() {
 	PrepareButtons();
 	
 	init_RF_segmenter();
-		
-	init_CLK();
-	init_RESET();
-	//init_UART();
+
+	//init_ISO7816_pins();
+	init_Card();
+	
 	//PrepareTemp();
 	
 	// Debug strings Segger
@@ -65,5 +65,4 @@ void init() {
 	// Test Encryption/Decryption
 	ENC_DEC_Test();
 	ENC_DEC_Test();
-	
 }

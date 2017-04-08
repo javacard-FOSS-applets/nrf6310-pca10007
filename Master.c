@@ -245,9 +245,6 @@ int main(void)
 {    
 		init();
 
-		// CLK Start
-		Timer_Start();
-	
     static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
 
     // Enable SoftDevice. 

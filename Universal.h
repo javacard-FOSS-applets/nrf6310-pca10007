@@ -18,16 +18,17 @@
 #define PORT3 					24 //LEDS
 
 // CLK ISO 7816 related
-#define GPIOTE_CHANNEL  0
-#define PPI_CHANNEL 		1
+	#define CHANNEL_GPIOTE  0
+	#define CHANNEL_PPI 		1
 
-#define CLK							7
-#define RESET_PIN				6
+	#define PIN_CLK					5
+	#define PIN_RESET				4
+	#define PIN_VCC					6
 
-// UART
-#define PIN_TX_RX				0
-#define PIN_TX					0
-#define PIN_RX 					2
+	// UART
+	#define PIN_TX					0
+	#define PIN_RX 					2
+	#define PIN_TX_RX				2
 
 
 // LEDS and buttons
@@ -100,18 +101,33 @@ void AES128_CBC_decrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length, const uint8_t* key, const uint8_t* iv);
 
 
-//########################	CLK_GEN											###############################
+	//########################	CLK_GEN											###############################
 
-void init_CLK(void);
-void Timer_Start(void);
-void Timer_Stop(void);
+	void init_CLK(void);
+	void Start_CLK(void);
+	void Stop_CLK(void);
 
-void init_RESET(void);
-void Clear_RESET(void);
-void Set_RESET(void);
+	void init_RESET(void);
+	void Set_RESET(void);
+	void Clear_RESET(void);
 
-//########################	UART												###############################
+	//########################	VCC 												###############################
 
-void init_UART(void);
-void Send_UART(uint8_t byte);
-uint8_t Recieve_UART(void);
+	void init_VCC(void);
+	void Set_VCC(void);
+	void Clear_VCC(void);
+
+	//########################	UART												###############################
+
+	void init_UART(void);
+	void Send_UART(uint8_t);
+	void Clear_UART(void);
+	void UART_input(void);
+	void UART_output(void);
+	uint8_t Recieve_UART(void);
+	
+	//########################	ISO7816  										###############################
+	void nrf_delay_us(uint32_t);
+		
+	void init_ISO7816_pins(void);
+	void init_Card(void);

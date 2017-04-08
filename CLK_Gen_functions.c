@@ -12,13 +12,13 @@
 //nedd to use Timer1 || Timer2. TIMER0 reserved for SoftDevice
 
 void init_GPIOTE(void) {
-    nrf_gpio_cfg_output(CLK);
-    nrf_gpiote_task_config(GPIOTE_CHANNEL, CLK, NRF_GPIOTE_POLARITY_TOGGLE, NRF_GPIOTE_INITIAL_VALUE_LOW);
+    nrf_gpio_cfg_output(PIN_CLK);
+    nrf_gpiote_task_config(CHANNEL_GPIOTE, PIN_CLK, NRF_GPIOTE_POLARITY_TOGGLE, NRF_GPIOTE_INITIAL_VALUE_LOW);
 }
 
 void init_PPI(void) {
-	NRF_PPI->CH[PPI_CHANNEL].EEP = (uint32_t)&NRF_TIMER2->EVENTS_COMPARE[0];					//at what event
-	NRF_PPI->CH[PPI_CHANNEL].TEP = (uint32_t)&NRF_GPIOTE->TASKS_OUT[GPIOTE_CHANNEL];	//what task to activate
+	NRF_PPI->CH[CHANNEL_PPI].EEP = (uint32_t)&NRF_TIMER2->EVENTS_COMPARE[0];					//at what event
+	NRF_PPI->CH[CHANNEL_PPI].TEP = (uint32_t)&NRF_GPIOTE->TASKS_OUT[CHANNEL_GPIOTE];	//what task to activate
 
 	NRF_PPI->CHEN = (PPI_CHEN_CH1_Enabled << PPI_CHEN_CH1_Pos);
 }
@@ -50,16 +50,20 @@ void init_Timer2(void) {
 	NRF_TIMER2->SHORTS    = (TIMER_SHORTS_COMPARE0_CLEAR_Enabled << TIMER_SHORTS_COMPARE0_CLEAR_Pos);
 }
 
+void Start_CLK() {
+	NRF_TIMER2->TASKS_START = 1;    // Start event generation.
+}
+
+void Stop_CLK() {
+	NRF_TIMER2->TASKS_STOP = 1;    // Stop event generation.
+	nrf_delay_ms(10);
+	nrf_gpio_pin_clear(PIN_CLK);
+}
+
+
 void init_CLK() {
 	init_GPIOTE();
 	init_Timer2();
 	init_PPI();
-}
-
-void Timer_Start() {
-	NRF_TIMER2->TASKS_START = 1;    // Start event generation.
-}
-
-void Timer_Stop() {
-	NRF_TIMER2->TASKS_STOP = 1;    // Stop event generation.
+	Stop_CLK();
 }

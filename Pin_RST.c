@@ -3,14 +3,14 @@
 #include "Universal.h"
 
 void Set_RESET() {
-	nrf_gpio_pin_set(RESET_PIN);
+	nrf_gpio_pin_clear(PIN_RESET);
 }
 
 void Clear_RESET() {
-	nrf_gpio_pin_clear(RESET_PIN);
+	nrf_gpio_pin_set(PIN_RESET);
 }
 
 void init_RESET() {
-	nrf_gpio_cfg_output(RESET_PIN);
-	Set_RESET();
+	nrf_gpio_cfg_output(PIN_RESET);
+	Clear_RESET();
 }

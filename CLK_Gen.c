@@ -8,10 +8,10 @@ int main(void) {
 	init_CLK();
 	init_RESET();
 	
-	unsigned int tick=5000;
+//	unsigned int tick=5000;
     
 	while (true) {	
-		Timer_Start();
+		Start_CLK();
 		
 		nrf_delay_ms(100);
 		Clear_RESET();
@@ -23,7 +23,7 @@ int main(void) {
 		while (tick--) {
 			
 		}
-		Timer_Stop();
+		Stop_CLK();
 
 		tick=5000;
 		

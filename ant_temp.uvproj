@@ -467,6 +467,11 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -487,9 +492,14 @@
               <FilePath>.\GPIO_functions.c</FilePath>
             </File>
             <File>
-              <FileName>Reset_Pin.c</FileName>
+              <FileName>Pin_RST.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Reset_Pin.c</FilePath>
+              <FilePath>.\Pin_RST.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pin_VCC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pin_VCC.c</FilePath>
             </File>
             <File>
               <FileName>CLK_Gen_functions.c</FileName>
@@ -557,6 +567,11 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
+            </File>
+            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -585,11 +600,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>aes.h</FileName>
@@ -1409,6 +1419,11 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -1429,9 +1444,14 @@
               <FilePath>.\GPIO_functions.c</FilePath>
             </File>
             <File>
-              <FileName>Reset_Pin.c</FileName>
+              <FileName>Pin_RST.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Reset_Pin.c</FilePath>
+              <FilePath>.\Pin_RST.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pin_VCC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pin_VCC.c</FilePath>
             </File>
             <File>
               <FileName>CLK_Gen_functions.c</FileName>
@@ -1499,6 +1519,11 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
+            </File>
+            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -1527,11 +1552,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>aes.h</FileName>
@@ -2313,6 +2333,11 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -2333,9 +2358,14 @@
               <FilePath>.\GPIO_functions.c</FilePath>
             </File>
             <File>
-              <FileName>Reset_Pin.c</FileName>
+              <FileName>Pin_RST.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Reset_Pin.c</FilePath>
+              <FilePath>.\Pin_RST.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pin_VCC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pin_VCC.c</FilePath>
             </File>
             <File>
               <FileName>CLK_Gen_functions.c</FileName>
@@ -2403,6 +2433,11 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
+            </File>
+            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -2431,11 +2466,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>aes.h</FileName>
@@ -3199,6 +3229,11 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -3219,9 +3254,14 @@
               <FilePath>.\GPIO_functions.c</FilePath>
             </File>
             <File>
-              <FileName>Reset_Pin.c</FileName>
+              <FileName>Pin_RST.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Reset_Pin.c</FilePath>
+              <FilePath>.\Pin_RST.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pin_VCC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pin_VCC.c</FilePath>
             </File>
             <File>
               <FileName>CLK_Gen_functions.c</FileName>
@@ -3237,6 +3277,11 @@
               <FileName>UART_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\UART_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
             </File>
             <File>
               <FileName>Misc_functions.c</FileName>
@@ -3267,11 +3312,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>aes.h</FileName>
@@ -3823,6 +3863,11 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -3843,9 +3888,14 @@
               <FilePath>.\GPIO_functions.c</FilePath>
             </File>
             <File>
-              <FileName>Reset_Pin.c</FileName>
+              <FileName>Pin_RST.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Reset_Pin.c</FilePath>
+              <FilePath>.\Pin_RST.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pin_VCC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pin_VCC.c</FilePath>
             </File>
             <File>
               <FileName>CLK_Gen_functions.c</FileName>
@@ -3913,6 +3963,11 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
+            </File>
+            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -3941,11 +3996,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>aes.h</FileName>
@@ -4765,6 +4815,11 @@
           <GroupName>Functions</GroupName>
           <Files>
             <File>
+              <FileName>Universal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -4785,9 +4840,14 @@
               <FilePath>.\GPIO_functions.c</FilePath>
             </File>
             <File>
-              <FileName>Reset_Pin.c</FileName>
+              <FileName>Pin_RST.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Reset_Pin.c</FilePath>
+              <FilePath>.\Pin_RST.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pin_VCC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pin_VCC.c</FilePath>
             </File>
             <File>
               <FileName>CLK_Gen_functions.c</FileName>
@@ -4855,6 +4915,11 @@
               </FileOption>
             </File>
             <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
+            </File>
+            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -4883,11 +4948,6 @@
               <FileName>PSK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\PSK.h</FilePath>
-            </File>
-            <File>
-              <FileName>Universal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
               <FileName>aes.h</FileName>
