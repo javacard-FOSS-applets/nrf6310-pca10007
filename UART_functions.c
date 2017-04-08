@@ -81,8 +81,10 @@ void init_UART() {
 	
 	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud7467;
 				
-	Segger_write_one_hex_value_32(NRF_UART0->BAUDRATE);
-	
+		Segger_write_string("Baudrate settings!");
+		Segger_write_one_hex_value_32(NRF_UART0->BAUDRATE);
+		Segger_write_string("\n");
+		
 	NRF_UART0->EVENTS_RXDRDY=0;
 	
 	NRF_UART0->TASKS_STARTTX=1;

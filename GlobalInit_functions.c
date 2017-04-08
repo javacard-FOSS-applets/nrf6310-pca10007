@@ -40,14 +40,19 @@ void PrepareLEDS(void);
 void PrepareButtons(void);
 
 void init() {
-	SEGGER_RTT_WriteString(0, "Segger RTT Console 0, nrf51422 Debug.\n");
-	PrepareLEDS();
-	PrepareButtons();
+	Segger_write_string("Segger RTT Console 0, nrf51422 Debug.\n");
 	
-	init_RF_segmenter();
+	Segger_write_string("Preparing LEDS!\n");
+		PrepareLEDS();
+	Segger_write_string("Preparing Buttons!\n");
+		PrepareButtons();
+	
+	Segger_write_string("Preparing Message segmenter!\n");
+		init_RF_segmenter();
 
 	//init_ISO7816_pins();
-	init_Card();
+	Segger_write_string("Preparing Smart Card interface!\n");
+		init_Card();
 	
 	//PrepareTemp();
 	
@@ -63,6 +68,9 @@ void init() {
 	Segger_write_string("\n");
 	
 	// Test Encryption/Decryption
+	
 	ENC_DEC_Test();
 	ENC_DEC_Test();
+	
+	Segger_write_string("\n");
 }

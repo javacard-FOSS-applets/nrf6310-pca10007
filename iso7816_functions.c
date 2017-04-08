@@ -118,10 +118,14 @@ void Card_Cold_Reset(void) {
 }
 
 void init_ISO7816_pins(void) {
-	init_RESET();
-	init_CLK();
-	init_UART();
-	init_VCC();
+	Segger_write_string("Preparing RESET pin!\n");
+		init_RESET();
+	Segger_write_string("Preparing CLK pin!\n");
+		init_CLK();
+	Segger_write_string("Preparing UART!\n");
+		init_UART();
+	Segger_write_string("Preparing VCC pin!\n");
+		init_VCC();
 }
 
 void test_Card(void ){
@@ -149,7 +153,8 @@ void test_Card(void ){
 void init_Card(void) {
 	init_ISO7816_pins();
 	
-	test_Card();
+	Segger_write_string("Testing card!\n");
+		test_Card();
 	Card_Activate();
 	//Card_Cold_Reset();
 	//ATR();
@@ -171,7 +176,7 @@ void init_Card(void) {
 	Segger_write_string("\n");
 	
 	if(ATR_Message[0]==0x3B || ATR_Message[0]==0x3F) {
-		Segger_write_string("Card connected succesfully!\n");
+		Segger_write_string("Card CONNECTED succesfully!\n");
 	}
 	else {
 		Segger_write_string("No Smart card connected!\n");
