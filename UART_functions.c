@@ -100,8 +100,11 @@ void init_UART() {
 
 
 void Send_UART(uint8_t byte) {
+	Segger_write_one_hex_value(byte);
+	
 	UART_output();
 	
+	NRF_UART0->TASKS_STARTTX=1;
 	NRF_UART0->TXD=byte;
 	
 	while(NRF_UART0->EVENTS_TXDRDY == 0 ) {
@@ -109,7 +112,7 @@ void Send_UART(uint8_t byte) {
 	}
 		
 	NRF_UART0->EVENTS_TXDRDY=0;
-	//NRF_UART0->TASKS_STOPTX=1;
+	NRF_UART0->TASKS_STOPTX=1;
 }
 
 uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
@@ -117,8 +120,8 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 	static uint32_t timeout=0;
 	timeout=0;
 	UART_input();
-	
 	NRF_UART0->TASKS_STARTRX=1;
+	//NRF_UART0->EVENTS_RXDRDY=0;
 	
 	uint8_t value=0;
 	

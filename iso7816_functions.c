@@ -28,11 +28,11 @@
 uint8_t ATR_Message[35];
 uint8_t ATR_count=0;
 uint8_t success=0;
-
+uint8_t SC_Response[255]; // TODO buffer length
+uint8_t SC_APDU[255]; // TODO buffer length
 
 void Card_Deactivate(void);
-
-
+uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved);
 
 void Card_wait() {
 	nrf_delay_us(DELAY_ETU_CYCLES * one_CLK_cycle);
@@ -144,8 +144,12 @@ void test_Card(void ){
 		ATR_count++;
 	}
 	
-	Card_wait();
+	//Card_wait();
 	Segger_write_string("\n");
+	SC_APDU[0]=0xFF;
+	Send_Message_Recieve_Response(SC_APDU, 1, SC_Response);
+	
+	Card_wait();
 	Card_Deactivate();
 	Card_wait();
 }
@@ -155,6 +159,7 @@ void init_Card(void) {
 	
 	Segger_write_string("Testing card!\n");
 		test_Card();
+	
 	Card_Activate();
 	//Card_Cold_Reset();
 	//ATR();
@@ -181,4 +186,54 @@ void init_Card(void) {
 	else {
 		Segger_write_string("No Smart card connected!\n");
 	}
+}
+
+//verify CRC
+
+//calculate CRC
+
+// add header
+// 00
+// 80
+// 01
+// 02
+// length
+// message
+// CRC
+
+uint8_t SC_Header[]= {0x80, 0x10, 0x01, 0x02};
+
+uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved) {
+	uint16_t Recieve_Count=0;
+	Recieve_Count=0;
+
+	//
+	Segger_write_string("Sending data to SC!\n");
+	
+	for(uint8_t i; i<4; i++) {
+		Send_UART(SC_Header[i]);
+	}
+	Send_UART(send_count);
+	for(uint8_t i=0; i<send_count; i++) {
+		Send_UART(Message_Send[i]);
+	}
+	Send_UART(0x7F);
+
+	Segger_write_string("Sending data to SC!\n");
+	
+	UART_input();
+	
+	while(true) {
+		success=0;
+		SC_Response[Recieve_Count]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+		
+		if(!success) {
+			break;
+		}
+		Segger_write_one_hex_value(SC_Response[Recieve_Count]);
+		Recieve_Count++;
+	}
+	
+	Segger_write_string("\n");
+	return Recieve_Count;
 }
