@@ -134,6 +134,7 @@ void test_Card(void ){
 	Card_Activate();
 	Warm_Reset();
 
+	
 	for(uint8_t i=0;i<25;i++) {
 		success=0;
 		ATR_Message[i]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
