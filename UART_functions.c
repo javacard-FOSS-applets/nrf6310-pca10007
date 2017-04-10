@@ -45,27 +45,24 @@ UART_BAUDRATE_BAUDRATE_Baud115200 (0x01D7E000UL) !< 115200 baud.
 The actual baudrate set with the above define is:
 baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 
+//uint32_t Calc_Baudrate(uint32_t baudrate) { return ((baudrate * 0x100000000ULL) / SYSCLK + 0x800) & 0xfffff000; } 
 
 void UART_input() {
-	nrf_gpio_cfg_input(PIN_TX_RX, NRF_GPIO_PIN_NOPULL);
+	nrf_gpio_cfg_input(PIN_RX, NRF_GPIO_PIN_NOPULL);
 }
 
 void UART_output() {
-	nrf_gpio_cfg_output(PIN_TX_RX);
+	nrf_gpio_cfg_output(PIN_TX);
 }
 
 void Clear_UART() {
 	UART_output();
-	nrf_gpio_pin_clear(PIN_TX_RX);
+	nrf_gpio_pin_clear(PIN_TX);
 }
 
 void init_PINS_UART() {
-	// input
 	nrf_gpio_cfg_input(PIN_RX, NRF_GPIO_PIN_NOPULL);
-	// output
 	nrf_gpio_cfg_output(PIN_TX);
-	
-	//nrf_gpio_cfg_input_output(PIN_TX);
 }
 
 //void init_UART_interupt() {
@@ -73,9 +70,7 @@ void init_PINS_UART() {
 
 void init_UART() {
 	init_PINS_UART();
-	//init_UART_interupt();
 	
-	// TODO  PIN_TX_RX
 	NRF_UART0->PSELRXD=PIN_RX;
 	NRF_UART0->PSELTXD=PIN_TX;
 	
@@ -87,22 +82,20 @@ void init_UART() {
 		
 	NRF_UART0->EVENTS_RXDRDY=0;
 	
-	NRF_UART0->TASKS_STARTTX=1;
-	NRF_UART0->TASKS_STARTRX=1;
+	NRF_UART0->TASKS_STOPTX=1;
+	NRF_UART0->TASKS_STOPRX=1;
 	
-	NRF_UART0->CONFIG=0x0E;
+	NRF_UART0->CONFIG=0x0E; // Parity enabled
 	
-	UART_input();
+	NRF_UART0->ERRORSRC=1;
+	NRF_UART0->EVENTS_ERROR=0;
 	
 	NRF_UART0->POWER=1;
 	NRF_UART0->ENABLE=4;
 }
 
-
 void Send_UART(uint8_t byte) {
 	Segger_write_one_hex_value(byte);
-	
-	UART_output();
 	
 	NRF_UART0->TASKS_STARTTX=1;
 	NRF_UART0->TXD=byte;
@@ -115,16 +108,17 @@ void Send_UART(uint8_t byte) {
 	NRF_UART0->TASKS_STOPTX=1;
 }
 
+
 uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
-	*success=0;
-	static uint32_t timeout=0;
-	timeout=0;
-	UART_input();
-	NRF_UART0->TASKS_STARTRX=1;
-	//NRF_UART0->EVENTS_RXDRDY=0;
-	
+	uint32_t timeout;
 	uint8_t value=0;
+	*success=0;
+	timeout=0;
 	
+	NRF_UART0->TASKS_STARTRX=1;
+	
+	//NRF_UART0->EVENTS_RXDRDY=0;
+		
 	while(NRF_UART0->EVENTS_RXDRDY == 0  && timeout<delay) {
 		timeout++;
 		nrf_delay_us(0x01);
@@ -156,12 +150,9 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 }
 
 uint8_t Recieve_UART(void) {
-	UART_input();
-	
-	NRF_UART0->TASKS_STARTRX=1;
-	
 	uint8_t value=0;
-	
+	NRF_UART0->TASKS_STARTRX=1;
+		
 	while(NRF_UART0->EVENTS_RXDRDY == 0 ) {
 		;
 	}
