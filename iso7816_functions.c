@@ -163,11 +163,11 @@ void test_Card(void ) {
 	//Card_wait();
 	Segger_write_string("\n");
 	
-	
 	Send_Negotiate_Block_Protocol();
 	
-	//message[0]=0xFF;
-	//Send_Message_Recieve_Response(message, 1, SC_Response);
+	Card_wait();
+	message[0]=0xFF;
+	Send_Message_Recieve_Response(message, 1, SC_Response);
 	
 	Card_wait();
 	Card_Deactivate();
@@ -260,9 +260,11 @@ void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
 		
 	// response
 	//UART_Prepare_for_recieve();
-	NRF_UART0->EVENTS_RXDRDY=0;
 		
 	Segger_write_string("Recieving APDU response!\n");
+	NRF_UART0->EVENTS_RXDRDY=0;
+	NRF_UART0->EVENTS_ERROR=0;
+	NRF_UART0->ERRORSRC=0x01;
 	
 	while(true) {
 		success=0;
@@ -310,9 +312,10 @@ uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count
 		
 	// response
 	//UART_Prepare_for_recieve();
-	NRF_UART0->EVENTS_RXDRDY=0;
-		
 	Segger_write_string("Recieving APDU response!\n");
+	NRF_UART0->EVENTS_RXDRDY=0;
+	NRF_UART0->EVENTS_ERROR=0;
+	NRF_UART0->ERRORSRC=0x01;
 	
 	while(true) {
 		success=0;

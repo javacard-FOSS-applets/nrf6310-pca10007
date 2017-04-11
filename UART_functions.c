@@ -52,7 +52,7 @@ baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 
 void NRF_Check_UART_Error() {
 		if(NRF_UART0->EVENTS_ERROR) {
-		Segger_write_string_value("UART Recieve ERROR: ", NRF_UART0->ERRORSRC);
+		Segger_write_string_value("UART ERROR: ", NRF_UART0->ERRORSRC);
 			if(NRF_UART0->ERRORSRC & 1<<2) {
 				//3 overrun
 				Segger_write_string("\t Overrun error!");

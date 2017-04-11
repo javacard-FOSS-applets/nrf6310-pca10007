@@ -68,10 +68,8 @@ uint8_t recieved_security=0;
  * @param[in] line_num    Line number where the error occurred.
  * @param[in] p_file_name Pointer to the file name. 
  */
-void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
-{
-    for (;;)
-    {
+void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name) {
+    for (;;) {
 			Segger_write_string("App error! \n");
     }
 }
@@ -84,8 +82,7 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
  * - set channel ID 
  * - open channel 
  */
-static void ant_channel_master_broadcast_setup(void)
-{
+static void ant_channel_master_broadcast_setup(void) {
     uint32_t err_code;
     
     // Set Channel Number. 
@@ -113,17 +110,15 @@ static void ant_channel_master_broadcast_setup(void)
  *
  * @param[in] event The received ANT event to handle.
  */
-static void channel_event_handle_transmit(uint32_t event)
-{
+static void channel_event_handle_transmit(uint32_t event) {
     uint32_t err_code;
     
-    switch (event)
-    {
+    switch (event) {
         case EVENT_TX:
             // Assign a new value to the broadcast data. 
             
 						ReadButtons();
-						if(dataready==1 && transmit.ready==1){ // imp
+						if(dataready==1 && transmit.ready==1) { // imp
 							//uint8_t message[1];
 							//message[0] = ReadButtons();
 							//FillSendData(1, message);
@@ -133,8 +128,7 @@ static void channel_event_handle_transmit(uint32_t event)
 							
 							dataready=0; //!!!!
 						}
-						else
-						{
+						else {
 							//SEGGER_RTT_WriteString(0, "Sending empty.\n");
 						}
 
@@ -162,12 +156,10 @@ static void channel_event_handle_transmit(uint32_t event)
  *
  * @param[in] p_event_message_buffer The ANT event message buffer. 
  */
-static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)        
-{
+static void channel_event_handle_recieve(uint8_t* p_event_message_buffer) {
 		uint8_t success=0;
 	
-			switch (p_event_message_buffer[ANT_MSG_IDX_ID])
-			{
+			switch (p_event_message_buffer[ANT_MSG_IDX_ID]) {
 				case MESG_BROADCAST_DATA_ID:    
 						//recieved_value=p_event_message_buffer[5];
 						
@@ -213,8 +205,7 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
  * Implemented to clear the pending flag when receiving 
  * an interrupt from the stack.
  */
-void PROTOCOL_EVENT_IRQHandler(void)
-{
+void PROTOCOL_EVENT_IRQHandler(void) {
 	//SEGGER_RTT_WriteString(0, "IRQHandler! \n");
 }
 
@@ -224,25 +215,20 @@ void PROTOCOL_EVENT_IRQHandler(void)
  * @param[in] line_num    Line number where the assert occurred.
  * @param[in] p_file_name Pointer to the file name. 
  */
-void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * p_file_name)
-{
-    for (;;)
-    {
+void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * p_file_name) {
+    for (;;) {
 				Segger_write_string("Assert callback.\n");
     }
 }
 
 
-void HardFault_Handler(void)
-{
-    for (;;)
-    {
+void HardFault_Handler(void) {
+    for (;;) {
 				Segger_write_string("Hard fault occured\n");
     }
 }
 
-int main(void)
-{    
+int main(void) {    
 		init();
 
     static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
