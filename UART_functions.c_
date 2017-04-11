@@ -31,8 +31,7 @@
 
 #include "Universal.h"
 
-#define UART_BAUDRATE_BAUDRATE_Baud7467 0x001e9000 //2002944 decimal
-  																								//7461 real baud
+#define UART_BAUDRATE_BAUDRATE_Baud7467 0x001e9000
 
 /*
 https://devzone.nordicsemi.com/question/1181/uart-baudrate-register-values/?answer=1194#post-id-1194
@@ -47,31 +46,6 @@ The actual baudrate set with the above define is:
 baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 
 //uint32_t Calc_Baudrate(uint32_t baudrate) { return ((baudrate * 0x100000000ULL) / SYSCLK + 0x800) & 0xfffff000; } 
-
-//2777777.778
-
-void NRF_Check_UART_Error() {
-		if(NRF_UART0->EVENTS_ERROR) {
-		Segger_write_string_value("UART Recieve ERROR: ", NRF_UART0->ERRORSRC);
-			if(NRF_UART0->ERRORSRC & 1<<2) {
-				//3 overrun
-				Segger_write_string("\t Overrun error!");
-			}
-			if(NRF_UART0->ERRORSRC & 1<<1) {
-				//2 parity
-			Segger_write_string("\t Parity error!");
-			}
-			if(NRF_UART0->ERRORSRC & 1<<0) {
-				//1 framing
-			Segger_write_string("\t Framing error!");
-			}
-			
-		//0 no error
-		NRF_UART0->ERRORSRC=1;
-		NRF_UART0->EVENTS_ERROR=0;
-	}
-}
-
 
 void UART_input() {
 	nrf_gpio_cfg_input(PIN_RX, NRF_GPIO_PIN_NOPULL);
@@ -89,7 +63,6 @@ void Clear_UART() {
 void init_PINS_UART() {
 	nrf_gpio_cfg_input(PIN_RX, NRF_GPIO_PIN_NOPULL);
 	nrf_gpio_cfg_output(PIN_TX);
-	nrf_gpio_pin_set(PIN_TX);
 }
 
 //void init_UART_interupt() {
@@ -106,37 +79,43 @@ void init_UART() {
 		Segger_write_string("Baudrate settings!");
 		Segger_write_one_hex_value_32(NRF_UART0->BAUDRATE);
 		Segger_write_string("\n");
-	
-	NRF_UART0->POWER=1;	
-	NRF_UART0->ENABLE=4;
+		
+	NRF_UART0->EVENTS_RXDRDY=0;
+	//NRF_UART0->EVENTS_TXDRDY=0;
 		
 	NRF_UART0->TASKS_STOPTX=1;
 	NRF_UART0->TASKS_STOPRX=1;
-	
-	NRF_UART0->EVENTS_RXDRDY=0;
-	//NRF_UART0->EVENTS_TXDRDY=0;
-			
-		//NRF_UART0->TASKS_STARTTX=1;
-		//NRF_UART0->TASKS_STARTRX=1;
 	
 	NRF_UART0->CONFIG=0x0E; // Parity enabled
 	
 	NRF_UART0->ERRORSRC=1;
 	NRF_UART0->EVENTS_ERROR=0;
+	
+	NRF_UART0->POWER=1;
+	NRF_UART0->ENABLE=4;
 }
 
 void Send_UART(uint8_t byte) {
+	
 	Segger_write_one_hex_value(byte);
 	
 	NRF_UART0->TASKS_STARTTX=1;
 	
 	NRF_UART0->TXD=byte;
 		
-	while(NRF_UART0->EVENTS_TXDRDY != 1 ) {
+	while(NRF_UART0->EVENTS_TXDRDY == 0 ) {
 		;
 	}
 		
-	NRF_Check_UART_Error();
+	if(NRF_UART0->EVENTS_ERROR) {
+		Segger_write_string_value("UART Transmit ERROR: ", NRF_UART0->ERRORSRC);
+		//3 overrun
+		//2 parity
+		//1 framing
+		//0 no error
+		NRF_UART0->ERRORSRC=1;
+		NRF_UART0->EVENTS_ERROR=0;
+	}
 	
 	NRF_UART0->EVENTS_TXDRDY=0;
 	NRF_UART0->TASKS_STOPTX=1;
@@ -156,7 +135,7 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 	
 	//NRF_UART0->EVENTS_RXDRDY=0;
 		
-	while(NRF_UART0->EVENTS_RXDRDY != 1  && timeout<delay) {
+	while(NRF_UART0->EVENTS_RXDRDY == 0  && timeout<delay) {
 		timeout++;
 		nrf_delay_us(0x01);
 	}
@@ -171,7 +150,15 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 		NRF_UART0->EVENTS_RXDRDY=0;
 	}
 	
-	NRF_Check_UART_Error();
+	if(NRF_UART0->EVENTS_ERROR) {
+		Segger_write_string_value("UART Recieve ERROR: ", NRF_UART0->ERRORSRC);
+		//3 overrun
+		//2 parity
+		//1 framing
+		//0 no error
+		NRF_UART0->ERRORSRC=1;
+		NRF_UART0->EVENTS_ERROR=0;
+	}
 	
 	NRF_UART0->TASKS_STOPRX=1;
 	*success=1;
@@ -195,7 +182,15 @@ uint8_t Recieve_UART(void) {
 		NRF_UART0->EVENTS_RXDRDY=0;
 	}
 	
-	NRF_Check_UART_Error();
+	if(NRF_UART0->EVENTS_ERROR) {
+		Segger_write_string_value("UART ERROR: ", NRF_UART0->ERRORSRC);
+		//3 overrun
+		//2 parity
+		//1 framing
+		//0 no error
+		NRF_UART0->ERRORSRC=1;
+		NRF_UART0->EVENTS_ERROR=0;
+	}
 	
 	NRF_UART0->TASKS_STOPRX=1;
 	return value;

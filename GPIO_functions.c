@@ -75,6 +75,21 @@ void PrepareButtons() {
 
 uint8_t dataready=0;
 
+uint8_t ButtonsChanged() {
+	uint8_t value;
+	static uint8_t previous;
+
+	value = ~((( NRF_GPIO->IN )>> BUTTONS) & 0xFF);
+
+	if(previous != value) {
+		previous = value;
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
 uint8_t ReadButtons() {
 	uint8_t value;
 	static uint8_t previous;

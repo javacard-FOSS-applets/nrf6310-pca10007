@@ -118,24 +118,40 @@ void Card_Cold_Reset(void) {
 }
 
 void init_ISO7816_pins(void) {
+	Segger_write_string("Preparing UART!\n");
+		init_UART();
+	
 	Segger_write_string("Preparing RESET pin!\n");
 		init_RESET();
 	Segger_write_string("Preparing CLK pin!\n");
 		init_CLK();
 	Segger_write_string("Preparing VCC pin!\n");
-		init_VCC();
-	Segger_write_string("Preparing UART!\n");
-		init_UART();
+		init_VCC();	
+	
+	//Segger_write_string("Preparing UART!\n");
+	//	init_UART();
+	
+	/*uint8_t temp=0;
+	while(true) {
+		if(ButtonsChanged()) {
+			Send_UART(temp++);
+		}
+	}*/
 }
 
-void test_Card(void ){
+void Send_Negotiate_Block_Protocol(void);
+
+void test_Card(void ) {
 	ATR_count=0;
 
+	uint8_t message[2];
+	
 	Card_Activate();
 	Warm_Reset();
 	
 	for(uint8_t i=0;i<25;i++) {
 		success=0;
+		
 		ATR_Message[i]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
 		if(!success) {
 			break;
@@ -146,8 +162,12 @@ void test_Card(void ){
 	
 	//Card_wait();
 	Segger_write_string("\n");
-	SC_APDU[0]=0xFF;
-	Send_Message_Recieve_Response(SC_APDU, 1, SC_Response);
+	
+	
+	Send_Negotiate_Block_Protocol();
+	
+	//message[0]=0xFF;
+	//Send_Message_Recieve_Response(message, 1, SC_Response);
 	
 	Card_wait();
 	Card_Deactivate();
@@ -201,27 +221,98 @@ void init_Card(void) {
 // message
 // CRC
 
+
 uint8_t SC_Header[]= {0x80, 0x10, 0x01, 0x02};
+
+uint8_t Calc_XOR_Checksum(uint8_t offset, uint8_t lenght, uint8_t * message) {
+	uint8_t value=0;
+	
+	for(uint8_t i=offset; i<lenght; i++) {
+		value = value ^ message[i];
+	}
+	
+	return value;
+}
+
+
+void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
+	uint16_t Recieve_Count=0;
+	
+	
+	Segger_write_string("Negotiating T=0!\n");
+	// Negotiating new protocol via PTS 
+	SC_APDU[0] = 0xFF;  //PTS request
+	SC_APDU[1] = 0x00;	//PTS0 as TA1  0(RFU) 000(PTS 1 2 3 ) Protocol type 4 1
+	
+	//SC_APDU[2] = 0x00;	//PTS1 
+	
+	//SC_APDU[3] = 0x00;  //PTS2
+	//SC_APDU[4] = 0x00;	//PTS3
+	SC_APDU[2] = Calc_XOR_Checksum(0, 2, SC_APDU);
+	
+	
+	// Send APDU
+	Segger_write_string("Sending APDU to SC!\n");
+	
+	for(uint8_t i=0; i<3; i++) {
+		Send_UART(SC_APDU[i]);
+	}
+		
+	// response
+	//UART_Prepare_for_recieve();
+	NRF_UART0->EVENTS_RXDRDY=0;
+		
+	Segger_write_string("Recieving APDU response!\n");
+	
+	while(true) {
+		success=0;
+		SC_Response[Recieve_Count]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+		
+		if(!success) {
+			break;
+		}
+		Segger_write_one_hex_value(SC_Response[Recieve_Count]);
+		Recieve_Count++;
+	}
+	
+	Segger_write_string("\n");
+}
+
+// RFU reserved for future use
+// ICC integrated circuit card
+// IFD
 
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved) {
 	uint16_t Recieve_Count=0;
 	Recieve_Count=0;
 
-	//
-	Segger_write_string("Sending data to SC!\n");
 	
-	for(uint8_t i; i<4; i++) {
-		Send_UART(SC_Header[i]);
+	// Prepare_Data
+	for(uint8_t i=0; i<4; i++) {
+		SC_APDU[i] = SC_Header[i];
 	}
-	Send_UART(send_count);
+	SC_APDU[4] = send_count;
+	
 	for(uint8_t i=0; i<send_count; i++) {
-		Send_UART(Message_Send[i]);
+		SC_APDU[i+5] = Message_Send[i];
 	}
-	Send_UART(0x7F);
-
-	Segger_write_string("Sending data to SC!\n");
 	
-	UART_input();
+	SC_APDU[send_count+5] = Calc_XOR_Checksum(1, send_count+4+1, SC_APDU);
+	
+	
+	// Send APDU
+	Segger_write_string("Sending APDU to SC!\n");
+	
+	for(uint8_t i=0; i<send_count+6; i++) {
+		Send_UART(SC_APDU[i]);
+	}
+		
+		
+	// response
+	//UART_Prepare_for_recieve();
+	NRF_UART0->EVENTS_RXDRDY=0;
+		
+	Segger_write_string("Recieving APDU response!\n");
 	
 	while(true) {
 		success=0;

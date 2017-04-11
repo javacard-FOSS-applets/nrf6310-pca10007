@@ -26,7 +26,7 @@
 	#define PIN_VCC					6
 
 	// UART
-	#define PIN_TX					0  //Cannot do how to same pin
+	#define PIN_TX					3  //Cannot do how to same pin
 	#define PIN_RX 					2
 	//#define PIN_TX_RX				2
 
@@ -64,7 +64,7 @@ void 			init(void);
 void 			SetLEDS(uint8_t);
 void 			BlinkLEDS(uint8_t);
 uint8_t 	ReadButtons(void);
-
+uint8_t ButtonsChanged(void);
 
 //########################	Segger debugging && info				###############################
 
