@@ -12,5 +12,5 @@ void Clear_RESET() {
 
 void init_RESET() {
 	nrf_gpio_cfg_output(PIN_RESET);
-	Clear_RESET();
+	Set_RESET();
 }

@@ -63,10 +63,11 @@ void ATR() {
 void Warm_Reset(void) {
 	// reset low
 	Set_RESET();
-		// set recieve
-		UART_input();
-		// keep VCC && CLK
+	// set recieve
+	//UART_input();
+	// keep VCC && CLK
 		// wait
+		Card_wait();
 	// reset_high
 	Clear_RESET();
 	
@@ -83,7 +84,7 @@ void Card_Activate(void) {
 	// VCC
 	Set_VCC();
 	// set recieve
-	UART_input();
+	//UART_input();
 		// wait
 		Card_wait();
 	// CLK clk
@@ -147,9 +148,9 @@ void test_Card(void ) {
 	uint8_t message[2];
 	
 	Card_Activate();
-	Warm_Reset();
+	//Warm_Reset();
 	
-	for(uint8_t i=0;i<25;i++) {
+	for(uint8_t i=0;i<33;i++) {
 		success=0;
 		
 		ATR_Message[i]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
@@ -165,9 +166,9 @@ void test_Card(void ) {
 	
 	Send_Negotiate_Block_Protocol();
 	
-	Card_wait();
+	/*Card_wait();
 	message[0]=0xFF;
-	Send_Message_Recieve_Response(message, 1, SC_Response);
+	Send_Message_Recieve_Response(message, 1, SC_Response);*/
 	
 	Card_wait();
 	Card_Deactivate();
@@ -183,9 +184,9 @@ void init_Card(void) {
 	Card_Activate();
 	//Card_Cold_Reset();
 	//ATR();
-	Warm_Reset();
+	//Warm_Reset();
 	
-	for(uint8_t i=0;i<25;i++) {
+	for(uint8_t i=0;i<33;i++) {
 		//value=InverseByte(value);
 		success=0;
 		ATR_Message[i]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
@@ -196,7 +197,7 @@ void init_Card(void) {
 		ATR_count++;
 	}
 	
-	Card_wait();
+	//Card_wait();
 	
 	Segger_write_string("\n");
 	
@@ -238,8 +239,7 @@ uint8_t Calc_XOR_Checksum(uint8_t offset, uint8_t lenght, uint8_t * message) {
 void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
 	uint16_t Recieve_Count=0;
 	
-	
-	Segger_write_string("Negotiating T=0!\n");
+		Segger_write_string("Negotiating T=0!\n");
 	// Negotiating new protocol via PTS 
 	SC_APDU[0] = 0xFF;  //PTS request
 	SC_APDU[1] = 0x00;	//PTS0 as TA1  0(RFU) 000(PTS 1 2 3 ) Protocol type 4 1
@@ -248,7 +248,7 @@ void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
 	
 	//SC_APDU[3] = 0x00;  //PTS2
 	//SC_APDU[4] = 0x00;	//PTS3
-	SC_APDU[2] = Calc_XOR_Checksum(0, 2, SC_APDU);
+	SC_APDU[2] = 0xFF; //Calc_XOR_Checksum(0, 2, SC_APDU);
 	
 	
 	// Send APDU
@@ -263,8 +263,9 @@ void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
 		
 	Segger_write_string("Recieving APDU response!\n");
 	NRF_UART0->EVENTS_RXDRDY=0;
-	NRF_UART0->EVENTS_ERROR=0;
-	NRF_UART0->ERRORSRC=0x01;
+	NRF_Clear_UART_Errors();
+	
+	//Card_wait();
 	
 	while(true) {
 		success=0;
@@ -288,7 +289,6 @@ uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count
 	uint16_t Recieve_Count=0;
 	Recieve_Count=0;
 
-	
 	// Prepare_Data
 	for(uint8_t i=0; i<4; i++) {
 		SC_APDU[i] = SC_Header[i];
@@ -308,8 +308,10 @@ uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count
 	for(uint8_t i=0; i<send_count+6; i++) {
 		Send_UART(SC_APDU[i]);
 	}
-		
-		
+	
+	//nrf_delay_ms(10);
+	//Card_wait();
+
 	// response
 	//UART_Prepare_for_recieve();
 	Segger_write_string("Recieving APDU response!\n");

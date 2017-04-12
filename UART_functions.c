@@ -50,6 +50,12 @@ baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 
 //2777777.778
 
+
+void NRF_Clear_UART_Errors() {
+	NRF_UART0->ERRORSRC=1;
+	NRF_UART0->EVENTS_ERROR=0;
+}
+
 void NRF_Check_UART_Error() {
 		if(NRF_UART0->EVENTS_ERROR) {
 		Segger_write_string_value("UART ERROR: ", NRF_UART0->ERRORSRC);
@@ -67,8 +73,7 @@ void NRF_Check_UART_Error() {
 			}
 			
 		//0 no error
-		NRF_UART0->ERRORSRC=1;
-		NRF_UART0->EVENTS_ERROR=0;
+		NRF_Clear_UART_Errors();
 	}
 }
 
@@ -82,7 +87,6 @@ void UART_output() {
 }
 
 void Clear_UART() {
-	UART_output();
 	nrf_gpio_pin_clear(PIN_TX);
 }
 
@@ -136,7 +140,7 @@ void Send_UART(uint8_t byte) {
 		;
 	}
 		
-	NRF_Check_UART_Error();
+	//NRF_Check_UART_Error();
 	
 	NRF_UART0->EVENTS_TXDRDY=0;
 	NRF_UART0->TASKS_STOPTX=1;
@@ -156,7 +160,7 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 	
 	//NRF_UART0->EVENTS_RXDRDY=0;
 		
-	while(NRF_UART0->EVENTS_RXDRDY != 1  && timeout<delay) {
+	while(NRF_UART0->EVENTS_RXDRDY != 1 && timeout<delay) {
 		timeout++;
 		nrf_delay_us(0x01);
 	}
