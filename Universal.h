@@ -54,9 +54,26 @@ typedef enum {MSG_EMPTY=0x00,
 typedef struct {
 	uint16_t length;
 	uint8_t count;
-	uint8_t message[64];
+	uint8_t message[5];
 	uint8_t ready;
 } MessageBuffer;
+
+typedef struct {
+	// prologue
+	uint8_t NAD;  // 0x00
+	uint8_t PCB;	// information, recieve ready, supervisory
+	uint8_t LEN;  // 0x01
+	
+	// information field
+	uint8_t* message[6]; // 0xFF
+	
+	// epilogue field
+	// longitudinal redundancy check
+	uint8_t LRC;
+	
+	//CRC cyclic redundancy check
+	uint16_t CRC;
+} SC_BlockFrame;
 
 //########################	Main init 											###############################
 

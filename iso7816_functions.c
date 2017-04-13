@@ -26,6 +26,8 @@
 
 void Card_Deactivate(void);
 void Send_Negotiate_Block_Protocol(void);
+void Send_Test_Block_Frame(void);
+
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved);
 
 uint8_t ATR_Message[35];
@@ -82,8 +84,6 @@ void init_ISO7816_pins(void) {
 void Card_wait() {
 	nrf_delay_us(DELAY_ETU_CYCLES * one_CLK_cycle);
 }
-
-
 
 void Warm_Reset(void) {
 	// reset low
@@ -178,7 +178,7 @@ void SC_Send_Message(uint8_t Lenght) {
 uint8_t Recieve_Response() {
 	//UART_prepare_for_recieve();
 	uint8_t Recieve_Count=0;
-	//Segger_write_string("Recieving APDU response!\n");
+	Segger_write_string("Recieving APDU response!\n");
 			
 	while(true) {
 		success=0;
@@ -191,6 +191,8 @@ uint8_t Recieve_Response() {
 		Recieve_Count++;
 	}
 	return Recieve_Count;
+
+	Segger_write_string("\n");
 }
 
 
@@ -199,6 +201,9 @@ void test_Card(void ) {
 	
 	Card_Activate();
 	SC_Recieve_ATR();
+	
+	Send_Test_Block_Frame();
+	
 	Send_Negotiate_Block_Protocol();
 	Recieve_Response();
 	
@@ -222,8 +227,6 @@ void SC_Check_Card() {
 		Segger_write_string("No Smart card connected!\n\n\n\n");
 	}
 }
-
-
 
 /* //verify CRC
 //calculate CRC
@@ -270,6 +273,25 @@ void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
 // ICC integrated circuit card
 // IFD
 
+void Send_Test_Block_Frame() {
+	//SC_BlockFrame frame;
+	
+	/*frame.NAD=0x00;
+	frame.PCB=0x00;
+	frame.LEN=0x01;
+	frame.message[(uint8_t) 0]=0xFF;*/
+	
+	SC_APDU[0]=0x00;
+	SC_APDU[1]=0x00;
+	SC_APDU[2]=0x01;
+	SC_APDU[3]=0xFF;
+	SC_APDU[4]=Calc_XOR_Checksum(0, 0, 4, SC_APDU); 
+	
+	SC_Send_Message(5);
+	
+	Recieve_Response();
+}
+
 uint8_t Prepare_Standard_APDU(uint8_t * Message_To_Send, uint8_t send_count) {
 	for(uint8_t i=0; i<4; i++) {
 		SC_APDU[i] = SC_Header[i];
@@ -287,8 +309,7 @@ uint8_t Prepare_Standard_APDU(uint8_t * Message_To_Send, uint8_t send_count) {
 }
 
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved) {
-	
-	
+		
 	Segger_write_string("Send-recieve!\n");
 
 	uint8_t APDU_Length = Prepare_Standard_APDU(Message_Send, send_count);
