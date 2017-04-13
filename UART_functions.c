@@ -34,8 +34,7 @@
 #define UART_BAUDRATE_BAUDRATE_Baud7467 0x001e9000 //2002944 decimal
   																								//7461 real baud
 
-/*
-https://devzone.nordicsemi.com/question/1181/uart-baudrate-register-values/?answer=1194#post-id-1194
+/* https://devzone.nordicsemi.com/question/1181/uart-baudrate-register-values/?answer=1194#post-id-1194
 
 The formula is: Baudrate = desired baudrate * 2^32 / 16000000
 Example: Baudrate of 31250 should then be 8388608 decimal = 0x800000.
@@ -78,6 +77,11 @@ void NRF_Check_UART_Error() {
 }
 
 
+void UART_prepare_for_recieve() {
+	NRF_UART0->EVENTS_RXDRDY=0;
+	NRF_Clear_UART_Errors();
+}
+
 void UART_input() {
 	nrf_gpio_cfg_input(PIN_RX, NRF_GPIO_PIN_NOPULL);
 }
@@ -99,6 +103,22 @@ void init_PINS_UART() {
 //void init_UART_interupt() {
 //}
 
+void UART_Disable() {
+	NRF_UART0->TASKS_STOPTX=1;
+	NRF_UART0->TASKS_STOPRX=1;
+	
+	NRF_UART0->ENABLE=0;
+	
+	NRF_UART0->PSELRXD=0xFF;
+	NRF_UART0->PSELTXD=0xFF;
+	
+	Clear_UART();
+}
+
+void UART_Enable() {
+	init_UART();
+}
+
 void init_UART() {
 	init_PINS_UART();
 	
@@ -107,7 +127,7 @@ void init_UART() {
 	
 	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud7467;
 				
-		Segger_write_string("Baudrate settings!");
+		Segger_write_string("Baudrate settings= ");
 		Segger_write_one_hex_value_32(NRF_UART0->BAUDRATE);
 		Segger_write_string("\n");
 	
@@ -133,7 +153,6 @@ void Send_UART(uint8_t byte) {
 	Segger_write_one_hex_value(byte);
 	
 	NRF_UART0->TASKS_STARTTX=1;
-	
 	NRF_UART0->TXD=byte;
 		
 	while(NRF_UART0->EVENTS_TXDRDY != 1 ) {
@@ -165,7 +184,7 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 		nrf_delay_us(0x01);
 	}
 	
-	if(NRF_UART0->EVENTS_RXDRDY==0) {
+	if(NRF_UART0->EVENTS_RXDRDY!=1) {
 		*success=0;
 		return 0;
 	}
@@ -190,7 +209,7 @@ uint8_t Recieve_UART(void) {
 	
 	NRF_UART0->TASKS_STARTRX=1;
 		
-	while(NRF_UART0->EVENTS_RXDRDY == 0 ) {
+	while(NRF_UART0->EVENTS_RXDRDY != 1 ) {
 		;
 	}
 	

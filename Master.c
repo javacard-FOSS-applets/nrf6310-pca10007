@@ -231,6 +231,8 @@ void HardFault_Handler(void) {
 int main(void) {    
 		init();
 
+		Wait_For_Button_Press();
+	
     static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
 
     // Enable SoftDevice. 

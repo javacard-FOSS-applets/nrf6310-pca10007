@@ -29,6 +29,10 @@
 	#define PIN_TX					3  //Cannot do how to same pin
 	#define PIN_RX 					2
 	//#define PIN_TX_RX				2
+	
+	#define ISO_7816_MAX_ATR_BYTES 33
+	#define ISO_7816_DIRECT_CONV	 0x3B
+	#define ISO_7816_INVERSE_CONV	 0x3F
 
 
 // LEDS and buttons
@@ -64,7 +68,8 @@ void 			init(void);
 void 			SetLEDS(uint8_t);
 void 			BlinkLEDS(uint8_t);
 uint8_t 	ReadButtons(void);
-uint8_t ButtonsChanged(void);
+uint8_t	 	ButtonsChanged(void);
+void 			Wait_For_Button_Press(void);
 
 //########################	Segger debugging && info				###############################
 
@@ -131,6 +136,9 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	uint8_t Recieve_UART(void);
 	uint8_t Recieve_UART_timeout(uint32_t, uint8_t*);
 	void NRF_Clear_UART_Errors(void);
+	void UART_prepare_for_recieve(void);
+	void UART_Enable(void);
+	void UART_Disable(void);
 	
 	//########################	ISO7816  										###############################
 	void nrf_delay_us(uint32_t);

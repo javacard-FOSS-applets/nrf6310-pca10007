@@ -106,3 +106,39 @@ uint8_t ReadButtons() {
 	}
 	return value;
 }
+
+
+void Wait_For_Button_Press() {
+	ButtonsChanged();
+	
+	uint8_t value=1;
+	uint8_t counter=0;
+	uint8_t toleft=1;
+	
+	Segger_write_string("Waiting for a button to be pressed!\n");
+	
+	while(true) {
+		SetLEDS(1<<counter);
+		
+		if(toleft) {
+			counter++;
+		}
+		else {
+			counter--;
+		}
+		
+		if(counter==7) {
+			toleft=0;
+		}
+		else if (counter==0) {
+			toleft=1;
+		}
+		
+		nrf_delay_ms(50);
+		
+		if(ButtonsChanged() && ReadButtons()==0x00) {
+			SetLEDS(0x00);
+			return;
+		}
+	}
+}
