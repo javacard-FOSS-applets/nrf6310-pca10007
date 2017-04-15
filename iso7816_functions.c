@@ -24,17 +24,31 @@
 		//0x3bh 0xf8h 0x13h 0x00h 0x00h 0x81h 0x31h 0xfeh 0x45h 0x4ah 0x43h 0x4fh 0x50h 0x76h 0x32h 0x34h 0x31h 0xb7h
 		//3B F8 13 00 00 81 31 FR 45 4A 43 4F 50 76 32 34 31 B7
 
+
+//Loading APP
+	//https://adywicaksono.wordpress.com/2008/01/05/installing-javacard-applet-into-real-smartcard/
+	
+
 void Card_Deactivate(void);
-void Send_Negotiate_Block_Protocol(void);
-void Send_Test_Block_Frame(void);
+void Send_Negotiate_Block_Protocol_Alone(void);
+void Send_Negotiate_Block_Protocol_Block(void);
+void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload);
+
+uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload);
+uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload);
+
 
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved);
+
+
 
 uint8_t ATR_Message[35];
 uint8_t ATR_count=0;
 uint8_t success=0;
-uint8_t SC_Response[255]; // TODO buffer length
-uint8_t SC_APDU[255]; // TODO buffer length
+
+uint8_t SC_Response[SC_MAX_MEM_BUFFER]; // TODO buffer length
+uint8_t SC_APDU[SC_MAX_MEM_BUFFER]; // TODO buffer length
+uint8_t SC_Temp_Buffer[SC_MAX_MEM_BUFFER]; // TODO buffer length
 
 uint8_t SC_Header[]= {0x80, 0x10, 0x01, 0x02};
 
@@ -58,6 +72,12 @@ uint8_t SC_Header[]= {0x80, 0x10, 0x01, 0x02};
 	// 3F || 3B T=0 Direct one parity byte
 	// MAX 4 bytes
 }*/
+
+void Copy_Mem(uint8_t Lenght, uint8_t * from, uint8_t * to) {
+	for(uint8_t i=0; i<Lenght; i++) {
+		to[i]=from[i];
+	}
+}
 
 void init_ISO7816_pins(void) {
 	Segger_write_string("Preparing UART!\n");
@@ -190,9 +210,9 @@ uint8_t Recieve_Response() {
 		Segger_write_one_hex_value(SC_Response[Recieve_Count]);
 		Recieve_Count++;
 	}
-	return Recieve_Count;
-
 	Segger_write_string("\n");
+	
+	return Recieve_Count;
 }
 
 
@@ -201,14 +221,20 @@ void test_Card(void ) {
 	
 	Card_Activate();
 	SC_Recieve_ATR();
-	
-	Send_Test_Block_Frame();
-	
-	Send_Negotiate_Block_Protocol();
+
+	Send_Negotiate_Block_Protocol_Block();
 	Recieve_Response();
 	
 	uint8_t message[2];
+	message[0]= 0xFF;
+	
+	Send_Test_Block_Frame(1, message);
+	
+	Send_Negotiate_Block_Protocol_Alone();
+	Recieve_Response();
+	
 	Card_wait();
+	
 	message[0]=0xFF;
 	Send_Message_Recieve_Response(message, 1, SC_Response);
 	
@@ -250,10 +276,7 @@ uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, ui
 	return value;
 }
 
-
-// recieve message
-
-void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
+void Send_Negotiate_Block_Protocol_Alone() { // Should negotiate protocl T=0
 	Segger_write_string("Negotiating T=0!\n");
 	// Negotiating new protocol via PTS 
 	
@@ -262,10 +285,37 @@ void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
 	//SC_APDU[2] = 0x00;	//PTS1 
 	//SC_APDU[3] = 0x00;  //PTS2
 	//SC_APDU[4] = 0x00;	//PTS3
-	SC_APDU[2] = 0xFF; //Calc_XOR_Checksum(0, 2, SC_APDU);
+	SC_APDU[2] = 0xFF;  //Calc_XOR_Checksum(0, 2, SC_APDU);
 	
+
 	SC_Send_Message(3);	
+	Segger_write_string("\n");
+}
+
+
+void Send_Negotiate_Block_Protocol_APDU()  { // Should negotiate protocl T=0
+	Segger_write_string("Negotiating T=0!\n");
+	// Negotiating new protocol via PTS 
 	
+	SC_APDU[0] = 0xFF;  //PTS request
+	SC_APDU[1] = 0x00;	//PTS0 as TA1  0(RFU) 000(PTS 1 2 3 ) Protocol type 4 1
+	SC_APDU[2] = 0xFF;  //Calc_XOR_Checksum(0, 2, SC_APDU);
+	
+	uint8_t value = Prepare_Standard_APDU(3, SC_APDU);
+	SC_Send_Message(value);
+	Segger_write_string("\n");
+}
+
+void Send_Negotiate_Block_Protocol_Block() { // Should negotiate protocl T=0
+	Segger_write_string("Negotiating T=0!\n");
+	// Negotiating new protocol via PTS 
+	
+	SC_APDU[0] = 0xFF;  //PTS request
+	SC_APDU[1] = 0x00;	//PTS0 as TA1  0(RFU) 000(PTS 1 2 3 ) Protocol type 4 1
+	SC_APDU[2] = 0xFF;  //Calc_XOR_Checksum(0, 2, SC_APDU);
+	
+	uint8_t value = Prepare_Standard_Block(3, SC_APDU);
+	SC_Send_Message(value);
 	Segger_write_string("\n");
 }
 
@@ -273,46 +323,57 @@ void Send_Negotiate_Block_Protocol() { // Should negotiate protocl T=0
 // ICC integrated circuit card
 // IFD
 
-void Send_Test_Block_Frame() {
+void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload) {
 	//SC_BlockFrame frame;
 	
-	/*frame.NAD=0x00;
-	frame.PCB=0x00;
-	frame.LEN=0x01;
-	frame.message[(uint8_t) 0]=0xFF;*/
+	/*frame.NAD=0x00; 	frame.PCB=0x00; 	frame.LEN=0x01; 	frame.message[(uint8_t) 0]=0xFF;*/
 	
-	SC_APDU[0]=0x00;
-	SC_APDU[1]=0x00;
-	SC_APDU[2]=0x01;
-	SC_APDU[3]=0xFF;
-	SC_APDU[4]=Calc_XOR_Checksum(0, 0, 4, SC_APDU); 
-	
-	SC_Send_Message(5);
+	uint8_t count = Prepare_Standard_Block(Length, Payload);
+	SC_Send_Message(count);
 	
 	Recieve_Response();
 }
 
-uint8_t Prepare_Standard_APDU(uint8_t * Message_To_Send, uint8_t send_count) {
+uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
+	Copy_Mem(Lenght, Payload, SC_Temp_Buffer);
+
 	for(uint8_t i=0; i<4; i++) {
 		SC_APDU[i] = SC_Header[i];
 	}
 	
-	SC_APDU[4] = send_count;
+	SC_APDU[4] = Lenght;
 	
-	for(uint8_t i=0; i<send_count; i++) {
-		SC_APDU[i+5] = Message_To_Send[i];
+	for(uint8_t i=0; i<Lenght; i++) {
+		SC_APDU[i+5] = SC_Temp_Buffer[i];
 	}
 	
-	SC_APDU[send_count+5] = Calc_XOR_Checksum(0, 1, send_count+4+1, SC_APDU);
+	SC_APDU[Lenght+5] = Calc_XOR_Checksum(0, 1, Lenght+4+1, SC_APDU);
 	
-	return send_count+6;
+	return Lenght+6;
 }
 
-uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved) {
-		
+uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload) {
+	Copy_Mem(Lenght, Payload, SC_Temp_Buffer);
+
+	SC_APDU[0]=0x00;
+	SC_APDU[1]=0x00;
+	
+	SC_APDU[2]=Lenght;
+	
+	for(uint8_t i=0; i<Lenght; i++) {
+		SC_APDU[3+i]=SC_Temp_Buffer[i];
+	}
+	
+	SC_APDU[3+Lenght]=Calc_XOR_Checksum(0, 0, 4, SC_APDU); 
+	
+	return (4+Lenght);
+}
+
+uint8_t Send_Message_Recieve_Response(uint8_t * Payload, uint8_t send_count, uint8_t * Message_Recieved) {
 	Segger_write_string("Send-recieve!\n");
 
-	uint8_t APDU_Length = Prepare_Standard_APDU(Message_Send, send_count);
+	uint8_t APDU_Length = Prepare_Standard_APDU(send_count, Payload);
+	
 	SC_Send_Message(APDU_Length);
 	
 	UART_prepare_for_recieve();
@@ -326,7 +387,7 @@ void init_Card(void) {
 	
 	test_Card();
 	
-	nrf_delay_ms(5000);
+	nrf_delay_ms(500);
 	
 	UART_prepare_for_recieve();
 	Card_Activate();
@@ -336,3 +397,4 @@ void init_Card(void) {
 	
 	Card_Deactivate();
 }
+

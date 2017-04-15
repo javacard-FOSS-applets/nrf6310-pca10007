@@ -33,6 +33,8 @@
 	#define ISO_7816_MAX_ATR_BYTES 33
 	#define ISO_7816_DIRECT_CONV	 0x3B
 	#define ISO_7816_INVERSE_CONV	 0x3F
+	
+	#define SC_MAX_MEM_BUFFER			 255
 
 
 // LEDS and buttons
