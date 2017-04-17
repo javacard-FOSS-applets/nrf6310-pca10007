@@ -10,6 +10,8 @@
 #define DELAY_ETU_CYCLES 40000
 #define one_CLK_cycle 	 6
 
+//todo Longer Messages than bytes
+
 // http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0095a/ch03s02s07.html
 //http://www.ruimtools.com/atr.php
 //http://ludovic.rousseau.free.fr/softwares/pcsc-tools/smartcard_list.txt
@@ -24,22 +26,22 @@
 		//0x3bh 0xf8h 0x13h 0x00h 0x00h 0x81h 0x31h 0xfeh 0x45h 0x4ah 0x43h 0x4fh 0x50h 0x76h 0x32h 0x34h 0x31h 0xb7h
 		//3B F8 13 00 00 81 31 FR 45 4A 43 4F 50 76 32 34 31 B7
 
+//http://stackoverflow.com/questions/27600597/cant-select-aid-card-manager-when-testing-to-send-apdu
+	//Locating Card Manager
 
 //Loading APP
 	//https://adywicaksono.wordpress.com/2008/01/05/installing-javacard-applet-into-real-smartcard/
 	
-
 void Card_Deactivate(void);
 void Send_Negotiate_Block_Protocol_Alone(void);
 void Send_Negotiate_Block_Protocol_Block(void);
 void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload);
 
+
 uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload);
 uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload);
-
-
+uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, uint8_t * message);
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved);
-
 
 
 uint8_t ATR_Message[35];
@@ -76,6 +78,37 @@ uint8_t SC_Header[]= {0x80, 0x10, 0x01, 0x02};
 void Copy_Mem(uint8_t Lenght, uint8_t * from, uint8_t * to) {
 	for(uint8_t i=0; i<Lenght; i++) {
 		to[i]=from[i];
+	}
+}
+
+void Analyze_Content(uint8_t ProtocolType, uint8_t Lenght, uint8_t * Message) {
+	
+}
+
+void Analyze_Status(uint8_t Lenght, uint8_t * Message) {
+	Segger_write_string_value("SW1: ", Message[Lenght-3]);
+	Segger_write_string_value(" SW2: ", Message[Lenght-2]);
+	Segger_write_string_value(" LRC: ", Message[Lenght-1]);
+	Segger_write_string("\n");
+}
+
+void Analyze_Message(uint8_t Lenght, uint8_t * Message) {
+	//Analyze_Content(0, Lenght, Message);
+	Analyze_Status(Lenght, Message);	
+}
+
+//5
+//0 1 2  3  4
+//0 0 90 00 90
+
+uint8_t Is_Valid_Message(uint8_t offset, uint8_t Lenght, uint8_t * Message) {
+	if(Calc_XOR_Checksum(0x00, offset, Lenght, Message) == 0) {
+		Segger_write_string("LRC OK!\n");
+		return 1;
+	}
+	else {
+		Segger_write_string("BAD LRC!\n");
+		return 0;
 	}
 }
 
@@ -215,6 +248,20 @@ uint8_t Recieve_Response() {
 	return Recieve_Count;
 }
 
+uint8_t Recieve_And_Check_Response() {
+	uint8_t value = Recieve_Response();
+	
+	if(value<3) {
+		return 0;
+	}
+	
+	if(Is_Valid_Message(1, value, SC_Response)) {
+		Analyze_Message(value, SC_Response);
+		return value;
+	}
+	
+	return 0;
+}
 
 void test_Card(void ) {
 	Segger_write_string("\nTesting card!\n");
@@ -222,6 +269,8 @@ void test_Card(void ) {
 	Card_Activate();
 	SC_Recieve_ATR();
 
+	Is_Valid_Message(1, ATR_count, ATR_Message);
+	
 	Send_Negotiate_Block_Protocol_Block();
 	Recieve_Response();
 	
@@ -231,12 +280,15 @@ void test_Card(void ) {
 	Send_Test_Block_Frame(1, message);
 	
 	Send_Negotiate_Block_Protocol_Alone();
-	Recieve_Response();
+	Recieve_And_Check_Response();
 	
 	Card_wait();
 	
 	message[0]=0xFF;
-	Send_Message_Recieve_Response(message, 1, SC_Response);
+	uint8_t value = Send_Message_Recieve_Response(message, 1, SC_Response);
+		if(Is_Valid_Message(1, value, SC_Response)) {
+		Analyze_Message(value, SC_Response);
+	}
 	
 	Card_wait();
 	Card_Deactivate();
