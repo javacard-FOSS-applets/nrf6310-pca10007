@@ -44,7 +44,7 @@ uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, ui
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved);
 
 
-uint8_t ATR_Message[35];
+uint8_t ATR_Message[ISO_7816_MAX_ATR_BYTES+5];
 uint8_t ATR_count=0;
 uint8_t success=0;
 
@@ -86,9 +86,9 @@ void Analyze_Content(uint8_t ProtocolType, uint8_t Lenght, uint8_t * Message) {
 }
 
 void Analyze_Status(uint8_t Lenght, uint8_t * Message) {
-	Segger_write_string_value("SW1: ", Message[Lenght-3]);
-	Segger_write_string_value(" SW2: ", Message[Lenght-2]);
-	Segger_write_string_value(" LRC: ", Message[Lenght-1]);
+	Segger_write_string_value("\tSW1: ", Message[Lenght-3]);
+	Segger_write_string_value("\tSW2: ", Message[Lenght-2]);
+	Segger_write_string_value("\tLRC: ", Message[Lenght-1]);
 	Segger_write_string("\n");
 }
 
@@ -102,6 +102,11 @@ void Analyze_Message(uint8_t Lenght, uint8_t * Message) {
 //0 0 90 00 90
 
 uint8_t Is_Valid_Message(uint8_t offset, uint8_t Lenght, uint8_t * Message) {
+	if(Lenght<3) {
+		Segger_write_string("Wrong Length!\n");
+		return 0;
+	}
+	
 	if(Calc_XOR_Checksum(0x00, offset, Lenght, Message) == 0) {
 		Segger_write_string("LRC OK!\n");
 		return 1;
@@ -272,7 +277,7 @@ void test_Card(void ) {
 	Is_Valid_Message(1, ATR_count, ATR_Message);
 	
 	Send_Negotiate_Block_Protocol_Block();
-	Recieve_Response();
+	Recieve_And_Check_Response();
 	
 	uint8_t message[2];
 	message[0]= 0xFF;
@@ -383,7 +388,7 @@ void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload) {
 	uint8_t count = Prepare_Standard_Block(Length, Payload);
 	SC_Send_Message(count);
 	
-	Recieve_Response();
+	Recieve_And_Check_Response();
 }
 
 uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
@@ -429,7 +434,7 @@ uint8_t Send_Message_Recieve_Response(uint8_t * Payload, uint8_t send_count, uin
 	SC_Send_Message(APDU_Length);
 	
 	UART_prepare_for_recieve();
-	uint8_t recieved_count = Recieve_Response();
+	uint8_t recieved_count = Recieve_And_Check_Response();
 	
 	return recieved_count;
 }
