@@ -224,6 +224,84 @@ void SC_Recieve_ATR() {
 	Segger_write_string("\n");
 }
 
+
+uint8_t SC_Get_Next_ATR_Content(T0 *t0) { 
+	uint8_t skip=0;	
+	
+	if(t0->Bit_MAP_TA) {
+		skip++;
+	}
+	if(t0->Bit_MAP_TB) {
+		skip++;
+	}
+	if(t0->Bit_MAP_TC) {
+		skip++;
+	}
+	if(t0->Bit_MAP_TD) {
+		skip++;
+	}
+	
+	return skip+1;
+}
+
+uint8_t SC_Analyze_ATR_Content(T0 *t0) { 
+	uint8_t skip=0;	
+	
+	if(t0->Bit_MAP_TA) {
+		Segger_write_string("\tTA present\n");
+		skip++;
+	}
+	if(t0->Bit_MAP_TB) {
+		Segger_write_string("\tTB present\n");
+		skip++;
+	}
+	if(t0->Bit_MAP_TC) {
+		Segger_write_string("\tTC present\n");
+		skip++;
+	}
+	
+	if(t0->Bit_MAP_TD) {
+		Segger_write_string("\tTD present\n");
+		skip++;
+	}
+	else {
+		return 0;
+	}
+	
+	return skip;
+}
+
+void SC_Analyze_ATR() {
+	if(ATR_count==0) {
+		return;
+	}
+	
+	Segger_write_string_value("\tHistorical Bytes:", ((T0*) (ATR_Message + 1))->Historical_Bytes);
+	
+	Segger_write_string_value("T0: ", ATR_Message[1]);
+	
+	uint8_t next_td = SC_Analyze_ATR_Content((T0*)  (ATR_Message + 1 ));
+	uint8_t now_td = 0;
+	
+	while(next_td != now_td) {
+		now_td = next_td;
+		
+		Segger_write_string_value("TD: ", ATR_Message[1+next_td]);
+		next_td = next_td + SC_Analyze_ATR_Content((T0*)  (ATR_Message + 1 + next_td ));
+	}
+	
+	Segger_write_string("Historical bytes: \n\t");
+	
+	uint8_t  next_block = SC_Get_Next_ATR_Content((T0*)  (ATR_Message + 1 + next_td));
+	
+	for(uint8_t i=0; i<((T0*) (ATR_Message + 1))->Historical_Bytes; i++) {
+		Segger_write_one_hex_value(ATR_Message[1+next_td+next_block+ i]);
+	}
+	
+	Segger_write_string("\n");
+	//Segger_write_string_value("TD1: ", ATR_Message[1]);
+}
+
 void SC_Send_Message(uint8_t Lenght) {
 	Segger_write_string("Sending APDU to SC!\n");
 	
@@ -275,6 +353,7 @@ void test_Card(void ) {
 	SC_Recieve_ATR();
 
 	Is_Valid_Message(1, ATR_count, ATR_Message);
+	SC_Analyze_ATR();
 	
 	Send_Negotiate_Block_Protocol_Block();
 	Recieve_And_Check_Response();
@@ -451,6 +530,7 @@ void init_Card(void) {
 	
 	SC_Recieve_ATR();
 	SC_Check_Card();
+	SC_Analyze_ATR();
 	
 	Card_Deactivate();
 }

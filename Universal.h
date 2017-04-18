@@ -164,3 +164,38 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 		
 	void init_ISO7816_pins(void);
 	void init_Card(void);
+	
+	//#pragma pack
+	typedef struct {
+		uint8_t Historical_Bytes:4;  //
+		//uint8_t Bit_MAP					:4;  // 
+		uint8_t Bit_MAP_TA				:1;  // 
+		uint8_t Bit_MAP_TB				:1;  // 
+		uint8_t Bit_MAP_TC				:1;  // 
+		uint8_t Bit_MAP_TD				:1;  // 
+	} __attribute__((packed)) T0;
+
+	typedef struct {
+		uint8_t D1 :4;  //
+		uint8_t F1 :4;  // 
+	} __attribute__((packed)) TA;
+
+	typedef struct {
+		uint8_t PI :5;  //
+		uint8_t I1 :2;  // 
+	} __attribute__((packed)) TB;
+
+	typedef struct {
+		uint8_t Protocol_Type :8;  //
+	} __attribute__((packed)) TC;
+
+	typedef struct {
+		uint8_t Protocol_Type :4;  //
+		//uint8_t Bit_MAP 			:4;  // 
+		uint8_t Bit_MAP_TA				:1;  // 
+		uint8_t Bit_MAP_TB				:1;  // 
+		uint8_t Bit_MAP_TC				:1;  // 
+		uint8_t Bit_MAP_TD				:1;  // 
+	}__attribute__((packed)) TD;
+
+	
