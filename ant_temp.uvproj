@@ -472,6 +472,11 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -1424,6 +1429,11 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -2338,6 +2348,11 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -3234,6 +3249,11 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -3866,6 +3886,11 @@
               <FileName>Universal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>
@@ -4818,6 +4843,11 @@
               <FileName>Universal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Universal.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
             </File>
             <File>
               <FileName>nrf_delay.c</FileName>

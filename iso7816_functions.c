@@ -7,6 +7,8 @@
 
 #include "Universal.h"
 
+#include "ISO7816_errors.h"
+
 #define DELAY_ETU_CYCLES 40000
 #define one_CLK_cycle 	 6
 
@@ -26,20 +28,36 @@
 		//0x3bh 0xf8h 0x13h 0x00h 0x00h 0x81h 0x31h 0xfeh 0x45h 0x4ah 0x43h 0x4fh 0x50h 0x76h 0x32h 0x34h 0x31h 0xb7h
 		//3B F8 13 00 00 81 31 FR 45 4A 43 4F 50 76 32 34 31 B7
 
+//apdu error list
+	//https://www.eftlab.co.uk/index.php/site-map/knowledge-base/118-apdu-response-list
+	//www.smartjac.biz/index.php/support/main-menu?view=kb&kbartid=3&tmpl=component&print=1
+
+// CLA INS
+	//http://techmeonline.com/most-used-smart-card-commands-apdu/
+	//http://www.cardwerk.com/smartcards/smartcard_standard_iso7816-4_5_basic_organizations.aspx
+
 //http://stackoverflow.com/questions/27600597/cant-select-aid-card-manager-when-testing-to-send-apdu
 	//Locating Card Manager
-
+	//https://www.eftlab.com.au/index.php/site-map/knowledge-base/212-emv-rid
+	
+	
+	
 //Loading APP
 	//https://adywicaksono.wordpress.com/2008/01/05/installing-javacard-applet-into-real-smartcard/
 	
 void Card_Deactivate(void);
 void Send_Negotiate_Block_Protocol_Alone(void);
+void Send_Negotiate_Block_Protocol_APDU(void);
 void Send_Negotiate_Block_Protocol_Block(void);
 void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload);
 
 
+uint16_t Concat_Bytes(uint8_t byte1, uint8_t byte2);
+
 uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload);
 uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload);
+uint8_t	Prepare_Standard_APDU_Block(uint8_t Lenght, uint8_t * Payload);
+
 uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, uint8_t * message);
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved);
 
@@ -75,6 +93,28 @@ uint8_t SC_Header[]= {0x80, 0x10, 0x01, 0x02};
 	// MAX 4 bytes
 }*/
 
+void Locate_Error(uint8_t SW1, uint8_t SW2) {
+	uint16_t SW_Response = Concat_Bytes(SW1, SW2);
+	
+	for(uint16_t i=0; i<SPECIFC_ERRORS_COUNT; i++) {
+		if(SPECIFC_ERRORS[i].sw==SW_Response) {
+			Segger_write_string("\t");
+			Segger_write_string(SPECIFC_ERRORS[i].message);
+			Segger_write_string("\n");
+			return;
+		}
+	}
+	
+	for(uint16_t i=0; i<SPECIFC_ERRORS_COUNT; i++) {
+		if(GENERAL_ERRORS[i].sw==SW1) {
+			Segger_write_string("\t");
+			Segger_write_string(GENERAL_ERRORS[i].message);
+			Segger_write_string("\n");
+			return;
+		}
+	}
+}
+
 void Copy_Mem(uint8_t Lenght, uint8_t * from, uint8_t * to) {
 	for(uint8_t i=0; i<Lenght; i++) {
 		to[i]=from[i];
@@ -85,10 +125,21 @@ void Analyze_Content(uint8_t ProtocolType, uint8_t Lenght, uint8_t * Message) {
 	
 }
 
+
+uint16_t Concat_Bytes(uint8_t byte1, uint8_t byte2)  {
+	uint16_t value=0;
+	//value = (uint16_t) (((uint16_t) byte1) << 8  | byte2);
+	value = byte1 << 8  |  byte2;
+	return value;
+}
+
 void Analyze_Status(uint8_t Lenght, uint8_t * Message) {
 	Segger_write_string_value("\tSW1: ", Message[Lenght-3]);
 	Segger_write_string_value("\tSW2: ", Message[Lenght-2]);
 	Segger_write_string_value("\tLRC: ", Message[Lenght-1]);
+		
+	Locate_Error(Message[Lenght-3], Message[Lenght-2]);
+	
 	Segger_write_string("\n");
 }
 
@@ -180,7 +231,7 @@ void Card_Activate(void) {
 }
 
 void Card_Deactivate(void) {
-	Segger_write_string("Deactivating\n");
+	Segger_write_string("Deactivating\n\n");
 	// reset low
 	Set_RESET();
 		// wait
@@ -271,6 +322,8 @@ uint8_t SC_Analyze_ATR_Content(T0 *t0) {
 	return skip;
 }
 
+
+
 void SC_Analyze_ATR() {
 	if(ATR_count==0) {
 		return;
@@ -298,12 +351,12 @@ void SC_Analyze_ATR() {
 		Segger_write_one_hex_value(ATR_Message[1+next_td+next_block+ i]);
 	}
 	
-	Segger_write_string("\n");
+	Segger_write_string("\n\n");
 	//Segger_write_string_value("TD1: ", ATR_Message[1]);
 }
 
 void SC_Send_Message(uint8_t Lenght) {
-	Segger_write_string("Sending APDU to SC!\n");
+	Segger_write_string("Sending Message to SC!\n");
 	
 	for(uint8_t i=0; i<Lenght; i++) {
 		Send_UART(SC_APDU[i]);
@@ -314,7 +367,7 @@ void SC_Send_Message(uint8_t Lenght) {
 uint8_t Recieve_Response() {
 	//UART_prepare_for_recieve();
 	uint8_t Recieve_Count=0;
-	Segger_write_string("Recieving APDU response!\n");
+	Segger_write_string("\tRecieving response!\n\t");
 			
 	while(true) {
 		success=0;
@@ -354,16 +407,24 @@ void test_Card(void ) {
 
 	Is_Valid_Message(1, ATR_count, ATR_Message);
 	SC_Analyze_ATR();
+
 	
 	Send_Negotiate_Block_Protocol_Block();
+	Recieve_And_Check_Response();
+	Send_Negotiate_Block_Protocol_Alone();
+	Recieve_And_Check_Response();
+	Send_Negotiate_Block_Protocol_APDU();
+	Recieve_And_Check_Response();
+
+	SC_APDU[0]=0xFF;
+	uint8_t count = Prepare_Standard_APDU_Block(1, SC_APDU);
+	SC_Send_Message(count);
+	
 	Recieve_And_Check_Response();
 	
 	uint8_t message[2];
 	message[0]= 0xFF;
-	
 	Send_Test_Block_Frame(1, message);
-	
-	Send_Negotiate_Block_Protocol_Alone();
 	Recieve_And_Check_Response();
 	
 	Card_wait();
@@ -425,7 +486,6 @@ void Send_Negotiate_Block_Protocol_Alone() { // Should negotiate protocl T=0
 	
 
 	SC_Send_Message(3);	
-	Segger_write_string("\n");
 }
 
 
@@ -439,7 +499,6 @@ void Send_Negotiate_Block_Protocol_APDU()  { // Should negotiate protocl T=0
 	
 	uint8_t value = Prepare_Standard_APDU(3, SC_APDU);
 	SC_Send_Message(value);
-	Segger_write_string("\n");
 }
 
 void Send_Negotiate_Block_Protocol_Block() { // Should negotiate protocl T=0
@@ -452,7 +511,6 @@ void Send_Negotiate_Block_Protocol_Block() { // Should negotiate protocl T=0
 	
 	uint8_t value = Prepare_Standard_Block(3, SC_APDU);
 	SC_Send_Message(value);
-	Segger_write_string("\n");
 }
 
 // RFU reserved for future use
@@ -462,7 +520,12 @@ void Send_Negotiate_Block_Protocol_Block() { // Should negotiate protocl T=0
 void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload) {
 	//SC_BlockFrame frame;
 	
-	/*frame.NAD=0x00; 	frame.PCB=0x00; 	frame.LEN=0x01; 	frame.message[(uint8_t) 0]=0xFF;*/
+	/*frame.NAD=0x00;
+ 	frame.PCB=0x00;
+ 	frame.LEN=0x01;
+ 	frame.message[(uint8_t) 0]=0xFF;
+	frame.LRC/CRC 
+	*/
 	
 	uint8_t count = Prepare_Standard_Block(Length, Payload);
 	SC_Send_Message(count);
@@ -471,6 +534,7 @@ void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload) {
 }
 
 uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
+	Segger_write_string("Preparing APDU\n");
 	Copy_Mem(Lenght, Payload, SC_Temp_Buffer);
 
 	for(uint8_t i=0; i<4; i++) {
@@ -489,6 +553,7 @@ uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
 }
 
 uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload) {
+	Segger_write_string("Preparing Block\n");
 	Copy_Mem(Lenght, Payload, SC_Temp_Buffer);
 
 	SC_APDU[0]=0x00;
@@ -503,6 +568,77 @@ uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload) {
 	SC_APDU[3+Lenght]=Calc_XOR_Checksum(0, 0, 4, SC_APDU); 
 	
 	return (4+Lenght);
+}
+
+uint8_t	Prepare_Standard_APDU_Block(uint8_t Lenght, uint8_t * Payload) {
+	Segger_write_string("Preparing Message in APDU in Block\n");
+	
+	uint8_t count = Prepare_Standard_APDU(Lenght, Payload);
+	count = Prepare_Standard_Block(count, SC_APDU);
+	//SC_Send_Message(count);
+	return count;
+}
+
+/*
+CLA INS P1 P2    L Data LRC
+class
+	instruction
+		instruction parameter 1, 2
+
+INS Value
+		Command Description
+0E 	Erase Binary
+20 	Verify
+70 	Manage Channel
+82 	External Authenticate
+84 	Get Challenge
+88 	Internal Authenticate
+A4 	Select File
+B0 	Read Binary
+B2 	Read Record(s)
+C0 	Get Response
+C2 	Envelope
+CA 	Get Data
+D0 	Write Binary
+D2 	Write Record
+D6 	Update Binary
+DA 	Put Data
+DC 	Update Record
+E2 	Append Record
+*/
+
+//6985 Conditions of use not satisfied
+//8100 timout
+//8200 write succesfull
+//9200 
+//6700 
+
+void Test_Error_Database() {
+	Segger_write_string_value("Entrys in Specific Error database: ", SPECIFC_ERRORS_COUNT);
+	Segger_write_string_value("Entrys in General  Error database: ", GENERAL_ERRORS_COUNT);
+}
+
+void Try_Locating_Card_Manager() {
+	Segger_write_string("Locating card manager\n");
+	//AID
+	//RID A0 00 00 00 03
+	//RID A0 00 00 01 51
+	SC_APDU[0]=0x00;
+	SC_APDU[1]=0xF2;
+	
+	SC_APDU[2]=0x04;
+	SC_APDU[3]=0x00;
+	SC_APDU[4]=0x00;
+	SC_APDU[5]=Calc_XOR_Checksum(0, 0, 5, SC_APDU);
+	SC_Send_Message(6);
+	Recieve_And_Check_Response();
+	
+	uint8_t count = Prepare_Standard_Block(6, SC_APDU);
+	SC_Send_Message(count);
+	Recieve_And_Check_Response();	
+	
+	
+	//
 }
 
 uint8_t Send_Message_Recieve_Response(uint8_t * Payload, uint8_t send_count, uint8_t * Message_Recieved) {
@@ -527,11 +663,14 @@ void init_Card(void) {
 	
 	UART_prepare_for_recieve();
 	Card_Activate();
-	
+		
 	SC_Recieve_ATR();
 	SC_Check_Card();
 	SC_Analyze_ATR();
 	
+	Try_Locating_Card_Manager();
+	
 	Card_Deactivate();
+	Test_Error_Database();
 }
 
