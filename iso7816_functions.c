@@ -624,7 +624,7 @@ void Try_Locating_Card_Manager() {
 	//RID A0 00 00 00 03
 	//RID A0 00 00 01 51
 	SC_APDU[0]=0x00;
-	SC_APDU[1]=0xF2;
+	SC_APDU[1]=0xa4;
 	
 	SC_APDU[2]=0x04;
 	SC_APDU[3]=0x00;
@@ -633,7 +633,7 @@ void Try_Locating_Card_Manager() {
 	SC_Send_Message(6);
 	Recieve_And_Check_Response();
 	
-	uint8_t count = Prepare_Standard_Block(6, SC_APDU);
+	uint8_t count = Prepare_Standard_Block(5, SC_APDU);
 	SC_Send_Message(count);
 	Recieve_And_Check_Response();	
 	
@@ -658,7 +658,7 @@ void init_Card(void) {
 	init_ISO7816_pins();
 	
 	test_Card();
-	
+	Wait_For_Button_Press();
 	nrf_delay_ms(500);
 	
 	UART_prepare_for_recieve();
