@@ -55,13 +55,21 @@ uint8_t	Prepare_Standard_APDU_Block(uint8_t Lenght, uint8_t * Payload) {
 
 
 void Analyze_Status(uint8_t Lenght, uint8_t * Message) {
-	Segger_write_string_value("\tSW1: ", Message[Lenght-3]);
-	Segger_write_string_value("\tSW2: ", Message[Lenght-2]);
-	Segger_write_string_value("\tLRC: ", Message[Lenght-1]);
+	if(Lenght==2) {
+		Segger_write_string_value("\tSW1: ", Message[Lenght-2]);
+		Segger_write_string_value("\tSW2: ", Message[Lenght-1]);
+		Locate_Error(Message[Lenght-2], Message[Lenght-1]);
+		Segger_write_string("\n");
+	}
+	else {
+		Segger_write_string_value("\tSW1: ", Message[Lenght-3]);
+		Segger_write_string_value("\tSW2: ", Message[Lenght-2]);
+		Segger_write_string_value("\tLRC: ", Message[Lenght-1]);
+			
+		Locate_Error(Message[Lenght-3], Message[Lenght-2]);
 		
-	Locate_Error(Message[Lenght-3], Message[Lenght-2]);
-	
-	Segger_write_string("\n");
+		Segger_write_string("\n");
+	}
 }
 
 void Analyze_Message(uint8_t Lenght, uint8_t * Message) {

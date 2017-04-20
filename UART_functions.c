@@ -32,6 +32,7 @@
 #include "Universal.h"
 
 #define UART_BAUDRATE_BAUDRATE_Baud7467 0x001e9000 //2002944 decimal
+#define UART_BAUDRATE_BAUDRATE_Baud7168 0x001d6000
   																								//7461 real baud
 
 /* https://devzone.nordicsemi.com/question/1181/uart-baudrate-register-values/?answer=1194#post-id-1194
@@ -140,7 +141,7 @@ void init_UART() {
 	NRF_UART0->PSELRXD=PIN_RX;
 	NRF_UART0->PSELTXD=PIN_TX;
 	
-	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud7467;
+	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud7168;
 				
 		Segger_write_string("Baudrate settings=");
 		Segger_write_one_hex_value_32(NRF_UART0->BAUDRATE);
@@ -173,8 +174,6 @@ void Send_UART(uint8_t byte) {
 	while(NRF_UART0->EVENTS_TXDRDY != 1 ) {
 		;
 	}
-		
-	//NRF_Check_UART_Error();
 	
 	NRF_UART0->EVENTS_TXDRDY=0;
 	Stop_TX();//NRF_UART0->TASKS_STOPTX=1;
@@ -187,11 +186,11 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 	*success=0;
 	timeout=0;
 	
-	//UART_prepare_for_recieve();
 	NRF_Clear_UART_Errors();
 	//NRF_UART0->EVENTS_RXDRDY=0;
+	//UART_prepare_for_recieve();
 	
-	Start_RX(); //NRF_UART0->TASKS_STARTRX=1;
+	Start_RX();
 			
 	while(NRF_UART0->EVENTS_RXDRDY != 1 && timeout<delay) {
 		timeout++;
@@ -210,7 +209,7 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 	
 	NRF_Check_UART_Error();
 	
-	Stop_RX(); //NRF_UART0->TASKS_STOPRX=1;
+	Stop_RX();
 	
 	*success=1;
 	return value;
@@ -219,9 +218,8 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 uint8_t Recieve_UART(void) {
 	uint8_t value=0;
 	
-	//UART_prepare_for_recieve();
-	
 	NRF_Clear_UART_Errors();
+	//UART_prepare_for_recieve();	
 	
 	Start_RX(); //NRF_UART0->TASKS_STARTRX=1;
 		
@@ -236,6 +234,6 @@ uint8_t Recieve_UART(void) {
 	
 	NRF_Check_UART_Error();
 	
-	Stop_RX(); NRF_UART0->TASKS_STOPRX=1;
+	Stop_RX(); //NRF_UART0->TASKS_STOPRX=1;
 	return value;
 }

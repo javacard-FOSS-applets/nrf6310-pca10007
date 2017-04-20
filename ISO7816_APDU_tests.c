@@ -126,7 +126,6 @@ void Try_Single_Bytes() {
 	}
 }
 
-
 void Test(void) {
 	
 	Try_Single_Bytes();
@@ -167,11 +166,11 @@ void Test(void) {
 	Try_Locating_Card_Manager();
 	Try_Locating_Instructions();
 	Try_Locating_Card_Manager_Brute();
-	Wait_For_Button_Press();
+	//Wait_For_Button_Press();
 }
 
 
-void test_Card(void ) {
+void test_Card(void) {
 	Segger_write_string("\nTesting card!\n");
 	
 	Card_Activate();
@@ -182,6 +181,7 @@ void test_Card(void ) {
 
 	Test();
 	
+	return;
 	Send_Negotiate_Block_Protocol_Block();
 	Recieve_And_Check_Response();
 	Send_Negotiate_Block_Protocol_Alone();

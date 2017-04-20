@@ -15,7 +15,12 @@ uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, ui
 }
 
 uint8_t Is_Valid_Message(uint8_t offset, uint8_t Lenght, uint8_t * Message) {
-	if(Lenght<3) {
+	if(Lenght==2) {
+		Segger_write_string("RESPONSE ONLY !?\n");
+		return 1;
+	}
+	
+	if(Lenght<2) {
 		Segger_write_string("Wrong Length!\n");
 		return 0;
 	}

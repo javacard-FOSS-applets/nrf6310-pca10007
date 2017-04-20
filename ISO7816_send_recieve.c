@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+#include "nrf.h"
+
 #include "Universal.h"
 #include "ISO7816.h"
 
@@ -11,19 +13,38 @@ void SC_Send_Message(uint8_t Lenght) {
 	}
 	Segger_write_string("\n");
 	
-	
-	//Card_wait_ETU_cycles(100);
+	//Card_wait_ETU_cycles(2);
+	//NRF_UART0->EVENTS_RXDRDY=0;
 	//UART_prepare_for_recieve();
 }
 
+void Print_Array(uint8_t Lenght, uint8_t*  Message) {
+	Segger_write_string("\t\tCorrected array!\n\t\t");
+	for(uint8_t i=0; i<Lenght; i++) {
+		Segger_write_one_hex_value(Message[i]);
+	}
+	Segger_write_string("\n");
+}
 
+void Correct_First_False_Byte(uint8_t* count, uint8_t *Message) {
+	//uint8_t value = *count;
+	if((*count)>=1) {
+		for(uint8_t i=1; i<(*count); i++) {
+			Message[i-1]=Message[i];
+		}
+		(*count)=(*count)-1;
+	}
+}
 
 uint8_t Recieve_Response(void) {
 	//Card_wait_ETU_cycles(10);
-//	UART_prepare_for_recieve();
+
+	//UART_prepare_for_recieve();
 	uint8_t Recieve_Count=0;
 	Segger_write_string("\tRecieving response!\n\t");
 			
+	//TODO check recieving ????
+	
 	while(true) {
 		uint8_t success=0;
 		SC_Response[Recieve_Count]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
@@ -31,19 +52,23 @@ uint8_t Recieve_Response(void) {
 		if(!success) {
 			break;
 		}
-		Segger_write_one_hex_value(SC_Response[Recieve_Count]);
+		//Segger_write_one_hex_value(SC_Response[Recieve_Count]);
 		Recieve_Count++;
 	}
 	Segger_write_string("\n");
 	
+			//Segger_write_string_value("\tRecieved count=", Recieve_Count);
+	Correct_First_False_Byte(&Recieve_Count, SC_Response);
 	SC_Response_Count=Recieve_Count;
+
+	Print_Array(SC_Response_Count, SC_Response);
 	return Recieve_Count;
 }
 
 uint8_t Recieve_And_Check_Response() {
 	uint8_t Recieve_Count = Recieve_Response();
 	
-	if(Recieve_Count<3) {
+	if(Recieve_Count<2) {
 		SC_Response_Count=0;
 		return 0;
 	}

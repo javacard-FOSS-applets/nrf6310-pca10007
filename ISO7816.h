@@ -6,7 +6,7 @@
 #define one_CLK_cycle 	 6
 
 #define APDU
-#define TEST 						 0
+#define TEST 						 1
 
 
 void Card_Activate(void);
@@ -68,7 +68,9 @@ extern uint8_t SC_Temp_Buffer[];
 
 extern uint8_t SC_Header[];
 
-
+// Books
+// 	https://www.globalplatform.org/specificationscard.asp
+//	http://www.win.tue.nl/pinpasjc/docs/GPCardSpec_v2.2.pdf
 
 //todo Longer Messages than bytes
 
@@ -101,6 +103,8 @@ extern uint8_t SC_Header[];
 //Loading APP
 	//https://adywicaksono.wordpress.com/2008/01/05/installing-javacard-applet-into-real-smartcard/
 	
+
+//http://stackoverflow.com/questions/27600597/cant-select-aid-card-manager-when-testing-to-send-apdu
 
 /*uint8_t InverseByte(uint8_t byte) {
 	uint8_t value = 0;
@@ -142,15 +146,28 @@ class
 	instruction
 		instruction parameter 1, 2
 
+http://www.oracle.com/technetwork/java/javacard/javacard1-139251.html
+/*Table 1. ISO 7816 CLA Values
+CLA Value 	Instruction Class
+0x0n, 0x1n 	ISO 7816-4 card instructions, such as for file access and security operations
+20 to 0x7F 	Reserved
+0x8n or 0x9n 	ISO/IEC 7816-4 format you can use for your application-specific instructions, interpreting 'X' according to the standard
+0xAn 	Application- or vendor-specific instructions
+B0 to CF 	ISO/IEC 7816-4 format you can use for application-specific instructions
+D0 to FE 	Application- or vendor-specific instructions
+FF 	Reserved for protocol type selection*/
+
+/*http://techmeonline.com/most-used-smart-card-commands-apdu/
+
 INS Value
 		Command Description
 0E 	Erase Binary
-20 	Verify
+		20 	Verify
 70 	Manage Channel
 82 	External Authenticate
 84 	Get Challenge
 88 	Internal Authenticate
-A4 	Select File
+		A4 	Select File
 B0 	Read Binary
 B2 	Read Record(s)
 C0 	Get Response

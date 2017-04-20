@@ -28,6 +28,8 @@ uint8_t HEX_String[255];
 #define DEACT 't'
 #define EXIT  'X'
 
+#define TESTK 's'
+
 // example inputs to segger rtt viewer
 /*
 	R
@@ -35,10 +37,30 @@ uint8_t HEX_String[255];
 		00 00 01 fF fe
 	08	
 		00 00 01 00 a4 00 00 a5
-	09	
-		00 00 80 10 01 02 01 FF FF
+	0a	
+		00 00 06 80 10 01 02 01 FF FF
 	05
 		00 00 00 00 00
+		
+		05
+		00 a4 04 00 00
+			0x60h 0x61h 0x07h
+		05
+		00 c0 00 00 07
+			0xc0h 0xa0h 0x00h 0x00h 0x00h 0x03h 0x00h 0x00h 0x90h 0x00h
+
+		0d
+		80F0800F08 A0000000 03000000
+
+
+		05
+		00 20 00 00 00
+		05
+		00 f2 60 00 00
+		08
+		00 80 F2 20 00 02 4F 00 
+		0d
+		00 20 00 00 08 00 00 00 00 00 00 00 00
 */
 
 
@@ -61,7 +83,7 @@ Message sending to card:\n \
 \t\tXXXXXX \n\
 where X is [0-9, a-f, A-F]\n\
 Actual message can be on multiple lines\n\n\n\
-Set Segger options as:\
+Set Segger options as:\n\
 \tINPUT->Sending...->Send on Enter\n\
 \tINPUT->Sending...->Block if FIFO full\n\
 	##############################################\n\
@@ -156,6 +178,9 @@ int main(void) {
 			else if(Segger_recieve_buffer[0]==EXIT) {
 				Card_Deactivate();
 				break;
+			}
+			else if(Segger_recieve_buffer[0]==TESTK) {
+				test_Card();
 			}
 			else {
 				if(lenght==0) {

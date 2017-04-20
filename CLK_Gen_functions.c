@@ -58,6 +58,7 @@ void Stop_CLK() {
 	NRF_TIMER2->TASKS_STOP = 1;    // Stop event generation.
 	nrf_delay_ms(10);
 	nrf_gpio_pin_clear(PIN_CLK);
+	nrf_gpiote_task_config(CHANNEL_GPIOTE, PIN_CLK, NRF_GPIOTE_POLARITY_TOGGLE, NRF_GPIOTE_INITIAL_VALUE_LOW);
 }
 
 
