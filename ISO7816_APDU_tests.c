@@ -1,4 +1,5 @@
 #include "stdint.h"
+
 #include "Universal.h"
 #include "ISO7816.h"
 
@@ -15,7 +16,7 @@ void Try_Locating_Classes() {
 		SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 		
 		#ifdef APDU
-				SC_Send_Message(6);
+				SC_Send_Message(5+TEST);
 				Recieve_And_Check_Response();
 		#else
 				uint8_t count = Prepare_Standard_Block(5+TEST, SC_APDU);
@@ -39,7 +40,7 @@ void Try_Locating_Instructions() {
 		SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 				
 		#ifdef APDU
-				SC_Send_Message(6);
+				SC_Send_Message(5+TEST);
 				Recieve_And_Check_Response();
 		#else
 				uint8_t count = Prepare_Standard_Block(5+TEST, SC_APDU);
@@ -67,7 +68,7 @@ void Try_Locating_Card_Manager_Brute() {
 		
 		SC_APDU[10]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 10, SC_APDU);
 		#ifdef APDU
-				SC_Send_Message(11);
+				SC_Send_Message(10+TEST);
 				Recieve_And_Check_Response();
 		#else
 				uint8_t count = Prepare_Standard_Block(10+TEST, SC_APDU);
@@ -91,7 +92,7 @@ void Try_Locating_Card_Manager() {
 	SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 
 	#ifdef APDU
-		SC_Send_Message(6);
+		SC_Send_Message(5+TEST);
 		Recieve_And_Check_Response();
 	#else
 		uint8_t count = Prepare_Standard_Block(5+TEST, SC_APDU);
@@ -116,8 +117,53 @@ void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload) {
 	Recieve_And_Check_Response();
 }
 
+void Try_Single_Bytes() {
+	for(uint16_t byte=0; byte<2; byte++) {
+		SC_APDU[0]=byte;
+		SC_Send_Message(1);
+		UART_prepare_for_recieve();
+		Recieve_Response();
+	}
+}
 
-void Test(void){
+
+void Test(void) {
+	
+	Try_Single_Bytes();
+	//Wait_For_Button_Press();
+	
+	SC_APDU[0]=0xa4;
+	SC_Send_Message(1);
+	Recieve_And_Check_Response();
+	
+	SC_APDU[0]=0xc0;
+	SC_APDU[1]=0x20;  //0x60;
+	SC_APDU[2]=0x00;
+	SC_APDU[3]=0x00;
+	SC_APDU[4]=0x08;
+	SC_APDU[5]=0x00;
+	SC_APDU[6]=0x00;
+	SC_APDU[7]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 7, SC_APDU);
+	
+	uint8_t count = Prepare_Standard_Block(8, SC_APDU);
+	SC_Send_Message(count);
+	Recieve_And_Check_Response();	
+	
+	SC_APDU[0]=0xc0;
+	SC_APDU[1]=0xa4;  //0x60;
+	SC_APDU[2]=0x00;
+	SC_APDU[3]=0x00;
+	SC_APDU[4]=0x02;
+	SC_APDU[5]=0x3F;
+	SC_APDU[6]=0x00;
+	SC_APDU[7]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 7, SC_APDU);
+	
+	SC_Send_Message(8);
+	Recieve_And_Check_Response();
+	
+	//Wait_For_Button_Press();
+		
+	//return;
 	Try_Locating_Card_Manager();
 	Try_Locating_Instructions();
 	Try_Locating_Card_Manager_Brute();

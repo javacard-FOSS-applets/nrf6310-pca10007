@@ -1,4 +1,5 @@
 #include <stdint.h>
+
 #include "Universal.h"
 #include "ISO7816.h"
 
@@ -9,13 +10,17 @@ void SC_Send_Message(uint8_t Lenght) {
 		Send_UART(SC_APDU[i]);
 	}
 	Segger_write_string("\n");
+	
+	
+	//Card_wait_ETU_cycles(100);
+	//UART_prepare_for_recieve();
 }
 
 
 
 uint8_t Recieve_Response(void) {
 	//Card_wait_ETU_cycles(10);
-	//UART_prepare_for_recieve();
+//	UART_prepare_for_recieve();
 	uint8_t Recieve_Count=0;
 	Segger_write_string("\tRecieving response!\n\t");
 			

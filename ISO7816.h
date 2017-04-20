@@ -69,6 +69,7 @@ extern uint8_t SC_Temp_Buffer[];
 extern uint8_t SC_Header[];
 
 
+
 //todo Longer Messages than bytes
 
 // http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0095a/ch03s02s07.html
@@ -161,6 +162,3 @@ D6 	Update Binary
 DA 	Put Data
 DC 	Update Record
 E2 	Append Record*/
-
-
-

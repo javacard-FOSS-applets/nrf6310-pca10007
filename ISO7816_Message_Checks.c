@@ -1,4 +1,5 @@
 #include "stdint.h"
+
 #include "Universal.h"
 #include "ISO7816.h"
 
@@ -11,38 +12,6 @@ uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, ui
 	}
 	
 	return value;
-}
-
-
-void SC_Analyze_ATR(void) {
-	if(ATR_count==0) {
-		return;
-	}
-	
-	Segger_write_string_value("\tHistorical Bytes:", ((T0*) (ATR_Message + 1))->Historical_Bytes);
-	
-	Segger_write_string_value("T0: ", ATR_Message[1]);
-	
-	uint8_t next_td = SC_Analyze_ATR_Content((T0*)  (ATR_Message + 1 ));
-	uint8_t now_td = 0;
-	
-	while(next_td != now_td) {
-		now_td = next_td;
-		
-		Segger_write_string_value("TD: ", ATR_Message[1+next_td]);
-		next_td = next_td + SC_Analyze_ATR_Content((T0*)  (ATR_Message + 1 + next_td ));
-	}
-	
-	Segger_write_string("Historical bytes: \n\t");
-	
-	uint8_t  next_block = SC_Get_Next_ATR_Content((T0*)  (ATR_Message + 1 + next_td));
-	
-	for(uint8_t i=0; i<((T0*) (ATR_Message + 1))->Historical_Bytes; i++) {
-		Segger_write_one_hex_value(ATR_Message[1+next_td+next_block+ i]);
-	}
-	
-	Segger_write_string("\n\n");
-	//Segger_write_string_value("TD1: ", ATR_Message[1]);
 }
 
 uint8_t Is_Valid_Message(uint8_t offset, uint8_t Lenght, uint8_t * Message) {

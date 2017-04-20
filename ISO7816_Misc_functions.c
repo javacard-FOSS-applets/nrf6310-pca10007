@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "nrf_delay.h"
+
 #include "Universal.h"
 #include "ISO7816.h"
 
@@ -15,6 +16,7 @@ uint16_t Concat_Bytes(uint8_t byte1, uint8_t byte2)  {
 	value = byte1 << 8  |  byte2;
 	return value;
 }
+
 
 
 void Card_wait() {

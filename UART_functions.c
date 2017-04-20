@@ -49,6 +49,21 @@ baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 
 //2777777.778
 
+void Start_TX(void) {
+	NRF_UART0->TASKS_STARTTX=1;
+}
+
+void Stop_TX(void) {
+	NRF_UART0->TASKS_STOPTX=1;
+}
+
+void Start_RX(void) {
+	NRF_UART0->TASKS_STARTRX=1;
+}
+
+void Stop_RX(void) {
+	NRF_UART0->TASKS_STOPRX=1;
+}
 
 void NRF_Clear_UART_Errors() {
 	NRF_UART0->ERRORSRC=1;
@@ -134,8 +149,8 @@ void init_UART() {
 	NRF_UART0->POWER=1;	
 	NRF_UART0->ENABLE=4;
 		
-	NRF_UART0->TASKS_STOPTX=1;
-	NRF_UART0->TASKS_STOPRX=1;
+	Stop_TX();//NRF_UART0->TASKS_STOPTX=1;
+	Stop_RX();//NRF_UART0->TASKS_STOPRX=1;
 	
 	NRF_UART0->EVENTS_RXDRDY=0;
 	//NRF_UART0->EVENTS_TXDRDY=0;
@@ -152,7 +167,7 @@ void init_UART() {
 void Send_UART(uint8_t byte) {
 	Segger_write_one_hex_value(byte);
 	
-	NRF_UART0->TASKS_STARTTX=1;
+	Start_TX();//NRF_UART0->TASKS_STARTTX=1;
 	NRF_UART0->TXD=byte;
 		
 	while(NRF_UART0->EVENTS_TXDRDY != 1 ) {
@@ -162,7 +177,7 @@ void Send_UART(uint8_t byte) {
 	//NRF_Check_UART_Error();
 	
 	NRF_UART0->EVENTS_TXDRDY=0;
-	NRF_UART0->TASKS_STOPTX=1;
+	Stop_TX();//NRF_UART0->TASKS_STOPTX=1;
 }
 
 
@@ -172,13 +187,12 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 	*success=0;
 	timeout=0;
 	
-	NRF_UART0->ERRORSRC=1;
-	NRF_UART0->EVENTS_ERROR=0;
-	
-	NRF_UART0->TASKS_STARTRX=1;
-	
+	//UART_prepare_for_recieve();
+	NRF_Clear_UART_Errors();
 	//NRF_UART0->EVENTS_RXDRDY=0;
-		
+	
+	Start_RX(); //NRF_UART0->TASKS_STARTRX=1;
+			
 	while(NRF_UART0->EVENTS_RXDRDY != 1 && timeout<delay) {
 		timeout++;
 		nrf_delay_us(0x01);
@@ -196,7 +210,8 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 	
 	NRF_Check_UART_Error();
 	
-	NRF_UART0->TASKS_STOPRX=1;
+	Stop_RX(); //NRF_UART0->TASKS_STOPRX=1;
+	
 	*success=1;
 	return value;
 }
@@ -204,10 +219,11 @@ uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
 uint8_t Recieve_UART(void) {
 	uint8_t value=0;
 	
-	NRF_UART0->ERRORSRC=1;
-	NRF_UART0->EVENTS_ERROR=0;
+	//UART_prepare_for_recieve();
 	
-	NRF_UART0->TASKS_STARTRX=1;
+	NRF_Clear_UART_Errors();
+	
+	Start_RX(); //NRF_UART0->TASKS_STARTRX=1;
 		
 	while(NRF_UART0->EVENTS_RXDRDY != 1 ) {
 		;
@@ -220,6 +236,6 @@ uint8_t Recieve_UART(void) {
 	
 	NRF_Check_UART_Error();
 	
-	NRF_UART0->TASKS_STOPRX=1;
+	Stop_RX(); NRF_UART0->TASKS_STOPRX=1;
 	return value;
 }

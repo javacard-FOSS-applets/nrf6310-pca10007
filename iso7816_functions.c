@@ -20,9 +20,9 @@ uint8_t SC_Temp_Buffer[SC_MAX_MEM_BUFFER]; // TODO buffer length
 uint8_t SC_Header[]= {0x80, 0x10, 0x01, 0x02};
 
 void init_Card(void) {
-	init_ISO7816_pins();
-
 	Test_Error_Database();
+	
+	init_ISO7816_pins();
 
 	test_Card();
 	//Wait_For_Button_Press();
