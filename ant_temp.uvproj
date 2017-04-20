@@ -472,11 +472,6 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
-              <FileName>ISO7816_errors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ISO7816_errors.h</FilePath>
-            </File>
-            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -572,11 +567,6 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
-              <FileName>iso7816_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\iso7816_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -595,6 +585,71 @@
               <FileName>GlobalInit_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GlobalInit_functions.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ISO7816</GroupName>
+          <Files>
+            <File>
+              <FileName>ISO7816.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_error_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_error_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_activation_sequences.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_activation_sequences.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_ATR_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_ATR_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Message_Checks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Message_Checks.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Messages_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Messages_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Misc_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_APDU_tests.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_APDU_tests.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_send_recieve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_send_recieve.c</FilePath>
+            </File>
+            <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1429,11 +1484,6 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
-              <FileName>ISO7816_errors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ISO7816_errors.h</FilePath>
-            </File>
-            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -1529,11 +1579,6 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
-              <FileName>iso7816_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\iso7816_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -1552,6 +1597,71 @@
               <FileName>GlobalInit_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GlobalInit_functions.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ISO7816</GroupName>
+          <Files>
+            <File>
+              <FileName>ISO7816.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_error_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_error_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_activation_sequences.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_activation_sequences.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_ATR_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_ATR_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Message_Checks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Message_Checks.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Messages_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Messages_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Misc_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_APDU_tests.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_APDU_tests.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_send_recieve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_send_recieve.c</FilePath>
+            </File>
+            <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2348,11 +2458,6 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
-              <FileName>ISO7816_errors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ISO7816_errors.h</FilePath>
-            </File>
-            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -2448,11 +2553,6 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
-              <FileName>iso7816_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\iso7816_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -2471,6 +2571,71 @@
               <FileName>GlobalInit_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GlobalInit_functions.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ISO7816</GroupName>
+          <Files>
+            <File>
+              <FileName>ISO7816.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_error_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_error_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_activation_sequences.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_activation_sequences.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_ATR_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_ATR_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Message_Checks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Message_Checks.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Messages_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Messages_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Misc_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_APDU_tests.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_APDU_tests.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_send_recieve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_send_recieve.c</FilePath>
+            </File>
+            <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3249,11 +3414,6 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
-              <FileName>ISO7816_errors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ISO7816_errors.h</FilePath>
-            </File>
-            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -3299,11 +3459,6 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
-              <FileName>iso7816_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\iso7816_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -3322,6 +3477,71 @@
               <FileName>GlobalInit_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GlobalInit_functions.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ISO7816</GroupName>
+          <Files>
+            <File>
+              <FileName>ISO7816.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_error_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_error_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_activation_sequences.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_activation_sequences.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_ATR_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_ATR_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Message_Checks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Message_Checks.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Messages_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Messages_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Misc_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_APDU_tests.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_APDU_tests.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_send_recieve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_send_recieve.c</FilePath>
+            </File>
+            <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3888,11 +4108,6 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
-              <FileName>ISO7816_errors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ISO7816_errors.h</FilePath>
-            </File>
-            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -3988,11 +4203,6 @@
               <FilePath>.\UART_functions.c</FilePath>
             </File>
             <File>
-              <FileName>iso7816_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\iso7816_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -4011,6 +4221,71 @@
               <FileName>GlobalInit_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GlobalInit_functions.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ISO7816</GroupName>
+          <Files>
+            <File>
+              <FileName>ISO7816.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_error_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_error_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_activation_sequences.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_activation_sequences.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_ATR_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_ATR_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Message_Checks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Message_Checks.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Messages_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Messages_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Misc_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_APDU_tests.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_APDU_tests.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_send_recieve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_send_recieve.c</FilePath>
+            </File>
+            <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4845,11 +5120,6 @@
               <FilePath>.\Universal.h</FilePath>
             </File>
             <File>
-              <FileName>ISO7816_errors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ISO7816_errors.h</FilePath>
-            </File>
-            <File>
               <FileName>nrf_delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Include\nrf_delay\nrf_delay.c</FilePath>
@@ -4995,11 +5265,6 @@
               </FileOption>
             </File>
             <File>
-              <FileName>iso7816_functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\iso7816_functions.c</FilePath>
-            </File>
-            <File>
               <FileName>Misc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Misc_functions.c</FilePath>
@@ -5018,6 +5283,71 @@
               <FileName>GlobalInit_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\GlobalInit_functions.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ISO7816</GroupName>
+          <Files>
+            <File>
+              <FileName>ISO7816.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_errors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISO7816_errors.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_error_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_error_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_activation_sequences.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_activation_sequences.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_ATR_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_ATR_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Message_Checks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Message_Checks.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Messages_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Messages_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Misc_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Misc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_APDU_tests.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_APDU_tests.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_send_recieve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_send_recieve.c</FilePath>
+            </File>
+            <File>
+              <FileName>iso7816_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iso7816_functions.c</FilePath>
             </File>
           </Files>
         </Group>

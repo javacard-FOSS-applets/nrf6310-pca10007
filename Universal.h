@@ -77,6 +77,10 @@ typedef struct {
 	uint16_t CRC;
 } SC_BlockFrame;
 
+#define LRC_OFFSET_APDU  1
+#define LRC_OFFSET_BLOCK 0
+
+
 //########################	Main init 											###############################
 
 void 			init(void);
