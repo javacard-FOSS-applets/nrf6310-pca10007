@@ -3,10 +3,73 @@
 #include "Universal.h"
 #include "ISO7816.h"
 
+uint16_t CLA_DATA[] = {CLA_ISO7816, CLA_GP_PROP};
+uint8_t  CLA_DATA_P2[] = {P2_DATA_ISSUER_NUMBER, P2_DATA_CARD_IMAGE,	P2_DATA_CARD_DATA,	P2_DATA_CONFIRMATION_COUNT,	P2_DATA_KEY_TEMPLATE,	P2_DATA_SEQ_COUNTER};
+uint8_t  CLA_STATUS_P1[] = {0x80, 0x40, 0x20, 0x10};
+
+void Get_Response(uint8_t count) {
+	SC_APDU[P_CLA]=0x00;
+	SC_APDU[P_INS]=INS_GET_RESPONSE;
+	SC_APDU[P_P1]=0x00;
+	SC_APDU[P_P2]=0x00;
+	SC_APDU[P_P2+1]=count;
+	
+	SC_Send_Message(5);
+	Recieve_And_Check_Response();
+}
+
+void Try_DATA() {
+	for(uint8_t cla=0; cla<2; cla++) {
+		for(uint8_t param=0; param<6; param++) {
+			SC_APDU[P_CLA]=CLA_DATA[cla];
+			SC_APDU[P_INS]=INS_GET_DATA;
+			SC_APDU[P_P1]=0x00;
+			SC_APDU[P_P2]=CLA_DATA_P2[param];
+			SC_APDU[P_P2+1]=0x00;
+			
+			if(SC_ATR_Get_Protocol_Type()==0) {
+					SC_Send_Message(5);
+					Recieve_And_Check_Response();
+			}
+			else {
+					uint8_t count = Prepare_Standard_Block(5, SC_APDU);
+					SC_Send_Message(count);
+					Recieve_And_Check_Response();
+			}
+		}
+	}
+}
+
+void Try_STATUS() {
+	for(uint8_t param=0; param<4; param++) {
+		SC_APDU[P_CLA]=0x80;
+		SC_APDU[P_INS]=INS_GET_STAT;
+		SC_APDU[P_P1]=0x00;
+		SC_APDU[P_P2]=CLA_STATUS_P1[param];
+				
+		if(SC_ATR_Get_Protocol_Type()==0) {
+				SC_Send_Message(4);
+				Recieve_And_Check_Response();
+		}
+		else {
+				uint8_t count = Prepare_Standard_Block(4, SC_APDU);
+				SC_Send_Message(count);
+				Recieve_And_Check_Response();	
+		}
+	}
+}
+
+void Try_Get_Status() {
+	Segger_write_string("Trying to get som status!\n");
+	Try_DATA();
+	Try_STATUS();
+}
+
+
 void Try_Locating_Classes() {
 	Segger_write_string("Locating available classes\n");
 	
-	for(uint16_t cla=0xa4; cla<0xa5; cla++) {
+	for(uint16_t cla=0x00; cla<0xff; cla++) {
 		SC_APDU[0]=cla;
 		SC_APDU[1]=0x00;
 		SC_APDU[2]=0x00;
@@ -16,17 +79,16 @@ void Try_Locating_Classes() {
 		SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 		
 		if(SC_ATR_Get_Protocol_Type()==0) {
-				SC_Send_Message(5);
+				SC_Send_Message(4);
 				Recieve_And_Check_Response();
 		}
 		else {
-				uint8_t count = Prepare_Standard_Block(5, SC_APDU);
+				uint8_t count = Prepare_Standard_Block(4, SC_APDU);
 				SC_Send_Message(count);
 				Recieve_And_Check_Response();	
 		}
 	}
 }
-
 
 void Try_Locating_Instructions() {
 	Segger_write_string("Locating available instructions\n");
@@ -208,6 +270,4 @@ void test_Card(void) {
 		if(Is_Valid_Message(1, value, SC_Response)) {
 		Analyze_Message(value, SC_Response);
 	}
-	
-
 }

@@ -113,6 +113,8 @@ void Send_Negotiate_Block_Protocol_Alone() { // Should negotiate protocl T=0
 	
 
 	SC_Send_Message(3);	
+	
+	// TODO SC_ATR_Set_Protocol_Type(0x00);
 }
 
 void Send_Negotiate_Block_Protocol_APDU()  { // Should negotiate protocl T=0

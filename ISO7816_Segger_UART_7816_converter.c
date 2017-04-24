@@ -86,6 +86,8 @@ void Print_Help() {
 \t\t GC Locate Classes\n\
 \t\t GI Locate Instructiions\n\
 \t\t GN Send Negotiation Block Protocol\n\
+\t\t GS Try to Get Status Info\n\
+\t\t DD Try to get Data info\n\
 Message sending to card:\n \
 \t First send how many data, then the actual message\n\
 \t\t03\n\
@@ -202,10 +204,12 @@ int main(void) {
 													case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("Recieved messege will be sent as APDU\n"); break;
 													case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("Recieved messege will be encapsulated in block\n");break;
 													case 'M': Try_Locating_Card_Manager_Brute(); break;
-													case 'm': Try_Locating_Card_Manager(); break;
+													case 'm': Try_Locating_Card_Manager(); Get_Response(7); break;
 													case 'C': Try_Locating_Classes(); break;
 													case 'I': Try_Locating_Instructions(); break;
-													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); break;
+													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); SC_ATR_Set_Protocol_Type(0x00); break;
+													case 'S': Try_STATUS(); break;
+													case 'D': Try_DATA(); break;
 													default: break;
 												}
 											}

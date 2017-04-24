@@ -1,6 +1,70 @@
 #include <stdint.h>
 
+#define CLA_ISO7816 	0x00
+#define CLA_GP_PROP 	0x80
+#define CLA_GP_SECU 	0x84
 
+/*http://techmeonline.com/most-used-smart-card-commands-apdu/
+INS Value
+		Command Description
+0E 	Erase Binary
+		20 	Verify
+70 	Manage Channel
+82 	External Authenticate
+84 	Get Challenge
+88 	Internal Authenticate
+		A4 	Select File
+B0 	Read Binary
+B2 	Read Record(s)
+C0 	Get Response
+C2 	Envelope
+CA 	Get Data
+D0 	Write Binary
+D2 	Write Record
+D6 	Update Binary
+DA 	Put Data
+DC 	Update Record
+E2 	Append Record*/
+
+#define P_CLA 0
+#define P_INS 1
+#define P_P1 	2
+#define P_P2 	3
+#define P_Lc 	4
+#define P_Dat	5
+
+
+
+#define INS_GET_DATA 	0xCA
+	#define	P2_DATA_ISSUER_NUMBER 0x42
+	#define P2_DATA_CARD_IMAGE		0x45
+	#define P2_DATA_CARD_DATA			0x66
+	#define P2_DATA_CONFIRMATION_COUNT			0xC2
+	#define P2_DATA_KEY_TEMPLATE	0xE0
+	#define P2_DATA_SEQ_COUNTER		0xE0
+
+
+#define INS_GET_RESPONSE 0xC0
+#define INS_GET_STAT 	0xF2
+#define INS_DELETE	 	0xEA
+
+#define INS_INSTALL	 	0xE6
+#define INS_LOAD		 	0xE8
+#define INS_MAN_CHAN 	0x70
+#define INS_PUT_KEY	 	0xD8
+#define INS_SELECT	 	0xA4
+#define INS_SET_STAT	0xF0
+#define INS_STR_DATA	0xE2
+/*
+b8=1 indicates that the Application is a Security Domain.
+b7=1 indicates that the Security Domain has DAP Verification capability.
+b6=1 indicates that the Security Domain has Delegated Management privileges.
+b5=1 indicates that the Application has the privilege to lock the card.
+b4=1 indicates that the Application has the privilege to terminate the card.
+b3=1 indicates that the Application has the Default Selected privilege.
+b2=1 indicates that the Application has CVM management privileges.
+b1=1 indicates that the Security Domain has mandated DAP Verification capability.
+*/
 
 #define DELAY_ETU_CYCLES 45000
 #define one_CLK_cycle 	 6
@@ -18,6 +82,11 @@ void Try_Locating_Card_Manager(void);
 void Try_Locating_Card_Manager_Brute(void);
 void Try_Locating_Classes(void);
 void Try_Locating_Instructions(void);
+
+
+void Try_Get_Status(void);
+void Try_DATA(void);
+void Try_STATUS(void);
 
 
 void Send_Negotiate_Block_Protocol_Alone(void);
@@ -61,6 +130,7 @@ void SC_Analyze_ATR(void);
 void SC_Recieve_ATR(void);
 
 
+void Get_Response(uint8_t count);
 
 extern uint8_t ATR_Message[];
 extern uint8_t ATR_count;
@@ -176,25 +246,3 @@ B0 to CF 	ISO/IEC 7816-4 format you can use for application-specific instruction
 D0 to FE 	Application- or vendor-specific instructions
 FF 	Reserved for protocol type selection*/
 
-/*http://techmeonline.com/most-used-smart-card-commands-apdu/
-
-INS Value
-		Command Description
-0E 	Erase Binary
-		20 	Verify
-70 	Manage Channel
-82 	External Authenticate
-84 	Get Challenge
-88 	Internal Authenticate
-		A4 	Select File
-B0 	Read Binary
-B2 	Read Record(s)
-C0 	Get Response
-C2 	Envelope
-CA 	Get Data
-D0 	Write Binary
-D2 	Write Record
-D6 	Update Binary
-DA 	Put Data
-DC 	Update Record
-E2 	Append Record*/
