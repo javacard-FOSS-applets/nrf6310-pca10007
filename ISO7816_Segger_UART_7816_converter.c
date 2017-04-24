@@ -48,7 +48,7 @@ uint8_t HEX_String[255];
 		00 a4 04 00 00
 			0x60h 0x61h 0x07h
 		05
-		00
+		00 c0 00 00 07
 			0xc0h 0xa0h 0x00h 0x00h 0x00h 0x03h 0x00h 0x00h 0x90h 0x00h
 
 		0d
@@ -159,7 +159,10 @@ int main(void) {
 	ready_to_send=0;
 	
 	uint8_t lenght=0;
-	while(true) {
+	
+	uint8_t FLAG_run=1;
+	
+	while(FLAG_run) {
 		uint8_t ready_to_recieve = SEGGER_RTT_HasData(0);
 		
 		if(ready_to_recieve) {
@@ -168,71 +171,75 @@ int main(void) {
 			
 			Segger_write_string_value("Data ready:", recieved);
 			
-			if(Segger_recieve_buffer[0]==RESET) {
-				lenght=0;
-				ready_to_send=0;
-				Card_Cold_Reset();
-				SC_Recieve_ATR();
-				SC_Analyze_ATR();
-			}
-			else if(Segger_recieve_buffer[0]==HELP1 || Segger_recieve_buffer[0]==HELP2) {
-				Print_Help();
-			}
-			else if(Segger_recieve_buffer[0]==ACTIV) {
-				Card_Activate();
-				SC_Recieve_ATR();
-				SC_Analyze_ATR();
-			}
-			else if(Segger_recieve_buffer[0]==DEACT) {
-				Card_Deactivate();				
-			}
-			else if(Segger_recieve_buffer[0]==EXIT) {
-				Card_Deactivate();
-				break;
-			}
-			else if(Segger_recieve_buffer[0]==CONFG) {
-				if(recieved>1) {
-					switch(Segger_recieve_buffer[1]) {
-						case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("Recieved messege will be sent as APUD\n"); break;
-						case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("Recieved messege will be encapsulated in block\n");break;
-						case 'M': Try_Locating_Card_Manager_Brute(); break;
-						case 'm': Try_Locating_Card_Manager(); break;
-						case 'C': Try_Locating_Classes(); break;
-						case 'I': Try_Locating_Instructions(); break;
-						case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); break;
-						default: break;
-					}
+			switch(Segger_recieve_buffer[0]) {
+					case RESET:
+											lenght=0;
+											ready_to_send=0;
+											Card_Cold_Reset();
+											SC_Recieve_ATR();
+											SC_Analyze_ATR();
+											break;
+					case HELP1: 
+					case HELP2: 
+											Print_Help();
+											break;
+					case ACTIV: 
+											Card_Activate();
+											SC_Recieve_ATR();
+											SC_Analyze_ATR();
+											break;
+			
+					case DEACT:
+											Card_Deactivate();				
+											break;
+					case EXIT:
+											Card_Deactivate();
+											FLAG_run=0;
+											break;
+					case CONFG:
+											if(recieved>1) {
+												switch(Segger_recieve_buffer[1]) {
+													case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("Recieved messege will be sent as APDU\n"); break;
+													case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("Recieved messege will be encapsulated in block\n");break;
+													case 'M': Try_Locating_Card_Manager_Brute(); break;
+													case 'm': Try_Locating_Card_Manager(); break;
+													case 'C': Try_Locating_Classes(); break;
+													case 'I': Try_Locating_Instructions(); break;
+													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); break;
+													default: break;
+												}
+											}
+											break;
+					//case TESTK:
+					//						test_Card();
+					//						break;
+					default:
+											if(lenght==0) {
+												Convert_To_Hex_String(2, Segger_recieve_buffer);
+												lenght = SC_APDU[0];
+												Segger_write_string_value("Waiting for additional bytes:", lenght);
+											}
+											else {
+												ready_to_send += Convert_To_Hex_String(recieved, Segger_recieve_buffer);
+												
+												if(ready_to_send>=lenght) {
+													
+													if(SC_ATR_Get_Protocol_Type()==0) {
+														SC_Send_Message(lenght);
+													}
+													else {
+														uint8_t count = Prepare_Standard_Block(lenght, SC_APDU);
+														SC_Send_Message(count);
+													}
+													
+													Recieve_And_Check_Response();
+													
+													lenght=0;
+													ready_to_send=0;
+												}
+											}
+											break;
 				}
-			}
-			else if(Segger_recieve_buffer[0]==TESTK) {
-				test_Card();
-			}
-			else {
-				if(lenght==0) {
-					Convert_To_Hex_String(2, Segger_recieve_buffer);
-					lenght = SC_APDU[0];
-					Segger_write_string_value("Waiting for additional bytes:", lenght);
-				}
-				else {
-					ready_to_send += Convert_To_Hex_String(recieved, Segger_recieve_buffer);
-					
-					if(ready_to_send>=lenght) {
-						
-						if(SC_ATR_Get_Protocol_Type()==0) {
-							SC_Send_Message(lenght);
-						}
-						else {
-							uint8_t count = Prepare_Standard_Block(lenght, SC_APDU);
-							SC_Send_Message(count);
-						}
-						
-						Recieve_And_Check_Response();
-						
-						lenght=0;
-						ready_to_send=0;
-					}
-				}
-			}
 		}
 	}
 	return 0;
