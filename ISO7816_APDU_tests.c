@@ -15,14 +15,15 @@ void Try_Locating_Classes() {
 		
 		SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 		
-		#ifdef APDU
-				SC_Send_Message(5+TEST);
+		if(SC_ATR_Get_Protocol_Type()==0) {
+				SC_Send_Message(5);
 				Recieve_And_Check_Response();
-		#else
-				uint8_t count = Prepare_Standard_Block(5+TEST, SC_APDU);
+		}
+		else {
+				uint8_t count = Prepare_Standard_Block(5, SC_APDU);
 				SC_Send_Message(count);
 				Recieve_And_Check_Response();	
-		#endif
+		}
 	}
 }
 
@@ -30,30 +31,32 @@ void Try_Locating_Classes() {
 void Try_Locating_Instructions() {
 	Segger_write_string("Locating available instructions\n");
 	
-	for(uint16_t ins=0xf2; ins<0xf3; ins++) {
+	for(uint16_t ins=0x00; ins<0xff; ins++) {
 		SC_APDU[0]=0x00;
 		SC_APDU[1]=ins;
 		SC_APDU[2]=0x00;
 		SC_APDU[3]=0x00;
 		SC_APDU[4]=0x00;
 		
-		SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
+		//SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 				
-		#ifdef APDU
-				SC_Send_Message(5+TEST);
+		if(SC_ATR_Get_Protocol_Type()==0) {
+				SC_Send_Message(4);
 				Recieve_And_Check_Response();
-		#else
-				uint8_t count = Prepare_Standard_Block(5+TEST, SC_APDU);
+		}
+		else
+		{
+				uint8_t count = Prepare_Standard_Block(4, SC_APDU);
 				SC_Send_Message(count);
 				Recieve_And_Check_Response();	
-		#endif
+		}
 	}
 }
 
 void Try_Locating_Card_Manager_Brute() {
 	Segger_write_string("Bruteforcing card manared RID\n");
 	
-	for(uint16_t rid=0x03; rid<0x04; rid++) {
+	for(uint16_t rid=0x00; rid<0xff; rid++) {
 		SC_APDU[0]=0x00;
 		SC_APDU[1]=0xa4;
 		SC_APDU[2]=0x40;
@@ -66,15 +69,16 @@ void Try_Locating_Card_Manager_Brute() {
 		SC_APDU[8]=0x00;
 		SC_APDU[9]=rid;
 		
-		SC_APDU[10]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 10, SC_APDU);
-		#ifdef APDU
-				SC_Send_Message(10+TEST);
+		//SC_APDU[10]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 10, SC_APDU);
+		if(SC_ATR_Get_Protocol_Type()==0) {
+				SC_Send_Message(10);
 				Recieve_And_Check_Response();
-		#else
-				uint8_t count = Prepare_Standard_Block(10+TEST, SC_APDU);
+		}
+		else {
+				uint8_t count = Prepare_Standard_Block(10, SC_APDU);
 				SC_Send_Message(count);
 				Recieve_And_Check_Response();
-		#endif
+		}
 	}
 }
 
@@ -89,16 +93,17 @@ void Try_Locating_Card_Manager() {
 	SC_APDU[2]=0x04;
 	SC_APDU[3]=0x00;
 	SC_APDU[4]=0x00;
-	SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
+	//SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 
-	#ifdef APDU
-		SC_Send_Message(5+TEST);
+	if(SC_ATR_Get_Protocol_Type()==0) {
+		SC_Send_Message(5);
 		Recieve_And_Check_Response();
-	#else
-		uint8_t count = Prepare_Standard_Block(5+TEST, SC_APDU);
+	}
+	else {
+		uint8_t count = Prepare_Standard_Block(5, SC_APDU);
 		SC_Send_Message(count);
 		Recieve_And_Check_Response();	
-	#endif
+	}
 }
 
 void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload) {
@@ -118,54 +123,46 @@ void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload) {
 }
 
 void Try_Single_Bytes() {
-	for(uint16_t byte=0; byte<2; byte++) {
+	for(uint16_t byte=0xa4; byte<0xa6; byte++) {
 		SC_APDU[0]=byte;
 		SC_Send_Message(1);
-		UART_prepare_for_recieve();
-		Recieve_Response();
+		//UART_prepare_for_recieve();
+		Recieve_And_Check_Response();
 	}
 }
 
 void Test(void) {
+	//Try_Single_Bytes();
 	
-	Try_Single_Bytes();
-	//Wait_For_Button_Press();
-	
-	SC_APDU[0]=0xa4;
-	SC_Send_Message(1);
-	Recieve_And_Check_Response();
-	
-	SC_APDU[0]=0xc0;
+	/*SC_APDU[0]=0xc0;
 	SC_APDU[1]=0x20;  //0x60;
 	SC_APDU[2]=0x00;
 	SC_APDU[3]=0x00;
 	SC_APDU[4]=0x08;
 	SC_APDU[5]=0x00;
 	SC_APDU[6]=0x00;
-	SC_APDU[7]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 7, SC_APDU);
+	//SC_APDU[7]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 7, SC_APDU);
+	//uint8_t count = Prepare_Standard_Block(7, SC_APDU);
 	
-	uint8_t count = Prepare_Standard_Block(8, SC_APDU);
-	SC_Send_Message(count);
-	Recieve_And_Check_Response();	
+	SC_Send_Message(7);
+	Recieve_And_Check_Response();	*/
 	
-	SC_APDU[0]=0xc0;
+	/*SC_APDU[0]=0xc0;
 	SC_APDU[1]=0xa4;  //0x60;
 	SC_APDU[2]=0x00;
 	SC_APDU[3]=0x00;
 	SC_APDU[4]=0x02;
 	SC_APDU[5]=0x3F;
 	SC_APDU[6]=0x00;
-	SC_APDU[7]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 7, SC_APDU);
-	
-	SC_Send_Message(8);
-	Recieve_And_Check_Response();
-	
-	//Wait_For_Button_Press();
-		
+	//SC_APDU[7]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 7, SC_APDU);
+	SC_Send_Message(7);
+	Recieve_And_Check_Response();*/
+			
 	//return;
 	Try_Locating_Card_Manager();
-	Try_Locating_Instructions();
 	Try_Locating_Card_Manager_Brute();
+	Try_Locating_Classes();
+	Try_Locating_Instructions();
 	//Wait_For_Button_Press();
 }
 
@@ -180,6 +177,10 @@ void test_Card(void) {
 	SC_Analyze_ATR();
 
 	Test();
+	
+	Card_wait();
+	Card_Deactivate();
+	Card_wait();
 	
 	return;
 	Send_Negotiate_Block_Protocol_Block();
@@ -208,7 +209,5 @@ void test_Card(void) {
 		Analyze_Message(value, SC_Response);
 	}
 	
-	Card_wait();
-	Card_Deactivate();
-	Card_wait();
+
 }

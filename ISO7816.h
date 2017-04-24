@@ -6,7 +6,7 @@
 #define one_CLK_cycle 	 6
 
 #define APDU
-#define TEST 						 1
+#define TEST 						 0
 
 
 void Card_Activate(void);
@@ -15,8 +15,10 @@ void Card_Cold_Reset(void);
 void Warm_Reset(void);
 
 void Try_Locating_Card_Manager(void);
-void Try_Locating_Instructions(void);
 void Try_Locating_Card_Manager_Brute(void);
+void Try_Locating_Classes(void);
+void Try_Locating_Instructions(void);
+
 
 void Send_Negotiate_Block_Protocol_Alone(void);
 void Send_Negotiate_Block_Protocol_APDU(void);
@@ -46,8 +48,10 @@ uint8_t Recieve_Response(void);
 uint8_t Recieve_And_Check_Response(void);
 uint8_t Send_Message_Recieve_Response(uint8_t * Payload, uint8_t send_count, uint8_t * Message_Recieved);
 
-uint8_t SC_Analyze_ATR_Content(T0 *t0);
+uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0);
 uint8_t SC_Get_Next_ATR_Content(T0 *t0);
+uint8_t SC_ATR_Get_Protocol_Type(void);
+void 		SC_ATR_Set_Protocol_Type(uint8_t T_Type_Protocol);
 
 uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, uint8_t * message);
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved);
@@ -67,6 +71,15 @@ extern uint8_t SC_APDU[];
 extern uint8_t SC_Temp_Buffer[];
 
 extern uint8_t SC_Header[];
+
+/*
+	tlac
+	t=0
+	t=1
+
+	zopar metod
+	test sim karty
+*/
 
 // Books
 // 	https://www.globalplatform.org/specificationscard.asp
@@ -151,7 +164,8 @@ class
 	instruction
 		instruction parameter 1, 2
 
-http://www.oracle.com/technetwork/java/javacard/javacard1-139251.html
+http://www.oracle.com/technetwork/java/javacard/javacard1-139251.html*/
+
 /*Table 1. ISO 7816 CLA Values
 CLA Value 	Instruction Class
 0x0n, 0x1n 	ISO 7816-4 card instructions, such as for file access and security operations

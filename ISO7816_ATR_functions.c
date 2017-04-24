@@ -4,6 +4,16 @@
 #include "ISO7816.h"
 
 
+uint8_t SC_ATR_Preffered_Protocol_Type=0xff;
+
+uint8_t SC_ATR_Get_Protocol_Type() {
+	 return SC_ATR_Preffered_Protocol_Type;
+}
+
+void SC_ATR_Set_Protocol_Type(uint8_t T_Type_Protocol) {
+	SC_ATR_Preffered_Protocol_Type=T_Type_Protocol;
+}
+
 uint8_t SC_Get_Next_ATR_Content(T0 *t0) { 
 	uint8_t skip=0;	
 	
@@ -23,7 +33,7 @@ uint8_t SC_Get_Next_ATR_Content(T0 *t0) {
 	return skip+1;
 }
 
-uint8_t SC_Analyze_ATR_Content(T0 *t0) { 
+uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0) { 
 	uint8_t skip=0;	
 	
 	if(t0->Bit_MAP_TA) {
@@ -41,6 +51,10 @@ uint8_t SC_Analyze_ATR_Content(T0 *t0) {
 	
 	if(t0->Bit_MAP_TD) {
 		Segger_write_string("\tTD present\n");
+		if(T_identifier==2) {
+			SC_ATR_Set_Protocol_Type(t0->Historical_Bytes & 0x0f);
+			Segger_write_string_value("\t Preferred protocol: ", SC_ATR_Preffered_Protocol_Type);
+		}
 		skip++;
 	}
 	else {
@@ -75,19 +89,20 @@ void SC_Analyze_ATR(void) {
 	if(ATR_count==0) {
 		return;
 	}
-	
+	uint8_t TCount=1;
 	Segger_write_string_value("\tHistorical Bytes:", ((T0*) (ATR_Message + 1))->Historical_Bytes);
 	
 	Segger_write_string_value("T0: ", ATR_Message[1]);
 	
-	uint8_t next_td = SC_Analyze_ATR_Content((T0*)  (ATR_Message + 1 ));
+	uint8_t next_td = SC_Analyze_ATR_Content(TCount, (T0*)  (ATR_Message + 1 ));
 	uint8_t now_td = 0;
 	
 	while(next_td != now_td) {
 		now_td = next_td;
+		TCount++;
 		
 		Segger_write_string_value("TD: ", ATR_Message[1+next_td]);
-		next_td = next_td + SC_Analyze_ATR_Content((T0*)  (ATR_Message + 1 + next_td ));
+		next_td = next_td + SC_Analyze_ATR_Content(TCount, (T0*)  (ATR_Message + 1 + next_td ));
 	}
 	
 	Segger_write_string("Historical bytes: \n\t");

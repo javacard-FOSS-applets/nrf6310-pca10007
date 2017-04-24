@@ -19,6 +19,8 @@ uint8_t ready_to_send=0;
 uint8_t Segger_recieve_buffer[255];
 uint8_t HEX_String[255];
 
+#define CONFG 'G'
+
 #define HELP1 'H'
 #define HELP2 '?'
 
@@ -46,12 +48,15 @@ uint8_t HEX_String[255];
 		00 a4 04 00 00
 			0x60h 0x61h 0x07h
 		05
-		00 c0 00 00 07
+		00
 			0xc0h 0xa0h 0x00h 0x00h 0x00h 0x03h 0x00h 0x00h 0x90h 0x00h
 
 		0d
 		80F0800F08 A0000000 03000000
 
+		09
+		000005 00a4040000ff 1010
+													 0101
 
 		05
 		00 20 00 00 00
@@ -71,10 +76,16 @@ void Print_Help() {
 	########             HELP             ########\n\
 	##############################################\n\n\
 	Usage through Segger RTT viewer console:\n \
-\t ? or H -help\n\n\n\
+\t ? or H -help\n\n\
 \t R -cold reset Smart Card\n\
 \t T -Activate Smart Card\n\
 \t t -Deactivate Cards VCC, CLK, RESET, IO\n\
+\t G -CONFG  G0/1 Set protocol  \n\
+\t\t GM BruteForceLocating Card Manager\n\
+\t\t Gm Locating Card Manager\n\
+\t\t GC Locate Classes\n\
+\t\t GI Locate Instructiions\n\
+\t\t GN Send Negotiation Block Protocol\n\
 Message sending to card:\n \
 \t First send how many data, then the actual message\n\
 \t\t03\n\
@@ -179,6 +190,20 @@ int main(void) {
 				Card_Deactivate();
 				break;
 			}
+			else if(Segger_recieve_buffer[0]==CONFG) {
+				if(recieved>1) {
+					switch(Segger_recieve_buffer[1]) {
+						case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("Recieved messege will be sent as APUD\n"); break;
+						case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("Recieved messege will be encapsulated in block\n");break;
+						case 'M': Try_Locating_Card_Manager_Brute(); break;
+						case 'm': Try_Locating_Card_Manager(); break;
+						case 'C': Try_Locating_Classes(); break;
+						case 'I': Try_Locating_Instructions(); break;
+						case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); break;
+						default: break;
+					}
+				}
+			}
 			else if(Segger_recieve_buffer[0]==TESTK) {
 				test_Card();
 			}
@@ -192,7 +217,15 @@ int main(void) {
 					ready_to_send += Convert_To_Hex_String(recieved, Segger_recieve_buffer);
 					
 					if(ready_to_send>=lenght) {
-						SC_Send_Message(lenght);
+						
+						if(SC_ATR_Get_Protocol_Type()==0) {
+							SC_Send_Message(lenght);
+						}
+						else {
+							uint8_t count = Prepare_Standard_Block(lenght, SC_APDU);
+							SC_Send_Message(count);
+						}
+						
 						Recieve_And_Check_Response();
 						
 						lenght=0;

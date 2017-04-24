@@ -5,6 +5,8 @@
 #include "Universal.h"
 #include "ISO7816.h"
 
+
+
 void SC_Send_Message(uint8_t Lenght) {
 	Segger_write_string("Sending Message to SC!\n");
 	
@@ -52,7 +54,7 @@ uint8_t Recieve_Response(void) {
 		if(!success) {
 			break;
 		}
-		//Segger_write_one_hex_value(SC_Response[Recieve_Count]);
+		Segger_write_one_hex_value(SC_Response[Recieve_Count]);
 		Recieve_Count++;
 	}
 	Segger_write_string("\n");
