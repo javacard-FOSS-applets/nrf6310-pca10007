@@ -88,6 +88,7 @@ void Print_Help() {
 \t\t GN Send Negotiation Block Protocol\n\
 \t\t GS Try to Get Status Info\n\
 \t\t DD Try to get Data info\n\
+\t\t DB0xXXXXXXXX UART Baud rate set\n\
 Message sending to card:\n \
 \t First send how many data, then the actual message\n\
 \t\t03\n\
@@ -127,6 +128,21 @@ uint8_t String_To_Dec(uint8_t value, uint8_t position) {
 	}
 	
 	return return_value;
+}
+
+uint32_t Hex_UINT(uint8_t offset, uint8_t* Segger_recieve_buffer, uint8_t recieved) {
+	uint32_t value=0;
+	
+	uint8_t count=offset;
+	
+	while(count<=recieved && (count-offset)<9) {
+		value=value << 4;
+		if( !(Segger_recieve_buffer[count]==' ' || Segger_recieve_buffer[count]=='\t' || Segger_recieve_buffer[count]=='\n')) {
+			value |= String_To_Dec(Segger_recieve_buffer[count], 1);
+		}
+		count++;
+	}
+	return value;
 }
 
 uint8_t Convert_To_Hex_String(uint8_t recieved, uint8_t * Segger_recieve_buffer) {
@@ -177,6 +193,8 @@ int main(void) {
 					case RESET:
 											lenght=0;
 											ready_to_send=0;
+											Card_Deactivate();
+											Set_Baudrate(UART_BAUDRATE_BAUDRATE_Baud7168);
 											Card_Cold_Reset();
 											SC_Recieve_ATR();
 											SC_Analyze_ATR();
@@ -210,6 +228,13 @@ int main(void) {
 													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); SC_ATR_Set_Protocol_Type(0x00); break;
 													case 'S': Try_STATUS(); break;
 													case 'D': Try_DATA(); break;
+													case 'B': if(recieved==0x0d){
+																				//Segger_write_one_hex_value_32( Hex_UINT(3, Segger_recieve_buffer, recieved));
+																				Set_Baudrate(Hex_UINT(3, Segger_recieve_buffer, recieved));
+																						//strtol( (char*)(Segger_recieve_buffer+2), NULL, 32) );
+																								
+																		}
+																		break;
 													default: break;
 												}
 											}

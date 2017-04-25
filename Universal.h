@@ -35,6 +35,9 @@
 	#define ISO_7816_INVERSE_CONV	 0x3F
 	
 	#define SC_MAX_MEM_BUFFER			 255
+	
+	#define UART_BAUDRATE_BAUDRATE_Baud7467 0x001e9000 //2002944 decimal
+	#define UART_BAUDRATE_BAUDRATE_Baud7168 0x001d6000 //7461 real baud
 
 
 // LEDS and buttons
@@ -162,6 +165,7 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	void UART_prepare_for_recieve(void);
 	void UART_Enable(void);
 	void UART_Disable(void);
+	void Set_Baudrate(uint32_t new_baud);
 	
 	//########################	ISO7816  										###############################
 	void nrf_delay_us(uint32_t);

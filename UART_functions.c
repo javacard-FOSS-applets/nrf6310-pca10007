@@ -31,9 +31,7 @@
 
 #include "Universal.h"
 
-#define UART_BAUDRATE_BAUDRATE_Baud7467 0x001e9000 //2002944 decimal
-#define UART_BAUDRATE_BAUDRATE_Baud7168 0x001d6000
-  																								//7461 real baud
+
 
 /* https://devzone.nordicsemi.com/question/1181/uart-baudrate-register-values/?answer=1194#post-id-1194
 
@@ -49,6 +47,19 @@ baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 //uint32_t Calc_Baudrate(uint32_t baudrate) { return ((baudrate * 0x100000000ULL) / SYSCLK + 0x800) & 0xfffff000; } 
 
 //2777777.778
+
+uint32_t baud_rate=UART_BAUDRATE_BAUDRATE_Baud7168;
+
+void Set_Baudrate(uint32_t new_baud) {
+	baud_rate=new_baud;
+	Segger_write_string("Setting new baud rate settigns: ");
+	Segger_write_one_hex_value_32(new_baud);
+	Segger_write_string("\n");
+}
+
+uint32_t Get_Baudrate(void) {
+	return baud_rate;
+}
 
 void Start_TX(void) {
 	NRF_UART0->TASKS_STARTTX=1;
@@ -141,7 +152,7 @@ void init_UART() {
 	NRF_UART0->PSELRXD=PIN_RX;
 	NRF_UART0->PSELTXD=PIN_TX;
 	
-	NRF_UART0->BAUDRATE=UART_BAUDRATE_BAUDRATE_Baud7168;
+	NRF_UART0->BAUDRATE=Get_Baudrate();
 				
 		Segger_write_string("Baudrate settings=");
 		Segger_write_one_hex_value_32(NRF_UART0->BAUDRATE);
