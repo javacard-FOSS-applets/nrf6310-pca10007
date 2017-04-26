@@ -26,12 +26,25 @@ uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
 	return Lenght+6;
 }
 
+uint8_t Toggle_PCB_Send_Bit() {
+	static uint8_t byte=0x40;
+	
+	if(byte && 0x40) {
+		byte=byte & ~0x40;
+	}
+	else {
+		byte= byte | 0x40;
+	}
+	
+	return byte;
+}
+
 uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload) {
 	Segger_write_string("Preparing Block\n");
 	Copy_Mem(Lenght, Payload, SC_Temp_Buffer);
 
 	SC_APDU[0]=0x00;
-	SC_APDU[1]=0x00;
+	SC_APDU[1]=Toggle_PCB_Send_Bit();
 	
 	SC_APDU[2]=Lenght;
 	

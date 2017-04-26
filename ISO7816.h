@@ -4,6 +4,8 @@
 #define CLA_GP_PROP 	0x80
 #define CLA_GP_SECU 	0x84
 
+//http://java.inf.elte.hu/java-1.2/javacard/iso7816.txt
+
 /*http://techmeonline.com/most-used-smart-card-commands-apdu/
 INS Value
 		Command Description
