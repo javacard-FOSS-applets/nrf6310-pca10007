@@ -38,13 +38,15 @@
 	
 	#define UART_BAUDRATE_BAUDRATE_Baud7467 0x001e9000 //2002944 decimal
 	#define UART_BAUDRATE_BAUDRATE_Baud7168 0x001d6000 //7461 real baud
-
+	
+	#define ISO7816_CLK					2666667
 
 // LEDS and buttons
 #define 	BUTTONS 				PORT2
 #define   LEDS 						PORT1
 
 #define 	SYSCLK					16000000
+
 
 //########################	Structs for project				###############################
 
@@ -104,6 +106,7 @@ void			Segger_write_one_hex_value(uint8_t);
 void 			Segger_write_string(const char *string);
 void 			Segger_write_string_value(const char *string, uint8_t);
 void 			Segger_write_one_hex_value_32(uint32_t) ;
+void 			Segger_write_string_int(const char* message, uint32_t value);
 
 //########################	Radio message segmentation functions		###############################
 
@@ -155,6 +158,7 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	//########################	UART												###############################
 
 	void init_UART(void);
+	void reconfigure_UART(void);
 	void Send_UART(uint8_t);
 	void Clear_UART(void);
 	void UART_input(void);
@@ -165,13 +169,15 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	void UART_prepare_for_recieve(void);
 	void UART_Enable(void);
 	void UART_Disable(void);
-	void Set_Baudrate(uint32_t new_baud);
+	void Set_Comm_Baudrate(uint32_t new_baud);
+	void Set_Default_Baudrate(uint32_t new_baud);
 	
 	//########################	ISO7816  										###############################
 	void nrf_delay_us(uint32_t);
 		
 	void init_ISO7816_pins(void);
 	void init_Card(void);
+	void Calc_Default_Baudrate(void);
 	
 	//#pragma pack
 	typedef struct {

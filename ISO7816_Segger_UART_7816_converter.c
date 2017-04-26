@@ -91,6 +91,7 @@ void Print_Help() {
 \t\t Gc Try CPLCD\n\
 \t\t DD Try to get Data info\n\
 \t\t DB0xXXXXXXXX UART Baud rate set\n\
+\t\t Db set UART Baud rate to CLK/372\n\
 Message sending to card:\n \
 \t First send how many data, then the actual message\n\
 \t\t03\n\
@@ -199,10 +200,10 @@ int main(void) {
 											lenght=0;
 											ready_to_send=0;
 											Card_Deactivate();
-											Set_Baudrate(UART_BAUDRATE_BAUDRATE_Baud7168);
+											Set_Comm_Baudrate(ISO7816_CLK/372);
 											Card_Cold_Reset();
-											SC_Recieve_ATR();
-											SC_Analyze_ATR();
+											
+											SC_Recieve_ATR_And_Config();
 											break;
 					case HELP1: 
 					case HELP2: 
@@ -210,8 +211,7 @@ int main(void) {
 											break;
 					case ACTIV: 
 											Card_Activate();
-											SC_Recieve_ATR();
-											SC_Analyze_ATR();
+											SC_Recieve_ATR_And_Config();
 											break;
 			
 					case DEACT:
@@ -226,22 +226,28 @@ int main(void) {
 												switch(Segger_recieve_buffer[1]) {
 													case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("Recieved messege will be sent as APDU\n"); break;
 													case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("Recieved messege will be encapsulated in block\n");break;
+
 													case 'M': Try_Locating_Card_Manager_Brute(); break;
 													case 'm': Try_Locating_Card_Manager(); Get_Response(7); break;
 													case 'C': Try_Locating_Classes(); break;
 													case 'I': Try_Locating_Instructions(); break;
+													
 													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); SC_ATR_Set_Protocol_Type(0x00); break;
+													
 													case 'S': Try_STATUS(); break;
 													case 'D': Try_DATA(); break;
 													case 'R': Try_RECORDS(); break;
 													case 'c': Try_Card_Production_Life_Cycle_Data(); break;
+													
 													case 'B': if(recieved==0x0d){
 																				//Segger_write_one_hex_value_32( Hex_UINT(3, Segger_recieve_buffer, recieved));
-																				Set_Baudrate(Hex_UINT(3, Segger_recieve_buffer, recieved));
+																				Set_Comm_Baudrate(Hex_UINT(3, Segger_recieve_buffer, recieved));
+																				reconfigure_UART();
 																						//strtol( (char*)(Segger_recieve_buffer+2), NULL, 32) );
 																								
 																		}
 																		break;
+													case 'b': Set_Comm_Baudrate(ISO7816_CLK/372); reconfigure_UART(); break;
 													default: break;
 												}
 											}

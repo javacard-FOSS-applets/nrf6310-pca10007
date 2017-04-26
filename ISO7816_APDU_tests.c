@@ -276,10 +276,7 @@ void test_Card(void) {
 	Segger_write_string("\nTesting card!\n");
 	
 	Card_Activate();
-	SC_Recieve_ATR();
-
-	Is_Valid_Message(1, ATR_count, ATR_Message);
-	SC_Analyze_ATR();
+	SC_Recieve_ATR_And_Config();
 
 	Test();
 	

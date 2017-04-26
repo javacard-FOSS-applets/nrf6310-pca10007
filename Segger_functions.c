@@ -33,6 +33,22 @@ void Segger_write_one_hex_value(uint8_t value) {
 	}
 }
 
+void Segger_write_string_int(const char* message, uint32_t value) {
+	Segger_write_string(message);
+	
+	char str[20];
+	int count;
+
+	count = sprintf(str, "%d ", value);
+	if(count == 0 ) {
+		SEGGER_RTT_WriteString(0, "Couldnt write to string.\n");
+	}
+	else {
+		SEGGER_RTT_WriteString(0, str);
+	}
+		SEGGER_RTT_WriteString(0, "\n");
+}
+
 void Segger_write_one_hex_value_32(uint32_t value) {
 	char str[20];
 	int count;

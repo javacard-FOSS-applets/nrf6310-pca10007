@@ -4,6 +4,18 @@
 #define CLA_GP_PROP 	0x80
 #define CLA_GP_SECU 	0x84
 
+#define INTERNAL_CLK 	0x00
+#define RFU 					0x01
+
+static uint16_t Clock_rate_conversion_factor_F[16] = { INTERNAL_CLK, 372, 558, 744,  1116, 1488, 1860, RFU,
+																									     RFU,          512, 768, 1024, 1536, 2048, RFU,  RFU };
+//512
+static uint8_t Bit_rate_adjustment_factor_D[16] = { RFU, 1,   2, 4, 8, 16, 32, 64,
+								    																 //RFU, RFU, 2, 4, 8, 16, 32,  64 };
+																									RFU, RFU, 1/2, 1/4, 1/8, 1/16, 1/32, 1/64 };
+static uint8_t Programing_Current_Factor_I[4] = {25, 50, 100, RFU };
+
+
 //http://java.inf.elte.hu/java-1.2/javacard/iso7816.txt
 
 /*http://techmeonline.com/most-used-smart-card-commands-apdu/
@@ -74,6 +86,7 @@ b1=1 indicates that the Security Domain has mandated DAP Verification capability
 #define APDU
 #define TEST 						 0
 
+uint16_t Calc_Default_Cycles_ETU(void);
 
 void Card_Activate(void);
 void Card_Deactivate(void);
@@ -128,15 +141,19 @@ void 		SC_ATR_Set_Protocol_Type(uint8_t T_Type_Protocol);
 uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, uint8_t * message);
 uint8_t Send_Message_Recieve_Response(uint8_t * Message_Send, uint8_t send_count, uint8_t * Message_Recieved);
 
-void SC_Check_Card(void);
+/*void SC_Check_Card(void);
 void SC_Analyze_ATR(void);
-void SC_Recieve_ATR(void);
+void SC_Recieve_ATR(void);*/
+void SC_Recieve_ATR_And_Config(void);
 
 
 void Get_Response(uint8_t count);
 
 extern uint8_t ATR_Message[];
 extern uint8_t ATR_count;
+
+extern uint16_t ATR_ETU;
+
 
 extern uint8_t SC_Response[];
 extern uint8_t SC_Response_Count;
@@ -180,6 +197,9 @@ extern uint8_t SC_Header[];
 		//0x3bh 0x9eh 0x96h 0x80h 0x1fh 0xc7h 0x80h 0x31h 0xe0h 0x73h 0xfeh 0x21h 0x1bh 0x66h 0xd0h 0x01h 0x7bh 0x10h 0x0fh 0x00h 0x65h
 		//3B 9E 96 80 1F C7 80 31 E0 73 FE 21 1B 66 D0 01 7B 10 0F 00 65
 
+//0x3bh 0xf8h 0x13h 0x00h 0x00h 0x81h 0x31h 0xfeh 0x45h 0x4ch 0x47h 0x4dh 0x43h 0x61h 0x72h 0x64h 0x31h 0xa3h
+	//3b f8 13 00 00 81 31 fe 45 4c 47 4d 43 61 72 64h 31 a3
+	
 //apdu error list
 	//https://www.eftlab.co.uk/index.php/site-map/knowledge-base/118-apdu-response-list
 	//www.smartjac.biz/index.php/support/main-menu?view=kb&kbartid=3&tmpl=component&print=1

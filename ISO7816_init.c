@@ -1,8 +1,9 @@
 #include "Universal.h"
 
 void init_ISO7816_pins(void) {
+	Segger_write_string("Preparing ISO7816 timing andd UART timing variables.\n");
+	
 	Segger_write_string("Preparing UART!\n");
-		Set_Baudrate(UART_BAUDRATE_BAUDRATE_Baud7168);
 		init_UART();
 	
 	Segger_write_string("Preparing RESET pin!\n");

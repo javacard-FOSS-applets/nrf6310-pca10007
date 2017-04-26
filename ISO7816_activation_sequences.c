@@ -20,6 +20,11 @@ void Warm_Reset(void) {
 }
 
 void Card_Activate(void) {
+	Calc_Default_Baudrate();
+	Set_Comm_Baudrate(7168);
+	
+	init_UART();
+	//
 	Segger_write_string("Activating\n");
 		// wait
 			Card_wait();

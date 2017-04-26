@@ -44,22 +44,45 @@ UART_BAUDRATE_BAUDRATE_Baud115200 (0x01D7E000UL) !< 115200 baud.
 The actual baudrate set with the above define is:
 baudrate_reg_val * 16M / 2^32 = 115203.86 baud.*/
 
-//uint32_t Calc_Baudrate(uint32_t baudrate) { return ((baudrate * 0x100000000ULL) / SYSCLK + 0x800) & 0xfffff000; } 
+uint32_t Calc_Baudrate_Setting(uint32_t baudrate) { return ((baudrate * 0x100000000ULL) / SYSCLK + 0x800) & 0xfffff000; } 
 
 //2777777.778
 
-uint32_t baud_rate=UART_BAUDRATE_BAUDRATE_Baud7168;
+uint32_t baud_rate_comm=		UART_BAUDRATE_BAUDRATE_Baud7168;
+uint32_t baud_rate_default=	UART_BAUDRATE_BAUDRATE_Baud7168;
 
-void Set_Baudrate(uint32_t new_baud) {
-	baud_rate=new_baud;
-	Segger_write_string("Setting new baud rate settigns: ");
-	Segger_write_one_hex_value_32(new_baud);
+void Set_Comm_Settings(uint32_t new_comm_sett) {
+	baud_rate_comm=new_comm_sett;
+	Segger_write_string("Setting new COMM baud rate settings: ");
+	Segger_write_one_hex_value_32(baud_rate_comm);
 	Segger_write_string("\n");
 }
 
-uint32_t Get_Baudrate(void) {
-	return baud_rate;
+void Set_Comm_Baudrate(uint32_t new_baud) {
+	baud_rate_comm=Calc_Baudrate_Setting(new_baud);
+	Segger_write_string_int("Calculating baud setting for baudrate:", new_baud);
+	Segger_write_string("Setting new COMM baud rate settings: ");
+	Segger_write_one_hex_value_32(baud_rate_comm);
+	Segger_write_string("\n");
 }
+
+uint32_t Get_Comm_Baudrate(void) {
+	return baud_rate_comm;
+}
+
+
+void Set_Default_Baudrate(uint32_t new_baud) {
+	baud_rate_default=Calc_Baudrate_Setting(new_baud);
+	Segger_write_string_int("Calculating baud setting for baudrate:", new_baud);
+	Segger_write_string("Setting new DEFAULT baud rate settings: ");
+	Segger_write_one_hex_value_32(baud_rate_default);
+	Segger_write_string("\n");
+}
+
+uint32_t Get_Default_Baudrate(void) {
+	return baud_rate_default;
+}
+
 
 void Start_TX(void) {
 	NRF_UART0->TASKS_STARTTX=1;
@@ -130,6 +153,13 @@ void init_PINS_UART() {
 //void init_UART_interupt() {
 //}
 
+void UART_Warm_Disable() {
+	NRF_UART0->TASKS_STOPTX=1;
+	NRF_UART0->TASKS_STOPRX=1;
+	
+	NRF_UART0->ENABLE=0;
+}
+
 void UART_Disable() {
 	NRF_UART0->TASKS_STOPTX=1;
 	NRF_UART0->TASKS_STOPRX=1;
@@ -146,15 +176,20 @@ void UART_Enable() {
 	init_UART();
 }
 
-void init_UART() {
-	init_PINS_UART();
+void UART_Strategy(uint8_t strat) {
+		init_PINS_UART();
 	
 	NRF_UART0->PSELRXD=PIN_RX;
 	NRF_UART0->PSELTXD=PIN_TX;
 	
-	NRF_UART0->BAUDRATE=Get_Baudrate();
+	if(strat==0) {
+		NRF_UART0->BAUDRATE=Get_Default_Baudrate();
+	}
+	else {
+		NRF_UART0->BAUDRATE=Get_Comm_Baudrate();
+	}
 				
-		Segger_write_string("Baudrate settings=");
+		Segger_write_string("Actual baudrate settings=");
 		Segger_write_one_hex_value_32(NRF_UART0->BAUDRATE);
 		Segger_write_string("\n");
 	
@@ -174,6 +209,15 @@ void init_UART() {
 	
 	NRF_UART0->ERRORSRC=1;
 	NRF_UART0->EVENTS_ERROR=0;
+}
+
+void reconfigure_UART() {
+	UART_Warm_Disable();
+	UART_Strategy(0x01);
+}
+
+void init_UART() {
+	UART_Strategy(0x00);
 }
 
 void Send_UART(uint8_t byte) {
