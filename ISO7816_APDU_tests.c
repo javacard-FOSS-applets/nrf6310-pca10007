@@ -19,8 +19,6 @@ void Get_Response(uint8_t count) {
 	Recieve_And_Check_Response();
 }
 
-
-
 void Try_DATA() {
 	for(uint8_t cla=0; cla<2; cla++) {
 		for(uint8_t param=0; param<6; param++) {
@@ -43,6 +41,7 @@ void Try_DATA() {
 	}
 }
 
+//http://www.ttfn.net/techno/smartcards/iso7816_4.html#ss6_5
 void Try_RECORDS() {
 	for(uint8_t cla=0; cla<2; cla++) {
 		SC_APDU[P_CLA]=CLA_DATA[cla];

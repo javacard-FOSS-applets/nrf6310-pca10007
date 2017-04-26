@@ -157,6 +157,7 @@ extern uint8_t SC_Header[];
 // Books
 // 	https://www.globalplatform.org/specificationscard.asp
 //	http://www.win.tue.nl/pinpasjc/docs/GPCardSpec_v2.2.pdf
+//	http://www.ttfn.net/techno/smartcards/iso7816_4.html
 
 //todo Longer Messages than bytes
 
