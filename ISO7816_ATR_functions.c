@@ -14,36 +14,6 @@ void SC_ATR_Set_Protocol_Type(uint8_t T_Type_Protocol) {
 	SC_ATR_Preffered_Protocol_Type=T_Type_Protocol;
 }
 
-//Default values
-//F = 372 ;   D = 1 ;  I = 50 ;  P = 5 ;  N = 0
-#define INT_CLK 0
-uint16_t Calc_Cycles_ETU(uint8_t di, uint8_t fi) {
-	uint16_t ETU;
-	
-	if(fi==INT_CLK) {
-		//work etu = (1/D)*(1/9600) [s]
-		return 0;
-	}
-	else {
-		//work etu = (1/D)*(F/fs) s		
-		//value= ( 1/Bit_rate_adjustment_factor_D[di] ) * (Clock_rate_conversion_factor_F[fi]/ ISO7816_CLK );
-		ETU= ( Clock_rate_conversion_factor_F[fi] ) / (Bit_rate_adjustment_factor_D[di] );
-		Segger_write_string_int("\t Clock_rate_conversion_factor_F:\t", Clock_rate_conversion_factor_F[fi]);
-		Segger_write_string_int("\t Bit_rate_adjustment_factor_D:\t", Bit_rate_adjustment_factor_D[di]);
-		
-		Segger_write_string_int("\t Calculated ETU divisor for clock:\t", ETU);
-		
-		Segger_write_string_int("\t Calculated Baudrate:\t\t\t", ISO7816_CLK/ETU);
-		return ETU;
-	}
-	
-	//baudrate=clock_freq(should fs)/etu
-}
-
-uint16_t Calc_Default_Cycles_ETU(void) {
-	return Calc_Cycles_ETU(1, 1);
-}
-
 
 uint8_t SC_Get_Next_ATR_Content(T0 *t0) { 
 	uint8_t skip=0;	
@@ -63,9 +33,6 @@ uint8_t SC_Get_Next_ATR_Content(T0 *t0) {
 	
 	return skip+1;
 }
-
-uint8_t CWI=0;
-uint8_t BWI=0;
 
 uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0) { 
 	uint8_t skip=0;	
@@ -90,8 +57,15 @@ uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0) {
 	if(t0->Bit_MAP_TA) {
 		Segger_write_string("\tTA present\n");
 		if(T_identifier==1) {
-			Segger_write_string_value("\t Di: ", ((TA*) t0+1)->D1);
-			Segger_write_string_value("\t Fi: ", ((TA*) t0+1)->F1);
+			
+			uint8_t di = ((TA*) t0+1)->D1;
+			uint8_t fi = ((TA*) t0+1)->F1;
+			
+			F=Clock_rate_conversion_factor_F[fi];
+			D=Bit_rate_adjustment_factor_D[di];
+
+			Segger_write_string_value("\t Di: ", di);
+			Segger_write_string_value("\t Fi: ", fi);
 			uint16_t value = Calc_Cycles_ETU(((TA*) t0+1)->D1, ((TA*) t0+1)->F1);
 			ATR_ETU=value;
 		}
@@ -109,11 +83,12 @@ uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0) {
 			Segger_write_string_value("\t VPP: ", ((TC*) t0+skip+1)->Protocol_Type);
 		}
 		if(T_identifier==3) {
-			Segger_write_string_value("\t CWI: ", ((TA*) t0+skip+1)->D1);
-			Segger_write_string_value("\t BWI: ", ((TA*) t0+skip+1)->F1);
-			//uint16_t value = Calc_Cycles_ETU(((TA*) t0+2)->I1, ((TA*) t0+2)->T1);
 			CWI=((TA*) t0+skip+1)->D1;
 			BWI=((TA*) t0+skip+1)->F1;
+			
+			Segger_write_string_value("\t CWI: ", CWI);
+			Segger_write_string_value("\t BWI: ", BWI);
+			//uint16_t value = Calc_Cycles_ETU(((TA*) t0+2)->I1, ((TA*) t0+2)->T1);
 		}
 		skip++;
 	}

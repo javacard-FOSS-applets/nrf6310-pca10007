@@ -1,10 +1,11 @@
 #include <stdint.h>
+#include <math.h>
 
 #define CLA_ISO7816 	0x00
 #define CLA_GP_PROP 	0x80
 #define CLA_GP_SECU 	0x84
 
-#define INTERNAL_CLK 	0x00
+#define INTERNAL_CLK 	372
 #define RFU 					0x01
 
 static uint16_t Clock_rate_conversion_factor_F[16] = { INTERNAL_CLK, 372, 558, 744,  1116, 1488, 1860, RFU,
@@ -12,7 +13,7 @@ static uint16_t Clock_rate_conversion_factor_F[16] = { INTERNAL_CLK, 372, 558, 7
 //512
 static uint8_t Bit_rate_adjustment_factor_D[16] = { RFU, 1,   2, 4, 8, 16, 32, 64,
 								    																 //RFU, RFU, 2, 4, 8, 16, 32,  64 };
-																									RFU, RFU, 1/2, 1/4, 1/8, 1/16, 1/32, 1/64 };
+																									12, 20, 1/2, 1/4, 1/8, 1/16, 1/32, 1/64 };
 static uint8_t Programing_Current_Factor_I[4] = {25, 50, 100, RFU };
 
 
@@ -87,6 +88,7 @@ b1=1 indicates that the Security Domain has mandated DAP Verification capability
 #define TEST 						 0
 
 uint16_t Calc_Default_Cycles_ETU(void);
+uint16_t Calc_Cycles_ETU(uint8_t di, uint8_t fi);
 
 void Card_Activate(void);
 void Card_Deactivate(void);
@@ -161,6 +163,18 @@ extern uint8_t SC_APDU[];
 extern uint8_t SC_Temp_Buffer[];
 
 extern uint8_t SC_Header[];
+
+
+
+extern uint16_t F;
+extern uint16_t D;
+
+extern uint16_t ETU;
+extern uint8_t IFCS;
+extern uint8_t CWI;
+extern uint8_t BWI;
+extern uint8_t WI;
+extern float   work_ETU;
 
 /*
 	tlac

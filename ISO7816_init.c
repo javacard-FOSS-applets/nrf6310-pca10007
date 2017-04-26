@@ -1,4 +1,5 @@
 #include "Universal.h"
+#include "iso7816.h"
 
 void init_ISO7816_pins(void) {
 	Segger_write_string("Preparing ISO7816 timing andd UART timing variables.\n");

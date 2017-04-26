@@ -24,6 +24,7 @@ extern void SC_Recieve_ATR(void);
 extern void SC_Check_Card(void);
 extern void SC_Analyze_ATR(void);
 
+
 void Calc_Default_Baudrate() {
 	uint16_t ETU = Calc_Default_Cycles_ETU();
 	uint32_t Baudrate = ISO7816_CLK / ETU ;
