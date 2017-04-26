@@ -9,7 +9,7 @@ void init_ISO7816_pins(void) {
 		init_RESET();
 	Segger_write_string("Preparing CLK pin!\n");
 		init_CLK();
-	Segger_write_string("Preparing VCC pin!\n");
+	Segger_write_string("Preparing VCC pin!\n\n");
 		init_VCC();	
 	
 	//Segger_write_string("Preparing UART!\n");

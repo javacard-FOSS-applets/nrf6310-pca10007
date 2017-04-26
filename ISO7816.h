@@ -45,8 +45,8 @@ E2 	Append Record*/
 	#define P2_DATA_KEY_TEMPLATE	0xE0
 	#define P2_DATA_SEQ_COUNTER		0xE0
 
-
-#define INS_GET_RESPONSE 0xC0
+#define INS_READ_RECORD		0xB2
+#define INS_GET_RESPONSE 	0xC0
 #define INS_GET_STAT 	0xF2
 #define INS_DELETE	 	0xEA
 
@@ -89,7 +89,8 @@ void Try_Locating_Instructions(void);
 void Try_Get_Status(void);
 void Try_DATA(void);
 void Try_STATUS(void);
-
+void Try_RECORDS(void);
+void Try_Card_Production_Life_Cycle_Data(void);
 
 void Send_Negotiate_Block_Protocol_Alone(void);
 void Send_Negotiate_Block_Protocol_APDU(void);

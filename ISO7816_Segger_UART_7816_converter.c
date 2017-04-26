@@ -87,6 +87,8 @@ void Print_Help() {
 \t\t GI Locate Instructiions\n\
 \t\t GN Send Negotiation Block Protocol\n\
 \t\t GS Try to Get Status Info\n\
+\t\t GR Try read records\n\
+\t\t Gc Try CPLCD\n\
 \t\t DD Try to get Data info\n\
 \t\t DB0xXXXXXXXX UART Baud rate set\n\
 Message sending to card:\n \
@@ -101,8 +103,11 @@ Set Segger options as:\n\
 \tINPUT->Sending...->Send on Enter\n\
 \tINPUT->Sending...->Block if FIFO full\n\
 	##############################################\n\
-	##############################################\n\
-	##############################################\n\n\n\n");
+	##############################################\n\n");
+	
+	// TODO! if you add next line, segger wont be able to send that long message
+	//##############################################\n
+	Card_wait();
 }
 
 
@@ -228,6 +233,8 @@ int main(void) {
 													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); SC_ATR_Set_Protocol_Type(0x00); break;
 													case 'S': Try_STATUS(); break;
 													case 'D': Try_DATA(); break;
+													case 'R': Try_RECORDS(); break;
+													case 'c': Try_Card_Production_Life_Cycle_Data(); break;
 													case 'B': if(recieved==0x0d){
 																				//Segger_write_one_hex_value_32( Hex_UINT(3, Segger_recieve_buffer, recieved));
 																				Set_Baudrate(Hex_UINT(3, Segger_recieve_buffer, recieved));

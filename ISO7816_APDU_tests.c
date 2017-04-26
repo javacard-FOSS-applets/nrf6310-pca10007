@@ -6,6 +6,7 @@
 uint16_t CLA_DATA[] = {CLA_ISO7816, CLA_GP_PROP};
 uint8_t  CLA_DATA_P2[] = {P2_DATA_ISSUER_NUMBER, P2_DATA_CARD_IMAGE,	P2_DATA_CARD_DATA,	P2_DATA_CONFIRMATION_COUNT,	P2_DATA_KEY_TEMPLATE,	P2_DATA_SEQ_COUNTER};
 uint8_t  CLA_STATUS_P1[] = {0x80, 0x40, 0x20, 0x10};
+uint8_t  CLA_CPLCD_P2[] = {0x70, 0x7f};
 
 void Get_Response(uint8_t count) {
 	SC_APDU[P_CLA]=0x00;
@@ -17,6 +18,8 @@ void Get_Response(uint8_t count) {
 	SC_Send_Message(5);
 	Recieve_And_Check_Response();
 }
+
+
 
 void Try_DATA() {
 	for(uint8_t cla=0; cla<2; cla++) {
@@ -35,6 +38,46 @@ void Try_DATA() {
 					uint8_t count = Prepare_Standard_Block(5, SC_APDU);
 					SC_Send_Message(count);
 					Recieve_And_Check_Response();
+			}
+		}
+	}
+}
+
+void Try_RECORDS() {
+	for(uint8_t cla=0; cla<2; cla++) {
+		SC_APDU[P_CLA]=CLA_DATA[cla];
+		SC_APDU[P_INS]=INS_READ_RECORD;
+		SC_APDU[P_P1]=0xEF;
+		SC_APDU[P_P2]=0x00;
+				
+		if(SC_ATR_Get_Protocol_Type()==0) {
+				SC_Send_Message(4);
+				Recieve_And_Check_Response();
+		}
+		else {
+				uint8_t count = Prepare_Standard_Block(4, SC_APDU);
+				SC_Send_Message(count);
+				Recieve_And_Check_Response();	
+		}
+	}
+}
+
+void Try_Card_Production_Life_Cycle_Data() {
+	for(uint8_t cla=0; cla<2; cla++) {
+		for(uint8_t param=0; param<2; param++) {
+			SC_APDU[P_CLA]=CLA_DATA[cla];
+			SC_APDU[P_INS]=INS_GET_DATA;
+			SC_APDU[P_P1]=0x9f;
+			SC_APDU[P_P2]=CLA_CPLCD_P2[param];
+					
+			if(SC_ATR_Get_Protocol_Type()==0) {
+					SC_Send_Message(4);
+					Recieve_And_Check_Response();
+			}
+			else {
+					uint8_t count = Prepare_Standard_Block(4, SC_APDU);
+					SC_Send_Message(count);
+					Recieve_And_Check_Response();	
 			}
 		}
 	}
@@ -63,6 +106,7 @@ void Try_Get_Status() {
 	Segger_write_string("Trying to get som status!\n");
 	Try_DATA();
 	Try_STATUS();
+	Try_RECORDS();
 }
 
 
