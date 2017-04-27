@@ -50,8 +50,6 @@ void SC_Recieve_ATR_And_Config() {
 
 void init_Card(void) {
 	Test_Error_Database();
-		
-	//ATR_ETU=372;
 	
 	init_ISO7816_pins();
 

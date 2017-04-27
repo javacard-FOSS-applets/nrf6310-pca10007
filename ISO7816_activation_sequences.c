@@ -1,6 +1,20 @@
 #include "Universal.h"
 #include "ISO7816.h"
 
+uint8_t Card_running=0;
+
+void Set_Activated() {
+	Card_running=1;
+}
+
+void Set_Deactivated() {
+	Card_running=1;
+}
+
+uint8_t Is_Card_Active() {
+	return Card_running;
+}
+
 void Warm_Reset(void) {
 	// reset low
 		Set_RESET();
@@ -41,6 +55,8 @@ void Card_Activate(void) {
 			Card_wait();
 	// reset high
 		Clear_RESET();
+		
+		Set_Activated();
 }
 
 void Card_Deactivate(void) {
@@ -60,6 +76,8 @@ void Card_Deactivate(void) {
 			Card_wait();
 	// vcc low
 		Clear_VCC();
+	
+		Set_Deactivated();
 }
 
 

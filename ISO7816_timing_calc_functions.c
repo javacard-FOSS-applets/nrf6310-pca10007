@@ -4,8 +4,8 @@
 
 //#include <math.h>
 
-uint16_t F=0;
-uint16_t D=0;
+uint16_t F=372;
+uint16_t D=1;
 
 uint16_t ETU =16;
 uint8_t  IFCS=32;
@@ -18,8 +18,21 @@ float WT;
 float CWT;
 float BWT;
 
+
 //Default values
 //F = 372 ;   D = 1 ;  I = 50 ;  P = 5 ;  N = 0
+void Set_Default_Timing_Params() {
+	ATR_ETU=372;
+	F=   372;
+	D=   1;
+	ETU =372;
+	IFCS=32;
+	CWI =13;
+	BWI =4 ;
+	WI  =10;
+}
+
+
 #define INT_CLK 0
 
 uint16_t Calc_Cycles_ETU(uint8_t di, uint8_t fi) {
@@ -62,16 +75,6 @@ float Calc_BWT_Block_Wait_Time() {
 float Calc_Work_ETU() {
 	return (float)((float)F*(float)(D / (float) ISO7816_CLK));
 	return SYSCLK/ETU;
-}
-
-void Set_Default() {
-	F=   372;
-	D=   1;
-	ETU =16;
-	IFCS=32;
-	CWI =13;
-	BWI =4 ;
-	WI  =10;
 }
 */
 void Calc_ALL_Times() {

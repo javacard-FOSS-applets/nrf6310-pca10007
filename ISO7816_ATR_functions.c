@@ -121,6 +121,7 @@ uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0) {
 }
 
 void SC_Recieve_ATR(void) {
+	Set_Default_Timing_Params();
 	ATR_count=0;
 	
 	UART_prepare_for_recieve();

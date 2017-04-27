@@ -47,8 +47,6 @@ E2 	Append Record*/
 #define P_Lc 	4
 #define P_Dat	5
 
-
-
 #define INS_GET_DATA 	0xCA
 	#define	P2_DATA_ISSUER_NUMBER 0x42
 	#define P2_DATA_CARD_IMAGE		0x45
@@ -89,6 +87,7 @@ b1=1 indicates that the Security Domain has mandated DAP Verification capability
 uint16_t Calc_Default_Cycles_ETU(void);
 uint16_t Calc_Cycles_ETU(uint8_t di, uint8_t fi);
 
+uint8_t Is_Card_Active(void);
 void Card_Activate(void);
 void Card_Deactivate(void);
 void Card_Cold_Reset(void);
@@ -99,6 +98,7 @@ void Try_Locating_Card_Manager_Brute(void);
 void Try_Locating_Classes(void);
 void Try_Locating_Instructions(void);
 
+void Set_Default_Timing_Params(void);
 
 void Try_Get_Status(void);
 void Try_DATA(void);
@@ -162,7 +162,6 @@ extern uint8_t SC_APDU[];
 extern uint8_t SC_Temp_Buffer[];
 
 extern uint8_t SC_Header[];
-
 
 
 extern uint16_t F;

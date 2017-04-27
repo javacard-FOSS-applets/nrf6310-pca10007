@@ -236,7 +236,7 @@ void Send_UART(uint8_t byte) {
 
 
 uint8_t Recieve_UART_timeout(uint32_t delay, uint8_t * success) {
-	uint32_t timeout;
+	uint32_t timeout=0;
 	uint8_t value=0;
 	*success=0;
 	timeout=0;
