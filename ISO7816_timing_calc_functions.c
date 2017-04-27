@@ -2,6 +2,8 @@
 
 #include "iso7816.h"
 
+//#include <math.h>
+
 uint16_t F=0;
 uint16_t D=0;
 
@@ -47,7 +49,7 @@ uint16_t Calc_Cycles_ETU(uint8_t di, uint8_t fi) {
 uint16_t Calc_Default_Cycles_ETU(void) {
 	return Calc_Cycles_ETU(1, 1);
 }
-
+/*
 float Calc_WT_Wait_Time() {
 	return (float)((float)WI*(float)960*(float)(F/(float)ISO7816_CLK) * work_ETU);
 }
@@ -71,10 +73,10 @@ void Set_Default() {
 	BWI =4 ;
 	WI  =10;
 }
-
+*/
 void Calc_ALL_Times() {
-	work_ETU = Calc_Work_ETU();
-	WT = Calc_WT_Wait_Time();
-	CWT = Calc_CWT_Character_Wait_Time();
-	BWT = Calc_BWT_Block_Wait_Time();
+	//work_ETU = Calc_Work_ETU();
+	//WT = Calc_WT_Wait_Time();
+	//CWT = Calc_CWT_Character_Wait_Time();
+	//BWT = Calc_BWT_Block_Wait_Time();
 }

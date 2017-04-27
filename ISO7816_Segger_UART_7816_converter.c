@@ -103,7 +103,6 @@ Actual message can be on multiple lines\n\n\n\
 Set Segger options as:\n\
 \tINPUT->Sending...->Send on Enter\n\
 \tINPUT->Sending...->Block if FIFO full\n\
-	##############################################\n\
 	##############################################\n\n");
 	
 	// TODO! if you add next line, segger wont be able to send that long message

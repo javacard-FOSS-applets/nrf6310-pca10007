@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include <math.h>
 
 #define CLA_ISO7816 	0x00
 #define CLA_GP_PROP 	0x80
