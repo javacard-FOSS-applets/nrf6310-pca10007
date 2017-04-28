@@ -49,7 +49,7 @@ uint8_t Recieve_Response(void) {
 	
 	while(true) {
 		uint8_t success=0;
-		SC_Response[Recieve_Count]=Recieve_UART_timeout(450000, &success);
+		SC_Response[Recieve_Count]=Recieve_UART_timeout(4500000, &success);
 		
 		if(!success) {
 			break;

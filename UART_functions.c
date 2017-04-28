@@ -50,6 +50,17 @@ uint32_t Calc_Baudrate_Setting(uint32_t baudrate) { return ((baudrate * 0x100000
 
 uint32_t baud_rate_comm=		UART_BAUDRATE_BAUDRATE_Baud7168;
 uint32_t baud_rate_default=	UART_BAUDRATE_BAUDRATE_Baud7168;
+uint8_t  parity = 0x0e;
+
+void Toggle_Parity(void) {
+	if(parity) {
+		parity=0x00;
+	}
+	else {
+		parity=0x0e;
+	}
+	Segger_write_string_value("Parity changed to:", parity);
+}
 
 void Set_Comm_Settings(uint32_t new_comm_sett) {
 	baud_rate_comm=new_comm_sett;
@@ -110,19 +121,20 @@ void NRF_Check_UART_Error() {
 		Segger_write_string_value("UART ERROR: ", NRF_UART0->ERRORSRC);
 			if(NRF_UART0->ERRORSRC & 1<<2) {
 				//3 overrun
-				Segger_write_string("\t Overrun error!");
+				Segger_write_string("\t Overrun error!\n");
 			}
 			if(NRF_UART0->ERRORSRC & 1<<1) {
 				//2 parity
-			Segger_write_string("\t Parity error!");
+			Segger_write_string("\t Parity error!\n");
 			}
 			if(NRF_UART0->ERRORSRC & 1<<0) {
 				//1 framing
-			Segger_write_string("\t Framing error!");
+			Segger_write_string("\t Framing error!\n");
 			}
 			
 		//0 no error
 		NRF_Clear_UART_Errors();
+		Segger_write_string("\n");
 	}
 }
 
@@ -205,7 +217,7 @@ void UART_Strategy(uint8_t strat) {
 		//NRF_UART0->TASKS_STARTTX=1;
 		//NRF_UART0->TASKS_STARTRX=1;
 	
-	NRF_UART0->CONFIG=0x0E; // Parity enabled
+	NRF_UART0->CONFIG= parity; // Parity enabled
 	
 	NRF_UART0->ERRORSRC=1;
 	NRF_UART0->EVENTS_ERROR=0;
@@ -223,6 +235,8 @@ void init_UART() {
 void Send_UART(uint8_t byte) {
 	Segger_write_one_hex_value(byte);
 	
+	NRF_Clear_UART_Errors();
+	
 	Start_TX();//NRF_UART0->TASKS_STARTTX=1;
 	NRF_UART0->TXD=byte;
 		
@@ -232,6 +246,8 @@ void Send_UART(uint8_t byte) {
 	
 	NRF_UART0->EVENTS_TXDRDY=0;
 	Stop_TX();//NRF_UART0->TASKS_STOPTX=1;
+	
+	NRF_Check_UART_Error();
 }
 
 

@@ -276,6 +276,7 @@ int main(void) {
 																		}
 																		break;
 													case 'b': Set_Comm_Baudrate(ISO7816_CLK/372); reconfigure_UART(); break;
+													case 'P': Toggle_Parity(); reconfigure_UART(); break;
 													default: break;
 												}
 											}

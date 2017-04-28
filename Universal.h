@@ -7,7 +7,12 @@
 
 #include "SEGGER_RTT.h"
 
-//########################	Defines				###############################
+//########################	   DEBUG  		###############################
+
+#define DEGUB_PRINTS
+#define DEGUB_UART
+
+//########################	  Defines  		###############################
 
 //#define PIN 						31
 
@@ -156,7 +161,7 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	void Clear_VCC(void);
 
 	//########################	UART												###############################
-
+	void Toggle_Parity(void);
 	void init_UART(void);
 	void reconfigure_UART(void);
 	void Send_UART(uint8_t);
