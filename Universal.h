@@ -105,7 +105,7 @@ uint8_t	 	ButtonsChanged(void);
 void 			Wait_For_Button_Press(void);
 
 //########################	Segger debugging && info				###############################
-
+#define DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE 0
 void 			Segger_write_hex_value(uint8_t);
 void			Segger_write_one_hex_value(uint8_t);
 void 			Segger_write_string(const char *string);

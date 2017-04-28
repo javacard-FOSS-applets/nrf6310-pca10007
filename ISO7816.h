@@ -172,6 +172,7 @@ extern uint8_t IFCS;
 extern uint8_t CWI;
 extern uint8_t BWI;
 extern uint8_t WI;
+extern uint8_t PSS;
 extern float   work_ETU;
 
 /*
@@ -281,4 +282,3 @@ CLA Value 	Instruction Class
 B0 to CF 	ISO/IEC 7816-4 format you can use for application-specific instructions
 D0 to FE 	Application- or vendor-specific instructions
 FF 	Reserved for protocol type selection*/
-

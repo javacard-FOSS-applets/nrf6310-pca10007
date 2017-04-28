@@ -4,14 +4,16 @@
 #include "ISO7816.h"
 
 
-uint8_t SC_ATR_Preffered_Protocol_Type=0xff;
+uint8_t SC_ATR_Preffered_Protocol_Type=0x00;
 
 uint8_t SC_ATR_Get_Protocol_Type() {
 	 return SC_ATR_Preffered_Protocol_Type;
 }
 
 void SC_ATR_Set_Protocol_Type(uint8_t T_Type_Protocol) {
-	SC_ATR_Preffered_Protocol_Type=T_Type_Protocol;
+	
+	SC_ATR_Preffered_Protocol_Type = T_Type_Protocol;
+	Segger_write_string_value("D:   Protoclo type set to:", SC_ATR_Preffered_Protocol_Type);
 }
 
 
@@ -69,8 +71,10 @@ uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0) {
 			uint16_t value = Calc_Cycles_ETU(((TA*) t0+1)->D1, ((TA*) t0+1)->F1);
 			ATR_ETU=value;
 		}
+
 		if(T_identifier==2) {
 			Segger_write_string_value("\t TA2 PPS: ", ((TC*) t0+1)->Protocol_Type);
+			PSS=0;
 		}
 		if(T_identifier>=3) {
 			Segger_write_string_value("\t IFCS: ", ((TC*) t0+1)->Protocol_Type);
@@ -121,14 +125,16 @@ uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0) {
 }
 
 void SC_Recieve_ATR(void) {
+	uint8_t success=0;
 	Set_Default_Timing_Params();
 	ATR_count=0;
+	
 	
 	UART_prepare_for_recieve();
 	
 	for(uint8_t i=0; i<ISO_7816_MAX_ATR_BYTES; i++) {
 		//value=InverseByte(value);
-		uint8_t success=0;
+		success=0;
 		
 		ATR_Message[i]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
 		if(!success) {
@@ -138,6 +144,7 @@ void SC_Recieve_ATR(void) {
 		Segger_write_one_hex_value(ATR_Message[i]);
 		ATR_count++;
 	}
+	
 	Segger_write_string("\n");
 }
 

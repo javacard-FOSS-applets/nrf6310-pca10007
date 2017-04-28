@@ -184,11 +184,11 @@ int main(void) {
 	uint8_t FLAG_run=1;
 	
 	while(FLAG_run) {
-		uint8_t ready_to_recieve = SEGGER_RTT_HasData(0);
+		uint8_t ready_to_recieve = SEGGER_RTT_HasData(DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE);
 		
 		if(ready_to_recieve) {
 			//Segger_write_string("Data ready to be recieved\n");
-			recieved = SEGGER_RTT_Read(0, Segger_recieve_buffer, 255);
+			recieved = SEGGER_RTT_Read(DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE, Segger_recieve_buffer, 255);
 			
 			Segger_write_string_value("D:   Data ready:", recieved);
 			
@@ -199,8 +199,8 @@ int main(void) {
 												break;
 											}
 											while(true) {
-												if(SEGGER_RTT_HasData(0)) {
-													SEGGER_RTT_Read(0, Segger_recieve_buffer, 255);
+												if(SEGGER_RTT_HasData(DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE)) {
+													SEGGER_RTT_Read(DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE, Segger_recieve_buffer, 255);
 													break;
 												}
 												uint8_t success=0;
@@ -216,8 +216,8 @@ int main(void) {
 												break;
 											}
 											while(true) {
-												if(SEGGER_RTT_HasData(0)) {
-													SEGGER_RTT_Read(0, Segger_recieve_buffer, 255);
+												if(SEGGER_RTT_HasData(DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE)) {
+													SEGGER_RTT_Read(DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE, Segger_recieve_buffer, 255);
 													break;
 												}
 												SC_APDU[0]=0xaa;

@@ -29,7 +29,7 @@ uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
 uint8_t Toggle_PCB_Send_Bit() {
 	static uint8_t byte=0x40;
 	
-	if(byte && 0x40) {
+	if(byte & 0x40) {
 		byte=byte & ~0x40;
 	}
 	else {

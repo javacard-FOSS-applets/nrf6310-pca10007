@@ -49,7 +49,7 @@ uint8_t Recieve_Response(void) {
 	
 	while(true) {
 		uint8_t success=0;
-		SC_Response[Recieve_Count]=Recieve_UART_timeout(4500000, &success);
+		SC_Response[Recieve_Count]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
 		
 		if(!success) {
 			break;
@@ -101,17 +101,16 @@ uint8_t Send_Message_Recieve_Response(uint8_t * Payload, uint8_t send_count, uin
 
 
 void Send_Negotiate_Block_Protocol_Alone() { // Should negotiate protocl T=0
-	Segger_write_string("Negotiating T=0!\n");
+	Segger_write_string("Negotiating T!\n");
 	// Negotiating new protocol via PTS 
 	
 	SC_APDU[0] = 0xFF;  //PTS request
-	SC_APDU[1] = 0x00;	//PTS0 as TA1  0(RFU) 000(PTS 1 2 3 ) Protocol type 4 1
+	SC_APDU[1] = SC_ATR_Get_Protocol_Type();	//PTS0 as TA1  0(RFU) 000(PTS 1 2 3 ) Protocol type 4 1
 	//SC_APDU[2] = 0x00;	//PTS1 
 	//SC_APDU[3] = 0x00;  //PTS2
 	//SC_APDU[4] = 0x00;	//PTS3
-	SC_APDU[2] = 0xFF;  //Calc_XOR_Checksum(0, 2, SC_APDU);
+	SC_APDU[2] = Calc_XOR_Checksum(0, 0, 2, SC_APDU);
 	
-
 	SC_Send_Message(3);	
 	
 	// TODO SC_ATR_Set_Protocol_Type(0x00);

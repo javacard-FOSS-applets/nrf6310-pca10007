@@ -12,6 +12,9 @@ uint8_t  IFCS=32;
 uint8_t  CWI =13;
 uint8_t  BWI =4 ;
 uint8_t  WI  =10;
+uint8_t  PSS =1;
+uint8_t  LRC =1;
+uint8_t  CRC =0;
 
 float work_ETU;
 float WT;
@@ -21,15 +24,20 @@ float BWT;
 
 //Default values
 //F = 372 ;   D = 1 ;  I = 50 ;  P = 5 ;  N = 0
+//LRC
+
 void Set_Default_Timing_Params() {
 	ATR_ETU=372;
-	F=   372;
-	D=   1;
+	F   =372;
+	D   =1;
 	ETU =372;
 	IFCS=32;
 	CWI =13;
 	BWI =4 ;
 	WI  =10;
+	PSS =1;
+	LRC =1;
+	CRC =0;
 }
 
 

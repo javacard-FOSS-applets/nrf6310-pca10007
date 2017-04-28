@@ -44,6 +44,12 @@ void SC_Recieve_ATR_And_Config() {
 	
 	Calc_Communication_Baudrate();
 	reconfigure_UART();
+	
+	if(PSS) {
+		Send_Negotiate_Block_Protocol_Alone();
+		Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+	}
+		
 	//and timing
 }
 
