@@ -183,6 +183,11 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	void init_ISO7816_pins(void);
 	void init_Card(void);
 	void Calc_Default_Baudrate(void);
+	void Calc_Communication_Baudrate(void);
+	uint8_t Validate_Valid_PPS_Response(void);
+	
+	void Toggle_APDU_EXTRA_LRC(void);
+	uint8_t Get_APDU_EXTRA_LRC(void);
 	
 	//#pragma pack
 	typedef struct {

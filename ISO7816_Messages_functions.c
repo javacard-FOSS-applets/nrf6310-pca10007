@@ -3,9 +3,9 @@
 #include "Universal.h"
 #include "ISO7816.h"
 
-void Analyze_Content(uint8_t ProtocolType, uint8_t Lenght, uint8_t * Message) {
+/*void Analyze_Content(uint8_t ProtocolType, uint8_t Lenght, uint8_t * Message) {
 	
-}
+}*/
 
 uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
 	Segger_write_string("Preparing APDU\n");
@@ -24,6 +24,20 @@ uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
 	SC_APDU[Lenght+5] = Calc_XOR_Checksum(0, LRC_OFFSET_APDU, Lenght+4+1, SC_APDU);
 	
 	return Lenght+6;
+}
+
+static uint8_t APDU_EXTRA_LRC=0x00;
+void Toggle_APDU_EXTRA_LRC(void) {
+	if(APDU_EXTRA_LRC) {
+		APDU_EXTRA_LRC=0;
+	}
+	else {
+		APDU_EXTRA_LRC=1;
+	}
+	Segger_write_string_value("Extra LRC in APDU in Block changed to:", APDU_EXTRA_LRC);
+}
+uint8_t Get_APDU_EXTRA_LRC(void) {
+	return APDU_EXTRA_LRC;
 }
 
 uint8_t Toggle_PCB_Send_Bit() {
@@ -47,13 +61,14 @@ uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload) {
 	SC_APDU[1]=Toggle_PCB_Send_Bit();
 	
 	SC_APDU[2]=Lenght;
-	if(false) {
+	if(Get_APDU_EXTRA_LRC() && false) {
 		for(uint8_t i=0; i<Lenght; i++) {
 			SC_APDU[3+i]=SC_Temp_Buffer[i];
 		}
-		SC_APDU[4+Lenght]=Calc_XOR_Checksum(0, LRC_OFFSET_BLOCK, 3+Lenght, SC_APDU); 
+		SC_APDU[3+Lenght]=Calc_XOR_Checksum(0, 3, 3+Lenght, SC_APDU); 
+		SC_APDU[4+Lenght]=Calc_XOR_Checksum(0, LRC_OFFSET_BLOCK, 4+Lenght, SC_APDU); 
 
-		return (4+Lenght);
+		return (5+Lenght);
 	}
 	else {
 		for(uint8_t i=0; i<Lenght; i++) {

@@ -3,8 +3,8 @@
 #include "Universal.h"
 #include "ISO7816.h"
 
-uint16_t CLA_DATA[] = {CLA_ISO7816, CLA_GP_PROP};
-uint8_t  CLA_DATA_P2[] = {P2_DATA_ISSUER_NUMBER, P2_DATA_CARD_IMAGE,	P2_DATA_CARD_DATA,	P2_DATA_CONFIRMATION_COUNT,	P2_DATA_KEY_TEMPLATE,	P2_DATA_SEQ_COUNTER};
+uint16_t CLA_DATA[] = 		{CLA_ISO7816, CLA_GP_PROP};
+uint8_t  CLA_DATA_P2[] = 	{P2_DATA_ISSUER_NUMBER, P2_DATA_CARD_IMAGE,	P2_DATA_CARD_DATA,	P2_DATA_CONFIRMATION_COUNT,	P2_DATA_KEY_TEMPLATE,	P2_DATA_SEQ_COUNTER};
 uint8_t  CLA_STATUS_P1[] = {0x80, 0x40, 0x20, 0x10};
 uint8_t  CLA_CPLCD_P2[] = {0x70, 0x7f};
 
@@ -37,13 +37,15 @@ void Try_DATA() {
 			SC_APDU[P_P2+1]=0x00;
 			
 			if(SC_ATR_Get_Protocol_Type()==0) {
-				SC_Send_Message(5);
-				Recieve_And_Check_Response();
+				//SC_Send_Message(5);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(5);
 			}
 			else {
 				uint8_t count = Prepare_Standard_Block(5, SC_APDU);
-				SC_Send_Message(count);
-				Recieve_And_Check_Response();
+				//SC_Send_Message(count);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(count);
 			}
 		}
 	}
@@ -58,13 +60,15 @@ void Try_RECORDS() {
 		SC_APDU[P_P2]=0x00;
 				
 		if(SC_ATR_Get_Protocol_Type()==0) {
-				SC_Send_Message(4);
-				Recieve_And_Check_Response();
+				//SC_Send_Message(4);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(4);
 		}
 		else {
 				uint8_t count = Prepare_Standard_Block(4, SC_APDU);
-				SC_Send_Message(count);
-				Recieve_And_Check_Response();	
+				//SC_Send_Message(count);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(count);			
 		}
 	}
 }
@@ -78,13 +82,15 @@ void Try_Card_Production_Life_Cycle_Data() {
 			SC_APDU[P_P2]=CLA_CPLCD_P2[param];
 					
 			if(SC_ATR_Get_Protocol_Type()==0) {
-					SC_Send_Message(4);
-					Recieve_And_Check_Response();
+					//SC_Send_Message(4);
+					//Recieve_And_Check_Response();
+					Send_And_Recieve(4);
 			}
 			else {
 					uint8_t count = Prepare_Standard_Block(4, SC_APDU);
-					SC_Send_Message(count);
-					Recieve_And_Check_Response();	
+					//SC_Send_Message(count);
+					//Recieve_And_Check_Response();	
+					Send_And_Recieve(count);
 			}
 		}
 	}
@@ -98,13 +104,15 @@ void Try_STATUS() {
 		SC_APDU[P_P2]=CLA_STATUS_P1[param];
 				
 		if(SC_ATR_Get_Protocol_Type()==0) {
-				SC_Send_Message(4);
-				Recieve_And_Check_Response();
+				//SC_Send_Message(4);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(4);
 		}
 		else {
 				uint8_t count = Prepare_Standard_Block(4, SC_APDU);
-				SC_Send_Message(count);
-				Recieve_And_Check_Response();	
+				//SC_Send_Message(count);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(count);
 		}
 	}
 }
@@ -130,13 +138,15 @@ void Try_Locating_Classes() {
 		SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 		
 		if(SC_ATR_Get_Protocol_Type()==0) {
-				SC_Send_Message(4);
-				Recieve_And_Check_Response();
+				//SC_Send_Message(5);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(4); //5
 		}
 		else {
-				uint8_t count = Prepare_Standard_Block(4, SC_APDU);
-				SC_Send_Message(count);
-				Recieve_And_Check_Response();	
+				uint8_t count = Prepare_Standard_Block(5, SC_APDU);
+				//SC_Send_Message(count);
+				//Recieve_And_Check_Response();	
+				Send_And_Recieve(count);
 		}
 	}
 }
@@ -154,14 +164,15 @@ void Try_Locating_Instructions() {
 		//SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 				
 		if(SC_ATR_Get_Protocol_Type()==0) {
-				SC_Send_Message(4);
-				Recieve_And_Check_Response();
+				//SC_Send_Message(4);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(4);
 		}
-		else
-		{
+		else {
 				uint8_t count = Prepare_Standard_Block(4, SC_APDU);
-				SC_Send_Message(count);
-				Recieve_And_Check_Response();	
+				//SC_Send_Message(count);
+				//Recieve_And_Check_Response();	
+				Send_And_Recieve(count);
 		}
 	}
 }
@@ -184,13 +195,15 @@ void Try_Locating_Card_Manager_Brute() {
 		
 		//SC_APDU[10]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 10, SC_APDU);
 		if(SC_ATR_Get_Protocol_Type()==0) {
-				SC_Send_Message(10);
-				Recieve_And_Check_Response();
+				//SC_Send_Message(10);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(10);
 		}
 		else {
 				uint8_t count = Prepare_Standard_Block(10, SC_APDU);
-				SC_Send_Message(count);
-				Recieve_And_Check_Response();
+				//SC_Send_Message(count);
+				//Recieve_And_Check_Response();
+				Send_And_Recieve(count);
 		}
 	}
 }

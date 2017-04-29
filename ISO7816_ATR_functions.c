@@ -178,3 +178,36 @@ void SC_Analyze_ATR(void) {
 	Segger_write_string("\n\n");
 	//Segger_write_string_value("TD1: ", ATR_Message[1]);
 }
+
+extern void SC_Recieve_ATR(void);
+extern void SC_Check_Card(void);
+extern void SC_Analyze_ATR(void);
+
+void SC_Recieve_ATR_And_Config() {
+	uint8_t success=0;
+	
+	SC_Recieve_ATR();
+	Is_Valid_Message(1, ATR_count, ATR_Message);
+	SC_Check_Card();
+	SC_Analyze_ATR();
+	
+	if(PSS) {
+		Send_Negotiate_Block_Protocol_Alone();
+		Recieve_And_Check_Response();
+		//Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+		Correct_First_False_Byte(&SC_Response_Count, SC_Response);		
+		Print_Touple_Send_Recieve();
+		
+		if(Validate_Valid_PPS_Response()) {
+			Segger_write_string("Ack of PPS is Valid\n");
+		}
+		else {
+			Segger_write_string("Ack of PPS is NOT valid\n");
+		}
+	}
+	
+	//Calc_Communication_Baudrate();
+	//Calc_Timing
+	//reconfigure_UART();
+}
+

@@ -3,6 +3,27 @@
 #include "Universal.h"
 #include "ISO7816.h"
 
+uint8_t Compare_Arrays(uint8_t Lenght, uint8_t * Array_A, uint8_t * Array_B) {
+	for(uint8_t i=0; i<Lenght; i++) {
+		if( Array_A[i] != Array_B[i] ) {
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
+uint8_t Validate_Valid_PPS_Response() {
+	if(SC_Send_Count != SC_Response_Count) {
+		return 0; //NOT valid
+	}
+	
+	if(Compare_Arrays(SC_Response_Count, SC_APDU, SC_Response)) {
+		return 1; // VALID
+	}
+	return 0; // NOT valid
+}
+
 uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, uint8_t * message) {
 	uint8_t value=0;
 	value = init_value;

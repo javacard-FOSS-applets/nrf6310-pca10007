@@ -148,26 +148,28 @@ void SC_Analyze_ATR(void);
 void SC_Recieve_ATR(void);*/
 void SC_Recieve_ATR_And_Config(void);
 
-
 void Get_Response(uint8_t count);
+void Correct_First_False_Byte(uint8_t* count, uint8_t *Message);
+
+void Print_Touple_Send_Recieve(void);
+
 
 extern uint8_t ATR_Message[];
 extern uint8_t ATR_count;
 
-extern uint16_t ATR_ETU;
-
-
 extern uint8_t SC_Response[];
 extern uint8_t SC_Response_Count;
+
 extern uint8_t SC_APDU[];
+extern uint8_t SC_Send_Count;
+
 extern uint8_t SC_Temp_Buffer[];
-
 extern uint8_t SC_Header[];
-
 
 extern uint16_t F;
 extern uint16_t D;
 
+extern uint16_t ATR_ETU;
 extern uint16_t ETU;
 extern uint8_t IFCS;
 extern uint8_t CWI;

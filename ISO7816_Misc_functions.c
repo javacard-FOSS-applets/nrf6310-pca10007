@@ -26,3 +26,16 @@ void Card_wait() {
 void Card_wait_ETU_cycles(uint32_t Cycles) {
 	nrf_delay_us(Cycles * one_CLK_cycle);
 }
+
+
+
+void Calc_Default_Baudrate(void) {
+	uint16_t ETU = Calc_Default_Cycles_ETU();
+	uint32_t Baudrate = ISO7816_CLK / ETU ;
+	Set_Default_Baudrate(Baudrate);
+}
+
+void Calc_Communication_Baudrate(void) {
+	uint32_t Baudrate = ISO7816_CLK / ATR_ETU ;
+	Set_Comm_Baudrate(Baudrate);
+}

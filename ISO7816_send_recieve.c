@@ -5,10 +5,10 @@
 #include "Universal.h"
 #include "ISO7816.h"
 
-
-
 void SC_Send_Message(uint8_t Lenght) {
 	//Segger_write_string("Sending Message to SC!\n");
+		
+	SC_Send_Count=Lenght;
 	
 	for(uint8_t i=0; i<Lenght; i++) {
 		Send_UART(SC_APDU[i]);
@@ -40,8 +40,8 @@ void Correct_First_False_Byte(uint8_t* count, uint8_t *Message) {
 
 uint8_t Recieve_Response(void) {
 	//Card_wait_ETU_cycles(10);
-
 	//UART_prepare_for_recieve();
+	
 	uint8_t Recieve_Count=0;
 	//!!!!Segger_write_string("\tRecieving response!\n\t");
 	
@@ -52,7 +52,7 @@ uint8_t Recieve_Response(void) {
 		if(!success) {
 			break;
 		}
-		Segger_write_one_hex_value(SC_Response[Recieve_Count]);
+		//!!!!Segger_write_one_hex_value(SC_Response[Recieve_Count]);
 		Recieve_Count++;
 	}
 	Segger_write_string("\n");
@@ -139,23 +139,29 @@ void Send_Negotiate_Block_Protocol_Block() { // Should negotiate protocl T=0
 }
 
 
-void Print_Sent(uint8_t count) {
-	Print_Array(count, SC_APDU);
+void Print_Sent() {
+	Print_Array(SC_Send_Count, SC_APDU);
 }
 
 void Print_Recieved() {
 	Print_Array(SC_Response_Count, SC_Response);
 }
 
-uint8_t Send_And_Recieve(uint8_t count) {
-	Segger_write_string("Sending && recieving response!\n");
+void Print_Touple_Send_Recieve() {
 	Segger_write_string("-->");
-		Print_Sent(count);
-	SC_Send_Message(count);
+		Print_Sent();
 	
-	uint8_t value = Recieve_And_Check_Response();
 	Segger_write_string("\t<--");
 		Print_Recieved();
+}
+
+uint8_t Send_And_Recieve(uint8_t count) {
+	Segger_write_string("Sending && recieving response!\n");
+	
+	SC_Send_Message(count);
+	uint8_t value = Recieve_And_Check_Response();
+	
+	Print_Touple_Send_Recieve();
 	
 	return value;
 }

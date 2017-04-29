@@ -90,6 +90,7 @@ void Print_Help() {
 \t\t DD Try to get Data info\n\
 \t\t DB0xXXXXXXXX UART Baud rate set\n\
 \t\t Db set UART Baud rate to CLK/372\n\
+\t\t DP toggle uart parity\n\
 Message sending to card:\n \
 \t First send how many data, then the actual message\n\
 \t\t03\n\
@@ -252,19 +253,19 @@ int main(void) {
 					case CONFG:
 											if(recieved>1) {
 												switch(Segger_recieve_buffer[1]) {
-													case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("D:   Messages will be sent as APDU\n"); break;
-													case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("D:   Messages will be encapsulated in block\n");break;
+													case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("D:   Messages will be sent as APDU\n"); 					break;
+													case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("D:   Messages will be encapsulated in block\n"); break;
 
-													case 'M': Try_Locating_Card_Manager_Brute(); break;
+													case 'M': Try_Locating_Card_Manager_Brute(); 						break;
 													case 'm': Try_Locating_Card_Manager(); Get_Response(7); break;
-													case 'C': Try_Locating_Classes(); break;
-													case 'I': Try_Locating_Instructions(); break;
+													case 'C': Try_Locating_Classes(); 											break;
+													case 'I': Try_Locating_Instructions(); 									break;
 													
 													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); SC_ATR_Set_Protocol_Type(0x00); break; //TODO 0x00
 													
-													case 'S': Try_STATUS(); break;
-													case 'D': Try_DATA(); break;
-													case 'R': Try_RECORDS(); break;
+													case 'S': Try_STATUS(); 	break;
+													case 'D': Try_DATA(); 		break;
+													case 'R': Try_RECORDS(); 	break;
 													case 'c': Try_Card_Production_Life_Cycle_Data(); break;
 													
 													case 'B': if(recieved==0x0d) {
@@ -276,7 +277,9 @@ int main(void) {
 																		}
 																		break;
 													case 'b': Set_Comm_Baudrate(ISO7816_CLK/372); reconfigure_UART(); break;
-													case 'P': Toggle_Parity(); reconfigure_UART(); break;
+													
+													case 'P': Toggle_Parity(); reconfigure_UART(); 	break;
+													case 'L': Toggle_APDU_EXTRA_LRC(); 							break;
 													default: break;
 												}
 											}
