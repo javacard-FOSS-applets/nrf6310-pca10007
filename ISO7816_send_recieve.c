@@ -8,12 +8,12 @@
 
 
 void SC_Send_Message(uint8_t Lenght) {
-	Segger_write_string("Sending Message to SC!\n");
+	//Segger_write_string("Sending Message to SC!\n");
 	
 	for(uint8_t i=0; i<Lenght; i++) {
 		Send_UART(SC_APDU[i]);
 	}
-	Segger_write_string("\n");
+	//Segger_write_string("\n");
 	
 	//Card_wait_ETU_cycles(2);
 	//NRF_UART0->EVENTS_RXDRDY=0;

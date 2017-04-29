@@ -47,14 +47,22 @@ uint8_t Prepare_Standard_Block(uint8_t Lenght, uint8_t * Payload) {
 	SC_APDU[1]=Toggle_PCB_Send_Bit();
 	
 	SC_APDU[2]=Lenght;
-	
-	for(uint8_t i=0; i<Lenght; i++) {
-		SC_APDU[3+i]=SC_Temp_Buffer[i];
+	if(false) {
+		for(uint8_t i=0; i<Lenght; i++) {
+			SC_APDU[3+i]=SC_Temp_Buffer[i];
+		}
+		SC_APDU[4+Lenght]=Calc_XOR_Checksum(0, LRC_OFFSET_BLOCK, 3+Lenght, SC_APDU); 
+
+		return (4+Lenght);
 	}
-	
-	SC_APDU[3+Lenght]=Calc_XOR_Checksum(0, LRC_OFFSET_BLOCK, 4, SC_APDU); 
-	
-	return (4+Lenght);
+	else {
+		for(uint8_t i=0; i<Lenght; i++) {
+			SC_APDU[3+i]=SC_Temp_Buffer[i];
+		}
+		SC_APDU[3+Lenght]=Calc_XOR_Checksum(0, LRC_OFFSET_BLOCK, 3+Lenght, SC_APDU); 
+
+		return (4+Lenght);
+	}
 }
 
 uint8_t	Prepare_Standard_APDU_Block(uint8_t Lenght, uint8_t * Payload) {
@@ -87,5 +95,5 @@ void Analyze_Status(uint8_t Lenght, uint8_t * Message) {
 
 void Analyze_Message(uint8_t Lenght, uint8_t * Message) {
 	//Analyze_Content(0, Lenght, Message);
-	Analyze_Status(Lenght, Message);	
+	Analyze_Status(Lenght, Message);
 }

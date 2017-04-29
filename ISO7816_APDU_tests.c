@@ -15,9 +15,16 @@ void Get_Response(uint8_t count) {
 	SC_APDU[P_P2]=0x00;
 	SC_APDU[P_P2+1]=count;
 	
+	if(SC_ATR_Get_Protocol_Type()==0) {
+			Send_And_Recieve(5);
+	}
+	else {
+			uint8_t count = Prepare_Standard_Block(5, SC_APDU);
+			Send_And_Recieve(count);
+	}
 	//SC_Send_Message(5);
 	//Recieve_And_Check_Response();
-	Send_And_Recieve(5);
+
 }
 
 void Try_DATA() {
@@ -30,13 +37,13 @@ void Try_DATA() {
 			SC_APDU[P_P2+1]=0x00;
 			
 			if(SC_ATR_Get_Protocol_Type()==0) {
-					SC_Send_Message(5);
-					Recieve_And_Check_Response();
+				SC_Send_Message(5);
+				Recieve_And_Check_Response();
 			}
 			else {
-					uint8_t count = Prepare_Standard_Block(5, SC_APDU);
-					SC_Send_Message(count);
-					Recieve_And_Check_Response();
+				uint8_t count = Prepare_Standard_Block(5, SC_APDU);
+				SC_Send_Message(count);
+				Recieve_And_Check_Response();
 			}
 		}
 	}
@@ -210,7 +217,7 @@ void Try_Locating_Card_Manager() {
 		uint8_t count = Prepare_Standard_Block(5, SC_APDU);
 		//SC_Send_Message(count);
 		//Recieve_And_Check_Response();	
-		Send_And_Recieve(5);
+		Send_And_Recieve(count);
 	}
 }
 
