@@ -195,7 +195,7 @@ int main(void) {
 			switch(Segger_recieve_buffer[0]) {
 					case C_REC:
 											if(!Is_Card_Active()) {
-												Segger_write_string("D:   Card is not running!");
+												Segger_write_string("D:   Card is not activated!");
 												break;
 											}
 											while(true) {
@@ -212,7 +212,7 @@ int main(void) {
 											break;
 					case C_SEN:
 											if(!Is_Card_Active()) {
-												Segger_write_string("D:   Card is not running!");
+												Segger_write_string("D:   Card is not activated!");
 												break;
 											}
 											while(true) {
@@ -252,15 +252,15 @@ int main(void) {
 					case CONFG:
 											if(recieved>1) {
 												switch(Segger_recieve_buffer[1]) {
-													case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("D:   Recieved messege will be sent as APDU\n"); break;
-													case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("D:   Recieved messege will be encapsulated in block\n");break;
+													case '0': SC_ATR_Set_Protocol_Type(0x00); Segger_write_string("D:   Messages will be sent as APDU\n"); break;
+													case '1': SC_ATR_Set_Protocol_Type(0x01); Segger_write_string("D:   Messages will be encapsulated in block\n");break;
 
 													case 'M': Try_Locating_Card_Manager_Brute(); break;
 													case 'm': Try_Locating_Card_Manager(); Get_Response(7); break;
 													case 'C': Try_Locating_Classes(); break;
 													case 'I': Try_Locating_Instructions(); break;
 													
-													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); SC_ATR_Set_Protocol_Type(0x00); break;
+													case 'N': Send_Negotiate_Block_Protocol_Alone(); Recieve_And_Check_Response(); SC_ATR_Set_Protocol_Type(0x00); break; //TODO 0x00
 													
 													case 'S': Try_STATUS(); break;
 													case 'D': Try_DATA(); break;
@@ -295,14 +295,16 @@ int main(void) {
 												if(ready_to_send>=lenght) {
 													
 													if(SC_ATR_Get_Protocol_Type()==0) {
-														SC_Send_Message(lenght);
+														/*!!!!SC_Send_Message(lenght);
+														Recieve_And_Check_Response();*/
+														Send_And_Recieve(lenght);
 													}
 													else {
 														uint8_t count = Prepare_Standard_Block(lenght, SC_APDU);
-														SC_Send_Message(count);
+														/*!!!!SC_Send_Message(count);
+														Recieve_And_Check_Response();*/
+														Send_And_Recieve(count);
 													}
-													
-													Recieve_And_Check_Response();
 													
 													lenght=0;
 													ready_to_send=0;

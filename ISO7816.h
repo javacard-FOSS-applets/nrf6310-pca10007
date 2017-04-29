@@ -133,6 +133,7 @@ void 		SC_Send_Message(uint8_t Lenght);
 uint8_t Recieve_Response(void);
 uint8_t Recieve_And_Check_Response(void);
 uint8_t Send_Message_Recieve_Response(uint8_t * Payload, uint8_t send_count, uint8_t * Message_Recieved);
+uint8_t Send_And_Recieve(uint8_t count);
 
 uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0);
 uint8_t SC_Get_Next_ATR_Content(T0 *t0);

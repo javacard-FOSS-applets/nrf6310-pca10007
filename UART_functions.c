@@ -74,7 +74,7 @@ void Set_Comm_Baudrate(uint32_t new_baud) {
 	Segger_write_string_int("Calculating baud setting for baudrate:", new_baud);
 	Segger_write_string("Setting new COMM baud rate settings: ");
 	Segger_write_one_hex_value_32(baud_rate_comm);
-	Segger_write_string("\n");
+	Segger_write_string("\n\n");
 }
 
 uint32_t Get_Comm_Baudrate(void) {
@@ -87,7 +87,7 @@ void Set_Default_Baudrate(uint32_t new_baud) {
 	Segger_write_string_int("Calculating baud setting for baudrate:", new_baud);
 	Segger_write_string("Setting new DEFAULT baud rate settings: ");
 	Segger_write_one_hex_value_32(baud_rate_default);
-	Segger_write_string("\n");
+	Segger_write_string("\n\n");
 }
 
 uint32_t Get_Default_Baudrate(void) {
@@ -233,7 +233,7 @@ void init_UART() {
 }
 
 void Send_UART(uint8_t byte) {
-	Segger_write_one_hex_value(byte);
+	//!!!! Segger_write_one_hex_value(byte);
 	
 	NRF_Clear_UART_Errors();
 	
@@ -247,7 +247,7 @@ void Send_UART(uint8_t byte) {
 	NRF_UART0->EVENTS_TXDRDY=0;
 	Stop_TX();//NRF_UART0->TASKS_STOPTX=1;
 	
-	NRF_Check_UART_Error();
+	//NRF_Check_UART_Error();
 }
 
 

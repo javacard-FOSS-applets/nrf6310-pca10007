@@ -21,7 +21,7 @@ void SC_Send_Message(uint8_t Lenght) {
 }
 
 void Print_Array(uint8_t Lenght, uint8_t*  Message) {
-	Segger_write_string("\t\tCorrected array!\n\t\t");
+	Segger_write_string("\t\t");
 	for(uint8_t i=0; i<Lenght; i++) {
 		Segger_write_one_hex_value(Message[i]);
 	}
@@ -43,9 +43,7 @@ uint8_t Recieve_Response(void) {
 
 	//UART_prepare_for_recieve();
 	uint8_t Recieve_Count=0;
-	Segger_write_string("\tRecieving response!\n\t");
-			
-	//TODO check recieving ????
+	//!!!!Segger_write_string("\tRecieving response!\n\t");
 	
 	while(true) {
 		uint8_t success=0;
@@ -60,10 +58,10 @@ uint8_t Recieve_Response(void) {
 	Segger_write_string("\n");
 	
 			//Segger_write_string_value("\tRecieved count=", Recieve_Count);
-	Correct_First_False_Byte(&Recieve_Count, SC_Response);
-	SC_Response_Count=Recieve_Count;
+	//!!!!Correct_First_False_Byte(&Recieve_Count, SC_Response);
+	//!!!!SC_Response_Count=Recieve_Count;
 
-	Print_Array(SC_Response_Count, SC_Response);
+	//!!!!Print_Array(SC_Response_Count, SC_Response);
 	return Recieve_Count;
 }
 
@@ -138,4 +136,26 @@ void Send_Negotiate_Block_Protocol_Block() { // Should negotiate protocl T=0
 	
 	uint8_t value = Prepare_Standard_Block(3, SC_APDU);
 	SC_Send_Message(value);
+}
+
+
+void Print_Sent(uint8_t count) {
+	Print_Array(count, SC_APDU);
+}
+
+void Print_Recieved() {
+	Print_Array(SC_Response_Count, SC_Response);
+}
+
+uint8_t Send_And_Recieve(uint8_t count) {
+	Segger_write_string("Sending && recieving response!\n");
+	Segger_write_string("-->");
+		Print_Sent(count);
+	SC_Send_Message(count);
+	
+	uint8_t value = Recieve_And_Check_Response();
+	Segger_write_string("\t<--");
+		Print_Recieved();
+	
+	return value;
 }

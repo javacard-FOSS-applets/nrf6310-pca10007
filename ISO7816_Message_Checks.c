@@ -39,7 +39,7 @@ uint8_t Is_Valid_Message(uint8_t offset, uint8_t Lenght, uint8_t * Message) {
 void SC_Check_Card(void) {
 	if(ATR_Message[0]==ISO_7816_DIRECT_CONV 
 			|| ATR_Message[0]==ISO_7816_INVERSE_CONV) {
-		Segger_write_string("Card CONNECTED succesfully!\n");
+		Segger_write_string("Card CONNECTED succesfully!\n\n");
 	}
 	else {
 		Segger_write_string("No Smart card connected!\n\n\n\n");

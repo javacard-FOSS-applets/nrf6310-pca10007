@@ -11,9 +11,8 @@ uint8_t SC_ATR_Get_Protocol_Type() {
 }
 
 void SC_ATR_Set_Protocol_Type(uint8_t T_Type_Protocol) {
-	
 	SC_ATR_Preffered_Protocol_Type = T_Type_Protocol;
-	Segger_write_string_value("D:   Protoclo type set to:", SC_ATR_Preffered_Protocol_Type);
+	Segger_write_string_value("D:   Protocol type set to:", SC_ATR_Preffered_Protocol_Type);
 }
 
 
@@ -128,7 +127,6 @@ void SC_Recieve_ATR(void) {
 	uint8_t success=0;
 	Set_Default_Timing_Params();
 	ATR_count=0;
-	
 	
 	UART_prepare_for_recieve();
 	

@@ -15,8 +15,9 @@ void Get_Response(uint8_t count) {
 	SC_APDU[P_P2]=0x00;
 	SC_APDU[P_P2+1]=count;
 	
-	SC_Send_Message(5);
-	Recieve_And_Check_Response();
+	//SC_Send_Message(5);
+	//Recieve_And_Check_Response();
+	Send_And_Recieve(5);
 }
 
 void Try_DATA() {
@@ -201,13 +202,15 @@ void Try_Locating_Card_Manager() {
 	//SC_APDU[5]=Calc_XOR_Checksum(0, LRC_OFFSET_APDU, 5, SC_APDU);
 
 	if(SC_ATR_Get_Protocol_Type()==0) {
-		SC_Send_Message(5);
-		Recieve_And_Check_Response();
+		//SC_Send_Message(5);
+		//Recieve_And_Check_Response();
+		Send_And_Recieve(5);
 	}
 	else {
 		uint8_t count = Prepare_Standard_Block(5, SC_APDU);
-		SC_Send_Message(count);
-		Recieve_And_Check_Response();	
+		//SC_Send_Message(count);
+		//Recieve_And_Check_Response();	
+		Send_And_Recieve(5);
 	}
 }
 
@@ -222,9 +225,10 @@ void Send_Test_Block_Frame(uint8_t Length, uint8_t* Payload) {
 	*/
 	
 	uint8_t count = Prepare_Standard_Block(Length, Payload);
-	SC_Send_Message(count);
-	
-	Recieve_And_Check_Response();
+
+//	SC_Send_Message(count);
+//	Recieve_And_Check_Response();
+	Send_And_Recieve(count);
 }
 
 void Try_Single_Bytes() {
@@ -285,7 +289,7 @@ void test_Card(void) {
 	Card_wait();
 	
 	return;
-	Send_Negotiate_Block_Protocol_Block();
+/*	Send_Negotiate_Block_Protocol_Block();
 	Recieve_And_Check_Response();
 	Send_Negotiate_Block_Protocol_Alone();
 	Recieve_And_Check_Response();
@@ -309,5 +313,5 @@ void test_Card(void) {
 	uint8_t value = Send_Message_Recieve_Response(message, 1, SC_Response);
 		if(Is_Valid_Message(1, value, SC_Response)) {
 		Analyze_Message(value, SC_Response);
-	}
+	}*/
 }
