@@ -15,7 +15,7 @@ uint8_t Compare_Arrays(uint8_t Lenght, uint8_t * Array_A, uint8_t * Array_B) {
 }
 
 
-
+// looks ok
 uint8_t Check_Succesfull_Execution_of_Instruction(void) {
 	if(SC_Response_Count<2) {
 		return 0;
@@ -49,8 +49,14 @@ uint8_t Does_Response_Containg_Message(uint8_t Lenght, uint8_t * Message) {
 	if(SC_Response_Count<Lenght) {
 		return 0;
 	}
-	
-	if(Compare_Arrays(Lenght, SC_Response+SC_Response_Count-Lenght-2, Message)) {
+	uint8_t offset=0;
+	if(SC_ATR_Get_Protocol_Type()==0x01) {
+		offset=1;
+	}
+	else {
+		offset=0;
+	}
+	if(Compare_Arrays(Lenght, SC_Response+SC_Response_Count-Lenght-2-offset, Message)) {
 		return 1;
 	}
 	

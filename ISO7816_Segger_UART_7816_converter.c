@@ -91,6 +91,10 @@ void Print_Help() {
 \t\t DB0xXXXXXXXX UART Baud rate set\n\
 \t\t Db set UART Baud rate to CLK/372\n\
 \t\t DP toggle uart parity\n\
+\t\t Gt Try applet response\n");
+
+Segger_write_string(
+"\
 Message sending to card:\n \
 \t First send how many data, then the actual message\n\
 \t\t03\n\
@@ -278,6 +282,8 @@ int main(void) {
 																		break;
 													case 'b': Set_Comm_Baudrate(ISO7816_CLK/372); reconfigure_UART(); break;
 													
+													case 't': Select_Applet_Wrapper(); break;
+																		
 													case 'P': Toggle_Parity(); reconfigure_UART(); 	break;
 													case 'L': Toggle_APDU_EXTRA_LRC(); 							break;
 													default: break;

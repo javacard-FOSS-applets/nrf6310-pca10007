@@ -62,10 +62,10 @@ void Select_Applet() {
 	if(SC_ATR_Get_Protocol_Type()==0) {
 		//SC_Send_Message(5);
 		//Recieve_And_Check_Response();
-		Send_And_Recieve(15);
+		Send_And_Recieve(5+APLET_AID_LENGHT );
 	}
 	else {
-		uint8_t count = Prepare_Standard_Block(15, SC_APDU);
+		uint8_t count = Prepare_Standard_Block(5+APLET_AID_LENGHT , SC_APDU);
 		//SC_Send_Message(count);
 		//Recieve_And_Check_Response();	
 		Send_And_Recieve(count);
@@ -79,10 +79,13 @@ void Select_Applet() {
 	}
 }
 
+uint8_t temp_array[] = {0x48,0x65,0x6C,0x6C,0x6F,0x20,0x57,0x6F,0x72,0x6C,0x64,0x21};
+
+
 //Test applet
 void Test_Applet_Response() {
-	SC_APDU[0]=0xff;
-	uint8_t message[1] = {0xff};
+  	SC_APDU[0]=0xff;
+//	uint8_t message[1] = {0xff};
 	
 	if(SC_ATR_Get_Protocol_Type()==0) {
 		uint8_t count= Prepare_Standard_APDU(1, SC_APDU);
@@ -94,7 +97,7 @@ void Test_Applet_Response() {
 	}
 		
 	if(Check_Succesfull_Execution_of_Instruction()) {
-		if( Does_Response_Containg_Message(1, message) ) {
+		if( Does_Response_Containg_Message(12, temp_array) ) {
 			Segger_write_string("D:    Succesfully EXECUTED!\n");
 		}
 	}
@@ -121,7 +124,8 @@ void Send_Data_To_Crypto() {
 
 void Select_Applet_Wrapper() {
 	Select_MF();
-	Create_Applet_Instance();
+	//Create_Applet_Instance();
 	Select_Applet();
 	Test_Applet_Response();
+	Send_Data_To_Crypto();
 }
