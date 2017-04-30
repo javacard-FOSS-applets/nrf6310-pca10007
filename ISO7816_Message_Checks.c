@@ -3,6 +3,7 @@
 #include "Universal.h"
 #include "ISO7816.h"
 
+
 uint8_t Compare_Arrays(uint8_t Lenght, uint8_t * Array_A, uint8_t * Array_B) {
 	for(uint8_t i=0; i<Lenght; i++) {
 		if( Array_A[i] != Array_B[i] ) {
@@ -12,6 +13,51 @@ uint8_t Compare_Arrays(uint8_t Lenght, uint8_t * Array_A, uint8_t * Array_B) {
 
 	return 1;
 }
+
+
+
+uint8_t Check_Succesfull_Execution_of_Instruction(void) {
+	if(SC_Response_Count<2) {
+		return 0;
+	}
+	
+	//int8_t offset=0;
+	if(SC_ATR_Get_Protocol_Type()==0x01) {
+		//offset=-1;
+		if(SC_Response[SC_Response_Count-3] == 0x90 &&
+			 SC_Response[SC_Response_Count-2] == 0x00) {
+				return 1;
+		}
+	}
+	else {
+		//offset=0;
+		if(SC_Response[SC_Response_Count-2] == 0x90 &&
+			 SC_Response[SC_Response_Count-1] == 0x00) {
+				return 1;
+		}
+	}
+		
+	/*if(SC_Response[SC_Response_Count-2] == 0x90 &&
+  	 SC_Response[SC_Response_Count-1] == 0x00) {
+		return 1;
+	}*/
+	
+	return 0;
+}
+
+uint8_t Does_Response_Containg_Message(uint8_t Lenght, uint8_t * Message) {
+	if(SC_Response_Count<Lenght) {
+		return 0;
+	}
+	
+	if(Compare_Arrays(Lenght, SC_Response+SC_Response_Count-Lenght-2, Message)) {
+		return 1;
+	}
+	
+	return 0;
+}
+
+
 
 uint8_t Validate_Valid_PPS_Response() {
 	if(SC_Send_Count != SC_Response_Count) {
@@ -23,6 +69,8 @@ uint8_t Validate_Valid_PPS_Response() {
 	}
 	return 0; // NOT valid
 }
+
+
 
 uint8_t Calc_XOR_Checksum(uint8_t init_value, uint8_t offset, uint8_t lenght, uint8_t * message) {
 	uint8_t value=0;

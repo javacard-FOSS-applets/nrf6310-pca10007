@@ -126,9 +126,10 @@ uint8_t SC_Analyze_ATR_Content(uint8_t T_identifier, T0 *t0) {
 void SC_Recieve_ATR(void) {
 	uint8_t success=0;
 	Set_Default_Timing_Params();
+	
 	ATR_count=0;
 	
-	UART_prepare_for_recieve();
+	//UART_prepare_for_recieve();
 	
 	for(uint8_t i=0; i<ISO_7816_MAX_ATR_BYTES; i++) {
 		//value=InverseByte(value);
@@ -184,7 +185,7 @@ extern void SC_Check_Card(void);
 extern void SC_Analyze_ATR(void);
 
 void SC_Recieve_ATR_And_Config() {
-	uint8_t success=0;
+	//uint8_t success=0;
 	
 	SC_Recieve_ATR();
 	Is_Valid_Message(1, ATR_count, ATR_Message);

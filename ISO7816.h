@@ -7,6 +7,10 @@
 #define INTERNAL_CLK 	372
 #define RFU 					0x01
 
+static uint8_t SCSC_APPLET_AID_RID_PIX[] = { 0xa0, 0x00, 0x00, 0x00, 0x62, 	//RID
+																					   0x03, 0x01, 0x0c, 0x01, 0x01 };	//PIX
+#define APLET_AID_LENGHT (sizeof(SCSC_APPLET_AID_RID_PIX) / sizeof(SCSC_APPLET_AID_RID_PIX[0]))
+																						 
 static uint16_t Clock_rate_conversion_factor_F[16] = { INTERNAL_CLK, 372, 558, 744,  1116, 1488, 1860, RFU,
 																									     RFU,          512, 768, 1024, 1536, 2048, RFU,  RFU };
 //512
@@ -67,6 +71,8 @@ E2 	Append Record*/
 #define INS_SELECT	 	0xA4
 #define INS_SET_STAT	0xF0
 #define INS_STR_DATA	0xE2
+
+#define INS_CREATE_IN	0xB8
 /*
 b8=1 indicates that the Application is a Security Domain.
 b7=1 indicates that the Security Domain has DAP Verification capability.
@@ -154,6 +160,9 @@ void Correct_First_False_Byte(uint8_t* count, uint8_t *Message);
 void Print_Touple_Send_Recieve(void);
 
 
+uint8_t Check_Succesfull_Execution_of_Instruction(void);
+uint8_t Does_Response_Containg_Message(uint8_t Lenght, uint8_t * Message);
+
 extern uint8_t ATR_Message[];
 extern uint8_t ATR_count;
 
@@ -178,21 +187,12 @@ extern uint8_t WI;
 extern uint8_t PSS;
 extern float   work_ETU;
 
-/*
-	tlac
-	t=0
-	t=1
-
-	zopar metod
-	test sim karty
-*/
-
 // Books
 // 	https://www.globalplatform.org/specificationscard.asp
 //	http://www.win.tue.nl/pinpasjc/docs/GPCardSpec_v2.2.pdf
 //	http://www.ttfn.net/techno/smartcards/iso7816_4.html
 
-//todo Longer Messages than bytes
+//todo Longer Messages than 254 bytes
 
 // http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0095a/ch03s02s07.html
 //http://www.ruimtools.com/atr.php

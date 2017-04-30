@@ -80,7 +80,7 @@ void Try_Card_Production_Life_Cycle_Data() {
 			SC_APDU[P_INS]=INS_GET_DATA;
 			SC_APDU[P_P1]=0x9f;
 			SC_APDU[P_P2]=CLA_CPLCD_P2[param];
-					
+
 			if(SC_ATR_Get_Protocol_Type()==0) {
 					//SC_Send_Message(4);
 					//Recieve_And_Check_Response();

@@ -81,9 +81,10 @@ static struct spec_err {
 	{0x69F1, "Permission Denied - Missing Privilege"}, 
 	
 	{0x8000, "OK"}, 
-	//{0x8100, "Timeout"}, 
+	
+	{0x8100, "NXP-NPC Possible LCR/CRC error"}, 
+	{0x8200, "NXP-NPC Possible LCR/CRC error"}, 
 	//{0x9200, "Exponent e is too long"}, 
-	//{0x8200, "Write successfull."}, 
 	
 	{0x9000, "Command successfully executed (OK)."}, 
 	{0x9004, "PIN not succesfully verified, 3 or more PIN tries left"}, 

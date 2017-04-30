@@ -661,6 +661,11 @@
               <FileType>1</FileType>
               <FilePath>.\ISO7816_timing_calc_functions.c</FilePath>
             </File>
+            <File>
+              <FileName>ISO7816_Applet_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Applet_functions.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1683,6 +1688,11 @@
               <FileType>1</FileType>
               <FilePath>.\ISO7816_timing_calc_functions.c</FilePath>
             </File>
+            <File>
+              <FileName>ISO7816_Applet_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Applet_functions.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2667,6 +2677,11 @@
               <FileType>1</FileType>
               <FilePath>.\ISO7816_timing_calc_functions.c</FilePath>
             </File>
+            <File>
+              <FileName>ISO7816_Applet_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Applet_functions.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3583,6 +3598,11 @@
               <FileType>1</FileType>
               <FilePath>.\ISO7816_timing_calc_functions.c</FilePath>
             </File>
+            <File>
+              <FileName>ISO7816_Applet_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Applet_functions.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4336,6 +4356,11 @@
               <FileName>ISO7816_timing_calc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ISO7816_timing_calc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Applet_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Applet_functions.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5409,6 +5434,11 @@
               <FileType>1</FileType>
               <FilePath>.\ISO7816_timing_calc_functions.c</FilePath>
             </File>
+            <File>
+              <FileName>ISO7816_Applet_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Applet_functions.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6430,6 +6460,11 @@
               <FileName>ISO7816_timing_calc_functions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ISO7816_timing_calc_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISO7816_Applet_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISO7816_Applet_functions.c</FilePath>
             </File>
           </Files>
         </Group>
