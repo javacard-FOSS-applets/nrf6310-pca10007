@@ -23,7 +23,7 @@ uint8_t Prepare_Standard_APDU(uint8_t Lenght, uint8_t * Payload) {
 	
 	SC_APDU[Lenght+5] = Calc_XOR_Checksum(0, LRC_OFFSET_APDU, Lenght+4+1, SC_APDU);
 	
-	return Lenght+6;
+	return Lenght+5;
 }
 
 static uint8_t APDU_EXTRA_LRC=0x00;

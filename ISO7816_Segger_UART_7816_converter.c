@@ -9,9 +9,6 @@
 	SEGGET TO UART TO ISO7816
 */
 
-uint8_t recieved_value=0;
-uint8_t recieved_security=0;
-
 uint8_t ready_to_send=0;
 
 uint8_t Segger_recieve_buffer[255];
@@ -176,7 +173,9 @@ uint8_t Convert_To_Hex_String(uint8_t recieved, uint8_t * Segger_recieve_buffer)
 	return lenght;
 }
 
-int main(void) {
+void Print_Array(uint8_t Lenght, uint8_t*  Message);
+
+void Debug_Mode(void) {
 	Print_Help();
 	
 	init_ISO7816_pins();
@@ -286,6 +285,14 @@ int main(void) {
 																		
 													case 'P': Toggle_Parity(); reconfigure_UART(); 	break;
 													case 'L': Toggle_APDU_EXTRA_LRC(); 							break;
+																		
+													/*case 'e': //uint8_t message[16];
+																		HW_AES_Decode(HEX_String);
+																		Print_Array(12, HEX_String);
+													
+																		HW_AES_Encode(HEX_String, 0xaa);
+																		Print_Array(12, HEX_String);
+																		break;*/
 													default: break;
 												}
 											}
@@ -324,5 +331,6 @@ int main(void) {
 				}
 		}
 	}
-	return 0;
 }
+
+

@@ -189,6 +189,11 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	void Toggle_APDU_EXTRA_LRC(void);
 	uint8_t Get_APDU_EXTRA_LRC(void);
 	
+	void Debug_Mode(void);
+	
+	uint8_t HW_AES_Decode(uint8_t * message);
+	void HW_AES_Encode(uint8_t * message, uint8_t value);
+	
 	//#pragma pack
 	typedef struct {
 		uint8_t Historical_Bytes:4;  //

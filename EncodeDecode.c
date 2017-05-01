@@ -10,7 +10,6 @@
 	uint8_t store_message[16];
 
 void Decode(uint16_t count, uint8_t* message) {
-		
 	Segger_write_string_value("Count: ", count);
 	
 	if(count==0){
@@ -31,14 +30,12 @@ void Decode(uint16_t count, uint8_t* message) {
 		case MSG_UNSECURED:
 			if(count==2) {
 				recieved_value=message[1];
-				
 				//recieve.ready=0;
 			}
 			break;
 		
 		case MSG_SW_SYMM:
 			if(count==17) {
-				
 				for(int i=0; i<16; i++)
 					store_message[i]=message[i+1];
 				
@@ -47,19 +44,20 @@ void Decode(uint16_t count, uint8_t* message) {
 				recieved_value=bufferout[0];
 			}
 			break;
-		case MSG_SW_ASYMM:
+		/*case MSG_SW_ASYMM:
 			//if(count==XXX)
 			//	SW_RSA_decode();
-			break;
+			break;*/
 		
 		case MSG_HW_SYMM:
-			//if(count==17)
-			//	HW_AES_decode();
+			if(count==17) {
+				recieved_value=HW_AES_Decode(message);
+			}
 			break;
-		case MSG_HW_ASYMM:
+		/*case MSG_HW_ASYMM:
 			//if(count==XXX)
 			//	HW_RSA_decode();
-			break;
+			break;*/
 		default:
 			//unexpected type
 			break;
@@ -104,22 +102,22 @@ void EnCode(security_type security, uint8_t value) {
 		
 				/*for(int i=1; i<17; i++)
 					message[i]=(uint8_t) i;*/
-				
 				FillSendData(17, message);
 				break;
-		case MSG_SW_ASYMM:
+		/*case MSG_SW_ASYMM:
 			//if(count==XXX)
 			//	SW_RSA_Encode();
-			break;
+			break;*/
 		
 		case MSG_HW_SYMM:
-			//if(count==17)
-			//	HW_AES_Encode();
+				HW_AES_Encode(message, value);
+				FillSendData(17, message);
 			break;
-		case MSG_HW_ASYMM:
+		
+		/*case MSG_HW_ASYMM:
 			//if(count==XXX)
 			//	HW_RSA_Encode();
-			break;
+			break;*/
 		
 		default:
 			//unexpected type

@@ -72,5 +72,10 @@ void init() {
 	ENC_DEC_Test();
 	ENC_DEC_Test();
 	
+	ReadButtons();
+	if(ReadButtons() == 0x01) {
+		Debug_Mode();
+	}
+	
 	Segger_write_string("\n");
 }
