@@ -1,0 +1,17 @@
+<Local_Env_Config>
+<Javac_Option>
+<ClassPaths>
+<path>c:\JavaCardKit\SDK\Tools\JCIDE\lib\java_card_kit\2_1_1\lib\api21.jar</path>
+<path>c:\JavaCardKit\SDK\Tools\JCIDE\lib\java_card_kit\2_1_1\lib\converter.jar</path>
+</ClassPaths>
+<localJavaHomePath>C:\JavaCardKit\JDK</localJavaHomePath>
+<_Source>1.3</_Source>
+<_Target>1.1</_Target>
+<_Encoding>windows-1252</_Encoding>
+<_InheritClassPath>0</_InheritClassPath>
+<_GenAllDegugInfo>1</_GenAllDegugInfo>
+<_GenNoWarnings>0</_GenNoWarnings>
+<_OutputAboutCompilerDoing>0</_OutputAboutCompilerDoing>
+<_OutputWhereDeprecatedApisAre>1</_OutputWhereDeprecatedApisAre>
+</Javac_Option>
+</Local_Env_Config>

@@ -1,0 +1,11 @@
+<JavaCardProject name="tt">
+<USER>
+<PKG name="tt" aid="55 55 55 55 55" major="1" minor="0">
+<APPLET aid="55 55 55 55 55 00" instanceaid="" parameter="" authority="" privileges="" index="8336" name="tt"/>
+</PKG>
+<Libs/>
+</USER>
+<DebugInfo>
+<Protocol name="T0"/>
+</DebugInfo>
+</JavaCardProject>

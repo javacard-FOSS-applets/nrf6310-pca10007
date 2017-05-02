@@ -1,0 +1,120 @@
+// converted by version 1.1
+// on Wed May 03 00:31:43 CEST 2017
+
+.package tt {
+	.aid 0x55:0x55:0x55:0x55:0x55;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.2;		//javacard/framework
+	}
+
+	.applet {
+		0x55:0x55:0x55:0x55:0x55:0x0 tt;
+	}
+
+	.constantPool {
+		// 0
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 1
+		classRef tt;
+		// 2
+		staticMethodRef tt/<init>()V;
+		// 3
+		virtualMethodRef 0.3.2([BSB)V;		// javacard/framework/Applet.register([BSB)V
+		// 4
+		virtualMethodRef 0.3.3()Z;		// javacard/framework/Applet.selectingApplet()Z
+		// 5
+		virtualMethodRef 0.10.1()[B;		// javacard/framework/APDU.getBuffer()[B
+		// 6
+		virtualMethodRef 0.10.6()S;		// javacard/framework/APDU.setIncomingAndReceive()S
+		// 7
+		staticFieldRef byte[] tt/HELLO_WORLD;
+		// 8
+		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+		// 9
+		virtualMethodRef 0.10.8(SS)V;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+	}
+
+	.class public tt 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private static final byte[] HELLO_WORLD = {72,101,108,108,111,32,87,111,114,108,100,33};		// [B
+		}
+
+		.publicMethodTable 7 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method public <init>()V 0 {
+			.stack 1;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 0;		// javacard/framework/Applet.<init>()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 5;
+			.locals 0;
+
+				L0:	new 1;		// tt/tt
+					dup;
+					invokespecial 2;		// tt/tt.<init>()V
+					aload_0;
+					sload_1;
+					sconst_1;
+					sadd;
+					aload_0;
+					sload_1;
+					baload;
+					invokevirtual 3;		// javacard/framework/Applet.register([BSB)V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 5;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 4;		// javacard/framework/Applet.selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 5;		// javacard/framework/APDU.getBuffer()[B
+					astore_2;
+					aload_1;
+					invokevirtual 6;		// javacard/framework/APDU.setIncomingAndReceive()S
+					pop;
+					getstatic_a 7;		// reference tt/tt.HELLO_WORLD
+					sconst_0;
+					aload_2;
+					sconst_0;
+					getstatic_a 7;		// reference tt/tt.HELLO_WORLD
+					arraylength;
+					invokestatic 8;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					pop;
+					aload_1;
+					sconst_0;
+					getstatic_a 7;		// reference tt/tt.HELLO_WORLD
+					arraylength;
+					invokevirtual 9;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					return;
+		}
+
+	}
+
+}
