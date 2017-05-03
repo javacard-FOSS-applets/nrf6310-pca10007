@@ -7,9 +7,11 @@
 #define INTERNAL_CLK 	372
 #define RFU 					0x01
 
-static uint8_t SCSC_APPLET_AID_RID_PIX[] = //{ 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0xD5, 0x01 };
-																						{ 0xa0, 0x00, 0x00, 0x00, 0x62, 	//RID
-																					    0x03, 0x01, 0x0c, 0x01, 0x01 };	//PIX
+static uint8_t SCSC_APPLET_AID_RID_PIX[] = { 0x55, 0x55, 0x55, 0x55, 0x55 };
+																						//{ 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0xD5, 0x01 };
+																						/*{ 0xa0, 0x00, 0x00, 0x00, 0x62, 	//RID
+																					    0x03, 0x01, 0x0c, 0x01, 0x01 };	//PIX*/
+
 #define APLET_AID_LENGHT (sizeof(SCSC_APPLET_AID_RID_PIX) / sizeof(SCSC_APPLET_AID_RID_PIX[0]))
 																						 
 static uint16_t Clock_rate_conversion_factor_F[16] = { INTERNAL_CLK, 372, 558, 744,  1116, 1488, 1860, RFU,
@@ -85,11 +87,13 @@ b2=1 indicates that the Application has CVM management privileges.
 b1=1 indicates that the Security Domain has mandated DAP Verification capability.
 */
 
-#define DELAY_ETU_CYCLES 45000
+#define DELAY_ETU_CYCLES 50000
 #define one_CLK_cycle 	 6
 
 #define APDU
 #define TEST 						 0
+
+#define PCB_TURNED_OFF   0
 
 uint16_t Calc_Default_Cycles_ETU(void);
 uint16_t Calc_Cycles_ETU(uint8_t di, uint8_t fi);

@@ -192,7 +192,7 @@ void SC_Recieve_ATR_And_Config() {
 	SC_Check_Card();
 	SC_Analyze_ATR();
 	
-	if(PSS) {
+	if(PSS && false) {
 		Send_Negotiate_Block_Protocol_Alone();
 		Recieve_And_Check_Response();
 		//Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);

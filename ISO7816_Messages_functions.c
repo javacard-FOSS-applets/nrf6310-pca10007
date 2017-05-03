@@ -41,6 +41,11 @@ uint8_t Get_APDU_EXTRA_LRC(void) {
 }
 
 uint8_t Toggle_PCB_Send_Bit() {
+	
+	if(PCB_TURNED_OFF) {
+		return 0;
+	}
+	
 	static uint8_t byte=0x40;
 	
 	if(byte & 0x40) {

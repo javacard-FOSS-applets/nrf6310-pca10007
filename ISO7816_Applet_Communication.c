@@ -60,7 +60,7 @@ void HW_AES_Encode(uint8_t * message, uint8_t value) {
 	
 	if(ED_SC_Message_Wrap(message)) {
 		//retrieve message
-		Retrieve_Message(message, 17); //12
+		Retrieve_Message(message, 16); //12
 	}
 }
 
