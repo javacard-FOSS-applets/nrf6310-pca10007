@@ -16,6 +16,8 @@ import javacardx.crypto.Cipher;
 public class Test extends Applet {
 	// ############################			CONSTATNTS			###########################
 	public final static boolean DEBUG = false;
+	public final static boolean TYPE2SEND = true; // Conclusion IF YOU WANT TO INTERFACE ISO7816 
+												  //BY YOURSELF, KEEP IT SIMPLE && DONT ASSEMBLE APDU BY YOUR SELF. USE ATOMI INSTRUCTION 
 	
 	public final static byte MASTER = 0x00;
 	public final static byte SLAVE =  0x01;
@@ -102,19 +104,28 @@ public class Test extends Applet {
 		new Test().register();
 	}
 
-	public void Send(APDU apdu, short lenght) {
+	public void Send_Type1(APDU apdu, short lenght) {
+		apdu.setOutgoing();
+        apdu.setOutgoingLength((short) (ISO7816.OFFSET_CDATA + lenght));
+        
+        apdu.sendBytes((short) 0, (short) 5);
+        apdu.sendBytesLong(SendStatic, (short) 0, lenght);
+    	//apdu.setOutgoingAndSend((short) 0, lenght);
+	}
+	
+	public void Send_Type2(APDU apdu, short lenght) {
 		byte buffer[] = apdu.getBuffer();
 		Util.arrayCopyNonAtomic(SendStatic, (short) 0, buffer, (short) 0, (short) lenght);
         apdu.setOutgoingAndSend((short) 0, (short) lenght);
 	}
 	
     public void SendResponse(APDU apdu, short lenght) {
-    	apdu.setOutgoing();
-        apdu.setOutgoingLength((short) (ISO7816.OFFSET_CDATA + lenght));
-        
-        apdu.sendBytes((short) 0, (short) 5);
-        apdu.sendBytesLong(SendStatic, (short) 0, lenght);
-    	//apdu.setOutgoingAndSend((short) 0, lenght);
+    	if(TYPE2SEND) {
+    		Send_Type2(apdu, lenght);
+    	}
+    	else {
+    		Send_Type1(apdu, lenght);
+    	}
     }
 	
     public void AES_DUMMY(byte count, byte[] bMessage) {
@@ -151,7 +162,7 @@ public class Test extends Applet {
         
         /*
         SendStatic[(short)0] = (byte) 0xaa;
-        Send(apdu, (short)1);
+        SendResponse(apdu, (short)1);
         */
         
         
@@ -167,9 +178,10 @@ public class Test extends Applet {
         
         Security=RecievedStatic[(byte)(0)];
         
-        SendStatic[(short)0] = (byte) Security;
-        Send(apdu, (short)1);
-        /*
+        /*SendStatic[(short)0] = (byte) Security;
+        SendResponse(apdu, (short)1);*/
+        
+        
         if(Offset>=1) {
 	        switch(Security) {
 	        	case HELLOWORLD:
@@ -184,6 +196,7 @@ public class Test extends Applet {
 	        		SendStatic[0]=(byte)0xAA;
 	        		SendResponse(apdu, (short) 1);
 	        		break;
+	        		
 	        	case HW_AES_ENCRYPT:
 		        	//Call encrypt over data 16 bytov
 		        	if( Offset == AES_MESSAGE_LGTH + 1) {
@@ -248,7 +261,7 @@ public class Test extends Applet {
 		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
 		        	}
 		        	break;*/
-	/*	        default: 
+		        default: 
 		        	//return 0;
 		        	//Throw EXCEPTION?
 		        	for(byte iterator=0;iterator<Offset;iterator++){
@@ -257,6 +270,6 @@ public class Test extends Applet {
 		        	SendResponse(apdu, (short) Offset);
 		        	break;
 	        }
-        }*/
+        }
 	}
 }
