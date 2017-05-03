@@ -14,16 +14,15 @@ import javacardx.crypto.Cipher;
 import javacardx.crypto.*;
 
 public class Test extends Applet {
-
+	// ############################			CONSTATNTS			###########################
 	public final static boolean DEBUG = false;
 	
-	private byte[] RecievedStatic;
-    private byte[] SendStatic;
-    private byte[] AESPSKKey;
-    
-    private static final short LENGTH_ECHO_BYTES = 256;
+	public final static byte MASTER = 0x00;
+	public final static byte SLAVE =  0x01;
 
-    static final byte HW_AES_ENCRYPT = (byte)  0x03;
+	private static final short LENGTH_ECHO_BYTES = 256;
+
+	static final byte HW_AES_ENCRYPT = (byte)  0x03;
     static final byte HW_AES_DECRYPT = (byte)  0x04;
     static final byte HW_RSA_ENCRYPT = (byte)  0x05;
     static final byte HW_RSA_DECRYPT = (byte)  0x06;
@@ -32,13 +31,31 @@ public class Test extends Applet {
     static final byte AES_MESSAGE_LGTH = (byte) 0x10;
     static final byte RSA_MESSAGE_LGTH = (byte) 0x11;
 
-    static private Cipher AES_ECB;
-    static private AESKey AES_Key;
-    
-    static private byte app_initialized=(byte) 0;
-    //private Cipher RSA_ECB;
-    //private RSAKey RSA_Key;
 	
+	//############################			CONFIG				###########################
+	public static byte MS_Select = MASTER;
+    static private byte app_initialized=(byte) 0;	
+	
+	//############################			VARIABLES			###########################
+		//Buffers
+	    	private byte[] RecievedStatic;
+	    	private byte[] SendStatic;
+    
+    	//AES
+	    	static private Cipher AES_ECB;
+	    	static private AESKey AES_Key;
+	    	private byte[] AESPSKKey;
+        
+    	//RSA
+	    	private Cipher RSA_ECB;
+    	//RSA Master
+		    private RSAPrivateKey RSA_Master_Private;
+		    private RSAPublicKey RSA_Master_Public;
+    	//RSA Slave
+		    private RSAPrivateKey RSA_Slave_Private;
+		    private RSAPublicKey RSA_Slave_Public;
+	
+    
     public void Init() {
     	try {
 	    	if(app_initialized==1) {
@@ -62,6 +79,9 @@ public class Test extends Applet {
 		}
 	}
 
+    private void Set_Master_Slave(byte selector) {
+    
+    }
     
 	private Test() {
 		Init();
