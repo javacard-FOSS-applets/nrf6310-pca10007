@@ -31,7 +31,7 @@ public class tt extends Applet {
     static final byte TEST_INPUTHEAD = (byte)  0xff;
     
     static final byte AES_MESSAGE_LGTH = (byte) 0x10;
-    static final byte RSA_MESSAGE_LGTH = (byte) 0x11;
+    //static final byte RSA_MESSAGE_LGTH = (byte) 0x11;
     
     //static private Cipher AES_ECB;
     //static private AESKey AES_Key;
@@ -78,6 +78,12 @@ public class tt extends Applet {
             Offset += bytesToRead;
             bytesToRead = apdu.receiveBytes(ISO7816.OFFSET_CDATA);
         }
+        
+        //AESKey key;
+        //RSAPrivateCrtKey ket;
+        SecretKey key;
+        RSAPrivateKey PrivKey;
+        RSAPublicKey PublicKey;
         
         Security=RecievedStatic[(short)(0)];
          if(Offset>=1) {
