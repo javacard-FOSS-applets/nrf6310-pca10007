@@ -11,7 +11,21 @@ import javacard.framework.Util;
 //import java.lang.*;
 import javacard.security.*;
 import javacard.security.KeyBuilder;
-//import javacard.security.;
+//import javacard.security.Checksum;
+import javacard.security.DESKey;
+import javacard.security.DSAKey;
+//import javacard.security.AESKey;
+//import javacard.security.ECKey;
+//import javacard.security.HMACKey;
+import javacard.security.Key;
+import javacard.security.SecretKey;
+
+import javacardx.crypto.*;
+// These does not exist
+	//import javacardx.*;
+	//import javacardx.crypto.Cipher;
+	//import javacardx.crypto.KeyEncryption;
+	//import javacard.security.Cipher;
 
 public class tt extends Applet {
 	private final static byte[] HELLO_WORLD = new byte[]{'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '!'};
@@ -21,6 +35,7 @@ public class tt extends Applet {
 	private byte[] RecievedStatic;
     private byte[] SendStatic;
     private byte[] AESPSKKey;
+    private Cipher rsaCipher;
     
     private static final short LENGTH_ECHO_BYTES = 256;
 
@@ -79,11 +94,22 @@ public class tt extends Applet {
             bytesToRead = apdu.receiveBytes(ISO7816.OFFSET_CDATA);
         }
         
-        //AESKey key;
-        //RSAPrivateCrtKey ket;
-        SecretKey key;
-        RSAPrivateKey PrivKey;
-        RSAPublicKey PublicKey;
+        try {
+			//AESKey key;
+			//RSAPrivateCrtKey ket;
+			SecretKey key;
+			RSAPrivateKey PrivKey;
+			RSAPublicKey PublicKey;
+			rsaCipher = Cipher.getInstance(Cipher.ALG_RSA_NOPAD, false);
+        }
+        catch(CryptoException e) {
+			if(e.getReason() == CryptoException.NO_SUCH_ALGORITHM) {
+				ISOException.throwIt(ISO7816.SW_FUNC_NOT_SUPPORTED);
+			}
+			ISOException.throwIt(ISO7816.SW_UNKNOWN);
+			return;
+		}
+		
         
         Security=RecievedStatic[(short)(0)];
          if(Offset>=1) {
