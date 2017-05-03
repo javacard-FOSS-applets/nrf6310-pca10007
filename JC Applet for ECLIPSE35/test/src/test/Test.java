@@ -11,7 +11,7 @@ import javacard.security.*;
 //import javacardx.security.*;
 import javacard.security.KeyBuilder;
 import javacardx.crypto.Cipher;
-import javacardx.crypto.*;
+//import javacardx.crypto.*;
 
 public class Test extends Applet {
 	// ############################			CONSTATNTS			###########################
@@ -22,10 +22,13 @@ public class Test extends Applet {
 
 	private static final short LENGTH_ECHO_BYTES = 256;
 
+	private final static byte[] HELLO_STRING = new byte[]{'A', 'l', 'o', 'h', 'a'};
+	
 	static final byte HW_AES_ENCRYPT = (byte)  0x03;
     static final byte HW_AES_DECRYPT = (byte)  0x04;
     static final byte HW_RSA_ENCRYPT = (byte)  0x05;
     static final byte HW_RSA_DECRYPT = (byte)  0x06;
+    static final byte HELLOWORLD	 = (byte)  'H';
     static final byte TEST_INPUTHEAD = (byte)  0xff;
     
     static final byte AES_MESSAGE_LGTH = (byte) 0x10;
@@ -38,15 +41,19 @@ public class Test extends Applet {
 	
 	//############################			VARIABLES			###########################
 		//Buffers
-	    	private byte[] RecievedStatic;
-	    	private byte[] SendStatic;
+	    	private static byte[] RecievedStatic = new byte[LENGTH_ECHO_BYTES];
+	    	private static byte[] SendStatic = new byte[LENGTH_ECHO_BYTES];
     
     	//AES
 	    	static private Cipher AES_ECB;
 	    	static private AESKey AES_Key;
-	    	private byte[] AESPSKKey;
-        
-    	//RSA
+	    	private static byte[] AESPSKKey =	new byte[] { (byte)0x2b, (byte)0x7e, (byte)0x15, (byte)0x16,
+												   			 (byte)0x28, (byte)0xae, (byte)0xd2, (byte)0xa6,
+															 (byte)0xab, (byte)0xf7, (byte)0x15, (byte)0x88,
+															 (byte)0x09, (byte)0xcf, (byte)0x4f, (byte)0x3c };  
+    
+/*
+		//RSA
 	    	private Cipher RSA_ECB;
     	//RSA Master
 		    private RSAPrivateKey RSA_Master_Private;
@@ -54,20 +61,24 @@ public class Test extends Applet {
     	//RSA Slave
 		    private RSAPrivateKey RSA_Slave_Private;
 		    private RSAPublicKey RSA_Slave_Public;
-	
+*/	
     
     public void Init() {
     	try {
 	    	if(app_initialized==1) {
 		    	//return;
 	    	}
-		    RecievedStatic=	new byte[LENGTH_ECHO_BYTES];
-	    	SendStatic = 	new byte[LENGTH_ECHO_BYTES];
-	    	AESPSKKey =		new byte[] { (byte)0x2b, (byte)0x7e, (byte)0x15, (byte)0x16,
+	//	    RecievedStatic=	new byte[LENGTH_ECHO_BYTES];
+	//    	SendStatic = 	new byte[LENGTH_ECHO_BYTES];
+	    	/*AESPSKKey =		new byte[] { (byte)0x2b, (byte)0x7e, (byte)0x15, (byte)0x16,
 						    			 (byte)0x28, (byte)0xae, (byte)0xd2, (byte)0xa6,
 						    			 (byte)0xab, (byte)0xf7, (byte)0x15, (byte)0x88,
-						    			 (byte)0x09, (byte)0xcf, (byte)0x4f, (byte)0x3c };  
+						    			 (byte)0x09, (byte)0xcf, (byte)0x4f, (byte)0x3c };*/  
 			app_initialized=1;
+			
+	   		AES_Key = (AESKey) KeyBuilder.buildKey(KeyBuilder.TYPE_AES_TRANSIENT_DESELECT, KeyBuilder.LENGTH_AES_128, false);
+	    	AES_Key.setKey(AESPSKKey, (short) 0);
+	        AES_ECB = Cipher.getInstance(Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
 		}
 		catch (ISOException e) {
 	   	    short reason = e.getReason();
@@ -79,9 +90,9 @@ public class Test extends Applet {
 		}
 	}
 
-    private void Set_Master_Slave(byte selector) {
+   /* private void Set_Master_Slave(byte selector) {
     
-    }
+    }*/
     
 	private Test() {
 		Init();
@@ -91,12 +102,19 @@ public class Test extends Applet {
 		new Test().register();
 	}
 
+	public void Send(APDU apdu, short lenght) {
+		byte buffer[] = apdu.getBuffer();
+		Util.arrayCopyNonAtomic(SendStatic, (short) 0, buffer, (short) 0, (short) lenght);
+        apdu.setOutgoingAndSend((short) 0, (short) lenght);
+	}
+	
     public void SendResponse(APDU apdu, short lenght) {
     	apdu.setOutgoing();
         apdu.setOutgoingLength((short) (ISO7816.OFFSET_CDATA + lenght));
         
         apdu.sendBytes((short) 0, (short) 5);
         apdu.sendBytesLong(SendStatic, (short) 0, lenght);
+    	//apdu.setOutgoingAndSend((short) 0, lenght);
     }
 	
     public void AES_DUMMY(byte count, byte[] bMessage) {
@@ -114,29 +132,32 @@ public class Test extends Applet {
     }
     
 	public void process(APDU apdu) throws ISOException {
-     	byte recieveBuffer[] = apdu.getBuffer();
-        
+		/*Init();
+		byte buffer[] = apdu.getBuffer();
+        apdu.setIncomingAndReceive();
+        Util.arrayCopyNonAtomic(HELLO_STRING, (short) 0, buffer, (short) 0, (short) HELLO_STRING.length);
+        apdu.setOutgoingAndSend((short) 0, (short) HELLO_STRING.length);
+	    
+        return;
+        */
+	    
+		byte recieveBuffer[] = apdu.getBuffer();
+		
         if ((recieveBuffer[ISO7816.OFFSET_CLA] == 0) &&
                 (recieveBuffer[ISO7816.OFFSET_INS] == (byte) (0xA4))) {
-        	//Init();
+        	Init();
             return;
         }
         
-        Init();
+        /*
+        SendStatic[(short)0] = (byte) 0xaa;
+        Send(apdu, (short)1);
+        */
         
-   		try {
-	   		AES_Key = (AESKey) KeyBuilder.buildKey(KeyBuilder.TYPE_AES_TRANSIENT_DESELECT, KeyBuilder.LENGTH_AES_128, false);
-	    	AES_Key.setKey(AESPSKKey, (short) 0);
-	        AES_ECB = Cipher.getInstance(Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
-   		}
-   		catch (CryptoException e) {
-	   	    short reason = e.getReason();
-	   	    ISOException.throwIt(reason);
-   		}
         
         short bytesToRead = apdu.setIncomingAndReceive();
         short Offset = (short) 0;
-        short Security = (short) 0;
+        byte Security = (short) 0;
         
         while (bytesToRead > 0) {
             Util.arrayCopyNonAtomic(recieveBuffer, ISO7816.OFFSET_CDATA, RecievedStatic, Offset, bytesToRead);
@@ -144,10 +165,18 @@ public class Test extends Applet {
             bytesToRead = apdu.receiveBytes(ISO7816.OFFSET_CDATA);
         }
         
-        Security=RecievedStatic[(short)(0)];
+        Security=RecievedStatic[(byte)(0)];
         
+        SendStatic[(short)0] = (byte) Security;
+        Send(apdu, (short)1);
+        /*
         if(Offset>=1) {
 	        switch(Security) {
+	        	case HELLOWORLD:
+	        		Util.arrayCopyNonAtomic(HELLO_STRING, (short) 0, SendStatic, (short) 0, (short) HELLO_STRING.length);
+	        		SendResponse(apdu, (short) HELLO_STRING.length);
+
+	        		break;
 	        	case TEST_INPUTHEAD:
 		        	for(byte iterator=0;iterator<Offset;iterator++){
 		        		SendStatic[iterator] = RecievedStatic[iterator];
@@ -204,7 +233,7 @@ public class Test extends Applet {
 		        		SendResponse(apdu, (short) AES_MESSAGE_LGTH);
 		        	}
 		        	break;
-		        	
+
 		        /*case HW_RSA_ENCRYPT:
 		        	//Call encrypt over data N bytov
 		        	if( Offset==RSA_MESSAGE_LGTH + 1 ) {
@@ -219,8 +248,7 @@ public class Test extends Applet {
 		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
 		        	}
 		        	break;*/
-		        
-		        default: 
+	/*	        default: 
 		        	//return 0;
 		        	//Throw EXCEPTION?
 		        	for(byte iterator=0;iterator<Offset;iterator++){
@@ -229,6 +257,6 @@ public class Test extends Applet {
 		        	SendResponse(apdu, (short) Offset);
 		        	break;
 	        }
-        }
+        }*/
 	}
 }
