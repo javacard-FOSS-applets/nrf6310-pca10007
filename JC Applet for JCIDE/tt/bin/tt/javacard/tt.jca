@@ -1,5 +1,5 @@
 // converted by version 1.1
-// on Wed May 03 00:31:43 CEST 2017
+// on Wed May 03 02:05:18 CEST 2017
 
 .package tt {
 	.aid 0x55:0x55:0x55:0x55:0x55;
@@ -15,31 +15,63 @@
 
 	.constantPool {
 		// 0
-		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		instanceFieldRef byte[] tt/RecievedStatic;
 		// 1
-		classRef tt;
+		instanceFieldRef byte[] tt/SendStatic;
 		// 2
-		staticMethodRef tt/<init>()V;
+		instanceFieldRef byte[] tt/AESPSKKey;
 		// 3
-		virtualMethodRef 0.3.2([BSB)V;		// javacard/framework/Applet.register([BSB)V
+		staticFieldRef byte tt/app_initialized;
 		// 4
-		virtualMethodRef 0.3.3()Z;		// javacard/framework/Applet.selectingApplet()Z
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
 		// 5
-		virtualMethodRef 0.10.1()[B;		// javacard/framework/APDU.getBuffer()[B
+		classRef tt;
 		// 6
-		virtualMethodRef 0.10.6()S;		// javacard/framework/APDU.setIncomingAndReceive()S
+		staticMethodRef tt/<init>()V;
 		// 7
-		staticFieldRef byte[] tt/HELLO_WORLD;
+		virtualMethodRef 0.3.2([BSB)V;		// javacard/framework/Applet.register([BSB)V
 		// 8
-		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+		virtualMethodRef 0.10.7()S;		// javacard/framework/APDU.setOutgoing()S
 		// 9
-		virtualMethodRef 0.10.8(SS)V;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+		virtualMethodRef 0.10.9(S)V;		// javacard/framework/APDU.setOutgoingLength(S)V
+		// 10
+		virtualMethodRef 0.10.4(SS)V;		// javacard/framework/APDU.sendBytes(SS)V
+		// 11
+		virtualMethodRef 0.10.5([BSS)V;		// javacard/framework/APDU.sendBytesLong([BSS)V
+		// 12
+		virtualMethodRef 0.3.3()Z;		// javacard/framework/Applet.selectingApplet()Z
+		// 13
+		virtualMethodRef tt/Init()V;
+		// 14
+		virtualMethodRef 0.10.1()[B;		// javacard/framework/APDU.getBuffer()[B
+		// 15
+		virtualMethodRef 0.10.6()S;		// javacard/framework/APDU.setIncomingAndReceive()S
+		// 16
+		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+		// 17
+		virtualMethodRef 0.10.3(S)S;		// javacard/framework/APDU.receiveBytes(S)S
+		// 18
+		virtualMethodRef tt/SendResponse(Ljavacard/framework/APDU;S)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
 	}
 
 	.class public tt 0 extends 0.3 {		// extends javacard/framework/Applet
 
 		.fields {
+			private byte[] RecievedStatic 0;		// [B
+			private byte[] SendStatic 1;		// [B
+			private byte[] AESPSKKey 2;		// [B
 			private static final byte[] HELLO_WORLD = {72,101,108,108,111,32,87,111,114,108,100,33};		// [B
+			private static byte app_initialized;		// B
+			private static final short LENGTH_ECHO_BYTES = 256;		// S
+			static final byte HW_AES_ENCRYPT = 3;		// B
+			static final byte HW_AES_DECRYPT = 4;		// B
+			static final byte HW_RSA_ENCRYPT = 5;		// B
+			static final byte HW_RSA_DECRYPT = 6;		// B
+			static final byte TEST_INPUTHEAD = -1;		// B
+			static final byte AES_MESSAGE_LGTH = 16;		// B
+			static final byte RSA_MESSAGE_LGTH = 17;		// B
 		}
 
 		.publicMethodTable 7 {
@@ -51,6 +83,8 @@
 			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
 			select()Z;
 			process(Ljavacard/framework/APDU;)V;
+			Init()V;
+			SendResponse(Ljavacard/framework/APDU;S)V;
 		}
 
 		.packageMethodTable 0 {
@@ -61,7 +95,95 @@
 			.locals 0;
 
 				L0:	aload_0;
-					invokespecial 0;		// javacard/framework/Applet.<init>()V
+					invokespecial 4;		// javacard/framework/Applet.<init>()V
+					return;
+		}
+
+		.method public Init()V 8 {
+			.stack 5;
+			.locals 0;
+
+				L0:	getstatic_b 3;		// byte tt/tt.app_initialized
+					sconst_1;
+					if_scmpne L1;
+				L1:	aload_0;
+					sspush 256;
+					newarray 11;
+					putfield_a 0;		// reference tt/tt.RecievedStatic
+					aload_0;
+					sspush 256;
+					newarray 11;
+					putfield_a 1;		// reference tt/tt.SendStatic
+					aload_0;
+					bspush 16;
+					newarray 11;
+					dup;
+					sconst_0;
+					bspush 43;
+					bastore;
+					dup;
+					sconst_1;
+					bspush 126;
+					bastore;
+					dup;
+					sconst_2;
+					bspush 21;
+					bastore;
+					dup;
+					sconst_3;
+					bspush 22;
+					bastore;
+					dup;
+					sconst_4;
+					bspush 40;
+					bastore;
+					dup;
+					sconst_5;
+					bspush -82;
+					bastore;
+					dup;
+					bspush 6;
+					bspush -46;
+					bastore;
+					dup;
+					bspush 7;
+					bspush -90;
+					bastore;
+					dup;
+					bspush 8;
+					bspush -85;
+					bastore;
+					dup;
+					bspush 9;
+					bspush -9;
+					bastore;
+					dup;
+					bspush 10;
+					bspush 21;
+					bastore;
+					dup;
+					bspush 11;
+					bspush -120;
+					bastore;
+					dup;
+					bspush 12;
+					bspush 9;
+					bastore;
+					dup;
+					bspush 13;
+					bspush -49;
+					bastore;
+					dup;
+					bspush 14;
+					bspush 79;
+					bastore;
+					dup;
+					bspush 15;
+					bspush 60;
+					bastore;
+					putfield_a 2;		// reference tt/tt.AESPSKKey
+					sconst_1;
+					putstatic_b 3;		// byte tt/tt.app_initialized
 					return;
 		}
 
@@ -69,9 +191,9 @@
 			.stack 5;
 			.locals 0;
 
-				L0:	new 1;		// tt/tt
+				L0:	new 5;		// tt/tt
 					dup;
-					invokespecial 2;		// tt/tt.<init>()V
+					invokespecial 6;		// tt/tt.<init>()V
 					aload_0;
 					sload_1;
 					sconst_1;
@@ -79,40 +201,111 @@
 					aload_0;
 					sload_1;
 					baload;
-					invokevirtual 3;		// javacard/framework/Applet.register([BSB)V
+					invokevirtual 7;		// javacard/framework/Applet.register([BSB)V
+					return;
+		}
+
+		.method public SendResponse(Ljavacard/framework/APDU;S)V 9 {
+			.stack 4;
+			.locals 0;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 8;		// javacard/framework/APDU.setOutgoing()S
+					pop;
+					aload_1;
+					sconst_5;
+					sload_2;
+					sadd;
+					invokevirtual 9;		// javacard/framework/APDU.setOutgoingLength(S)V
+					aload_1;
+					sconst_0;
+					sconst_5;
+					invokevirtual 10;		// javacard/framework/APDU.sendBytes(SS)V
+					aload_1;
+					getfield_a_this 1;		// reference tt/tt.SendStatic
+					sconst_0;
+					sload_2;
+					invokevirtual 11;		// javacard/framework/APDU.sendBytesLong([BSS)V
 					return;
 		}
 
 		.method public process(Ljavacard/framework/APDU;)V 7 {
 			.stack 5;
-			.locals 1;
+			.locals 5;
 
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 				L0:	aload_0;
-					invokevirtual 4;		// javacard/framework/Applet.selectingApplet()Z
+					invokevirtual 12;		// javacard/framework/Applet.selectingApplet()Z
 					ifeq L2;
-				L1:	return;
+				L1:	aload_0;
+					invokevirtual 13;		// tt/tt.Init()V
+					return;
 				L2:	aload_1;
-					invokevirtual 5;		// javacard/framework/APDU.getBuffer()[B
+					invokevirtual 14;		// javacard/framework/APDU.getBuffer()[B
 					astore_2;
 					aload_1;
-					invokevirtual 6;		// javacard/framework/APDU.setIncomingAndReceive()S
-					pop;
-					getstatic_a 7;		// reference tt/tt.HELLO_WORLD
+					invokevirtual 15;		// javacard/framework/APDU.setIncomingAndReceive()S
+					sstore_3;
 					sconst_0;
-					aload_2;
+					sstore 4;
 					sconst_0;
-					getstatic_a 7;		// reference tt/tt.HELLO_WORLD
-					arraylength;
-					invokestatic 8;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					sstore 5;
+				L3:	sload_3;
+					ifle L5;
+				L4:	aload_2;
+					sconst_5;
+					getfield_a_this 0;		// reference tt/tt.RecievedStatic
+					sload 4;
+					sload_3;
+					invokestatic 16;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
+					sload 4;
+					sload_3;
+					sadd;
+					sstore 4;
 					aload_1;
+					sconst_5;
+					invokevirtual 17;		// javacard/framework/APDU.receiveBytes(S)S
+					sstore_3;
+					goto L3;
+				L5:	getfield_a_this 0;		// reference tt/tt.RecievedStatic
 					sconst_0;
-					getstatic_a 7;		// reference tt/tt.HELLO_WORLD
-					arraylength;
-					invokevirtual 9;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
-					return;
+					baload;
+					sstore 5;
+					sload 4;
+					sconst_1;
+					if_scmplt L11;
+				L6:	sload 5;
+					slookupswitch L11 1 -1 L7;
+				L7:	sconst_0;
+					sstore 6;
+				L8:	sload 6;
+					sload 4;
+					if_scmpge L10;
+				L9:	getfield_a_this 1;		// reference tt/tt.SendStatic
+					sload 6;
+					getfield_a_this 0;		// reference tt/tt.RecievedStatic
+					sload 6;
+					baload;
+					bastore;
+					sload 6;
+					sconst_1;
+					sadd;
+					s2b;
+					sstore 6;
+					goto L8;
+				L10:	getfield_a_this 1;		// reference tt/tt.SendStatic
+					sconst_0;
+					bspush -86;
+					bastore;
+					aload_0;
+					aload_1;
+					sconst_1;
+					invokevirtual 18;		// tt/tt.SendResponse(Ljavacard/framework/APDU;S)V
+				L11:	return;
 		}
 
 	}
