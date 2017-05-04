@@ -4,8 +4,9 @@ enable_timer
 
 establish_context
 card_connect
-select -AID a00000006203010c0101
+select -AID 5555555555
 send_apdu -sc 1 -APDU 8010010201FF7F
+send_apdu -sc 1 -APDU 8010010201487F
 
 card_disconnect
 release_context
