@@ -38,7 +38,6 @@
 #include "Universal.h"
 
 // Channel configuration. 
-#define CHANNEL_0                       0x00 /**< ANT Channel 0. */
 //#define CHANNEL_0_TX_CHANNEL_PERIOD     8192u                /**< Channel period 4 Hz. */
 #define CHANNEL_0_ANT_EXT_ASSIGN        0x00 /**< ANT Ext Assign. */
 
@@ -82,21 +81,21 @@ static void ant_channel_slave_broadcast_setup(void) {
 	uint32_t err_code;
 
 	// Set Channel Number.
-	err_code = sd_ant_channel_assign(CHANNEL_0, 
+	err_code = sd_ant_channel_assign(NORDIC_CHANNEL, 
 																	 CHANNEL_TYPE_SLAVE, 
 																	 ANT_CHANNEL_DEFAULT_NETWORK, 
 																	 CHANNEL_0_ANT_EXT_ASSIGN);
 	APP_ERROR_CHECK(err_code);
 
 	// Set Channel ID.
-	err_code = sd_ant_channel_id_set(CHANNEL_0, 
+	err_code = sd_ant_channel_id_set(NORDIC_CHANNEL, 
 																	 CHANNEL_0_CHAN_ID_DEV_NUM, 
 																	 CHANNEL_0_CHAN_ID_DEV_TYPE, 
 																	 CHANNEL_0_CHAN_ID_TRANS_TYPE);
 	APP_ERROR_CHECK(err_code);
 
 	// Open channel.
-	err_code = sd_ant_channel_open(CHANNEL_0);
+	err_code = sd_ant_channel_open(NORDIC_CHANNEL);
 	APP_ERROR_CHECK(err_code);
 }
 
@@ -131,7 +130,7 @@ static void send_reverse_data() {
 	SendData(m_broadcast_data, Data_was_ready);
 	
 	// Broadcast the data. 
-	err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
+	err_code = sd_ant_broadcast_message_tx(NORDIC_CHANNEL, 
 																				 BROADCAST_DATA_BUFFER_SIZE, 
 																				 m_broadcast_data);
 	APP_ERROR_CHECK(err_code);
@@ -200,7 +199,7 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer) {
 					recieve.length=0;
 					dataready=1;
 					
-					err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
+					err_code = sd_ant_broadcast_message_tx(NORDIC_CHANNEL, 
 																							 BROADCAST_DATA_BUFFER_SIZE, 
 																							 m_broadcast_data);
 					APP_ERROR_CHECK(err_code);
@@ -285,6 +284,7 @@ int main(void) {
 					// Handle event.
 				switch (event) {
 					case EVENT_TX:
+							Wait_until_not_transmitting();
 							channel_event_handle_transmit(event);
 //												Segger_write_string("Sending1.\n");
 							break;

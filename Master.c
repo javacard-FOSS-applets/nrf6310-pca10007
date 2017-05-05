@@ -37,8 +37,7 @@
 #include "Universal.h"
 
 // Channel configuration. 
-#define CHANNEL_0                       0x00                 /**< ANT Channel 0. */
-#define CHANNEL_0_TX_CHANNEL_PERIOD     18192u                /**< Channel period 4 Hz. 8192    x/[Hz] */
+#define CHANNEL_0_TX_CHANNEL_PERIOD     65535u               /**< Channel period 4 Hz. 8192    x/32768 [s] */
 #define CHANNEL_0_ANT_EXT_ASSIGN        0x00                 /**< ANT Ext Assign. */
 
 // Channel ID configuration. 
@@ -83,12 +82,12 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 static void ant_channel_master_broadcast_setup(void) {
     uint32_t err_code;
     
-		sd_ant_channel_period_set(CHANNEL_0, CHANNEL_0_TX_CHANNEL_PERIOD);
+		 err_code = sd_ant_channel_period_set(NORDIC_CHANNEL, CHANNEL_0_TX_CHANNEL_PERIOD);
 	  APP_ERROR_CHECK(err_code);
 	
 	
     // Set Channel Number. 
-    err_code = sd_ant_channel_assign(CHANNEL_0, 
+    err_code = sd_ant_channel_assign(NORDIC_CHANNEL, 
                                      CHANNEL_TYPE_MASTER, 
                                      ANT_CHANNEL_DEFAULT_NETWORK, 
                                      CHANNEL_0_ANT_EXT_ASSIGN);
@@ -96,7 +95,7 @@ static void ant_channel_master_broadcast_setup(void) {
     APP_ERROR_CHECK(err_code);
 
     // Set Channel ID. 
-    err_code = sd_ant_channel_id_set(CHANNEL_0, 
+    err_code = sd_ant_channel_id_set(NORDIC_CHANNEL, 
                                      CHANNEL_0_CHAN_ID_DEV_NUM, 
                                      CHANNEL_0_CHAN_ID_DEV_TYPE, 
                                      CHANNEL_0_CHAN_ID_TRANS_TYPE);
@@ -105,7 +104,7 @@ static void ant_channel_master_broadcast_setup(void) {
 	
 		
     // Open channel. 
-    err_code = sd_ant_channel_open(CHANNEL_0);
+    err_code = sd_ant_channel_open(NORDIC_CHANNEL);
     APP_ERROR_CHECK(err_code);
 }
 
@@ -119,7 +118,7 @@ static void channel_event_handle_transmit(uint32_t event) {
 	uint8_t Data_was_ready;
 	
 	uint8_t Pending_Transmit=0;
-	sd_ant_pending_transmit(CHANNEL_0, &Pending_Transmit);
+	sd_ant_pending_transmit(NORDIC_CHANNEL, &Pending_Transmit);
 	
 	if(Pending_Transmit) {
 		Segger_write_string("TRANSMIT PENDING!!!");
@@ -149,7 +148,7 @@ static void channel_event_handle_transmit(uint32_t event) {
 					SendData(m_broadcast_data, Data_was_ready);
 				
 					// Broadcast the data. 
-					err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
+					err_code = sd_ant_broadcast_message_tx(NORDIC_CHANNEL, 
 																								 BROADCAST_DATA_BUFFER_SIZE, 
 																								 m_broadcast_data);
 					APP_ERROR_CHECK(err_code);						
@@ -247,6 +246,7 @@ void HardFault_Handler(void) {
 	}
 }
 
+
 int main(void) {    
 	init();
 
@@ -280,7 +280,7 @@ EnCode(Global_Default_Security, ReadButtons());
 
 	// Initiate the broadcast loop by sending a packet on air, 
 	// then start waiting for an event on this broadcast message.
-	err_code = sd_ant_broadcast_message_tx(CHANNEL_0, BROADCAST_DATA_BUFFER_SIZE, m_broadcast_data);
+	err_code = sd_ant_broadcast_message_tx(NORDIC_CHANNEL, BROADCAST_DATA_BUFFER_SIZE, m_broadcast_data);
 	
 	//static uint8_t burst_setup[]={ADV_BURST_MODE_ENABLE, ADV_BURST_MODES_MAX_SIZE, 0,0,0,0,0,0};
 	//err_code = sd_ant_adv_burst_config_set(burst_setup,sizeof(burst_setup));
@@ -305,6 +305,7 @@ EnCode(Global_Default_Security, ReadButtons());
 						// Handle event. 
 						switch (event) {
 								case EVENT_TX:
+										Wait_until_not_transmitting();
 										channel_event_handle_transmit(event);
 										break;
 

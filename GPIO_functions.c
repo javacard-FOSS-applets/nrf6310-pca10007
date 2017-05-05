@@ -67,8 +67,7 @@ void PrepareButtons() {
 	uint8_t counter=0;
 	int value = 0;
 	
-	for(counter=0; counter<8; counter++)
-	{
+	for(counter=0; counter<8; counter++) {
 		value = (PORT2+counter);
 		NRF_GPIO->PIN_CNF[value] = 0;
 	}

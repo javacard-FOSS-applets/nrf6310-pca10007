@@ -108,6 +108,12 @@ void EnCode(security_type security, uint8_t value) {
 			break;*/
 		
 		case MSG_HW_SYMM:
+			
+				/*message[0]=(uint8_t) security;
+				in[0]=(uint8_t) value;
+				AES128_CBC_encrypt_buffer(message+1, in,  16, PSK, IVECTOR);
+				FillSendData(17, message);*/
+				
 				HW_AES_Encode(message, value);
 				message[0]=security;
 				FillSendData(17, message);

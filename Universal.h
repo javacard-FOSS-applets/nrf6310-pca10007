@@ -193,6 +193,12 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	void Set_Comm_Baudrate(uint32_t new_baud);
 	void Set_Default_Baudrate(uint32_t new_baud);
 	
+	
+	//########################	ANT_SD  										###############################
+	#define NORDIC_CHANNEL                  0x00
+	
+	void Wait_until_not_transmitting(void);
+	
 	//########################	ISO7816  										###############################
 	void nrf_delay_us(uint32_t);
 		

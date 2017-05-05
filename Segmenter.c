@@ -165,9 +165,16 @@ void FillSendData(uint16_t count, uint8_t* message) {
 	}
 }
 
-void SendData(uint8_t* messagebuffer, uint8_t Data_was_ready){
+
+uint8_t delay_in_send_cycles=0;
+
+void SendData(uint8_t* messagebuffer, uint8_t Data_was_ready) {
 	//uint8_t buffer[12];
 	if (!Data_was_ready) {
+		messagebuffer[0]=send_counter;
+		messagebuffer[1]=send_counter;
+	}
+	else if (Global_Default_Security==MSG_HW_SYMM && delay_in_send_cycles < 5) {
 		messagebuffer[0]=send_counter;
 		messagebuffer[1]=send_counter;
 	}
@@ -187,6 +194,10 @@ void SendData(uint8_t* messagebuffer, uint8_t Data_was_ready){
 			Segger_write_string("Sending empty.\n");
 		#endif
 	}
+	else if (Global_Default_Security==MSG_HW_SYMM && delay_in_send_cycles++ < 5) {
+		Segger_write_string("\t\t\t\tSkippppppppping!!!!!!");
+		send_counter++;
+	}
 	else if((transmit.length==0 && transmit.count==0)) { //empty 
 		messagebuffer[2]=0; 
 		
@@ -205,10 +216,14 @@ void SendData(uint8_t* messagebuffer, uint8_t Data_was_ready){
 		}
 	}
 
-	if(transmit.count==transmit.length) {
+	if (!Data_was_ready) {
+		
+	}
+	else if(transmit.count==transmit.length) {
 		transmit.count=0;
 		transmit.length=0;
 		transmit.ready=1;
+		delay_in_send_cycles=0;
 		Global_Data_Ready_For_Transfer=false;
 		#ifdef DEBUG_SEGMENTER_MESSAGES
 			Segger_write_string("FINISHED.\n");
@@ -225,6 +240,8 @@ void SendData(uint8_t* messagebuffer, uint8_t Data_was_ready){
 }
 
 void init_RF_segmenter() {
+	delay_in_send_cycles=0;
+	Global_Data_Ready_For_Transfer=false;
 	transmit.ready=1;
 	recieve.ready=0;
 }
