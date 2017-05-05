@@ -130,7 +130,13 @@ static void channel_event_handle_transmit(uint32_t event) {
 					
 					// Assign a new value to the broadcast data. 
 					Segger_write_string("Event TX.\n");
-					ReadButtons();
+			
+					if(GLobal_Test_Mode_Active) {
+						Check_If_Recieved();
+					}
+					else {
+						ReadButtons();
+					}
 			
 					Data_was_ready=Global_Data_Ready_For_Transfer;
 			
@@ -142,7 +148,12 @@ static void channel_event_handle_transmit(uint32_t event) {
 						//#ifdef DEBUG_SEGMENTER_MESSAGES
 							Segger_write_string("Data ready.\n");
 						//#endif
-						EnCode(Global_Default_Security, ReadButtons());
+						if(GLobal_Test_Mode_Active){
+							EnCode(Global_Default_Security, Get_Actual_Test_Value());
+						}
+						else {
+							EnCode(Global_Default_Security, ReadButtons());
+						}
 					}
 
 					SendData(m_broadcast_data, Data_was_ready);
@@ -311,6 +322,9 @@ EnCode(Global_Default_Security, ReadButtons());
 
 								case EVENT_RX:
 										channel_event_handle_recieve(event_message_buffer);
+										if(GLobal_Test_Mode_Active) {
+											Test_Compare_Recieved_Value(recieved_value);
+										}
 										SetLEDS(recieved_value);
 										//SEGGER_RTT_WriteString(0, "Receiving.\n");
 										break;

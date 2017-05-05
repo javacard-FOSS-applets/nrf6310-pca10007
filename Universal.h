@@ -249,4 +249,15 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 		uint8_t Bit_MAP_TD				:1;  // 
 	}__attribute__((packed)) TD;
 
+		
+	
+	
+	//########################	Automated test  										###############################
+	
+		#define TEST_MAX_VALUE 					32
+		#define TEST_MAX_WAIT_TRESHOLD 	10
+	
+		void 		Test_Compare_Recieved_Value(uint8_t recieved_value);
+		uint8_t Get_Actual_Test_Value(void);
+		uint8_t Check_If_Recieved(void);
 	

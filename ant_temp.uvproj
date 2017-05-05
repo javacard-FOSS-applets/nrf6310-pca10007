@@ -1111,6 +1111,16 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Validation</GroupName>
+          <Files>
+            <File>
+              <FileName>Automated_Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Automated_Test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -2218,6 +2228,16 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Validation</GroupName>
+          <Files>
+            <File>
+              <FileName>Automated_Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Automated_Test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -3269,6 +3289,16 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Validation</GroupName>
+          <Files>
+            <File>
+              <FileName>Automated_Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Automated_Test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -4317,6 +4347,16 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Validation</GroupName>
+          <Files>
+            <File>
+              <FileName>Automated_Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Automated_Test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5424,6 +5464,16 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Validation</GroupName>
+          <Files>
+            <File>
+              <FileName>Automated_Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Automated_Test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6584,6 +6634,16 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Validation</GroupName>
+          <Files>
+            <File>
+              <FileName>Automated_Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Automated_Test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -7688,6 +7748,16 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Validation</GroupName>
+          <Files>
+            <File>
+              <FileName>Automated_Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Automated_Test.c</FilePath>
             </File>
           </Files>
         </Group>
