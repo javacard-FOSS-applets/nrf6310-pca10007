@@ -79,7 +79,7 @@ void Select_Applet() {
 	}
 }
 
-uint8_t temp_array[] = {0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f, 0x72, 0x6c, 0x64, 0x21};
+uint8_t temp_array[] = {0xaa, 0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f, 0x72, 0x6c, 0x64, 0x21};
 
 
 //Test applet
@@ -105,17 +105,19 @@ void Test_Applet_Response() {
 		Segger_write_string("D:    ERROR occured!\n");
 	}
 }
-uint8_t message[35];
 
+
+uint8_t message[35];
 void Select_Applet_Wrapper() {
 	Select_MF();
 	//Create_Applet_Instance();
-	Card_wait();
+		Card_wait();
+	
 	Select_Applet();
+		Card_wait();
 	
-	Card_wait();
 	Test_Applet_Response();
-	
+		
 	HW_AES_Encode(message, 0x55);
 	for(int8_t i=16; i>=0; i--) {
 		message[i+1]=message[i];

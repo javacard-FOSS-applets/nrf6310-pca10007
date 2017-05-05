@@ -6,8 +6,8 @@
 
 #include "PSK.h"
 
-	uint8_t bufferout[16];
-	uint8_t store_message[16];
+	uint8_t bufferout[55];
+	uint8_t store_message[55];
 
 void Decode(uint16_t count, uint8_t* message) {
 	Segger_write_string_value("Count: ", count);
@@ -71,12 +71,10 @@ void Decode(uint16_t count, uint8_t* message) {
 
 	static uint8_t send_message_uns[1+1];
 	
-	static uint8_t in[16];
-	static uint8_t message[17];
+	static uint8_t in[55];
+	static uint8_t message[55];
 
 void EnCode(security_type security, uint8_t value) {
-
-	
 //	uint8_t send_message_aes[16+1];
 //	uint8_t send_message_sym[64+1];
 	
@@ -111,6 +109,7 @@ void EnCode(security_type security, uint8_t value) {
 		
 		case MSG_HW_SYMM:
 				HW_AES_Encode(message, value);
+				message[0]=security;
 				FillSendData(17, message);
 			break;
 		
@@ -123,4 +122,6 @@ void EnCode(security_type security, uint8_t value) {
 			//unexpected type
 			break;
 	}
+	Global_Data_Ready_For_Transfer=true;
+	Segger_write_string("\t\tData prepared for sending!");
 }

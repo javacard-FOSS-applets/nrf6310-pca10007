@@ -51,11 +51,10 @@ void Bootloader(void) {
 										bootloader_exit=true;
 										Debug_Mode();// ISO7816_UART converter
 										return;
-										break;
 				case 0x80: // accept
 									bootloader_exit=true;
+									BlinkLEDS(1);
 									return;
-									break;
 			}
 			LED_State(Global_Default_Security, GLobal_Test_Mode_Active);
 		}

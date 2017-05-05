@@ -20,7 +20,7 @@ uint16_t Concat_Bytes(uint8_t byte1, uint8_t byte2)  {
 
 
 void Card_wait() {
-	nrf_delay_us(DELAY_ETU_CYCLES * one_CLK_cycle);
+	nrf_delay_us(ISO_WAIT_TIME);
 }
 
 void Card_wait_ETU_cycles(uint32_t Cycles) {

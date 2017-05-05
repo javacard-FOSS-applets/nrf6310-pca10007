@@ -56,8 +56,7 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 	//if(!recieve.ready){
 	
 	//if(recieve.ready!=1){
-		for(int i=0; i<6 && count--; i++)
-		{
+		for(int i=0; i<6 && count--; i++) {
 			recieve.message[recieve.count++] = p_event_message_buffer[H_SYNC+H_MSGLNG+H_MSGID+i+2];
 			thisCount++;
 			recieve.length++;
@@ -85,6 +84,17 @@ uint8_t AddMessage(uint8_t* p_event_message_buffer){
 		}
 	}
 	else {
+		if(recieve.length>=120) {
+			#ifdef DEBUG_SEGMENTER_MESSAGES
+				Segger_write_string("Error recieveing segment!\n");
+			#endif
+			recieve.count=0;
+			recieve.length=0;
+			recieve.count=0;
+			recieve.ready=0;
+			return 0;
+		}
+		
 		//data not ready
 		recieve.ready=0;
 		return 0;
@@ -170,7 +180,9 @@ void SendData(uint8_t* messagebuffer){
 			messagebuffer[2+i] = 0;
 		}
 		send_counter++;
-		SEGGER_RTT_WriteString(0, "Sending empty.\n");
+		#ifdef DEBUG_SEGMENTER_MESSAGES
+			Segger_write_string("Sending empty.\n");
+		#endif
 	}
 	else
 	{
@@ -186,12 +198,16 @@ void SendData(uint8_t* messagebuffer){
 		transmit.count=0;
 		transmit.length=0;
 		transmit.ready=1;
-		SEGGER_RTT_WriteString(0, "FINISHED.\n");
+		#ifdef DEBUG_SEGMENTER_MESSAGES
+			SEGGER_RTT_WriteString(0, "FINISHED.\n");
+		#endif
 	}
 	else
 	{
 		transmit.ready=0;
-		SEGGER_RTT_WriteString(0, "Fragmenting.\n");
+		#ifdef DEBUG_SEGMENTER_MESSAGES
+			SEGGER_RTT_WriteString(0, "Fragmenting.\n");
+		#endif
 	}
 
 	//AddMessage(buffer);

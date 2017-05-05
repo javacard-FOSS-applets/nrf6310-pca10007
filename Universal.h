@@ -10,7 +10,11 @@
 //########################	   DEBUG  		###############################
 
 #define DEGUB_PRINTS
-#define DEGUB_UART
+	#define DEGUB_UART
+
+	#define DEBUG_RETRIEVE_BUFFER
+	#define DEBUG_SEGMENTER_MESSAGES
+
 #define DEBUG_SAVE_SPACE
 
 //########################	  Defines  		###############################
@@ -61,10 +65,11 @@ typedef enum {MSG_EMPTY=0x00,
 							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
 							MSG_HW_SYMM=0x04, MSG_HW_ASYMM=0x05} security_type;
 
-							#define DEFAULT_SECURITY (MSG_UNSECURED)
+							#define DEFAULT_SECURITY (MSG_HW_SYMM)
 							
-							extern uint8_t Global_Default_Security;
+							extern security_type Global_Default_Security;
 							extern uint8_t GLobal_Test_Mode_Active;
+							extern uint8_t Global_Data_Ready_For_Transfer;
 							//security_type security = MSG_EMPTY;
 
 typedef struct {

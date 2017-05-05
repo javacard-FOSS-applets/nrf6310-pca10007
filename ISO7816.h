@@ -89,6 +89,8 @@ b1=1 indicates that the Security Domain has mandated DAP Verification capability
 
 #define DELAY_ETU_CYCLES 45000
 #define one_CLK_cycle 	 6
+//#define ISO_WAIT_TIME    (DELAY_ETU_CYCLES * one_CLK_cycle)
+#define ISO_WAIT_TIME 	 (275000) 
 
 #define APDU
 #define TEST 						 0

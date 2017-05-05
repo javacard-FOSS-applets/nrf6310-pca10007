@@ -135,7 +135,7 @@ void SC_Recieve_ATR(void) {
 		//value=InverseByte(value);
 		success=0;
 		
-		ATR_Message[i]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+		ATR_Message[i]=Recieve_UART_timeout(ISO_WAIT_TIME, &success);
 		if(!success) {
 			break;
 		}
@@ -195,7 +195,7 @@ void SC_Recieve_ATR_And_Config() {
 	if(PSS && false) {
 		Send_Negotiate_Block_Protocol_Alone();
 		Recieve_And_Check_Response();
-		//Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+		//Recieve_UART_timeout(ISO_WAIT_TIME, &success);
 		Correct_First_False_Byte(&SC_Response_Count, SC_Response);		
 		Print_Touple_Send_Recieve();
 		

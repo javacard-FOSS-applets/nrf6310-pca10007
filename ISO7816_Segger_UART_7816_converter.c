@@ -176,8 +176,6 @@ uint8_t Convert_To_Hex_String(uint8_t recieved, uint8_t * Segger_recieve_buffer)
 	return lenght;
 }
 
-void Print_Array(uint8_t Lenght, uint8_t*  Message);
-
 void Debug_Mode(void) {
 	Print_Help();
 	

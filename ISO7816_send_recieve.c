@@ -20,13 +20,6 @@ void SC_Send_Message(uint8_t Lenght) {
 	//UART_prepare_for_recieve();
 }
 
-void Print_Array(uint8_t Lenght, uint8_t*  Message) {
-	Segger_write_string("\t\t");
-	for(uint8_t i=0; i<Lenght; i++) {
-		Segger_write_one_hex_value(Message[i]);
-	}
-	Segger_write_string("\n");
-}
 
 void Correct_First_False_Byte(uint8_t* count, uint8_t *Message) {
 	//uint8_t value = *count;
@@ -47,7 +40,7 @@ uint8_t Recieve_Response(void) {
 	
 	while(true) {
 		uint8_t success=0;
-		SC_Response[Recieve_Count]=Recieve_UART_timeout(DELAY_ETU_CYCLES * one_CLK_cycle, &success);
+		SC_Response[Recieve_Count]=Recieve_UART_timeout(ISO_WAIT_TIME, &success);
 		
 		if(!success) {
 			break;

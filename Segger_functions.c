@@ -84,3 +84,11 @@ void Segger_write_string_value(const char *string, uint8_t value) {
 		Segger_write_string("\n");
 	#endif
 }
+
+void Print_Array(uint8_t Lenght, uint8_t*  Message) {
+	Segger_write_string("\t\t");
+	for(uint8_t i=0; i<Lenght; i++) {
+		Segger_write_one_hex_value(Message[i]);
+	}
+	Segger_write_string("\n");
+}

@@ -98,8 +98,7 @@ uint8_t ReadButtons() {
 
 	value = ~((( NRF_GPIO->IN )>> BUTTONS) & 0xFF);
 
-	if(previous != value)
-	{
+	if(previous != value) {
 	 sprintf(string, "BUTTONS read: 0x%02xh\n", value);
 	 SEGGER_RTT_WriteString(0, string);
 	 previous = value;

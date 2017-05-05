@@ -66,9 +66,9 @@ static uint8_t m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE]; /**< Primary data t
  * @param[in] p_file_name Pointer to the file name. 
  */
 void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name) {
-    for (;;) {
-			SEGGER_RTT_WriteString(0, "App error!\n");
-    }
+  SEGGER_RTT_WriteString(0, "App error!\n");  
+	for (;;) {
+	}
 }
 
 /**@brief Function for setting up the ANT module to be ready for RX broadcast.
@@ -79,64 +79,66 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
  * - open channel
  */
 static void ant_channel_slave_broadcast_setup(void) {
-    uint32_t err_code;
+	uint32_t err_code;
 
-    // Set Channel Number.
-    err_code = sd_ant_channel_assign(CHANNEL_0, 
-                                     CHANNEL_TYPE_SLAVE, 
-                                     ANT_CHANNEL_DEFAULT_NETWORK, 
-                                     CHANNEL_0_ANT_EXT_ASSIGN);
-    APP_ERROR_CHECK(err_code);
+	// Set Channel Number.
+	err_code = sd_ant_channel_assign(CHANNEL_0, 
+																	 CHANNEL_TYPE_SLAVE, 
+																	 ANT_CHANNEL_DEFAULT_NETWORK, 
+																	 CHANNEL_0_ANT_EXT_ASSIGN);
+	APP_ERROR_CHECK(err_code);
 
-    // Set Channel ID.
-    err_code = sd_ant_channel_id_set(CHANNEL_0, 
-                                     CHANNEL_0_CHAN_ID_DEV_NUM, 
-                                     CHANNEL_0_CHAN_ID_DEV_TYPE, 
-                                     CHANNEL_0_CHAN_ID_TRANS_TYPE);
-    APP_ERROR_CHECK(err_code);
+	// Set Channel ID.
+	err_code = sd_ant_channel_id_set(CHANNEL_0, 
+																	 CHANNEL_0_CHAN_ID_DEV_NUM, 
+																	 CHANNEL_0_CHAN_ID_DEV_TYPE, 
+																	 CHANNEL_0_CHAN_ID_TRANS_TYPE);
+	APP_ERROR_CHECK(err_code);
 
-    // Open channel.
-    err_code = sd_ant_channel_open(CHANNEL_0);
-    APP_ERROR_CHECK(err_code);
+	// Open channel.
+	err_code = sd_ant_channel_open(CHANNEL_0);
+	APP_ERROR_CHECK(err_code);
 }
 
 static void send_reverse_data() {
-            uint32_t err_code;
+	uint32_t err_code;
 
-            //m_broadcast_data[2] = ; //this does the job
-						
+	//m_broadcast_data[2] = ; //this does the job
+	
 //						SEGGER
-						Segger_write_string("Dataready: ");
-						Segger_write_one_hex_value(dataready);
-						Segger_write_string(" Transmitready: ");
-						Segger_write_one_hex_value(transmit.ready);
-						Segger_write_string("\n");
-	
-						if(dataready==1 && transmit.ready==1){
-							//transmit.ready=0;
-							//uint8_t message[1];
-							//message[0] = recieved_value;
-							//FillSendData(1, message);
-							//SEGGER_RTT_WriteString(0, "Event.\n");
-							
-							EnCode(recieved_security, recieved_value);
-							
-							//recieve.length=0;
-							dataready=0; //!!!!
-						}
+	#ifdef  DEBUG_SEGMENTER_MESSAGES
+		Segger_write_string("Dataready: ");
+		Segger_write_one_hex_value(dataready);
+		Segger_write_string(" Transmitready: ");
+		Segger_write_one_hex_value(transmit.ready);
+		Segger_write_string("\n");
+	#endif
 
-						SendData(m_broadcast_data);
-						
-            // Broadcast the data. 
-            err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
-                                                   BROADCAST_DATA_BUFFER_SIZE, 
-                                                   m_broadcast_data);
-            APP_ERROR_CHECK(err_code);
+	if(dataready==1 && transmit.ready==1) {
+		//transmit.ready=0;
+		//uint8_t message[1];
+		//message[0] = recieved_value;
+		//FillSendData(1, message);
+		//SEGGER_RTT_WriteString(0, "Event.\n");
+		
+		EnCode(recieved_security, recieved_value);
+		
+		//recieve.length=0;
+		dataready=0; //!!!!
+	}
+
+	SendData(m_broadcast_data);
 	
-						Segger_write_string("Sending values:");
-						for(uint16_t i=0; i<8; i++)
-							Segger_write_one_hex_value(m_broadcast_data[i]);
-						Segger_write_string("\n");
+	// Broadcast the data. 
+	err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
+																				 BROADCAST_DATA_BUFFER_SIZE, 
+																				 m_broadcast_data);
+	APP_ERROR_CHECK(err_code);
+
+	Segger_write_string("Sending values:");
+	for(uint16_t i=0; i<8; i++)
+		Segger_write_one_hex_value(m_broadcast_data[i]);
+	Segger_write_string("\n");
 }
 
 /**@brief Function for handling ANT TX channel events. 
@@ -146,24 +148,25 @@ static void send_reverse_data() {
 static void channel_event_handle_transmit(uint32_t event) {
 //    uint32_t err_code;
     
-    switch (event) {
-        case EVENT_TX:
-            /*// Assign a new value to the broadcast data. 
-            m_broadcast_data[2] = recieved_value; //BROADCAST_DATA_BUFFER_SIZE - 1
-            
-            // Broadcast the data. 
-            err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
-                                                   BROADCAST_DATA_BUFFER_SIZE, 
-                                                   m_broadcast_data);
-            APP_ERROR_CHECK(err_code);*/
+	switch (event) {
+		case EVENT_TX:
+				Segger_write_string("Event TX.\n")
+				/*// Assign a new value to the broadcast data. 
+				m_broadcast_data[2] = recieved_value; //BROADCAST_DATA_BUFFER_SIZE - 1
 				
-						send_reverse_data();
-            
-			//SEGGER_RTT_WriteString(0, "Sending2.\n");
-            break;
-        default:
-            break;
-    }
+				// Broadcast the data. 
+				err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
+																							 BROADCAST_DATA_BUFFER_SIZE, 
+																							 m_broadcast_data);
+				APP_ERROR_CHECK(err_code);*/
+		
+				send_reverse_data();
+				
+	//SEGGER_RTT_WriteString(0, "Sending2.\n");
+				break;
+		default:
+				break;
+	}
 }
 
 /**@brief Function for handling ANT RX channel events. 
@@ -175,40 +178,41 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer) {
 	int err_code;
 	//SEGGER_RTT_WriteString(0, "Recieved EVENT\n");
 	
-			switch (p_event_message_buffer[ANT_MSG_IDX_ID]) {
+	switch (p_event_message_buffer[ANT_MSG_IDX_ID]) {
+		case MESG_BROADCAST_DATA_ID:
+			
+				Segger_write_string("Event RX.\n")
+					
+				Segger_write_string("Recieved values:");
+				for(uint16_t i=0; i<12; i++)
+					Segger_write_one_hex_value(p_event_message_buffer[i]);			
+				SEGGER_RTT_WriteString(0, "\n");	
+			
+				success = AddMessage(p_event_message_buffer);	
+		
+				if(success==1){
+					Segger_write_string("Recieve SUCCESS\n");
+					
+					//recieved_value=p_event_message_buffer[5];
+					Decode(recieve.length, recieve.message);
+					
+					recieve.length=0;
+					dataready=1;
+					
+					err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
+																							 BROADCAST_DATA_BUFFER_SIZE, 
+																							 m_broadcast_data);
+					APP_ERROR_CHECK(err_code);
+				}
+				else {
+					//SEGGER_RTT_WriteString(0, "Recieved EMPTY\n");
+				}						
+				break;
 				
-				case MESG_BROADCAST_DATA_ID:    
-					Segger_write_string("Recieved values:");
-					for(uint16_t i=0; i<12; i++)
-						Segger_write_one_hex_value(p_event_message_buffer[i]);			
-					SEGGER_RTT_WriteString(0, "\n");	
-				
-						success = AddMessage(p_event_message_buffer);	
-						if(success==1){
-							Segger_write_string("Recieve SUCCESS\n");
-							
-							//recieved_value=p_event_message_buffer[5];
-							Decode(recieve.length, recieve.message);
-							
-							recieve.length=0;
-							dataready=1;
-							
-							err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 
-                                                   BROADCAST_DATA_BUFFER_SIZE, 
-                                                   m_broadcast_data);
-							APP_ERROR_CHECK(err_code);
-						}
-						else {
-							//SEGGER_RTT_WriteString(0, "Recieved EMPTY\n");
-						}
-						
-						
-						break;
-						
-				default:      
-						break;
-			}
-			Segger_write_hex_value(recieved_value);
+		default:      
+				break;
+	}
+	Segger_write_hex_value(recieved_value);
 }
 
 /**@brief Function for stack interrupt handling.
@@ -227,77 +231,73 @@ void PROTOCOL_EVENT_IRQHandler(void) {
  * @param[in] p_file_name Pointer to the file name. 
  */
 void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * p_file_name) {
-    for (;;) {
-				Segger_write_string("Assert callback.\n");
-    }
+	Segger_write_string("Assert callback.\n");
+	for (;;) {
+	}
 }
 
 /**@brief Function for handling HardFault.
  */
 void HardFault_Handler(void) {
-    for (;;) {
-				Segger_write_string("Hard fault occured\n");
-    }
+	Segger_write_string("Hard fault occured\n");
+	for (;;) {
+	}
 }
 
 /**@brief Function for application main entry. Does not return.
  */
 int main(void) {
     // ANT event message buffer.
-		init();
-    static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE]; 
-      
-    // Enable SoftDevice.
-    uint32_t err_code;
-    err_code = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_XTAL_50_PPM, softdevice_assert_callback);
-    APP_ERROR_CHECK(err_code);
+	init();
+	static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE]; 
+		
+	// Enable SoftDevice.
+	uint32_t err_code;
+	err_code = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_XTAL_50_PPM, softdevice_assert_callback);
+	APP_ERROR_CHECK(err_code);
 
-    // Set application IRQ to lowest priority.
-    err_code = sd_nvic_SetPriority(PROTOCOL_EVENT_IRQn, NRF_APP_PRIORITY_LOW); 
-    APP_ERROR_CHECK(err_code);
+	// Set application IRQ to lowest priority.
+	err_code = sd_nvic_SetPriority(PROTOCOL_EVENT_IRQn, NRF_APP_PRIORITY_LOW); 
+	APP_ERROR_CHECK(err_code);
 
-    // Enable application IRQ (triggered from protocol).
-    err_code = sd_nvic_EnableIRQ(PROTOCOL_EVENT_IRQn);
-    APP_ERROR_CHECK(err_code);
+	// Enable application IRQ (triggered from protocol).
+	err_code = sd_nvic_EnableIRQ(PROTOCOL_EVENT_IRQn);
+	APP_ERROR_CHECK(err_code);
 
-    // Setup Channel_0 as a RX Slave.
-    ant_channel_slave_broadcast_setup();
- 
-    uint8_t event;
-    uint8_t ant_channel;
-  
-    // Main loop.
-    for (;;)
-    {   
-        // Put CPU in sleep if possible
-        err_code = sd_app_event_wait();
-        APP_ERROR_CHECK(err_code);
-        
-        // Extract and process all pending ANT events as long as there are any left.      
-        do
-        {
-            // Fetch the event.
-            err_code = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
-            if (err_code == NRF_SUCCESS)
-            {
-                // Handle event.
-                switch (event)
-                {
+	// Setup Channel_0 as a RX Slave.
+	ant_channel_slave_broadcast_setup();
+
+	uint8_t event;
+	uint8_t ant_channel;
+
+	// Main loop.
+	for (;;) {   
+		// Put CPU in sleep if possible
+		err_code = sd_app_event_wait();
+		APP_ERROR_CHECK(err_code);
+		
+		// Extract and process all pending ANT events as long as there are any left.      
+		do {
+			// Fetch the event.
+			err_code = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
+			if (err_code == NRF_SUCCESS) {
+					// Handle event.
+				switch (event) {
 					case EVENT_TX:
-                        channel_event_handle_transmit(event);
+							channel_event_handle_transmit(event);
 //												SEGGER_RTT_WriteString(0, "Sending1.\n");
-                        break;
-                    case EVENT_RX:
-                        channel_event_handle_recieve(event_message_buffer);
+							break;
+					case EVENT_RX:
+							channel_event_handle_recieve(event_message_buffer);
 //												SEGGER_RTT_WriteString(0, "Receiving.\n");
-                        break;
-                    default:
-                        break;
-                }
-            }          
-        } 
-        while (err_code == NRF_SUCCESS);
-    }
+							break;
+					default:
+							break;
+				}
+			}          
+		} 
+		while (err_code == NRF_SUCCESS);
+	}
 }
 
 /**

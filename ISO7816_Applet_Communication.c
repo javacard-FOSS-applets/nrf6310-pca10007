@@ -40,10 +40,10 @@ uint8_t ED_SC_Message_Wrap(uint8_t * message) {
 	
 	//todo retransmit if no succesfull// for now drop the message
 	if(Check_Succesfull_Execution_of_Instruction()) {
-		Segger_write_string("Encrypt/decrypt operations succesful.");
+		Segger_write_string("Encrypt/decrypt operations succesful.\n");
 		return 1;
 	}
-	Segger_write_string("Encrypt/decrypt operations NOT succesful!");
+	Segger_write_string("Encrypt/decrypt operations NOT succesful!\n");
 	return 0;
 }
 
@@ -60,7 +60,12 @@ void HW_AES_Encode(uint8_t * message, uint8_t value) {
 	
 	if(ED_SC_Message_Wrap(message)) {
 		//retrieve message
-		Retrieve_Message(message, 16); //12
+		Retrieve_Message(message, 17); //12
+
+		#ifdef DEBUG_RETRIEVE_BUFFER
+			Segger_write_string("\n\n\t\t Retrieved array:");
+			Print_Array(16, message);
+		#endif
 	}
 }
 
@@ -70,6 +75,10 @@ uint8_t HW_AES_Decode(uint8_t * message) {
 	
 	if(ED_SC_Message_Wrap(message)) {
 		Retrieve_Message(message, 16); //12
+		#ifdef DEBUG_RETRIEVE_BUFFER
+			Segger_write_string("\n\n\t\t Retrieved array:");
+			Print_Array(16, message);
+		#endif
 		//return  valuse
 		return message[0];
 	}
