@@ -14,6 +14,7 @@ void Test_Compare_Recieved_Value(uint8_t recieved_value) {
 		
 		if(sent_value>=TEST_MAX_VALUE) {
 			GLobal_Test_Mode_Active=false;
+			Wait_For_Button_Press(0);
 		}
 	}
 	else {

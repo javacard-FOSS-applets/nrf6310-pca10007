@@ -292,7 +292,7 @@ void Test(void) {
 	Try_Locating_Card_Manager_Brute();
 	Try_Locating_Classes();
 	Try_Locating_Instructions();
-	//Wait_For_Button_Press();
+	//Wait_For_Button_Press(1);
 }
 
 

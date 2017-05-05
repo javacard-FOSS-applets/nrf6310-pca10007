@@ -34,7 +34,7 @@ int main(void) {
 	uint32_t temperature;
 				//printf("Test\r\n");
 	init();
-
+	Wait_For_Button_Press(0);
 	Bootloader();
 	
 	BlinkLEDS(10);

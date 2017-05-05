@@ -116,7 +116,7 @@ void 			SetLEDS(uint8_t);
 void 			BlinkLEDS(uint8_t);
 uint8_t 	ReadButtons(void);
 uint8_t	 	ButtonsChanged(void);
-void 			Wait_For_Button_Press(void);
+void 			Wait_For_Button_Press(uint8_t);
 
 //########################	Segger debugging && info				###############################
 #define DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE 0
@@ -255,7 +255,7 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	//########################	Automated test  										###############################
 	
 		#define TEST_MAX_VALUE 					32
-		#define TEST_MAX_WAIT_TRESHOLD 	10
+		#define TEST_MAX_WAIT_TRESHOLD 	30
 	
 		void 		Test_Compare_Recieved_Value(uint8_t recieved_value);
 		uint8_t Get_Actual_Test_Value(void);

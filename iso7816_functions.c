@@ -28,7 +28,7 @@ void init_Card(void) {
 	test_Card();
 	
 	Card_Deactivate();
-	//Wait_For_Button_Press();
+	//Wait_For_Button_Press(1);
 
 	nrf_delay_ms(500);
 
