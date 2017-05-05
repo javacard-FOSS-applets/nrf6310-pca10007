@@ -133,7 +133,7 @@ void 			Print_Array(uint8_t Lenght, uint8_t*  Message);
 
 uint8_t 	AddMessage(uint8_t*);
 
-void		 	SendData(uint8_t*);
+void		 	SendData(uint8_t* Message_to_fill, uint8_t Data_was_ready);
 void 			FillSendData(uint16_t, uint8_t*);
 
 

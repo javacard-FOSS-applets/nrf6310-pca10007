@@ -165,18 +165,21 @@ void FillSendData(uint16_t count, uint8_t* message) {
 	}
 }
 
-void SendData(uint8_t* messagebuffer){
+void SendData(uint8_t* messagebuffer, uint8_t Data_was_ready){
 	//uint8_t buffer[12];
-	
-	messagebuffer[0]=send_counter;
-	messagebuffer[1]=send_counter + transmit.length - transmit.count;
-	
-	if(transmit.length==0 && transmit.count==0) //empty
-	{
+	if (!Data_was_ready) {
+		messagebuffer[0]=send_counter;
+		messagebuffer[1]=send_counter;
+	}
+	else {
+		messagebuffer[0]=send_counter;
+		messagebuffer[1]=send_counter + transmit.length - transmit.count;
+	}
+		 
+	if (!Data_was_ready) {
 		messagebuffer[2]=0; 
 		
-		for(int i=0; i<6 && i<6; i++)
-		{
+		for(int i=0; i<6 && i<6; i++) {
 			messagebuffer[2+i] = 0;
 		}
 		send_counter++;
@@ -184,29 +187,37 @@ void SendData(uint8_t* messagebuffer){
 			Segger_write_string("Sending empty.\n");
 		#endif
 	}
-	else
-	{
-		for(int i=0; i<6 && transmit.count<transmit.length; i++)
-		{
+	else if((transmit.length==0 && transmit.count==0)) { //empty 
+		messagebuffer[2]=0; 
+		
+		for(int i=0; i<6 && i<6; i++) {
+			messagebuffer[2+i] = 0;
+		}
+		send_counter++;
+		#ifdef DEBUG_SEGMENTER_MESSAGES
+			Segger_write_string("Sending empty.\n");
+		#endif
+	}
+	else {
+		for(int i=0; i<6 && transmit.count<transmit.length; i++) {
 			messagebuffer[2+i] = transmit.message[transmit.count++];
 			send_counter++;
 		}
 	}
 
-	if(transmit.count==transmit.length)
-	{
+	if(transmit.count==transmit.length) {
 		transmit.count=0;
 		transmit.length=0;
 		transmit.ready=1;
+		Global_Data_Ready_For_Transfer=false;
 		#ifdef DEBUG_SEGMENTER_MESSAGES
-			SEGGER_RTT_WriteString(0, "FINISHED.\n");
+			Segger_write_string("FINISHED.\n");
 		#endif
 	}
-	else
-	{
+	else {
 		transmit.ready=0;
 		#ifdef DEBUG_SEGMENTER_MESSAGES
-			SEGGER_RTT_WriteString(0, "Fragmenting.\n");
+			Segger_write_string("Fragmenting.\n");
 		#endif
 	}
 

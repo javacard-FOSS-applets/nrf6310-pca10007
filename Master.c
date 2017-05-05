@@ -38,7 +38,7 @@
 
 // Channel configuration. 
 #define CHANNEL_0                       0x00                 /**< ANT Channel 0. */
-#define CHANNEL_0_TX_CHANNEL_PERIOD     18192u                /**< Channel period 4 Hz. */
+#define CHANNEL_0_TX_CHANNEL_PERIOD     18192u                /**< Channel period 4 Hz. 8192    x/[Hz] */
 #define CHANNEL_0_ANT_EXT_ASSIGN        0x00                 /**< ANT Ext Assign. */
 
 // Channel ID configuration. 
@@ -83,6 +83,10 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 static void ant_channel_master_broadcast_setup(void) {
     uint32_t err_code;
     
+		sd_ant_channel_period_set(CHANNEL_0, CHANNEL_0_TX_CHANNEL_PERIOD);
+	  APP_ERROR_CHECK(err_code);
+	
+	
     // Set Channel Number. 
     err_code = sd_ant_channel_assign(CHANNEL_0, 
                                      CHANNEL_TYPE_MASTER, 
@@ -98,6 +102,8 @@ static void ant_channel_master_broadcast_setup(void) {
                                      CHANNEL_0_CHAN_ID_TRANS_TYPE);
     APP_ERROR_CHECK(err_code);
 
+	
+		
     // Open channel. 
     err_code = sd_ant_channel_open(CHANNEL_0);
     APP_ERROR_CHECK(err_code);
@@ -110,13 +116,26 @@ static void ant_channel_master_broadcast_setup(void) {
  */
 static void channel_event_handle_transmit(uint32_t event) {
 	uint32_t err_code;
+	uint8_t Data_was_ready;
+	
+	uint8_t Pending_Transmit=0;
+	sd_ant_pending_transmit(CHANNEL_0, &Pending_Transmit);
+	
+	if(Pending_Transmit) {
+		Segger_write_string("TRANSMIT PENDING!!!");
+		//return;
+	}
 	
 	switch (event) {
 			case EVENT_TX:
+					
 					// Assign a new value to the broadcast data. 
 					Segger_write_string("Event TX.\n");
 					ReadButtons();
-					if(dataready==1 && transmit.ready==1) { // imp
+			
+					Data_was_ready=Global_Data_Ready_For_Transfer;
+			
+					if(dataready==1 && transmit.ready==1 && Global_Data_Ready_For_Transfer==false) { // imp
 						dataready=0; //!!!!
 						//uint8_t message[1];
 						//message[0] = ReadButtons();
@@ -126,11 +145,8 @@ static void channel_event_handle_transmit(uint32_t event) {
 						//#endif
 						EnCode(Global_Default_Security, ReadButtons());
 					}
-					else {
-						//SEGGER_RTT_WriteString(0, "Sending empty.\n");
-					}
 
-					SendData(m_broadcast_data);
+					SendData(m_broadcast_data, Data_was_ready);
 				
 					// Broadcast the data. 
 					err_code = sd_ant_broadcast_message_tx(CHANNEL_0, 

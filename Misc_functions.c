@@ -73,10 +73,9 @@ uint32_t ReadTemperature() {
 	NRF_TEMP->TASKS_STOP=1;
 	NRF_TEMP->POWER=0;
 		
-	if(previous != value)
-	{
+	if(previous != value) {
 	 sprintf(string, "TEMP: %d\n", value);
-	 SEGGER_RTT_WriteString(0, string);
+	 Segger_write_string(string);
 	 previous = value;
 	}
 	

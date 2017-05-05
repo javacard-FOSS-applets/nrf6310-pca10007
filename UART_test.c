@@ -11,10 +11,10 @@
 	
 	while(true) {
 	
-		SEGGER_RTT_WriteString(0, "Recieving!\n");
+		Segger_write_string("Recieving!\n");
 		value = Recieve_UART();
 		write_one_hex_value(value);
-		SEGGER_RTT_WriteString(0, "Sending!\n");
+		Segger_write_string("Sending!\n");
 		Send_UART(value);
 	}
 }
@@ -28,7 +28,7 @@ int main(void) {
 	init_UART();
 	
 	while(true) {
-		SEGGER_RTT_WriteString(0, "Recieving!\n");
+		Segger_write_string("Recieving!\n");
 		value = Recieve_UART();
 		write_one_hex_value(value);
 	}
@@ -40,7 +40,7 @@ int main(void) {
 	init_UART();
 	
 	while(true) {
-		SEGGER_RTT_WriteString(0, "Sending!\n");
+		Segger_write_string("Sending!\n");
 		Send_UART(value);
 		value++;
 		nrf_delay_ms(1000);
