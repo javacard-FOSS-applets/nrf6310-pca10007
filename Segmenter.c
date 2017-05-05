@@ -174,7 +174,7 @@ void SendData(uint8_t* messagebuffer, uint8_t Data_was_ready) {
 		messagebuffer[0]=send_counter;
 		messagebuffer[1]=send_counter;
 	}
-	else if (Global_Default_Security==MSG_HW_SYMM && delay_in_send_cycles < 5) {
+	else if (recieved_security==MSG_HW_SYMM && delay_in_send_cycles < 5) {
 		messagebuffer[0]=send_counter;
 		messagebuffer[1]=send_counter;
 	}
@@ -194,7 +194,7 @@ void SendData(uint8_t* messagebuffer, uint8_t Data_was_ready) {
 			Segger_write_string("Sending empty.\n");
 		#endif
 	}
-	else if (Global_Default_Security==MSG_HW_SYMM && delay_in_send_cycles++ < 5) {
+	else if (recieved_security==MSG_HW_SYMM && delay_in_send_cycles++ < 5) { //Global_Default_Security
 		Segger_write_string("\t\t\t\tSkippppppppping!!!!!!");
 		send_counter++;
 	}
