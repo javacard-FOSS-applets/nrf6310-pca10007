@@ -70,7 +70,7 @@ typedef enum {MSG_EMPTY=0x00,
 typedef struct {
 	uint16_t length;
 	uint8_t count;
-	uint8_t message[5];
+	uint8_t message[128];
 	uint8_t ready;
 } MessageBuffer;
 
@@ -115,12 +115,14 @@ void 			Wait_For_Button_Press(void);
 
 //########################	Segger debugging && info				###############################
 #define DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE 0
+
 void 			Segger_write_hex_value(uint8_t);
 void			Segger_write_one_hex_value(uint8_t);
 void 			Segger_write_string(const char *string);
 void 			Segger_write_string_value(const char *string, uint8_t);
 void 			Segger_write_one_hex_value_32(uint32_t) ;
 void 			Segger_write_string_int(const char* message, uint32_t value);
+void 			Print_Array(uint8_t Lenght, uint8_t*  Message);
 
 //########################	Radio message segmentation functions		###############################
 
