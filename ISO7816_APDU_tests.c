@@ -302,7 +302,7 @@ void test_Card(void) {
 	Card_Activate();
 	SC_Recieve_ATR_And_Config();
 
-	Test();
+	//Test();
 	
 	Card_wait();
 	Card_Deactivate();

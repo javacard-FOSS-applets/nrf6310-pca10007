@@ -28,6 +28,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "Universal.h"
+
 void init(void);
 void BlinkLEDS(uint8_t);
 void SetLEDS(uint8_t);
@@ -43,6 +45,8 @@ int main(void)
 				//printf("Test\r\n");
 	init();
 
+	Bootloader();
+	
 	BlinkLEDS(10);
 	while(1==1)
 	{

@@ -91,6 +91,11 @@ typedef struct {
 #define LRC_OFFSET_BLOCK 0
 
 
+
+//########################	Bootloader 											###############################
+
+void Bootloader(void);
+
 //########################	Main init 											###############################
 
 void 			init(void);

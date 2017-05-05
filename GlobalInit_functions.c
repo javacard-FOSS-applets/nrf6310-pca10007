@@ -40,7 +40,7 @@ void PrepareLEDS(void);
 void PrepareButtons(void);
 
 void init() {
-	Segger_write_string("Segger RTT Console 0, nrf51422 Debug.\n");
+	Segger_write_string("Segger RTT Console, nrf51422 Debug.\n");
 	
 	Segger_write_string("Preparing LEDS!\n");
 		PrepareLEDS();
@@ -52,7 +52,7 @@ void init() {
 
 	//init_ISO7816_pins();
 	Segger_write_string("Preparing Smart Card interface!\n");
-		init_Card();
+	//	init_Card();
 	
 	//PrepareTemp();
 	
@@ -72,10 +72,7 @@ void init() {
 	ENC_DEC_Test();
 	ENC_DEC_Test();
 	
-	ReadButtons();
-	if(ReadButtons() == 0x01) {
-		Debug_Mode();
-	}
+	Bootloader();
 	
 	Segger_write_string("\n");
 }

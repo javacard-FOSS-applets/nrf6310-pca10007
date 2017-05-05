@@ -577,6 +577,11 @@
               <FilePath>.\EncodeDecode.c</FilePath>
             </File>
             <File>
+              <FileName>Bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader.c</FilePath>
+            </File>
+            <File>
               <FileName>Segmenter.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segmenter.c</FilePath>
@@ -1664,6 +1669,11 @@
               <FilePath>.\EncodeDecode.c</FilePath>
             </File>
             <File>
+              <FileName>Bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader.c</FilePath>
+            </File>
+            <File>
               <FileName>Segmenter.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segmenter.c</FilePath>
@@ -2713,6 +2723,11 @@
               <FilePath>.\EncodeDecode.c</FilePath>
             </File>
             <File>
+              <FileName>Bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader.c</FilePath>
+            </File>
+            <File>
               <FileName>Segmenter.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segmenter.c</FilePath>
@@ -3742,6 +3757,11 @@
               <FileName>EncodeDecode.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader.c</FilePath>
             </File>
             <File>
               <FileName>Segmenter.c</FileName>
@@ -4811,6 +4831,11 @@
               <FileName>EncodeDecode.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader.c</FilePath>
             </File>
             <File>
               <FileName>Segmenter.c</FileName>
@@ -5950,6 +5975,11 @@
               <FilePath>.\EncodeDecode.c</FilePath>
             </File>
             <File>
+              <FileName>Bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader.c</FilePath>
+            </File>
+            <File>
               <FileName>Segmenter.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Segmenter.c</FilePath>
@@ -7035,6 +7065,11 @@
               <FileName>EncodeDecode.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\EncodeDecode.c</FilePath>
+            </File>
+            <File>
+              <FileName>Bootloader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader.c</FilePath>
             </File>
             <File>
               <FileName>Segmenter.c</FileName>
