@@ -4,6 +4,8 @@ static struct spec_err {
 	uint16_t sw;
 	char *message;
 } SPECIFC_ERRORS[] = {
+	
+#ifndef DEBUG_SAVE_SPACE
 	{0x0600, "Class not supported."}, 
 	{0x6200, "Application has been logically deleted"}, 
 	{0x6200, "No information given (NV-Ram not changed)"}, 
@@ -80,13 +82,8 @@ static struct spec_err {
 	{0x69F0, "Permission Denied"}, 
 	{0x69F1, "Permission Denied - Missing Privilege"}, 
 	
-	{0x8000, "OK"}, 
-	
-	{0x8100, "NXP-NPC Possible LCR/CRC error"}, 
-	{0x8200, "NXP-NPC Possible LCR/CRC error"}, 
 	//{0x9200, "Exponent e is too long"}, 
-	
-	{0x9000, "Command successfully executed (OK)."}, 
+		
 	{0x9004, "PIN not succesfully verified, 3 or more PIN tries left"}, 
 	{0x9008, "Key/file not found"}, 
 	{0x9080, "Unblock Try Counter has reached zero"}, 
@@ -291,7 +288,13 @@ static struct spec_err {
 	{0x6E00, "Checking error: Class not supported"}, 
 	{0x9804, "Access conditions not satisfied"}, 
 	{0x9210, "No more storage available"}, 
-	{0x6F00, "Checking error: No precise diagnosis"}
+	{0x6F00, "Checking error: No precise diagnosis"},
+#endif		
+	{0x8000, "OK"}, 
+	{0x9000, "Command successfully executed (OK)."}, 
+	{0x8100, "NXP-NPC Possible LCR/CRC error"}, 
+	{0x8200, "NXP-NPC Possible LCR/CRC error"}, 
+
 };
 
 

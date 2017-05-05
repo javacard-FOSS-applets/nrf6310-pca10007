@@ -20,8 +20,8 @@ static uint16_t Clock_rate_conversion_factor_F[16] = { INTERNAL_CLK, 372, 558, 7
 static uint8_t Bit_rate_adjustment_factor_D[16] = { RFU, 1,   2, 4, 8, 16, 32, 64,
 								    																 //RFU, RFU, 2, 4, 8, 16, 32,  64 };
 																									12, 20, 1/2, 1/4, 1/8, 1/16, 1/32, 1/64 };
-static uint8_t Programing_Current_Factor_I[4] = {25, 50, 100, RFU };
 
+static uint8_t Programing_Current_Factor_I[4] = {25, 50, 100, RFU };
 
 //http://java.inf.elte.hu/java-1.2/javacard/iso7816.txt
 

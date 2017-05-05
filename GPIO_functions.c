@@ -13,9 +13,10 @@ void PrepareLEDS() {
 	//NRF_GPIO->PIN_CNF[31]=0x01;
 	
 	SetLEDS(0xFF);
-	nrf_delay_ms(500);
+		nrf_delay_ms(500);
+	
 	SetLEDS(0x00);
-	nrf_delay_ms(500);
+		nrf_delay_ms(500);
 	
 	/*NRF_GPIO->OUT=((uint32_t)0xFF << LEDS);
 	NRF_GPIO->OUT=0x00000000;*/

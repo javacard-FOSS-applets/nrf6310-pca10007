@@ -11,6 +11,7 @@
 
 #define DEGUB_PRINTS
 #define DEGUB_UART
+#define DEBUG_SAVE_SPACE
 
 //########################	  Defines  		###############################
 
