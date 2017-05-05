@@ -59,8 +59,6 @@ static uint8_t m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE]; /**< Primary data t
 
 #define DEVICEID 0xffff
 
-uint8_t recieved_value=0;
-uint8_t recieved_security=0;
 
 /**@brief Function for handling an error. 
  *
@@ -256,7 +254,7 @@ int main(void) {
     // on the recieving end. 
 		dataready=1;
     //EnCode(MSG_UNSECURED, ReadButtons());
-EnCode(DEFAULT_SECURITY, ReadButtons());
+EnCode(Global_Default_Security, ReadButtons());
 		//m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE - 1] = ReadButtons();
   
     // Initiate the broadcast loop by sending a packet on air, 

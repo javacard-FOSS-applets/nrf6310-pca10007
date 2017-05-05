@@ -61,7 +61,10 @@ typedef enum {MSG_EMPTY=0x00,
 							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
 							MSG_HW_SYMM=0x04, MSG_HW_ASYMM=0x05} security_type;
 
-							#define DEFAULT_SECURITY (MSG_SW_SYMM)
+							#define DEFAULT_SECURITY (MSG_UNSECURED)
+							
+							extern uint8_t Global_Default_Security;
+							extern uint8_t GLobal_Test_Mode_Active;
 							//security_type security = MSG_EMPTY;
 
 typedef struct {

@@ -2,10 +2,6 @@
 
 #include "Universal.h"
 
-
-uint8_t recieved_value=0;
-uint8_t recieved_security=0;
-
 // simply send what you recieved, basic test
 /*int main(void) {
 

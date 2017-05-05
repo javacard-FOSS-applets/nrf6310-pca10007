@@ -464,6 +464,16 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Globals</GroupName>
+          <Files>
+            <File>
+              <FileName>Globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Globals.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Functions</GroupName>
           <Files>
             <File>
@@ -1556,6 +1566,16 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Globals</GroupName>
+          <Files>
+            <File>
+              <FileName>Globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Globals.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Functions</GroupName>
           <Files>
             <File>
@@ -2610,6 +2630,16 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Globals</GroupName>
+          <Files>
+            <File>
+              <FileName>Globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Globals.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Functions</GroupName>
           <Files>
             <File>
@@ -3642,6 +3672,16 @@
               <FileName>mbr.a</FileName>
               <FileType>2</FileType>
               <FilePath>.\mbr.a</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Globals</GroupName>
+          <Files>
+            <File>
+              <FileName>Globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Globals.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4716,6 +4756,16 @@
                   </Aads>
                 </FileArmAds>
               </FileOption>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Globals</GroupName>
+          <Files>
+            <File>
+              <FileName>Globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Globals.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5808,6 +5858,16 @@
                   </Aads>
                 </FileArmAds>
               </FileOption>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Globals</GroupName>
+          <Files>
+            <File>
+              <FileName>Globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Globals.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6950,6 +7010,16 @@
                   </Aads>
                 </FileArmAds>
               </FileOption>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Globals</GroupName>
+          <Files>
+            <File>
+              <FileName>Globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Globals.c</FilePath>
             </File>
           </Files>
         </Group>

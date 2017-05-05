@@ -57,11 +57,7 @@
 static uint8_t m_broadcast_data[BROADCAST_DATA_BUFFER_SIZE]; /**< Primary data transmit buffer. */
 //static uint8_t m_counter = 1u;                               /**< Counter to increment the ANT broadcast data payload. */
 
-uint8_t recieved_value=0;
-uint8_t recieved_security=0;
-
 #define DEVICEID 0xaaaa
-
 
 /**@brief Function for handling an error. 
  *
@@ -69,10 +65,8 @@ uint8_t recieved_security=0;
  * @param[in] line_num    Line number where the error occurred.
  * @param[in] p_file_name Pointer to the file name. 
  */
-void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
-{
-    for (;;)
-    {
+void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name) {
+    for (;;) {
 			SEGGER_RTT_WriteString(0, "App error!\n");
     }
 }
@@ -84,8 +78,7 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
  * - set channel ID
  * - open channel
  */
-static void ant_channel_slave_broadcast_setup(void)
-{
+static void ant_channel_slave_broadcast_setup(void) {
     uint32_t err_code;
 
     // Set Channel Number.
@@ -126,7 +119,7 @@ static void send_reverse_data() {
 							//FillSendData(1, message);
 							//SEGGER_RTT_WriteString(0, "Event.\n");
 							
-							EnCode(DEFAULT_SECURITY, recieved_value);
+							EnCode(recieved_security, recieved_value);
 							
 							//recieve.length=0;
 							dataready=0; //!!!!
@@ -150,12 +143,10 @@ static void send_reverse_data() {
  *
  * @param[in] event The received ANT event to handle.
  */
-static void channel_event_handle_transmit(uint32_t event)
-{
+static void channel_event_handle_transmit(uint32_t event) {
 //    uint32_t err_code;
     
-    switch (event)
-    {
+    switch (event) {
         case EVENT_TX:
             /*// Assign a new value to the broadcast data. 
             m_broadcast_data[2] = recieved_value; //BROADCAST_DATA_BUFFER_SIZE - 1
@@ -179,8 +170,7 @@ static void channel_event_handle_transmit(uint32_t event)
  *
  * @param[in] p_event_message_buffer The ANT event message buffer. 
  */
-static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)        
-{
+static void channel_event_handle_recieve(uint8_t* p_event_message_buffer) {
 	uint8_t success=0;
 	int err_code;
 	//SEGGER_RTT_WriteString(0, "Recieved EVENT\n");
@@ -226,8 +216,7 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer)
  * Implemented to clear the pending flag when receiving 
  * an interrupt from the stack.
  */
-void PROTOCOL_EVENT_IRQHandler(void)
-{
+void PROTOCOL_EVENT_IRQHandler(void) {
 
 }
 

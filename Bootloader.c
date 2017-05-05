@@ -1,4 +1,6 @@
+#include "nrf_delay.h"
 #include "Universal.h"
+
 
 void LED_State(uint8_t Security, uint8_t Test) {
 	uint8_t value=0;
@@ -25,8 +27,9 @@ void Bootloader(void) {
 	uint8_t bootloader_exit=false;
 	uint8_t key;
 
-	uint8_t security=DEFAULT_SECURITY;
-	uint8_t run_test=false;
+	Global_Default_Security=DEFAULT_SECURITY;
+	
+	GLobal_Test_Mode_Active=false;
 	
 	// flush keys
 	ReadButtons();
@@ -35,13 +38,14 @@ void Bootloader(void) {
 
 			key=ReadButtons();
 			switch(key) {
-				case 0x01: security=MSG_UNSECURED;// no security
+				case 0x01: Global_Default_Security=MSG_UNSECURED;// no security
 									break;
-				case 0x02: security=MSG_SW_SYMM;// SW AES
+				case 0x02: Global_Default_Security=MSG_SW_SYMM;// SW AES
 									break;
-				case 0x04: security=MSG_HW_SYMM;// HW AES
+				case 0x04: Global_Default_Security=MSG_HW_SYMM;// HW AES
 									break;
-				case 0x10: run_test=true;// test
+				case 0x10: GLobal_Test_Mode_Active=~GLobal_Test_Mode_Active;// test
+									 nrf_delay_ms(150);
 									break;
 				case 0x40: Debug_Mode();// ISO7816_UART converter
 									break;
@@ -49,7 +53,7 @@ void Bootloader(void) {
 									bootloader_exit=true;
 									break;
 			}
-			LED_State(security, run_test);
+			LED_State(Global_Default_Security, GLobal_Test_Mode_Active);
 		}
 	}
 }
