@@ -47,10 +47,14 @@ void Bootloader(void) {
 				case 0x10: GLobal_Test_Mode_Active=~GLobal_Test_Mode_Active;// test
 									 nrf_delay_ms(150);
 									break;
-				case 0x40: Debug_Mode();// ISO7816_UART converter
-									break;
+				case 0x40: 	BlinkLEDS(1);
+										bootloader_exit=true;
+										Debug_Mode();// ISO7816_UART converter
+										return;
+										break;
 				case 0x80: // accept
 									bootloader_exit=true;
+									return;
 									break;
 			}
 			LED_State(Global_Default_Security, GLobal_Test_Mode_Active);

@@ -26,6 +26,8 @@ void init_Card(void) {
 	Test_Error_Database();
 	init_ISO7816_pins();
 	test_Card();
+	
+	Card_Deactivate();
 	//Wait_For_Button_Press();
 
 	nrf_delay_ms(500);
@@ -33,6 +35,4 @@ void init_Card(void) {
 	UART_prepare_for_recieve();
 	Card_Activate();
 	SC_Recieve_ATR_And_Config();
-
-	Card_Deactivate();
 }

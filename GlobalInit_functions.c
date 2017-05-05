@@ -52,7 +52,7 @@ void init() {
 
 	//init_ISO7816_pins();
 	Segger_write_string("Preparing Smart Card interface!\n");
-	//	init_Card();
+		init_Card();
 	
 	//PrepareTemp();
 	

@@ -71,6 +71,7 @@ void Print_Help() {
 	########             HELP             ########\n\
 	Usage through Segger RTT viewer console:\n \
 \t ? or H -help\n\n\
+\t X -Exit Converter  \n\
 \t R -cold reset Smart Card\n\
 \t T -Activate Smart Card\n\
 \t t -Deactivate Cards VCC, CLK, RESET, IO\n\
@@ -89,6 +90,8 @@ void Print_Help() {
 \t\t Db set UART Baud rate to CLK/372\n\
 \t\t DP toggle uart parity\n\
 \t\t Gt Try applet response\n");
+
+Card_wait();
 
 Segger_write_string(
 "\
@@ -182,9 +185,7 @@ void Debug_Mode(void) {
 	uint8_t recieved=0;
 	
 	ready_to_send=0;
-	
 	uint8_t lenght=0;
-	
 	uint8_t FLAG_run=1;
 	
 	while(FLAG_run) {
