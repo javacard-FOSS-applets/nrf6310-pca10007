@@ -152,13 +152,13 @@
 	\large \textbf{Slovenská technická univerzita v~Bratislave \\
 	Fakulta informatiky a informačných technológií} \\
 	\vspace{0.8cm}	
-	\normalsize FIIT-13428-51164 \\
+	\normalsize FIIT-5220-51164 \\
 	\vspace{7cm}
 	\Large \textbf{Bc. Lukáš Doubravský} \\
 	\vspace{0.5cm}
 	\textbf{Zabezpečenie bezdrôtových komunikačných sietí v inteligentných domácnostiach proti kybernetickým útokom} \\
 	\vspace{0.5cm}
-    Diplomový projekt
+    Diplomová práca
 	\end{center}
 	\vspace{4.5cm}	
 	\begin{flushleft}
@@ -167,9 +167,9 @@
 		Študijný odbor: Softvérové inžinierstvo \\
 		Miesto vypracovania: 
 		Ústav počítačových systémov a sietí  \\
-		Vedúci diplomovej práce: Majer Libor, Ing. PhD. \\
+		Vedúci diplomovej práce: Ing. Majer Libor, PhD. \\
 		\vspace{0.5cm}
-		December 2016  
+		máj 2017  
 	\end{onehalfspacing}	
 	\end{flushleft}
 \end{titlepage}
@@ -187,9 +187,9 @@
 %\section*{Poďakovanie}
 %Rad by som sa podakoval veducim diplomeoveho projektu a ich kolegom, za ich trpezlivost, osobitny pristup, poskytnute technolgie, vedomosti a ochotu, pri vypracovani zaverecneho projektu.
 
-%\newpage
-%\thispagestyle{empty}
-%\mbox{}
+\newpage
+\thispagestyle{empty}
+\mbox{}
 
 %\begin{landscape}
 %\begin{multicols}{2}
@@ -200,10 +200,10 @@
 FAKULTA INFORMATIKY A INFORMAČNÝCH TECHNOLÓGIÍ \\
 Študijný program: Softvérové inžinierstvo \\ \\
 Autor: Bc. Lukáš Doubravský \\
-Diplomový projekt: 
+Diplomová práca: 
 Zabezpečenie bezdrôtových komunikačných sietí v inteligentných\\ domácnostiach proti kybernetickým útokom  \\
-Vedúci diplomového projektu: Majer Libor, Ing. PhD. \\
-December 2016 \\
+Vedúci diplomového projektu: Ing. Majer Libor, PhD. \\
+máj 2017 \\
 
 Záverečná práca sa zaoberá širokou problematikou bezpečnosti v bezdrôtových komunikačných sieťach, zameranú hlavne na inteligentné domácnosti. Analyzované a navrhované postupy a riešenia sú však adaptovateľné a použiteľné aj na podobné problémy v iných oblastiach.
 %Práca alebo získanie všeobecného prehľadu z .
@@ -228,8 +228,8 @@ Degree Course: Software Engineering \\ \\
 Author: Bc. Lukáš Doubravský \\
 Diploma Thesis: 
 Securing wireless networks in smart homes against cybernetic attacks  \\
-Supervisor: Majer Libor, Ing. PhD. \\
-2016, December \\
+Supervisor: Ing. Majer Libor, PhD. \\
+2017, May \\
 
 The final thesis deals with the complex issues of security in wireless communications networks, mainly focused on Smart Homes. Analyzed and designed solutions are adaptable and applicable to similar problems in other areas.
 The thesis deals with the taxonomy of realizing wireless cyber attacks, analyzes the latest trends in hardware security in the form of smart cards with built-in embedded secure elements. Next its deals with network architecture design and operation with enhanced security requirements. We discuss programing and related concerns with programming of secure elements.
@@ -601,14 +601,14 @@ Problém, ktorý vzniká pri asymetrickej kryptografií je, že ako odosielateľ
 
 %báze EC. Podpisové schémy. Autentizácia dokument
 \subsubsection{RSA}
-RSA algoritmus sa zaraďuje do asymetrickej kryptografie. Princíp fungovania je založený na probléme faktorizácie, rozkladu modulu na činitele, násobku dvoch veľkých prvočísiel. Udávaná zložitosť algoritmu je $O(N^3)$.
+RSA algoritmus sa zaraďuje do asymetrickej kryptografie. Princíp fungovania je založený na probléme faktorizácie, rozkladu modulu na činitele, násobku dvoch veľkých prvočísiel. Udávaná zložitosť algoritmu je $O(N^3)$ \cite{rsalesson}.
 
-Princíp inicializácie a fungovania kryptosystému RSA je nasledovný. Vygenerujú sa dve rôzne prvočísla označené $p$ a $q$. Následne sa vypočíta modul $n$, vynásobením vygenerovaných prvočísel $p$ a $q$: $n= p \times q $.
+Princíp inicializácie a fungovania kryptosystému RSA je nasledovný. Vygenerujú sa dve rôzne prvočísla označené $p$ a $q$. Následne sa vypočíta modul $n$, vynásobením vygenerovaných prvočísel $p$ a $q$: $n= p \times q $ \cite{rsalesson}.
 %fi kolko cisiel mensich ako n je nesudelitencyh s n
-Výpočet Eulerovej funkcie $\varphi(n)$ je jednoduchý, keďže modul je tvorený z dvoch prvočísiel: $\varphi(n)=(p-1)\times(q-1)$. Následne sa zvolí parameter $e$, tak aby spĺňal podmienku $1<e<\varphi(n)$ a $gcd(\varphi(n),e)=1$. Druhý parameter $d$ sa dopočíta zo vzorca $ed=1 mod \varphi(n)$.
+Výpočet Eulerovej funkcie $\varphi(n)$ je jednoduchý, keďže modul je tvorený z dvoch prvočísiel: $\varphi(n)=(p-1)\times(q-1)$. Následne sa zvolí parameter $e$, tak aby spĺňal podmienku $1<e<\varphi(n)$ a $gcd(\varphi(n),e)=1$. Druhý parameter $d$ sa dopočíta zo vzorca $ed=1 mod \varphi(n)$ \cite{rsalesson}.
 
 Verejný kľúč je tvorený dvojicou [n, e] a privátny kľúč je tvorený dvojicou [n, d].
-Proces šifrovania a dešifrovania je nasledovný. Otvorený text, označený $x$, šifrujeme pomocou $E(x)=x^e mod n$. Šifrovaný text, označený $y$, dešifrujeme obdobne pomocou nasledovného vzorca $D(y)=y^d mod n$.
+Proces šifrovania a dešifrovania je nasledovný. Otvorený text, označený $x$, šifrujeme pomocou $E(x)=x^e mod n$. Šifrovaný text, označený $y$, dešifrujeme obdobne pomocou nasledovného vzorca $D(y)=y^d mod n$ \cite{rsalesson}.
 
 %zavislosti a ed e je mensi p a q by mali byt co najdelej od seba
 
@@ -765,7 +765,6 @@ Nasledujúca podkapitola sa snaží čitateľovi poskytnúť porovnanie hardvér
 
 
 \section{Bezdrôtové komunikačné protokoly} \label{s_protocols}
-%TODO
 %UDP bez potvrdzovania
 %TCP s potvrdzovanim
 \subsection{WPAN siete}
@@ -1631,6 +1630,8 @@ Zišlo by sa zamyslieť nad implementáciou bezpečnostých mechanizmov na zákl
 	\label{f:o_event}
 \end{figure*}
 
+
+
 \chapter{Implementácia} \label{s_implementation}
 %\section{}
 Za účelom overenia navrhnutého riešenia, boli vybraté zariadenia a protokoly opísané v tejto kapitole. Teoreticky nezáleží na zariadení, jeho architektúre ani na použitom komunikačnom protokole. Najdôležitejším cieľom použitých zariadení je získať kvantitatívne výsledky potrebné pre celkové vyhodnotenie návrhu a samotného projektu.
@@ -1722,6 +1723,139 @@ Vývoj kódu pre komunikačné moduly prebieha vo vývojovom prostredí Keil {\t
 Programovanie a real-time debugovanie prebieha pomocou programátora v obvode od spoločnosti Segger s označením J-Link Lite. Pre správnu funkčnosť programátora je potrebné nainštalovať príslušný softvérový balíček s ovládačmi\footnote{\url{https://www.segger.com/downloads/jlink?}}. Súčasťou inštalačného balíka je aj terminál s označením L-Link RTT viewer, ktorý slúži ako komunikačné rozhranie na komunikáciu so zariadeniami podporujúcich RTT (Real Time Transmit) technológie\footnote{\url{https://www.segger.com/jlink-rtt.html}}.
 Pre programovanie vývojového kitu sme nainštalovali SDK určené pre radu zariadení nRF51 a nRF52 \footnote{\url{https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF5-SDK}}.
 
+\section{Bezdrôtová komunikácia}
+broadcast
+ 
+obrazok response
+
+	sekvencny diagram
+
+	vyvojovy diagram
+segmenter
+
+\subsection{Master}
+funkcie
+iso7816 uart gpio port0
+leds
+buttons
+
+\subsection{Slave}
+funkcie
+
+
+\section{SW AES}
+PSK
+Vector
+
+\section{Bootloader}
+
+\section{Štandard ISO7816}
+
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.2]{apdu.jpg}
+		\caption{Standardny format APDU spravy podla standardu ISO7816\cite{smartcard}.}
+		\label{f:apdu}
+	\end{figure*}
+	
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.2]{block.jpg}
+		\caption{\cite{SmartCardTutorial}.}
+		\label{f:tpdu}
+	\end{figure*}
+
+
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.45]{atr_parsing.jpg}
+		\caption{Parsovanie ATR Answer to reset spravy po pripojeni smart karty\cite{smartcard}.}
+		\label{f:apdu}
+	\end{figure*}
+
+generovanie aktivacnych sekvecnii cold reset
+deaktivacia
+UART
+zakladnu
+rychlosti 
+co podporuje
+T01
+
+TS byte Direct conversion ATR 3B
+inverse konverzia ATR 3F
+obrazky apdu
+obrazok TPDu
+atr
+rychlosti
+LRC
+errory
+komunikacia s appletom
+APDU Block in APDU
+
+\section{ISO7816 debugger}
+pripojenie
+cez jlink rtt viever
+	CLK
+	Reset
+nastavnie baudrate
+aktivacia deaktivacia, restovanie,
+nastavenie parity
+T=0 T=1
+obrazok
+posielanie sprav zadanych cez segger konzolu
+
+vyhladavanie card manazera  a prehladavanie instruckcii
+
+\section{Applet}
+AES
+toto áno
+toto nie
+krpytoelementy
+
+\section{Automatizovaný test}
+fungovanie
+
+\section{Dosky plošných spojov}
+\subsection{Test board pre ISO7816}
+
+\begin{figure*}[h]
+	\centering
+	\includegraphics[scale=0.7]{Schematics.png}
+	\caption{Testovacia doska pre konverziu UART na štandard ISO7816.}
+	\label{f:board_ISO_schematic}
+\end{figure*}
+
+\begin{figure*}[h]
+	\centering
+	\includegraphics[scale=1]{Board.png}
+	\caption{.}
+	\label{f:board_ISO_layout}
+\end{figure*}
+
+\subsection{Slave board}
+
+vlastny konektor 
+1.27 mm
+pruzne
+vodice z eternetoveho kabla
+
+\begin{figure*}[h]
+	\centering
+	\includegraphics[scale=0.7]{test.png}
+	\caption{Schéma zapojenia a pripojenia slave zariadenia s kryptoelementom.}
+	\label{f:board_slave_schematic}
+\end{figure*}
+
+\begin{figure*}[h]
+	\centering
+	\includegraphics[scale=1]{test2.png}
+	\caption{Rozloženie súčiastok na doske plošných spojov pre slave.}
+	\label{f:board_slave_layout}
+\end{figure*}
+
+\subsection{Projekt}
+viac targetov
+
 %TODO
 %Popisuje vybrané dôležité časti kódu.
 %Štruktúra Certifikátu
@@ -1811,14 +1945,18 @@ Zostáva sa zamyslieť nad cenou a dopadmi zabezpečenia detekcie alebo prevenci
 V nasledujúcej etape dopracujeme vybrané časti analýzy, porovnáme analyzované protokoly v tabuľke, dopracujeme návrh a začneme sa venovať implementácií a návrhu testov.
 
 %\cite{networksecurity}.
-%TODO
 \section{Zhodnotenie druhej fázy vypracovania projektu}
-V druhej časti vypracovania diplomového projektu sme upravili a prerobili niektoré časti vybraných kapitôl. Do istej miery bol upravený návrh. Boli dopracované kapitoly týkajúce sa kryptografie, bezdrôtovými komunikačnými protokolmi, implementácie a kapitola týkajúca sa testovaním a vyhodnotením nameraných výsledkov. Navrhli sme spôsob realizovania testovania a overenie riešenia.
+V druhej časti vypracovania diplomového projektu sme upravili a prerobili niektoré časti vybraných kapitol. Do istej miery bol upravený návrh. Boli dopracované kapitoly týkajúce sa kryptografie, bezdrôtovými komunikačnými protokolmi, implementácie a kapitola týkajúca sa testovaním a vyhodnotením nameraných výsledkov. Navrhli sme spôsob realizovania testovania a overenie riešenia.
 
 Oboznámili sme sa do istej miery s hardvérom a jeho architektúrou. Začali sme s implementáciou od spojazdnenia programátora a vývojových prostredí, cez zabezpečenie odľadovania programu, jednoduchého rozblikania lediek, načítania vstupov z tlačidiel až po štúdium aplikačných rozhraní pre prácu s protokolovým zásobníkom na komunikáciu po bezdrôtovom komunikačnom kanále.
 
-Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v prílohe v tabuľke\ref{t:plan_prace}.
+Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v prílohe v tabuľke \ref{t:plan_prace}.
 
+
+\section{Zhodnotenie tretej fázy vypracovania projektu}
+skepticky
+\section{Zhodnotenie}
+zavisi od ryclhosti seriovej linky
 %\section{Zhodnotenie poslednej fázy vypracovania}
 %Co sa podarilo,
 %Co sa nepodarilo
@@ -1849,7 +1987,6 @@ Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v príloh
 \pagenumbering{bychapter}
 
 \chapter{Plán práce v DPIII}
-%TODO opis slovný
 \begin{table}[h]
 	\centering
 	\caption{Plán práce v DPIII}
@@ -1881,9 +2018,10 @@ Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v príloh
 \newpage
 \pagenumbering{bychapter}
 \chapter{Obsah priloženého média}
-Priložené médium má nasledovný obsah a štruktúru:
-\begin{verbatim}
-\end{verbatim}
+Priložené elektronické médium má nasledovný obsah a štruktúru:
+%\begin{verbatim}
+%\end{verbatim}
+
 \begin{tikzpicture}[dirtree]
 	\node {\textbf{root}} 
 	child { node {\textbf{Anotácia}}
@@ -1902,7 +2040,135 @@ Priložené médium má nasledovný obsah a štruktúru:
 	};
 \end{tikzpicture}
 
+
 %child { node {uSD projekt} }
 
 %\end{otherlanguage*}
+
+%tencnicka dokumentacia navom, komipilacia rozbehanie
+\chapter{Návod} \label{s_manual}
+ 
+\section{Skompilovanie appletu} \label{s_applet_compile}
+
+	\begin{enumerate}
+		\item Rozbaľte JC2.2.2 development kit.
+		\item Nainštalujte Eclipse 3.5 (Galileo)
+		\item Nainštalujte JRE verziu 1.6.0
+		\item Nainštalujte plugin JCDE do Eclipse 3.5
+		\item Nakonfigurujte cestu v Eclipse na priečinok JC2.2.2
+		\item Importnite projekt
+		\item Otvorte projekt
+		\item Ďalej pokračujte podľa postupu na obrázku:
+	\end{enumerate}
+	
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.3]{Java_card_compile.jpg}
+		\caption{Skompilovanie appletu pre kryptoelement.}
+		\label{f:applet_compile}
+	\end{figure*}
+	
+\section{Inštalácia appletu} \label{s_applet_install}
+	\begin{enumerate}
+		\item K rozobratej čítačke platobných alebo smart kariet, pripájkujte . 
+		\item V druhom kroku sa vhodnym sposobom pripojte na prislusne kontakty  citacky \ref{f:krypto_reader}
+		\item K čítačke pripojte kryptoelement.
+		\item Dalej postupujte bud podla podkapitoly \ref{s_applet_gpshell} alebo podla kapitoly  \ref{s_applet_pytool}
+	\end{enumerate}
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.15]{krypto_reader2.jpg}
+		\caption{Pripojenie kryptoelementu k čítačke kariet.}
+		\label{f:krypto_reader}
+	\end{figure*}
+	
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.3]{applet_install1.jpg}
+		\caption{}
+		\label{f:applet_install1}
+	\end{figure*}
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.3]{applet_install2.jpg}
+		\caption{}
+		\label{f:applet_install2}
+	\end{figure*}
+
+\subsection{PyApduTool} \label{s_applet_pytool}
+	pyapdu
+	obrazky 
+		\begin{figure*}[h]
+			\centering
+			\includegraphics[scale=0.3]{applet_install1.jpg}
+			\caption{Inštalácia appletu cez PyApduTool.}
+			\label{f:i_applet_pyapdu}
+		\end{figure*}
+		\begin{figure*}[h]
+			\centering
+			\includegraphics[scale=0.3]{applet_install2.jpg}
+			\caption{Inštalácia appletu cez PyApduTool.}
+			\label{f:i_applet_pyapdu2}
+		\end{figure*}
+\subsection{GPShell} \label{s_applet_gpshell}
+	
+	\begin{enumerate}
+		\item stiahnite gpshell z repozitara 
+		\item rozbalte gpshell
+		\item nakopirujte test.cap do priecinka
+		\item nakopirujte subory applet\_install applet\_try a applet\_delete do priečinka
+		\item s prikazoveho riadku pustite Gpshell s prislusnych parametrom k 
+	\end{enumerate}
+
+\renewcommand\lstlistingname{}
+	\begin{lstlisting}[caption={Nahratie appletu cez nástroj GPShell.} label={lst:gpshell}] 
+	> GPShell.exe applet_install.txt
+	> GPShell.exe applet_try.txt
+	> GPShell.exe applet_delete.txt
+	\end{lstlisting}
+
+
+\section{Nahratie programu na vývojovú dosku Nordic} \label{s_nrf_program}
+	
+	Predpoklady
+	\begin{enumerate}
+		\item keil
+		\item arm-amd
+		\item doinstalovat 
+		\item otvorit projekt
+		\item je predkonfigurovane
+		\item vyberte target	
+	\end{enumerate}
+	
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.3]{keil_flash.jpg}
+		\caption{Nahratie programu na vývojovú dosku.}
+		\label{f:i_keil_flash}
+	\end{figure*}
+
+
+\chapter{Obrázky} \label{s_pictures}
+\begin{figure*}[h]
+	\centering
+	\includegraphics[scale=0.15]{board1_.jpg}
+	\caption{Vyrobená a osadená testovacia doska pre prevodník z UART na štandard ISO7816.}
+	\label{f:i_board_iso}
+\end{figure*}
+
+\begin{figure*}[h]
+	\centering
+	\includegraphics[scale=0.15]{board2_.jpg}
+	\caption{Vyrobená a osadená doska pre Nordic NRF s ISO7816.}
+	\label{f:i_board_nrf}
+\end{figure*}
+
+\begin{figure*}[h]
+	\centering
+	\includegraphics[scale=0.5]{i_converter.jpg}
+	\caption{Ukážkový výpis z konzolovej aplikácie pre komunikáciu s ISO7816.}
+	\label{f:i_iso_dekoder}
+\end{figure*}
+
+
 \end{document}
