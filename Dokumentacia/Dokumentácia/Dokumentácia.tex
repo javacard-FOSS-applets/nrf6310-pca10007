@@ -157,7 +157,7 @@
 	Fakulta informatiky a informačných technológií} \\
 	\vspace{0.8cm}	
 	\normalsize FIIT-5220-51164 \\
-	\vspace{7cm}
+	\vspace{6cm}
 	\Large \textbf{Bc. Lukáš Doubravský} \\
 	\vspace{0.5cm}
 %	\textbf{Zabezpečenie bezdrôtových komunikačných sietí v inteligentných domácnostiach proti kybernetickým útokom} \\
@@ -2097,11 +2097,13 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 		child { node {Literatura.bib} }
 	}
 	child { node {\textbf{Applet}}
-		child { node {\textbf{src}}
-				child { node {\textbf{test}} 
-						child { node {Test.java}}
+		child { node {\textbf{Applet}}
+			child { node {\textbf{src}}
+					child { node {\textbf{test}} 
+							child { node {Test.java}}
 					}
-			 }
+    		}
+    	}
 		child { node {\textbf{GPShell}} }
 		child { node {\textbf{Install}} 
 					child { node {test.cap} }
@@ -2184,56 +2186,59 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 %tencnicka dokumentacia navom, komipilacia rozbehanie
 \chapter{Technický manuál} \label{s_manual}
  
-  \section{Nahratie programu na vývojovú dosku Nordic} \label{s_nrf_program}
- 
- Predpoklady
+	\section{Nahratie programu na vývojovú dosku Nordic} \label{s_nrf_program}
  \begin{enumerate}
- 	\item keil,
- 	\item arm-amd,
- 	\item doinstalovat balíčky,
- 	\item otvorit projekt,
- 	\item je predkonfigurovane,
- 	\item vyberte target,
- 	\item pripojte segger jlink k doske,
- 	\item pripojte napajanie k odkse,
- 	\item nahrajte skompilovany program na dosku.
+ 	\item Nainštalujte vývojové prostredie Keil v edícií MDK-Lite (Microcontroller Development Kit), ideálne verziu 521a\footnote{\url{http://www2.keil.com/mdk5/}},
+ 	\item nainštalujte nRF51\_SDK verziu 10.0.0 pre Keil nRF5x\_MDK\_8\_2\_0\_Keil4.msi\footnote{\url{https://developer.nordicsemi.com/nRF5_SDK/nRF51_SDK_v10.x.x/}},
+ 	\item otvorte Keil IDE a doinštalujte alebo aktualizujte balíčky, ktoré by ste chceli používať (Nordic dosky, ARM kompilátor),
+ 	\item otvorte projekt nachádzajúci sa na priloženom médiu v priečinku /Keil/,
+ 	\item vyberte cieľové zariadenie, pre ktoré chcete skompilovať kód,  \ref{f:i_keil_flash} krok 1,
+ 	\item kliknite na prekompilovať všetko,  \ref{f:i_keil_flash} krok 2,
+ 	\item pripojte programátor Segger J-Link k nRF doske,
+ 	\item pripojte nápajanie k doske,
+ 	\item nahrajte skompilovaný program na dosku, kliknutím na Load \ref{f:i_keil_flash} krok 3.
  \end{enumerate}
  
- \begin{figure*}[h]
+ \begin{figure*}[!htb]
  	\centering
  	\includegraphics[scale=0.3]{keil_flash.jpg}
  	\caption{Nahratie programu na vývojovú dosku.}
  	\label{f:i_keil_flash}
  \end{figure*}
  
- 
+ \newpage
  
 \section{Skompilovanie appletu} \label{s_applet_compile}
-
 	\begin{enumerate}
-		\item Rozbaľte JCDK 2.2.2 development kit.
-		\item Nainštalujte Eclipse 3.5 (Galileo)
-		\item Nainštalujte JRE verziu 1.6.0
-		\item Nainštalujte plugin JCDE do Eclipse 3.5
-		\item Nakonfigurujte cestu v Eclipse na priečinok JC2.2.2
-		\item Importnite projekt
-		\item Otvorte projekt
-		\item Ďalej pokračujte podľa postupu na obrázku:
+		\item Rozbaľte JCDK 2.2.2 development kit\footnote{\url{http://www.oracle.com/technetwork/java/embedded/javacard/downloads/javacard-sdk-2043229.html}},
+		\item nainštalujte Eclipse 3.5 (Galileo)\footnote{\url{http://archive.eclipse.org/eclipse/downloads/}},
+		\item nainštalujte JDK verziu 1.6.0\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html}},
+		\item nakopírujte plugin JCDE do Eclipse 3.5\footnote{\url{http://eclipse-jcde.sourceforge.net/}},
+		\item otvorte rozbalené vývojové prostredie Eclipse 3.5,
+		\item nakonfigurujte cestu v Eclipse na priečinok JCDK 2.2.2,
+		\item naimportujte projekt nachádzajúci sa v priečinku /Applet/Applet/,
+		\item otvorte projekt,
+		\item pravým tlačidlom myši kliknite na balík \ref{f:applet_compile} krok 1,
+		\item nájdite položku Java Card Tools \ref{f:applet_compile} krok 2,
+		\item kliknite na Convert \ref{f:applet_compile} krok 3.
 	\end{enumerate}
 	
-	\begin{figure*}[h]
+	\begin{figure*}[!htb]
 		\centering
-		\includegraphics[scale=0.3]{Java_card_compile.jpg}
+		\includegraphics[scale=0.35]{Java_card_compile.jpg}
 		\caption{Skompilovanie appletu pre kryptoelement.}
 		\label{f:applet_compile}
 	\end{figure*}
 	
+ \newpage
+
 \section{Inštalácia appletu} \label{s_applet_install}
 	\begin{enumerate}
-		\item K rozobratej čítačke platobných alebo smart kariet, pripájkujte . 
-		\item V druhom kroku sa vhodnym sposobom pripojte na prislusne kontakty  citacky \ref{f:krypto_reader}
-		\item K čítačke pripojte kryptoelement.
-		\item Dalej postupujte bud podla podkapitoly \ref{s_applet_gpshell} alebo podla kapitoly  \ref{s_applet_pytool}
+		\item Rozoberte čítačku kariet, 
+		\item vhodným spôsobom sa pripojte na píslušné kontakty čítačky obr.  \ref{f:krypto_reader} krok 1,
+		\item k čítačke kariet pripojte kryptoelement obr. \ref{f:krypto_reader} krok 2,
+		\item čítačku kariet pripojte k počítaču,
+		\item následne postupujte podľa podkapitoly \ref{s_applet_pytool} alebo podľa kapitoly \ref{s_applet_gpshell}.
 	\end{enumerate}
 	\begin{figure*}[h]
 		\centering
@@ -2242,46 +2247,43 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 		\label{f:krypto_reader}
 	\end{figure*}
 	
+
+\subsection{PyApduTool} \label{s_applet_pytool}
+	\begin{enumerate}
+		\item Stiahnite a nainštalujte kit s názvom JCKIT\footnote{\url{http://javacardos.com/tools/\#jcide}}, ktorý obsahuje vývojové prostredie pre Smart karty s názvom JCIDE a nástroj PyApduTool,
+		\item otvorte nástroj PyAdpuTool,
+		\item kliknite na Connect obr. \ref{f:applet_install1} krok 1,
+		\item vyberte card manažéra obr. \ref{f:applet_install2} krok 2,
+		\item vyberte *.cap súbor, ktorý chcete nahrať na kryptoelement  obr. \ref{f:applet_install2} krok 3,
+		\item kliknite na stiahnuť  obr. \ref{f:applet_install2} krok 4,
+		\item kliknite na nainštalovanie appletu  obr. \ref{f:applet_install2} krok 5,
+		\item potvrďte nainštalovanie  obr. \ref{f:applet_install2} krok 6. 
+	\end{enumerate}
+	
 	\begin{figure*}[h]
 		\centering
-		\includegraphics[scale=0.3]{applet_install1.jpg}
-		\caption{}
+		\includegraphics[scale=0.35]{applet_install1.jpg}
+		\caption{Pripojenie čítačky kariet.}
 		\label{f:applet_install1}
 	\end{figure*}
 	\begin{figure*}[h]
 		\centering
-		\includegraphics[scale=0.3]{applet_install2.jpg}
-		\caption{}
+		\includegraphics[scale=0.35]{applet_install2.jpg}
+		\caption{Nahratie appletu na kryptoelement.}
 		\label{f:applet_install2}
 	\end{figure*}
-
-\subsection{PyApduTool} \label{s_applet_pytool}
-	pyapdu
-	obrazky 
-		\begin{figure*}[h]
-			\centering
-			\includegraphics[scale=0.3]{applet_install1.jpg}
-			\caption{Inštalácia appletu cez PyApduTool.}
-			\label{f:i_applet_pyapdu}
-		\end{figure*}
-		\begin{figure*}[h]
-			\centering
-			\includegraphics[scale=0.3]{applet_install2.jpg}
-			\caption{Inštalácia appletu cez PyApduTool.}
-			\label{f:i_applet_pyapdu2}
-		\end{figure*}
+		
 \subsection{GPShell} \label{s_applet_gpshell}
-	
 	\begin{enumerate}
-		\item stiahnite gpshell z repozitara 
-		\item rozbalte gpshell
-		\item nakopirujte test.cap do priecinka
-		\item nakopirujte subory applet\_install applet\_try a applet\_delete do priečinka
-		\item s prikazoveho riadku pustite Gpshell s prislusnych parametrom k 
+		\item Stiahnite nástroj GPShell od GlobalPlatform priamo z oficiálneho repozitára\footnote{\url{https://sourceforge.net/projects/globalplatform/files/GPShell/}}, alebo použite verziu nachádzajúcu sa na priloženom médiu v priečinku /Applet/GPShell/, 
+		\item rozbaľte archív GPShell-x.x.x.zip,
+		\item nakopírujte skompilovaný applet test.cap do priečinka s nástrojom GPShell,
+		\item nakopírujte skripty applet\_install, applet\_try a applet\_delete do priečinka s nástrojom GPShell,
+		\item z príkazoveho riadku spustite GPShell s príslušným parametrom akcie, ktorú chcete vykonať \ref{lst:gpshell}.
 	\end{enumerate}
 
 \renewcommand\lstlistingname{}
-	\begin{lstlisting}[caption={Nahratie appletu cez nástroj GPShell.}, label={lst:gpshell}] 
+	\begin{lstlisting}[caption={Nainštalovanie appletu cez nástroj GPShell.}, label={lst:gpshell}] 
 	> GPShell.exe applet_install.txt
 	> GPShell.exe applet_try.txt
 	> GPShell.exe applet_delete.txt
