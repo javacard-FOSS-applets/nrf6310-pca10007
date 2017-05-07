@@ -2077,11 +2077,14 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 %\begin{verbatim}
 %\end{verbatim}
 
-\begin{tikzpicture}[dirtree]
+\begin{tikzpicture}[dirtree, scale=0.5]
 	\node {\textbf{root}} 
 	child { node {\textbf{Anotácia}}
-			child { node {AnotaciaSj.pdf} }
-			child { node {AnotaciaEn.pdf} }
+			child { node {AnotaciaSJ.pdf} }
+			child { node {AnotaciaEN.pdf} }
+	}
+	child { node {\textbf{Titulná strana}}
+		child { node {titulna\_strana.pdf} }
 	}
 	child { node {\textbf{Dokumentácia}}
 		child { node {\textbf{Obrázky}} }
@@ -2089,12 +2092,86 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 		child { node {Dokument.tex} }
 		child { node {Literatura.bib} }
 	}
-	child { node {\textbf{Zdrojové kódy}}
-		child { node {Keil projekt} }
-		child { node {Referenčné softvérové implementácie} }
+	child { node {\textbf{Applet}}
+		child { node {\textbf{src}}
+				child { node {\textbf{test}} 
+						child { node {Test.java}}
+					}
+			 }
+		child { node {\textbf{GPShell}} }
+		child { node {\textbf{Install}} 
+					child { node {test.cap} }
+					child { node {applet\_install.txt} }
+					child { node {applet\_try.txt} }
+					child { node {applet\_delete.txt} }
+			}
+		child { node {\textbf{JDCE}} }
+		child { node {\textbf{JDCK222}} }
+		child { node {\textbf{JDK160}} }
+	}
+	child { node {\textbf{DPS dosky}}
+		child { node {\textbf{Knižnica}}
+			child { node {sfc-120-t2-l-d.lbr} }		
+		}
+		child { node {dp.sch} }
+		child { node {dp.brd} }
+		child { node {dpMaster.sch} }
+		child { node {dpMaster.brd} }
+	}	
+	child { node {\textbf{Referenčné softvérové implementácie}}
+			child { node {tiny-AES128-C-master.zip} }
 	};
 \end{tikzpicture}
 
+\begin{tikzpicture}[dirtree, scale=0.5]
+	\node {\phantom{    }} 
+	child { node {\textbf{Keil}}
+		child { node {\textbf{Include}} }
+		child { node {Universal.h}}
+		child { node {ISO7816.h}}
+		child { node {ISO7816\_errors.h}}
+		child { node {EncryptionType.h}}
+		child { node {PSK.h}}
+		child { node {ANT\_SD.c}}
+		child { node {Automated\_Test.c}}
+		child { node {Bootloader.c}}
+		child { node {CLK\_Gen.c}}
+		child { node {CLK\_Gen\_functions.c}}
+		child { node {EncodeDecode.c}}
+		child { node {GlobalInit\_functions.c}}
+		child { node {Globals.c}}
+		child { node {GPIO\_functions.c}}
+		child { node {ISO7816\_activation\_sequences.c}}
+		child { node {ISO7816\_APDU\_tests.c}}
+		child { node {ISO7816\_Applet\_Communication.c}}
+		child { node {ISO7816\_Applet\_functions.c}}
+		child { node {ISO7816\_ATR\_functions.c}}
+		child { node {ISO7816\_error\_functions.c}}
+		child { node {iso7816\_functions.c}}
+		child { node {ISO7816\_init.c}}
+		child { node {ISO7816\_Message\_Checks.c}}
+		child { node {ISO7816\_Messages\_functions.c}}
+		child { node {ISO7816\_Misc\_functions.c}}
+		child { node {ISO7816\_Segger\_UART\_7816\_converter.c}}
+		child { node {ISO7816\_send\_recieve.c}}
+		child { node {ISO7816\_timing\_calc\_functions.c}}
+		child { node {ISO7816\_uart\_iso\_converter\_Standalone.c}}
+		child { node {main.c}}
+		child { node {Master.c}}
+		child { node {Misc\_functions.c}}
+		child { node {Pin\_RST.c}}
+		child { node {Pin\_VCC.c}}
+		child { node {Segger\_functions.c}}
+		child { node {Segmenter.c}}
+		child { node {Slave.c}}
+		child { node {UART\_functions.c}}
+		child { node {UART\_test.c}}
+		child { node {JLinkSettings.ini}}
+		child { node {ant\_temp.sct}}
+		child { node {ant\_temp.uvopt}}
+		child { node {ant\_temp.uvproj}}
+	};
+\end{tikzpicture}
 
 %child { node {uSD projekt} }
 
