@@ -106,6 +106,10 @@
 
 \renewcommand\lstlistingname{Ukážka kódu}
 
+\usepackage{tabto}
+%\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+%\newcommand{\tab}[1]{\hspace{0em}\rlap{#1}}
+
 \usepackage{tikz}
 \makeatletter
 \newcount\dirtree@lvl
@@ -156,18 +160,18 @@
 	\vspace{7cm}
 	\Large \textbf{Bc. Lukáš Doubravský} \\
 	\vspace{0.5cm}
-	\textbf{Zabezpečenie bezdrôtových komunikačných sietí v inteligentných domácnostiach proti kybernetickým útokom} \\
+%	\textbf{Zabezpečenie bezdrôtových komunikačných sietí v inteligentných domácnostiach proti kybernetickým útokom} \\
+	\textbf{ZABEZPEČENIE BEZDRÔTOVÝCH KOMUNIKAČNÝCH SIETÍ V INTELIGENTNÝCH DOMÁCNOSTIACH PROTI KYBERNETICKÝM ÚTOKOM} \\
 	\vspace{0.5cm}
     Diplomová práca
 	\end{center}
 	\vspace{4.5cm}	
 	\begin{flushleft}
 	\begin{onehalfspacing}
-		Študijný program: Softvérové inžinierstvo \\
-		Študijný odbor: Softvérové inžinierstvo \\
-		Miesto vypracovania: 
-		Ústav počítačových systémov a sietí  \\
-		Vedúci diplomovej práce: Ing. Majer Libor, PhD. \\
+		Študijný program: \tabto{4.2cm}Softvérové inžinierstvo \\
+		Študijný odbor: \tabto{4.2cm}9.2.5. Softvérové inžinierstvo \\
+		Miesto vypracovania: \tabto{4.2cm}Ústav počítačových systémov a sietí  \\
+		Vedúci práce: \tabto{4.2cm}Ing. Libor Majer, PhD. \\
 		\vspace{0.5cm}
 		máj 2017  
 	\end{onehalfspacing}	
@@ -181,11 +185,11 @@
 \mbox{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\newpage
-%\thispagestyle{empty}
-%\vspace*{18cm}
-%\section*{Poďakovanie}
-%Rad by som sa podakoval veducim diplomeoveho projektu a ich kolegom, za ich trpezlivost, osobitny pristup, poskytnute technolgie, vedomosti a ochotu, pri vypracovani zaverecneho projektu.
+\newpage
+\thispagestyle{empty}
+\vspace*{18cm}
+\section*{Poďakovanie}
+Rád by som sa poďakoval vedúcemu diplomovej práce a jeho kolegom, z firmy R-DAS, za poskytnuté technológie a zariadenia, prejavenú dôveru a za odbornú pomoc pri riešení technických problémov, pri vypracovaní záverečného projektu.
 
 \newpage
 \thispagestyle{empty}
@@ -198,11 +202,11 @@
 \thispagestyle{empty}
 \noindent Slovenská technická univerzita v~Bratislave \\
 FAKULTA INFORMATIKY A INFORMAČNÝCH TECHNOLÓGIÍ \\
-Študijný program: Softvérové inžinierstvo \\ \\
-Autor: Bc. Lukáš Doubravský \\
+Študijný program: \tabto{4.7cm}Softvérové inžinierstvo \\ \\
+Autor: \tabto{4.7cm}Bc. Lukáš Doubravský \\
 Diplomová práca: 
-Zabezpečenie bezdrôtových komunikačných sietí v inteligentných\\ domácnostiach proti kybernetickým útokom  \\
-Vedúci diplomového projektu: Ing. Majer Libor, PhD. \\
+\tabto{4.7cm}Zabezpečenie bezdrôtových komunikačných sietí v inteligentných\\ \tabto{4.7cm}domácnostiach proti kybernetickým útokom  \\
+Vedúci diplomovej práce: \tabto{4.7cm}Ing. Libor Majer, PhD. \\
 máj 2017 \\
 
 Záverečná práca sa zaoberá širokou problematikou bezpečnosti v bezdrôtových komunikačných sieťach, zameranú hlavne na inteligentné domácnosti. Analyzované a navrhované postupy a riešenia sú však adaptovateľné a použiteľné aj na podobné problémy v iných oblastiach.
@@ -222,13 +226,13 @@ Kľúčové slová: Informačná bezpečnosť, Wireless PAN Networks, kryptograf
 
 \chapter*{ANNOTATION}
 \thispagestyle{empty}
-\noindent Slovak University of Technology in Bratislava \\
+\noindent Slovak University of Technology Bratislava \\
 FACULTY OF INFORMATICS AND INFORMATION TECHNOLOGIES \\
-Degree Course: Software Engineering \\ \\
-Author: Bc. Lukáš Doubravský \\
-Diploma Thesis: 
-Securing wireless networks in smart homes against cybernetic attacks  \\
-Supervisor: Ing. Majer Libor, PhD. \\
+Degree course: Software Engineering \\ \\
+Author: \tabto{3.5cm}Bc. Lukáš Doubravský \\
+Master's Thesis: 
+\tabto{3.5cm}Securing wireless networks in smart homes against cybernetic attacks  \\
+Supervisor: \tabto{3.5cm}Ing. Libor Majer, PhD. \\
 2017, May \\
 
 The final thesis deals with the complex issues of security in wireless communications networks, mainly focused on Smart Homes. Analyzed and designed solutions are adaptable and applicable to similar problems in other areas.
@@ -2178,7 +2182,31 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 %\end{otherlanguage*}
 
 %tencnicka dokumentacia navom, komipilacia rozbehanie
-\chapter{Návod} \label{s_manual}
+\chapter{Technický manuál} \label{s_manual}
+ 
+  \section{Nahratie programu na vývojovú dosku Nordic} \label{s_nrf_program}
+ 
+ Predpoklady
+ \begin{enumerate}
+ 	\item keil,
+ 	\item arm-amd,
+ 	\item doinstalovat balíčky,
+ 	\item otvorit projekt,
+ 	\item je predkonfigurovane,
+ 	\item vyberte target,
+ 	\item pripojte segger jlink k doske,
+ 	\item pripojte napajanie k odkse,
+ 	\item nahrajte skompilovany program na dosku.
+ \end{enumerate}
+ 
+ \begin{figure*}[h]
+ 	\centering
+ 	\includegraphics[scale=0.3]{keil_flash.jpg}
+ 	\caption{Nahratie programu na vývojovú dosku.}
+ 	\label{f:i_keil_flash}
+ \end{figure*}
+ 
+ 
  
 \section{Skompilovanie appletu} \label{s_applet_compile}
 
@@ -2253,31 +2281,11 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 	\end{enumerate}
 
 \renewcommand\lstlistingname{}
-	\begin{lstlisting}[caption={Nahratie appletu cez nástroj GPShell.} label={lst:gpshell}] 
+	\begin{lstlisting}[caption={Nahratie appletu cez nástroj GPShell.}, label={lst:gpshell}] 
 	> GPShell.exe applet_install.txt
 	> GPShell.exe applet_try.txt
 	> GPShell.exe applet_delete.txt
 	\end{lstlisting}
-
-
-\section{Nahratie programu na vývojovú dosku Nordic} \label{s_nrf_program}
-	
-	Predpoklady
-	\begin{enumerate}
-		\item keil
-		\item arm-amd
-		\item doinstalovat 
-		\item otvorit projekt
-		\item je predkonfigurovane
-		\item vyberte target	
-	\end{enumerate}
-	
-	\begin{figure*}[h]
-		\centering
-		\includegraphics[scale=0.3]{keil_flash.jpg}
-		\caption{Nahratie programu na vývojovú dosku.}
-		\label{f:i_keil_flash}
-	\end{figure*}
 
 
 \chapter{Obrázky} \label{s_pictures}
@@ -2297,10 +2305,20 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 
 \begin{figure*}[h]
 	\centering
+	\includegraphics[scale=0.15]{board2_con.jpg}
+	\caption{Konektor na mieru s roztečou 1.27mm.}
+	\label{f:i_board2}
+\end{figure*}
+
+
+\begin{figure*}[h]
+	\centering
 	\includegraphics[scale=0.5]{i_converter.jpg}
 	\caption{Ukážkový výpis z konzolovej aplikácie pre komunikáciu s ISO7816.}
 	\label{f:i_iso_dekoder}
 \end{figure*}
+
+
 
 
 \end{document}
