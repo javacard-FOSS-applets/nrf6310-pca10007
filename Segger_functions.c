@@ -4,7 +4,7 @@
 #include "SEGGER_RTT.h"
 
 void Segger_write_hex_value(uint8_t value) {
-	#ifdef DEBUG
+	#ifdef DEGUB_PRINTS
 	static uint8_t previous_value;
 	char str[20];
 	int count;
@@ -23,7 +23,7 @@ void Segger_write_hex_value(uint8_t value) {
 }
 
 void Segger_write_one_hex_value(uint8_t value) {
-	#ifdef DEBUG
+	#ifdef DEGUB_PRINTS
 	char str[20];
 	int count;
 
@@ -38,7 +38,7 @@ void Segger_write_one_hex_value(uint8_t value) {
 }
 
 void Segger_write_string_int(const char* message, uint32_t value) {
-	#ifdef DEBUG
+	#ifdef DEGUB_PRINTS
 	Segger_write_string(message);
 	
 	char str[20];
@@ -57,7 +57,7 @@ void Segger_write_string_int(const char* message, uint32_t value) {
 }
 
 void Segger_write_one_hex_value_32(uint32_t value) {
-	#ifdef DEBUG
+	#ifdef DEGUB_PRINTS
 	char str[20];
 	int count;
 
@@ -72,13 +72,13 @@ void Segger_write_one_hex_value_32(uint32_t value) {
 }
 
 void Segger_write_string(const char *string) {
-	#ifdef DEBUG
+	#ifdef DEGUB_PRINTS
 		SEGGER_RTT_WriteString(DEFAULT_SEGGER_JLINK_RTT_VIEWER_CONSOLE, string);
 	#endif
 }
 
 void Segger_write_string_value(const char *string, uint8_t value) {
-	#ifdef DEBUG
+	#ifdef DEGUB_PRINTS
 		Segger_write_string(string);
 		Segger_write_one_hex_value(value);
 		Segger_write_string("\n");
@@ -86,9 +86,11 @@ void Segger_write_string_value(const char *string, uint8_t value) {
 }
 
 void Print_Array(uint8_t Lenght, uint8_t*  Message) {
-	Segger_write_string("\t\t");
-	for(uint8_t i=0; i<Lenght; i++) {
-		Segger_write_one_hex_value(Message[i]);
-	}
-	Segger_write_string("\n");
+	#ifdef DEGUB_PRINTS
+		Segger_write_string("\t\t");
+		for(uint8_t i=0; i<Lenght; i++) {
+			Segger_write_one_hex_value(Message[i]);
+		}
+		Segger_write_string("\n");
+	#endif
 }

@@ -52,11 +52,14 @@ void init() {
 	
 	Segger_write_string("Preparing Message segmenter!\n");
 		init_RF_segmenter();
+			
+	#ifdef COMPILE_HW
+		//init_ISO7816_pins();
+		Segger_write_string("Preparing Smart Card interface!\n");
+			init_Card();
+			Select_Applet_Wrapper();
+	#endif
 
-	//init_ISO7816_pins();
-	Segger_write_string("Preparing Smart Card interface!\n");
-		init_Card();
-		Select_Applet_Wrapper();
 	
 	//PrepareTemp();
 	
@@ -73,8 +76,10 @@ void init() {
 	
 	// Test Encryption/Decryption
 	
-	ENC_DEC_Test();
-	ENC_DEC_Test();
-	
+	#ifdef COMPILE_SW
+		ENC_DEC_Test();
+		ENC_DEC_Test();
+	#endif
+			
 	Segger_write_string("\n");
 }

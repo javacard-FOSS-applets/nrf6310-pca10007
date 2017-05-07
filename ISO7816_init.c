@@ -4,6 +4,8 @@
 uint8_t ISO7816_pins_configured=false;
 
 void init_ISO7816_pins(void) {
+	
+	#ifdef COMPILE_HW
 	if(ISO7816_pins_configured)
 		return;
 	
@@ -21,6 +23,7 @@ void init_ISO7816_pins(void) {
 	
 	
 	ISO7816_pins_configured=true;
+	#endif
 	//Segger_write_string("Preparing UART!\n");
 	//	init_UART();
 	

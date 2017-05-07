@@ -17,6 +17,14 @@
 
 #define DEBUG_SAVE_SPACE
 
+
+//########################	   Compile 		###############################
+// DO NOT MESS WITH THESE SETTINGS, only for getting the idea, of how much memory each module requires during compilation
+//#define COMPILE_SW
+
+//#define COMPILE_HW
+//#define COMPILE_HW_ERRORS
+
 //########################	  Defines  		###############################
 
 //#define PIN 						31
@@ -254,7 +262,7 @@ void AES128_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
 	
 	//########################	Automated test  										###############################
 	
-		#define TEST_MAX_VALUE 					32
+		#define TEST_MAX_VALUE 					200
 		#define TEST_MAX_WAIT_TRESHOLD 	30
 	
 		void 		Test_Compare_Recieved_Value(uint8_t recieved_value);

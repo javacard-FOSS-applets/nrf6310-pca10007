@@ -33,27 +33,29 @@ void Decode(uint16_t count, uint8_t* message) {
 				//recieve.ready=0;
 			}
 			break;
-		
-		case MSG_SW_SYMM:
-			if(count==17) {
-				for(int i=0; i<16; i++)
-					store_message[i]=message[i+1];
-				
-				AES128_CBC_decrypt_buffer(bufferout, store_message, 16, PSK, IVECTOR);
-				//SW_AES_decode();
-				recieved_value=bufferout[0];
-			}
+		#ifdef COMPILE_SW
+			case MSG_SW_SYMM:
+				if(count==17) {
+					for(int i=0; i<16; i++)
+						store_message[i]=message[i+1];
+					
+					AES128_CBC_decrypt_buffer(bufferout, store_message, 16, PSK, IVECTOR);
+					//SW_AES_decode();
+					recieved_value=bufferout[0];
+				}
 			break;
 		/*case MSG_SW_ASYMM:
 			//if(count==XXX)
 			//	SW_RSA_decode();
 			break;*/
-		
-		case MSG_HW_SYMM:
-			if(count==17) {
-				recieved_value=HW_AES_Decode(message);
-			}
-			break;
+		#endif
+		#ifdef COMPILE_HW
+			case MSG_HW_SYMM:
+				if(count==17) {
+					recieved_value=HW_AES_Decode(message);
+				}
+				break;
+		#endif
 		/*case MSG_HW_ASYMM:
 			//if(count==XXX)
 			//	HW_RSA_decode();
@@ -89,7 +91,7 @@ void EnCode(security_type security, uint8_t value) {
 					FillSendData(2, send_message_uns);
 				}
 			break;
-		
+		#ifdef COMPILE_SW
 		case MSG_SW_SYMM:
 				message[0]=(uint8_t) security;
 				in[0]=(uint8_t) value;
@@ -106,7 +108,8 @@ void EnCode(security_type security, uint8_t value) {
 			//if(count==XXX)
 			//	SW_RSA_Encode();
 			break;*/
-		
+		#endif
+		#ifdef COMPILE_HW
 		case MSG_HW_SYMM:
 			
 				/*message[0]=(uint8_t) security;
@@ -118,7 +121,7 @@ void EnCode(security_type security, uint8_t value) {
 				message[0]=security;
 				FillSendData(17, message);
 			break;
-		
+		#endif
 		/*case MSG_HW_ASYMM:
 			//if(count==XXX)
 			//	HW_RSA_Encode();

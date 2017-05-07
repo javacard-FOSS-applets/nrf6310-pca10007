@@ -49,7 +49,9 @@ void Bootloader(void) {
 									break;
 				case 0x40: 	BlinkLEDS(1);
 										bootloader_exit=true;
-										Debug_Mode();// ISO7816_UART converter
+										#ifdef COMPILE_HW
+											Debug_Mode();// ISO7816_UART converter
+										#endif
 										return;
 				case 0x80: // accept
 									bootloader_exit=true;
