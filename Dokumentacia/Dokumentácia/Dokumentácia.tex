@@ -1572,7 +1572,7 @@ Po zapnutí napájania sa vykoná jednoduchý Power on Self test, ktorý otestuj
 
 \begin{figure*}[h]
 	\centering
-	\includegraphics[scale=0.4]{n_konvergencia.png}
+	\includegraphics[scale=0.3]{n_konvergencia.png}
 	\caption{Reakcia koncového uzla na udalosť.}
 	\label{f:n_konvergenica}
 \end{figure*}
@@ -1618,14 +1618,14 @@ Zišlo by sa zamyslieť nad implementáciou bezpečnostých mechanizmov na zákl
 
 \begin{figure*}[h]
 	\centering
-	\includegraphics[scale=0.4]{n_konvergencia.png}
+	\includegraphics[scale=0.3]{n_konvergencia.png}
 	\caption{Správanie sa koncového uzla po zapnutí napájania.}
 	\label{f:o_konvergencia}
 \end{figure*}
 
 \begin{figure*}[h]
 	\centering
-	\includegraphics[scale=0.4]{n_event.png}
+	\includegraphics[scale=0.3]{n_event.png}
 	\caption{Reakcia koncového uzla na udalosť.}
 	\label{f:o_event}
 \end{figure*}
@@ -1724,20 +1724,18 @@ Programovanie a real-time debugovanie prebieha pomocou programátora v obvode od
 Pre programovanie vývojového kitu sme nainštalovali SDK určené pre radu zariadení nRF51 a nRF52 \footnote{\url{https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF5-SDK}}.
 
 \section{Bezdrôtová komunikácia}
-broadcast
- 
-obrazok response
+Komunikácia medzi zariadeniami je realizovaná prostredníctvom broadcastov. 
+ANT protokol komunikuje vo vyhradených časových intervaloch. Takisto umožnuje obojsmernú komunikáciu. Komunikácia smerom naspäť od Slave zariadenia k Mastrovi, je možná iba vo vyhradenom krátkom časovom úseku. Pokiaľ výpočet nezbehne počas krátkeho časového úseku, je nutné dáta poslať v niektorých daľších časových úsekoch.
 
-	sekvencny diagram
+Naimplementovaná komunikácia medzi Mastrom a Slavom prebieha v princípe ako na obr. \ref{f:mssequence}. Keď Master detekuje zmenu na pripojných tlačidlách, tieto dáta zakóduje príslušným nakonfigurovaným zabezpečením \ref{bootloader}. Dáta pošle Slave zariadeniu. Ten ich dekóduje, znova zakóduje a pošle naspäť vo vyhradenom časovom okne Mastrovi. Master prijaté dáta dekóduje a pošle na ich na LED diódy.
 
-	vyvojovy diagram
-segmenter
+ANT protokol podporuje v jednom pakete maximálne 8 bajtov používateľských dát. O posielanie správ väčších ako 8 bajtov sa v projekte starajú funkcie obsiahnuté v súbore Segmenter.c. Na posielanie týchto správ sa nevyužíva Burst mód.
 
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.37]{reverse.jpg}
 		\caption{Obojsmerná komunikácia po ANT protokole \cite{ANT}.}
-		\label{f:mssequence}
+		\label{f:reverse_send}
 	\end{figure*}
 
 
@@ -1749,27 +1747,61 @@ segmenter
 	\end{figure*}
 
 \subsection{Master}
-funkcie
-iso7816 uart gpio port0
-leds
-buttons
+	Komunikácia je iniciovaná zariadením, ktoré je nakonfigurované ako Master.
+	V periodických časových intervaloch posiela pomocou broadcastov dáta po ANT komunikačnom protokole.
+	
+	Master je pripojený nRFGo MotherBoard doske a je pripojený k LED diódam a tlačidlám. 
+	Pripojenie periférií je nasledovné:
+	\begin{itemize}
+		\item LED diódy sú pripojené na porte porte P1,
+		\item tlačidlá sú pripojené na porte P2,
+		\item ISO7816 signál CLK je pripojený na P0.5,
+		\item ISO7816 signál RST je pripojený na P0.4,
+		\item ISO7816 signál VCC je pripojený na P0.6,
+		\item ISO7816 signál TX je pripojený na P0.3,
+		\item ISO7816 signál RX je pripojený na P0.2.
+	\end{itemize}
+
+	Master zariadenie umožňuje nakonfigurovať zabezpečenie komunikačného kanála pomocou bootloadera a spustenie automatického testu. 
+	Master reaguje na zmenu na tlačidlách a túto zmenu posiela Slave zariadeniu. 
+	Dáta prijaté od Slave zariadenie dekóduje a zobrazuje na LED diódach.
 
 \subsection{Slave}
-funkcie
-
+	Slave zariadenie prijíma dáta Master zariadenia. Tieto dáta dekóduje, znovu zakóduje príslušným spôsobom a pošle naspäť Master zariadeniu.
+	
+	
+	Pripojenie periférií je rovnaké ako pri Master zariadení:
+	\begin{itemize}
+		\item ISO7816 signál CLK je pripojený na P0.5,
+		\item ISO7816 signál RST je pripojený na P0.4,
+		\item ISO7816 signál VCC je pripojený na P0.6,
+		\item ISO7816 signál TX je pripojený na P0.3,
+		\item ISO7816 signál RX je pripojený na P0.2.
+	\end{itemize}
 
 \section{SW AES}
 PSK
 Vector
 
 \section{Bootloader}
+	\label{bootloader}
+	Pri podržaní ktorého-koľvek tlačidla ihneď po zapnutí, je možné na Master zariadení, ktorý je osadený na vývojovej doske nRF6310 (nRF Go MotherBoard), nakonfigurovať zabezpečenie bezdrôtového komunikačného kanála. Následne umožňuje zapnutie automatického testu a prejdenie do testovacieho módu na odladenie komunikácie cez štandard ISO7816.
+Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootloader}.
+	
+	Slave zariadenie na sieti sa automaticky prispôsobí nastavenému typu zabezpečenia komunikačného protokolu.
+\begin{figure*}[!htb]
+	\centering
+	\includegraphics[scale=0.2]{bootloader.png}
+	\caption{Konfigurácia nastavení po zapnutí\cite{nrfug}.}
+	\label{f:o_bootloader}
+\end{figure*}
 
 \section{Štandard ISO7816}
 
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.2]{apdu.jpg}
-		\caption{Standardny format APDU spravy podla standardu ISO7816\cite{smartcard}.}
+		\caption{Štandardný format APDU správy podľa štandardu ISO7816\cite{smartcard}.}
 		\label{f:apdu}
 	\end{figure*}
 	
@@ -1788,6 +1820,14 @@ Vector
 		\label{f:atr}
 	\end{figure*}
 
+
+	
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=1.2]{ISOUART.png}
+		\caption{Pripojenie pinov RX a TX (UART) k pinu I/O (ISO7816).}
+		\label{f:isouart}
+	\end{figure*}
 generovanie aktivacnych sekvecnii cold reset
 deaktivacia
 UART
@@ -2066,7 +2106,7 @@ Priložené elektronické médium má nasledovný obsah a štruktúru:
 \section{Skompilovanie appletu} \label{s_applet_compile}
 
 	\begin{enumerate}
-		\item Rozbaľte JC2.2.2 development kit.
+		\item Rozbaľte JCDK 2.2.2 development kit.
 		\item Nainštalujte Eclipse 3.5 (Galileo)
 		\item Nainštalujte JRE verziu 1.6.0
 		\item Nainštalujte plugin JCDE do Eclipse 3.5
