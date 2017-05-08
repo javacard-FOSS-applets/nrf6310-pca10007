@@ -1809,27 +1809,43 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 \end{figure*}
 
 \section{Štandard ISO7816}
-
-Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa štandardu ISO7816.
-
-Implementované rozhranie dokáže komunikovať s protokolom, ktorý je kódovaný v priamej konverzií. TS byte Direct conversion ATR 3B
-inverse konverzia ATR 3F
-
-Dokáže rozanalyzovať prijímanú ATR správu podľa normy ISO7816 obr. \ref{f:atr}, nie všetky hodnoty sa však používajú.
+	Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa štandardu ISO7816. Táto kapitola stručne opisuje najzákladnejšie naimplementované poskytované funkcionality.
+	
+	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzií. Identifikácia konverzie prebieha z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako "TS". Jeho hodnoty následovné znamenajú nasledovné. Slúžia aj ako synchronizačné sekvencie:
+	\begin{itemize}
+		\item 0x3B: jedná sa o priamu konverziu,
+		\item 0x3F: jedná sa o inverznú konverziu.
+	\end{itemize}
+	
+	
+	Program generuje valídne sekvencie studenej aktivácie karty a deaktivácie karty. Po úspešnom pripojení a aktivačnej sekvencií, karta odpovie správou ATR. To je jediný prípad, kedy karta posiela správu. Smart karta od tejto chvíle čaká správu od terminálu. Komunikácia prebieha v dvojciach príkaz-odpoveď.
+	
+	Program dokáže rozanalyzovať prijatú ATR správu, podľa normy ISO7816 obr. \ref{f:atr}, nie všetky hodnoty sa však používajú.
 
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.45]{atr_parsing.jpg}
-		\caption{Parsovanie ATR (Answer to reset) správy po pripojení smart karty\cite{smartcard}.}
+		\caption{Analyzovanie ATR (Answer to reset) správy po pripojení smart karty\cite{smartcard}.}
 		\label{f:atr}
 	\end{figure*}
 
-Program generuje valídne sekvencie studenej aktivácie karty a deaktivácie karty podľa štandadu.
+	Na komunikáciu so štandardom sú použité signály:
+	\begin{itemize}
+		\item GND pripojenie na referenčný potenciál,
+		\item VCC napájanie karty,
+		\item RST signál slúžiaci na resetovanie karty, aktívny v logickej nule,
+		\item CLK externý signál hodinového signálu. Niektoré karty, majú zabudovaný interný zdroj hodinového signálu,
+		\item IO: obojsmerná polo-duplexná komunikačná linka.
+	\end{itemize}
 
-Na generovanie napájania je signál VCC pripojený GPIO pin procesora.
-Signál Reset je takisto pripojený na pin procesora.
-Generovanie hodinového signálu je realizované procesorom. Generovanie signálu prebieha automatizovane pomocou časovača Timer2 v 8 bitovom režime, udalostí a periférie s názvom PPI (Programmable Peripheral Interface). Pomocou týchto periférií bolo možné vygenerovať pri frekvencií oscilátora 16MHz hodiny s frekvneciou maximálne 4MHz. Výsledný pracovný cyklus hodín je 50\%. Vo výslednej implementácií je frekvencia externého hodinového signálu CLK 2666666.7 Hz.
-\ref{f:isouart}
+	Pre generovanie napájania VCC, je signál VCC pripojený na GPIO pin procesora.
+	Signál RST je takisto pripojený na výstupný pin procesora.
+	
+	Generovanie hodinového signálu je realizované procesorom. Generovanie signálu prebieha automatizovane, čisto prostredníctvom hardvéru. Softvér slúži v tomto prípade iba na nainicializovanie periférií. Toto bolo možné dosiahnuť pomocou časovača Timer2 v 8 bitovom režime, udalostí, úlohy a periférie s názvom PPI (Programmable Peripheral Interface), ktorá poprepájala jednotlivé bloky. Pomocou týchto periférií bolo možné vygenerovať pri frekvencií oscilátora 16MHz, hodinový signál s frekvenciou maximálne 4MHz. Výsledný pracovný cyklus hodín je 50\%. Vo výslednej implementácií je frekvencia externého hodinového signálu CLK 2666666.7 Hz.
+
+	Pri štandardných parametroch označovaných ako "Clock rate conversion factor" = 372 a "Bit rate adjustment factor" = 1, sa výsledná rýchlosť sériovej linky rovná 2666666.7/372 = 7168 bps.
+
+	Obojsmerná polo-duplexná komunikačná linka označovaná ako IO je pripojená k UART sériovej linke a to spôsobom ako je uvedené na obr. \ref{f:isouart}.
 
 	\begin{figure*}[h]
 		\centering
@@ -1839,16 +1855,13 @@ Generovanie hodinového signálu je realizované procesorom. Generovanie signál
 	\end{figure*}
 
 
-pri parametr 372 a 1 je výsledná rýchlosť sériovej linky 7168 bps.
-
-Z analyzovania správy. Program umožnuje aj vyjednávanie zmeny protokolu, vo výsledku sa ale nepoužíva a komunikuje sa protokolom, ktorý preferuje daný kryptoelement alebo smart karta.
-
-Z ATR správy okrem iných vecí, sa dá identifikovať preferovaný spôsob a parametre komunikácie. Boli implementované dve najpoužívanejšie formy komunikácie štandardu ISO7816-3:
+	Po prijatí správy ATR, program umožnuje aj vyjednávanie zmeny protokolu, vo výsledku sa ale nepoužíva a komunikuje sa protokolom, ktorý preferuje daný kryptoelement alebo smart karta.
+	
+	Z ATR správy okrem iných vecí, sa dá identifikovať preferovaný spôsob a nastavenia komunikácie. Boli implementované dve najpoužívanejšie formy komunikácie podľa štandardu ISO7816-3:
 	\begin{itemize}
-		\item Bajtovo orientovaný prenos dát T=0: forma a štruktúra posielaných dát vo forme APDU je na obr.  \ref{f:apdu},
-		\item blokovo orientovaný prenos dát T=1: forma a štruktúra posielaných dát vo forme bloku je na obr. \ref{f:tpdu}. Štandardne sa do bloku zabaľujú dáta vo forme APDU správy \ref{f:apdu}. Štandardne je v blokovej komunikácií použitý spôsob kontrolnej sumy vo forme LRC (longitudinal redundancy check), ktorý vyžaduje jeden bajt. Dvoj-bajtové CRC so špecifickým polynómom nebolo nutné implementovať. Následne je implementované sekvenčné číslo pri komunikácií podľa protokolu T=1.
+		\item Bajtovo orientovaný prenos dát T=0: forma a štruktúra posielaných dát vo forme APDU je na obr. \ref{f:apdu},
+		\item blokovo orientovaný prenos dát T=1: forma a štruktúra posielaných dát vo forme bloku je na obr. \ref{f:tpdu}. Štandardne sa do bloku zabaľujú dáta vo forme APDU správy \ref{f:apdu}. Štandardne je v blokovej komunikácií, použitý spôsob kontrolnej sumy vo forme LRC (longitudinal redundancy check), ktorý vyžaduje jeden bajt. Dvoj-bajtové CRC so špecifickým polynómom nebolo nutné implementovať, keďže žiadne z pripojených zariadení ho nevyžadovalo. Následne je implementované sekvenčné číslo pri komunikácií podľa protokolu T=1.
 	\end{itemize}
-
 
 	\begin{figure*}[h]
 		\centering
@@ -1865,7 +1878,7 @@ Z ATR správy okrem iných vecí, sa dá identifikovať preferovaný spôsob a p
 	\end{figure*}
 
 
-Z viacerých zdrojov na internete boli pozbierané štandardné odpovede protokolu spolu s ľudsky čitateľnou správou, čo reprezentujú. Tieto odpovede majú veľký význam pri odlaďovaní komunikácie. Odpovede spolu s príslušnými hláškami sú zozbierané v súbore /Keil/ISO7816\_errors.h.h
+	Z viacerých zdrojov na internete boli pozbierané štandardné odpovede štandardu ISO7816, spolu s ľudsky čitateľným textom, aký typ odpovede  reprezentujú a čo znamenajú. Tieto odpovede majú veľký význam pri odlaďovaní komunikácie. Odpovede spolu s príslušnými hláškami sú zozbierané v súbore /Keil/ISO7816\_errors.h.h
 
 
 \section{ISO7816 debugger}
