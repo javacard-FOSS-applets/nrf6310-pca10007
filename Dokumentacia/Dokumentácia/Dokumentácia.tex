@@ -1846,7 +1846,7 @@ Z analyzovania správy. Program umožnuje aj vyjednávanie zmeny protokolu, vo v
 Z ATR správy okrem iných vecí, sa dá identifikovať preferovaný spôsob a parametre komunikácie. Boli implementované dve najpoužívanejšie formy komunikácie štandardu ISO7816-3:
 	\begin{itemize}
 		\item Bajtovo orientovaný prenos dát T=0: forma a štruktúra posielaných dát vo forme APDU je na obr.  \ref{f:apdu},
-		\item blokovo orientovaný prenos dát T=1: forma a štruktúra posielaných dát vo forme bloku je na obr. \ref{f:tpdu}. Štandardne sa do bloku zabaľujú dáta vo forme APDU správy \ref{f:apdu}. Štandardne je v blokovej komunikácií použitý spôsob kontrolnej sumy vo forme LRC (longitudinal redundancy check), ktorý vyžaduje jeden bajt. Dvoj-bajtové CRC so špecifickým polynómom nebolo nutné implementovať. Následne je implementované sekvenčné číslo pri komunikácií podľa protokol T=1.
+		\item blokovo orientovaný prenos dát T=1: forma a štruktúra posielaných dát vo forme bloku je na obr. \ref{f:tpdu}. Štandardne sa do bloku zabaľujú dáta vo forme APDU správy \ref{f:apdu}. Štandardne je v blokovej komunikácií použitý spôsob kontrolnej sumy vo forme LRC (longitudinal redundancy check), ktorý vyžaduje jeden bajt. Dvoj-bajtové CRC so špecifickým polynómom nebolo nutné implementovať. Následne je implementované sekvenčné číslo pri komunikácií podľa protokolu T=1.
 	\end{itemize}
 
 
@@ -1882,39 +1882,35 @@ Z viacerých zdrojov na internete boli pozbierané štandardné odpovede protoko
 		\item resetovanie karty/kryptoelementu,
 		\item výpis rozanalyzovania ATR správy,
 		\item prehľadávanie dostupných súborov na karte,
-		\item prehľadávanie dostupných inštrukcií v danom súbore,
+		\item prehľadávanie dostupných inštrukcií v súbore,
 		\item vyhľadávanie manažéra karty,		
 		\item posielanie správ v móde T=0,
 		\item automatické zabalenie dát do bloku v móde T=1, výpočet LRC a dĺžky správy,
 		\item vypnutie/zapnutie párnej parity na UART sériovej linke,
 		\item zmenenie baud rýchlosti sériovej linky za behu,
 		\item pokus o získanie dát o životnom cykle karty,
-		\item kontinálny príjem alebo posielanie dát na UART sérovej linke,
-		\item zavolanie metódy, ktorá zavolá testovaciu rutinu appletu na karte.
+		\item kontinuálny príjem alebo posielanie dát na UART sériovej linke,
+		\item zavolanie metódy, ktorá otestuje komunikáciu s kartou a s appletom na karte.
 	\end{itemize}
 
 
 
 \section{Applet}
-
-JCDK 2.2.2.  JPSK
-vector
-
-AES
-toto áno
-toto nie
-krpytoelementy ake typy a oznacenie
-
-Boli vyskusane rozne verzie Eclipse, JRE, JCKITu, a rozne typy konvertorov na vysledny cap súbor.  Specificky kompilator a nastavenie. Výsledný funkčný postup je opísaný v kapitole \ref{s_applet_compile}.
-
-odpoveda na nasledujuce apdu spravy v datovej cast. Na parametroch apdu spravy ako Instrukcia, parametre P1 a P2 nezalezi, neberu sa do uvahy.
-\begin{itemize}
-	\item FF odpovie aa test odpovede appletu a kryptoelementu
-	\item 03 16 bajtov zakoduje 
-	\item 04 16 bajtov
-	\item ak prijme cokolvek ine, posle v odpovedi rovnake data ako prijal v apdu sprave.
-\end{itemize}
-
+	Applet sa sám nainicializuje počas inštrukcie SELECT. Následne po prijatí správy, vyberie prvý bajt z dátovej časti. Na základe nej sa zistí, čo sa má ďalej s prijatými dátami spraviť. Po spracovaní dát sa vygeneruje a pošle odpoveď. Applet musí odpovedať naspäť do časového okamžiku zodpovedajúcemu maximálne 45000*ETU (Elementary Time Unit).
+	
+	Applet bol nahratý a otestovaný na dvoch typoch kryptoelementov od spoločnosti NXP. Prvý s označením P5CN145 a druhý P5CN080.
+	
+	Na kompiláciu kódu do CAP súboru boli vyskúšané rôzne nastavenia kompilácie, verzie vývojového prostredia Eclipse, JRE, JCDK, JCKIT a rôzne typy konvertorov na výsledný CAP súbor. Tieto kryptoelementy boli dosť citlivé na kompilačný proces a nedovolili inštaláciu CAP súboru s nekompatibilnými verziami. Preto je odporúčané použiť nástroje a verzie opísané v návode. Výsledný funkčný overený postup je opísaný v kapitole \ref{s_applet_compile}.
+	
+	Po nahratí, nainštalovaní a vybratí appletu je applet pripravený na použitie. Applet odpovedá na správy v dátovej časti APDU následovne. Na parametroch APDU správy ako inštrukcia, parametre P1 a P2 nezáleží, neberú sa do úvahy.
+	\begin{itemize}
+		\item 0xFF applet odpovie naspäť 0xAA,
+		\item 0x03 zakryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x03 musí následovať 16 bajtov dát, ktoré sa majú zakryptovať. V odpovedi bude 16 bajtov zakryptovaných dát,
+		\item 0x04 dekryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x04 musí následovať 16 bajtov dát, ktoré sa majú dekryptovať. V odpovedi bude 16 bajtov dekryptovaných dát,
+		\item 0x48 odpovie naspäť text "ALOHA",
+		\item ak príjme čokoľvek iné, pošle v odpovedi rovnaké dáta ako prijal v APDU správe.
+	\end{itemize}
+	
 
 \section{Automatizovaný test}
 Princíp automatického testu, spočíva v tom, aby boli zabezpečené konzistentné podmienky počas meraní, pri rôznych typoch zabezpečenia komunikačného kanála.
