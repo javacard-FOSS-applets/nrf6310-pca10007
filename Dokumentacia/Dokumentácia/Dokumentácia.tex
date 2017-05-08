@@ -1729,9 +1729,9 @@ Pre programovanie vývojového kitu sme nainštalovali SDK určené pre radu zar
 
 \section{Bezdrôtová komunikácia}
 Komunikácia medzi zariadeniami je realizovaná prostredníctvom broadcastov. 
-ANT protokol komunikuje vo vyhradených časových intervaloch \ref{f:reverse_send}. Takisto umožnuje obojsmernú komunikáciu. Komunikácia smerom naspäť, od Slave zariadenia k Mastrovi, je možná iba vo vyhradenom krátkom časovom úseku. Pokiaľ výpočet nezbehne počas daného krátkeho časového úseku, je nutné dáta poslať v niektorých daľších časových úsekoch.
+ANT protokol komunikuje vo vyhradených časových intervaloch \ref{f:reverse_send}. Takisto umožnuje obojsmernú komunikáciu. Komunikácia smerom naspäť, od Slave zariadenia k Mastrovi, je možná iba vo vyhradenom krátkom časovom úseku. Pokiaľ výpočet nezbehne počas daného krátkeho časového úseku, je nutné dáta poslať v niektorých ďalších časových úsekoch.
 
-Naimplementovaná komunikácia medzi Mastrom a Slavom prebieha v princípe ako na obr. \ref{f:mssequence}. Keď Master detekuje zmenu na pripojných tlačidlách, tieto dáta zakóduje príslušným nakonfigurovaným zabezpečením \ref{bootloader}. Dáta pošle Slave zariadeniu. Ten ich dekóduje, znova zakóduje a pošle naspäť vo vyhradenom časovom okne Mastrovi. Master prijaté dáta dekóduje a pošle na ich na LED diódy.
+Naimplementovaná komunikácia medzi Mastrom a Slavom prebieha v princípe ako na obr. \ref{f:mssequence}. Keď Master detekuje zmenu na pripojených tlačidlách, tieto dáta zakóduje príslušným nakonfigurovaným zabezpečením \ref{bootloader}. Dáta pošle Slave zariadeniu. Ten ich dekóduje, znova zakóduje a pošle naspäť vo vyhradenom časovom okne Mastrovi. Master prijaté dáta dekóduje a pošle na ich na LED diódy.
 
 ANT protokol podporuje v jednom pakete maximálne 8 bajtov používateľských dát. O posielanie správ väčších ako 8 bajtov, sa v projekte starajú funkcie obsiahnuté v súbore Segmenter.c. Na posielanie týchto správ sa nevyužíva Burst mód.
 
@@ -1748,7 +1748,7 @@ V implementácií bol použitý príklad od Nordic-u, ktorý jednosmerne posiela
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.7]{mssequence.png}
-		\caption{Komunikácia medzi mastrom a slavom.}
+		\caption{Komunikácia medzi Master a Slave zariadením.}
 		\label{f:mssequence}
 	\end{figure*}
 
@@ -1843,7 +1843,7 @@ pri parametr 372 a 1 je výsledná rýchlosť sériovej linky 7168 bps.
 
 Z analyzovania správy. Program umožnuje aj vyjednávanie zmeny protokolu, vo výsledku sa ale nepoužíva a komunikuje sa protokolom, ktorý preferuje daný kryptoelement alebo smart karta.
 
-Z ATR správy okrem iných vecí, sa dá identifikovať preferovaný spôsob a parametre komunikácie. Boli implementované dve najpoužívanejšie formy komunikácie štandardu ISO7816:
+Z ATR správy okrem iných vecí, sa dá identifikovať preferovaný spôsob a parametre komunikácie. Boli implementované dve najpoužívanejšie formy komunikácie štandardu ISO7816-3:
 	\begin{itemize}
 		\item Bajtovo orientovaný prenos dát T=0: forma a štruktúra posielaných dát vo forme APDU je na obr.  \ref{f:apdu},
 		\item blokovo orientovaný prenos dát T=1: forma a štruktúra posielaných dát vo forme bloku je na obr. \ref{f:tpdu}. Štandardne sa do bloku zabaľujú dáta vo forme APDU správy \ref{f:apdu}. Štandardne je v blokovej komunikácií použitý spôsob kontrolnej sumy vo forme LRC (longitudinal redundancy check), ktorý vyžaduje jeden bajt. Dvoj-bajtové CRC so špecifickým polynómom nebolo nutné implementovať. Následne je implementované sekvenčné číslo pri komunikácií podľa protokol T=1.
@@ -1914,18 +1914,23 @@ Test sa ukončí po úspešnom vykonaní určitého počtu cyklov odoslaní a pr
 Každá prijatá hodnota sa súčasne vykreslí na LED diódy.
 
 \section{Dosky plošných spojov}
-Počas vypracovania záverečnej práce boli vyrobené dve dosky plošných spojov. Ich zapojenie a funkcie sú opísané v nasledujúcich kapitolách.
+Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dve dosky plošných spojov. Ich zapojenie a funkcie sú opísané v nasledujúcich kapitolách.
 
-	\subsection{Test board pre ISO7816}
+	\subsection{Testovacia doska pre štandard ISO7816}
 	
-	Prvá navrhnutá a realizovaná doska, slúži v prvom rade na odladenie komunikácie pomocou UART sériovej linky so štandardom ISO7816 a na pozorovanie správania sa komunikácie s rôznym spôsobom pripojenia sériovej linky ku kryptoelementu.
+	Prvá navrhnutá a realizovaná doska, slúži v prvom rade na odladenie komunikácie prostredníctvom UART sériovej linky so štandardom ISO7816 a na pozorovanie správania sa komunikácie s rôznym spôsobom pripojenia sériovej linky ku kryptoelementu.
 	
-	Konektor vľavo slúži na pripojenie pinov procesora. Na konektor vprava sa pripojuje samotny kryptoelement.
+	Konektor vľavo (obr. \ref{f:board_ISO_schematic}) slúži na pripojenie pinov procesora. Na konektor vpravo sa pripojuje kryptoelement alebo smart karta štandardom ISO7816.
 	
-	Prvy jumper umoznuje 
-	Pomocou jumpra umoznuje odpojit alebo pripojit dva typy pullup rezistorov na I/O linku. Hodnoty osaden=ych rezistorov su 10k a 3k3. 
-	Vascina literatury tykajuca sa sa komynunikacie so smart kartami odporuca mat pripojeny na komunikacu linku pull up odporu.
-	Pomocou tychto jumprov je mozne testovat rozne kombinacie zapojeni. Vo vyslednom zapojeni a vprevadze \ref{f:isouart}. Boli pridane tsetpoin pre meranie multimetrom a pripojenie oscliloskopui
+	Prvý jumper vľavo (\ref{f:board_ISO_schematic})  umožnuje odpojiť a pripojiť signál TX, na signál RX sériovej linky. A to buď cez rezistor alebo diódu.
+	Pomocou druhého jumpra je možné odpojiť alebo pripojiť dva typy pull-up rezistorov na I/O linku. Hodnoty osadených rezistorov sú 10k a 3k3. 
+	Väčšina literatúry, týkajúca sa zapojenia a komunikácie so smart kartami, odporúča mať pripojený  pull-up odpor na komunikačnú linku. Hodnota napájania na pull-up odporoch, by mala odpovedať maximálnemu dovolenému napätiu, ktoré smart karta podporuje: 1.8V, 3.3V alebo 5V.
+	
+	Pomocou týchto jumprov je možné testovať rôzne kombinácie zapojení. Vo výslednom zapojení, aj na druhej doske bolo použité zapojenie zobrazené na obr. \ref{f:isouart}.
+	
+	 V rozložení súčiastok na doske, obr. \ref{f:board_ISO_layout}, boli pridané testovaci body, napr. pre pripojenie multimetrov a osciloskopu.
+	
+	Výsledná doska je zobrazená na obr.  \ref{f:i_board_iso}.
 	
 	\begin{figure*}[h]
 		\centering
@@ -1941,21 +1946,27 @@ Počas vypracovania záverečnej práce boli vyrobené dve dosky plošných spoj
 		\label{f:board_ISO_layout}
 	\end{figure*}
 	
+	\subsection{Doska pre Slave zariadenie}
+
+	Hlavný prínos dosky pre Slave zariadenie je v tom, že poskytuje napájanie pre vývojový kit od spoločnosti Nordic. Doska má osadený aj vyhladzovací kondenzátor.
+	Doska je napájaná napätím 3.3V.
 	
-		\ref{f:i_board_nrf}
-		
-	\subsection{Slave board}
+	Druhá funckionalita, ktorú doska poskytuje je pripojenie UART sériovej linky k štandardu ISO7816, podľa schémy zapojenia, ako je na obr. \ref{f:isouart}. Všetky signály potrebné pre komunikáciu podľa štandardu ISO7816, ktoré procesor generuje sú pripojené k portu P0 a vyvedené k príslušnému konektoru.
+	Schéma zapojenia dosky pre Slave zariadenie je na obr. \ref{f:board_slave_schematic}. 
 	
-		\ref{f:i_board2}
-	Pripojenie 
-	Pripojenie UART a ISO \ref{f:isouart}
-	vlastny konektor 
-	nazov z datashetu pre dany konektor vyplynuli.
-	1.27 mm
-	pruzne vodice z eternetoveho kabla
-	V domacich podmienkach podleptanie alebo nedostatocne odleptanie medenej vrstvy. Vo vyvojovom nastroji Eagle bola vytoverena aj vlastna kniznica pre dany konnetkro, kroa sluzi len ako voditko, kde maju byt odvrtane diery a . Vodice su ulozene volne. Takymto sposobom je privedene napajanie a zem k doske spolu s vyhladzujucim kondenzatorom. Najidealnejsie pasovali do protichodneho konektora na Nordic doske jednozilove medene vodice z eternetoveho kabla. Detail zapojenie a pripojenia \ref{f:i_board2}
+	Vývojový kit Nordic, má použité menej tradičné konektory, na pripojenie sa k rozširujúcej doske nRF Go Motherboard. To zťažilo pripojenie kryptoelementu k vývojovému kitu. Protichodný konektor nebol dostupný v bežných predajniach a vyskytoval sa iba v prevedeniach SMD. 
+	Rozteč medzi jednotlivými pinmi konektoru je dosť malá (1.27mm), aby sa s nimi dalo efektívne pracovať v domácich podmienkach. Pri výrobe totiž nemusí prísť k dokonalému preneseniu stôp z prenového média (papier), na dosku plošných spojov. V domácich podmienkach takisto veľmi ľahko môže prísť k podleptaniu a súčasne aj k nedostatočnému odleptaniu medenej vrstvy. Bolo teda nutné vymyslieť vlastný konektor.	
 	
-	Dalej su to piny pre na porte0. UART, CLK, VCC, . pripojene ku konekoru.
+	Vo vývojovom nástroji Eagle, bola vytvorená vlastná knižnica, pre daný konektor (2x20 pinov), ktorá slúži hlavne ako vodítko, v akých vzdialenostiach sa majú konektory nachádzať a ďalej vyznačuje miesta, kde majú byť odvŕtané diery a pripojené vodiče.
+	
+	Vodiče sú v konektore uložené voľne. Vodiče sú následne v dostatočnej vzdialenosti pripájkované k správnym cestám. Najideálnejšie pasovali do protichodného konektora na Nordic doske, jednožilové medené vodiče z eternetového kábla.
+	
+	Tímto štýlom je privedené napájanie a zem k doske, spolu so signálmi pre štandard ISO7816. 
+	
+	Výsledné cesty spolu s osadením súčiastok sú na obr. \ref{f:board_slave_layout}.
+	
+	Detail zapojenia a pripojenia konektora je zobrazený na obr. \ref{f:i_board2}.
+	Výsledná osadená doska spolu s pripojeným vývojový kitom je zobrazená na obr. \ref{f:i_board_nrf}.
 	
 	\begin{figure*}[h]
 		\centering
@@ -1971,7 +1982,7 @@ Počas vypracovania záverečnej práce boli vyrobené dve dosky plošných spoj
 		\label{f:board_slave_layout}
 	\end{figure*}
 
-\subsection{Projekt}
+\section{Projekt}
 	Include obsahuje vsetky hlavickove subory a subory s externym kodom, ktore su potrebne pre dany projekt.
 	
 	Projekt ma v sebe nakonfiguronve , paramtre kompilovanie, pouzity SoftDevice program a data.
@@ -1983,11 +1994,15 @@ Počas vypracovania záverečnej práce boli vyrobené dve dosky plošných spoj
 	
 	\ref{f:keil_project}
 	
-	Opis targetov:
+	Opis typov cieľových zariadení pri kompilácií:
 	\begin{itemize}
-		\item a
+		\item Master
+		\item Slave
+		\item Converter
+		\item Converter
 	\end{itemize}
-	Opis suborov:
+	
+	Opis najdoležitejších súborov v projekte:
 	\begin{itemize}
 		\item a
 	\end{itemize}
