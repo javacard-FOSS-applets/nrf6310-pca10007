@@ -1869,23 +1869,35 @@ Z viacerých zdrojov na internete boli pozbierané štandardné odpovede protoko
 
 
 \section{ISO7816 debugger}
-pripojenie
-cez jlink rtt viever
-	CLK
-	Reset
-nastavnie baudrate
-aktivacia deaktivacia, restovanie,
-nastavenie parity
-T=0 T=1
-obrazok
-posielanie sprav zadanych cez segger konzolu
+	Funkcia odlaďovania slúži na odladenie a testovanie nových typov príkazov bez toho, aby bolo nutné konpilovať a nahrávať nový program na vývojový kit. Slúži aj na vizuálnu verifikáciu komunikácie podľa štandardu ISO7816. 
+	
+	Na využitie tejto fukcionality je potrebné pripojenie vývojovej dosky pomocou technológie RTT, napr. prostredníctvom J-Link Lite a konzolového programu J-Link RTT viewer\footnote{\url{https://www.segger.com/jlink-rtt-viewer.html}}.
+	
+	Prostredníctvom konzoly používateľ zadáva príkazy, ktoré sa vykonajú (obr. \ref{f:i_iso_dekoder}).
+	Hlavné funkcionality debuggera:
+	\begin{itemize}
+		\item Vypísanie základných podporovaných inštrukcií,
+		\item aktivácia karty/kryptoelementu,
+		\item deaktivácia karty/kryptoelementu,
+		\item resetovanie karty/kryptoelementu,
+		\item výpis rozanalyzovania ATR správy,
+		\item prehľadávanie dostupných súborov na karte,
+		\item prehľadávanie dostupných inštrukcií v danom súbore,
+		\item vyhľadávanie manažéra karty,		
+		\item posielanie správ v móde T=0,
+		\item automatické zabalenie dát do bloku v móde T=1, výpočet LRC a dĺžky správy,
+		\item vypnutie/zapnutie párnej parity na UART sériovej linke,
+		\item zmenenie baud rýchlosti sériovej linky za behu,
+		\item pokus o získanie dát o životnom cykle karty,
+		\item kontinálny príjem alebo posielanie dát na UART sérovej linke,
+		\item zavolanie metódy, ktorá zavolá testovaciu rutinu appletu na karte.
+	\end{itemize}
 
-vyhladavanie card manazera  a prehladavanie instruckcii
-\ref{f:i_iso_dekoder}
+
 
 \section{Applet}
 
-PSK
+JCDK 2.2.2.  JPSK
 vector
 
 AES
