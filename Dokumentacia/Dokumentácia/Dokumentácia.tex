@@ -1735,6 +1735,8 @@ Naimplementovaná komunikácia medzi Mastrom a Slavom prebieha v princípe ako n
 
 ANT protokol podporuje v jednom pakete maximálne 8 bajtov používateľských dát. O posielanie správ väčších ako 8 bajtov sa v projekte starajú funkcie obsiahnuté v súbore Segmenter.c. Na posielanie týchto správ sa nevyužíva Burst mód.
 
+V implementácií bol použitý príklad od Nordic-u, ktorý jednosmerne posielal dáta pomocou broatcastov. Tento príklad bol rozšírený a doplnený od ďalšie funckionality.
+
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.37]{reverse.jpg}
@@ -1784,8 +1786,10 @@ ANT protokol podporuje v jednom pakete maximálne 8 bajtov používateľských d
 	\end{itemize}
 
 \section{SW AES}
+Bola použitá online dostupná knižnica na GitHube s názvom TinyAES 128 C.
 PSK
 Vector
+
 
 \section{Bootloader}
 	\label{bootloader}
@@ -1820,7 +1824,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.45]{atr_parsing.jpg}
-		\caption{Parsovanie ATR Answer to reset spravy po pripojeni smart karty\cite{smartcard}.}
+		\caption{Parsovanie ATR (Answer to reset správy) po pripojení smart karty\cite{smartcard}.}
 		\label{f:atr}
 	\end{figure*}
 
@@ -1864,18 +1868,47 @@ obrazok
 posielanie sprav zadanych cez segger konzolu
 
 vyhladavanie card manazera  a prehladavanie instruckcii
+\ref{f:i_iso_dekoder}
 
 \section{Applet}
+
+PSK
+vector
+
 AES
 toto áno
 toto nie
-krpytoelementy
+krpytoelementy ake typy a oznacenie
+
+Boli vyskusane rozne verzie Eclipse, JRE, JCKITu, a rozne typy konvertorov na vysledny cap súbor.  Specificky kompilator a nastavenie. Výsledný funkčný postup je opísaný v kapitole \ref{s_applet_compile}.
+
+odpoveda na nasledujuce apdu spravy v datovej cast. Na parametroch apdu P1 a P2 nezalezi.
+\begin{itemize}
+\item FF odpovie aa test odpovede appletu a kryptoelementu
+\item 03 16 bajtov zakoduje 
+\item 04 16 bajtov
+\item ak prijme cokolvek ine, posle v odpovedi rovnake data ako prijal v apdu sprave.
+\end{itemize}
+
 
 \section{Automatizovaný test}
-fungovanie
+Princíp automatického testu, spočiva v tom, aby sa zabezpečili konzistentné podienky pri rôznych typoch zabezpečenia.
+
+Počas automatickeho testovania, Master zariadenie neprijíma. Pokial neprijimne data do isteho casoveho okamziku, alebo prijmne ine data ako poslal v posledom, pokusi sa poslat data znovu. 
+
+Test sa ukonci po uspesnom poslani a prijati hodnot, nastaveni parametrom TEST\_MAX\_VALUE.
 
 \section{Dosky plošných spojov}
 \subsection{Test board pre ISO7816}
+
+Prvá narvhnutá a realizovaná doska, slúžila v prvom rade na odladenie komunikacie UART na standard iso7816 a na pozorovanie spravanie sa komunikacie s roznym typom pripojenia UART ku kryptoelementu
+
+Konektor vlavo sluzi na pripojenie pinov procesora. Na konektor vprava sa pripojuje samotny kryptoelement.
+
+Prvy jumper umoznuje 
+Pomocou jumpra umoznuje odpojit alebo pripojit dva typy pullup rezistorov na I/O linku. Hodnoty osaden=ych rezistorov su 10k a 3k3. 
+Vascina literatury tykajuca sa sa komynunikacie so smart kartami odporuca mat pripojeny na komunikacu linku pull up odporu.
+Pomocou tychto jumprov je mozne testovat rozne kombinacie zapojeni. Vo vyslednom zapojeni a vprevadze \ref{f:isouart}. Boli pridane tsetpoin pre meranie multimetrom a pripojenie oscliloskopui
 
 \begin{figure*}[h]
 	\centering
@@ -1887,33 +1920,67 @@ fungovanie
 \begin{figure*}[h]
 	\centering
 	\includegraphics[scale=1]{Board.png}
-	\caption{.}
+	\caption{Rozloženie súčiastok na doske plošných spojov.}
 	\label{f:board_ISO_layout}
 \end{figure*}
 
+
+	\ref{f:i_board_nrf}
+	
 \subsection{Slave board}
 
+	\ref{f:i_board2}
+Pripojenie 
+Pripojenie UART a ISO \ref{f:isouart}
 vlastny konektor 
+nazov z datashetu pre dany konektor vyplynuli.
 1.27 mm
-pruzne
-vodice z eternetoveho kabla
+pruzne vodice z eternetoveho kabla
+V domacich podmienkach podleptanie alebo nedostatocne odleptanie medenej vrstvy. Vo vyvojovom nastroji Eagle bola vytoverena aj vlastna kniznica pre dany konnetkro, kroa sluzi len ako voditko, kde maju byt odvrtane diery a . Vodice su ulozene volne. Takymto sposobom je privedene napajanie a zem k doske spolu s vyhladzujucim kondenzatorom. Najidealnejsie pasovali do protichodneho konektora na Nordic doske jednozilove medene vodice z eternetoveho kabla. Detail zapojenie a pripojenia \ref{f:i_board2}
+
+Dalej su to piny pre na porte0. UART, CLK, VCC, . pripojene ku konekoru.
 
 \begin{figure*}[h]
 	\centering
-	\includegraphics[scale=0.7]{test.png}
+	\includegraphics[scale=0.7]{test2.png}
 	\caption{Schéma zapojenia a pripojenia slave zariadenia s kryptoelementom.}
 	\label{f:board_slave_schematic}
 \end{figure*}
 
 \begin{figure*}[h]
 	\centering
-	\includegraphics[scale=1]{test2.png}
+	\includegraphics[scale=1]{test.png}
 	\caption{Rozloženie súčiastok na doske plošných spojov pre slave.}
 	\label{f:board_slave_layout}
 \end{figure*}
 
 \subsection{Projekt}
-viac targetov
+	Include obsahuje vsetky hlavickove subory a subory s externym kodom, ktore su potrebne pre dany projekt.
+	
+	Projekt ma v sebe nakonfiguronve , paramtre kompilovanie, pouzity SoftDevice program a data.
+	Nastavenia pre nahratie a odladenie programu s pouzitim Segger programatora. Rozsahy pamati pre 
+	
+	Projekt vo vyvojovom prostredi ma predkonfigurovane rozne ciele. Tzn. ze z jedneho projektu je mozne skopilovat rozne a odladovat iba jedntlive izolovane funckionality. Subory, ktore spolu logicky suvisia su spolu zadefinovane  v skupinach.
+	
+	Kazdy target moze mat nastavene rozne parametre kompilovania, subory, ktore sa maju skopilova a aj rozdielne typy includov.
+	
+	\ref{f:keil_project}
+	
+	Opis targetov:
+	\begin{itemize}
+		\item a
+	\end{itemize}
+	Opis suborov:
+	\begin{itemize}
+		\item a
+	\end{itemize}
+
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.35]{i_projekt1.jpg}
+		\caption{Nahratie appletu na kryptoelement.}
+		\label{f:keil_project}
+	\end{figure*}
 
 %TODO
 %Popisuje vybrané dôležité časti kódu.
@@ -2013,9 +2080,29 @@ Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v príloh
 
 
 \section{Zhodnotenie tretej fázy vypracovania projektu}
-skepticky
-\section{Zhodnotenie}
+nepodarilo sa mi nasjt a spojazdnit sw knizcniu pre vypocet. Hladal som specificku, taku, ktora bude jednoducha v zmysle pouzivania statickym poli a nie dynamickej alokacie pocas behu programu, 
+
+
+Vzhladom na to, ze implementacia a odladenie komunikacie podla standardu ISO7816 trvala dlhsie ako som predpokladal, a neskor sa vyskytli este problemy so specifickou kompilaciu a vyzadovala specificke nastavenia systyemu, aby kryptoelemeny prilaj pri Load instruckii skompilovany applet, 
+
+Porovnaj to s hw implementaciou
+
 zavisi od ryclhosti seriovej linky
+
+Doimplementovat 
+Vyskusat rozne rychlost
+Externe generovanie CLK signal 3.5 5 10 MHz v zavilsto od fyzickych limitov niektorcychsmart kareit
+
+\section{Zhodnotenie}
+Podarilo sa uspense doimplementovat obosmernu komuniaciu pomocou ANT protokolu, naimplelemtntovať a oddebugovat komunikaciu podla standardu ISO7816, naimplementovat a nahrat applet na kryptoelemnt, obashujuci Java VM A vyuzit kryptograficke funkcie tohto appletu na zakodovnaie dát.
+Naimplementovat posielanie sprav cez vaic casovych okien ANT komunikacneho protokolu. Takisto boli navrhnute a vyrobene 2 dosky polosnych spojov pre pripojenei kryptoelementu a nordic vyvojového kitu.
+
+Spociatku som bol skepticky, nakoniec aj pri horšich vysledok, tato komunikacia je standardizovana, pravidelene revidovana, umoznuje v podstate cokolvek co si zmyslyte. Vypocty PKI, ECC, nasobenie velkych cisiel, kryptograficku podporu, externu pamat, koprocesor, viac appletov na danej smart karte, parametrizaciu, bezpecne ukladanie, pristup k dodatocnym rozhraniam ako napr NFC, si myslim, ze v specifickych pripadoch prenositelenost na ostatne zariadenie, ktore dany standard pouzivaju.
+
+Secure messaging medzi zariadenim a smart kartou
+
+Vyhodnotenie vysledkov
+
 %\section{Zhodnotenie poslednej fázy vypracovania}
 %Co sa podarilo,
 %Co sa nepodarilo
