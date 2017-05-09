@@ -8,6 +8,8 @@ void Test_Compare_Recieved_Value(uint8_t recieved_value) {
 	has_recieved_value=true;
 	wait_treshold=0;
 	
+	Segger_write_string("\t\t\tTEST COMPARE!!!!!!!!\n");
+	
 	if(recieved_value == sent_value) {
 		sent_value++;
 		dataready=1;
@@ -23,7 +25,9 @@ void Test_Compare_Recieved_Value(uint8_t recieved_value) {
 }
 
 uint8_t Check_If_Recieved(void) {
-	uint8_t return_value=0;
+	uint8_t return_value=false;
+	
+	Segger_write_string("\t\t\tCHECK RECIEVED!!!!!!!!\n");
 	
 	if(has_recieved_value==false) {
 		wait_treshold++;
@@ -34,16 +38,21 @@ uint8_t Check_If_Recieved(void) {
 		return_value=true;
 		dataready=1;
 	}
+		
 	
-	if(Global_Default_Security == MSG_HW_SYMM ) {
-		if( wait_treshold>(TEST_MAX_WAIT_TRESHOLD*5) ){
+	if(Global_Default_Security == MSG_HW_SYMM )		{
+		
+		Segger_write_string("\t\t\tSEC RIGHT\n");
+		if( wait_treshold>(TEST_MAX_WAIT_TRESHOLD*5) ) {
+			Segger_write_string_int("Return value", wait_treshold);
 			return_value = true;
 			dataready=1;
 			wait_treshold=0;
 		}
 	}
 	else{
-		if( wait_treshold>TEST_MAX_WAIT_TRESHOLD ){
+		Segger_write_string("\t\t\tSEC ELSE\n");
+		if( wait_treshold > TEST_MAX_WAIT_TRESHOLD ){
 			return_value = true;
 			dataready=1;
 			wait_treshold=0;
@@ -56,6 +65,7 @@ uint8_t Check_If_Recieved(void) {
 }
 
 uint8_t Get_Actual_Test_Value(void) {
-	dataready=1;
+	Segger_write_string("\t\t\tGET VALUE!!!!!!!!\n");
+//	dataready=1;
 	return sent_value;
 }

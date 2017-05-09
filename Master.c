@@ -206,13 +206,16 @@ static void channel_event_handle_recieve(uint8_t* p_event_message_buffer) {
 					recieve.ready=0;
 					recieve.length=0;
 					
-					//SetLEDS
-					//SetLEDS(recieved_value);
+					if(GLobal_Test_Mode_Active) {
+						Test_Compare_Recieved_Value(recieved_value);
+					}	
 				}
 				else {
 					#ifdef DEBUG_SEGMENTER_MESSAGES
 						Segger_write_string("Recieved EMPTY\n");
 					#endif
+					
+					//HERE
 				}
 				
 				#ifdef DEBUG_SEGMENTER_MESSAGES
@@ -322,9 +325,6 @@ EnCode(Global_Default_Security, ReadButtons());
 
 								case EVENT_RX:
 										channel_event_handle_recieve(event_message_buffer);
-										if(GLobal_Test_Mode_Active) {
-											Test_Compare_Recieved_Value(recieved_value);
-										}
 										SetLEDS(recieved_value);
 										//SEGGER_RTT_WriteString(0, "Receiving.\n");
 										break;
