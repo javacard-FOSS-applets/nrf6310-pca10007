@@ -1916,14 +1916,31 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	
 	Na kompiláciu kódu do CAP súboru boli vyskúšané rôzne nastavenia kompilácie, verzie vývojového prostredia Eclipse, JRE, JCDK, JCKIT a rôzne typy konvertorov na výsledný CAP súbor. Tieto kryptoelementy boli dosť citlivé na kompilačný proces a nedovolili inštaláciu CAP súboru s nekompatibilnými verziami. Preto je odporúčané použiť nástroje a verzie opísané v návode. Výsledný funkčný overený postup je opísaný v kapitole \ref{s_applet_compile}.
 	
-	Po nahratí, nainštalovaní a vybratí appletu je applet pripravený na použitie. Applet odpovedá na správy v dátovej časti APDU následovne. Na parametroch APDU správy ako inštrukcia, parametre P1 a P2 nezáleží, neberú sa do úvahy.
+	Po nahratí, nainštalovaní a vybratí appletu je applet pripravený na použitie. Inicializácia HW kryptovania je zobrazená v príklade \ref{lst:hwinit}. Príklad zavolania metódy na zakryptovanie je zobrazené na \ref{lst:hwuse}.  Applet odpovedá na správy v dátovej časti APDU následovne. Na parametroch APDU správy ako inštrukcia, parametre P1 a P2 nezáleží, neberú sa do úvahy.
 	\begin{itemize}
-		\item 0xFF applet odpovie naspäť 0xAA,
-		\item 0x03 zakryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x03 musí následovať 16 bajtov dát, ktoré sa majú zakryptovať. V odpovedi bude 16 bajtov zakryptovaných dát,
-		\item 0x04 dekryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x04 musí následovať 16 bajtov dát, ktoré sa majú dekryptovať. V odpovedi bude 16 bajtov dekryptovaných dát,
-		\item 0x48 odpovie naspäť text \quotes{ALOHA},
+		\item 0xFF: applet odpovie naspäť 0xAA,
+		\item 0x03: zakryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x03 musí následovať 16 bajtov dát, ktoré sa majú zakryptovať. V odpovedi bude 16 bajtov zakryptovaných dát,
+		\item 0x04: dekryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x04 musí následovať 16 bajtov dát, ktoré sa majú dekryptovať. V odpovedi bude 16 bajtov dekryptovaných dát,
+		\item 0x48: odpovie naspäť text \quotes{ALOHA},
 		\item ak príjme čokoľvek iné, pošle v odpovedi rovnaké dáta ako prijal v APDU správe.
 	\end{itemize}
+	
+	
+	\begin{lstlisting}[caption={Inicializácia HW AES.}, label={lst:hwinit}, language=java] 
+AES_Key = (AESKey) KeyBuilder.buildKey(
+	KeyBuilder.TYPE_AES_TRANSIENT_DESELECT,
+	KeyBuilder.LENGTH_AES_128,
+	false);
+AES_Key.setKey(AESPSKKey, (short) 0);
+AES_CBC = Cipher.getInstance(
+	Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
+		\end{lstlisting}
+	
+	\begin{lstlisting}[caption={Zavolanie HW kryptovania.}, label={lst:hwuse}, language=java] 
+AES_CBC.init(AES_Key, Cipher.MODE_ENCRYPT);
+AES_CBC.doFinal(RecievedStatic,
+	 (short) 1, (short) 16, SendStatic, (short) 0);
+	\end{lstlisting}
 	
 
 \section{Automatizovaný test}

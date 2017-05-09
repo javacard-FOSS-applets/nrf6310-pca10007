@@ -47,7 +47,7 @@ public class Test extends Applet {
 	    	private static byte[] SendStatic = new byte[LENGTH_ECHO_BYTES];
     
     	//AES
-	    	static private Cipher AES_ECB;
+	    	static private Cipher AES_CBC;
 	    	static private AESKey AES_Key;
 	    	private static byte[] AESPSKKey =	new byte[] { (byte)0x2b, (byte)0x7e, (byte)0x15, (byte)0x16,
 												   			 (byte)0x28, (byte)0xae, (byte)0xd2, (byte)0xa6,
@@ -80,7 +80,7 @@ public class Test extends Applet {
 			
 	   		AES_Key = (AESKey) KeyBuilder.buildKey(KeyBuilder.TYPE_AES_TRANSIENT_DESELECT, KeyBuilder.LENGTH_AES_128, false);
 	    	AES_Key.setKey(AESPSKKey, (short) 0);
-	        AES_ECB = Cipher.getInstance(Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
+	        AES_CBC = Cipher.getInstance(Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
 		}
 		catch (ISOException e) {
 	   	    short reason = e.getReason();
@@ -203,8 +203,8 @@ public class Test extends Applet {
 		        		
 		        		if(!DEBUG) {
 		        			try {
-				        		AES_ECB.init(AES_Key, Cipher.MODE_ENCRYPT);
-				        		AES_ECB.doFinal(RecievedStatic, (short) 1, (short) 16, SendStatic, (short) 0);
+				        		AES_CBC.init(AES_Key, Cipher.MODE_ENCRYPT);
+				        		AES_CBC.doFinal(RecievedStatic, (short) 1, (short) 16, SendStatic, (short) 0);
 			        		}
 			           		catch (ISOException e) {
 			        	   	    short reason = e.getReason();
@@ -228,8 +228,8 @@ public class Test extends Applet {
 		        		
 		        		if(!DEBUG) {
 		        			try {
-			        			AES_ECB.init(AES_Key, Cipher.MODE_DECRYPT);
-			        			AES_ECB.doFinal(RecievedStatic, (short) 1, (short) 16, SendStatic, (short) 0);
+			        			AES_CBC.init(AES_Key, Cipher.MODE_DECRYPT);
+			        			AES_CBC.doFinal(RecievedStatic, (short) 1, (short) 16, SendStatic, (short) 0);
 		        			}
 		        			catch (ISOException e) {
 			        	   	    short reason = e.getReason();
