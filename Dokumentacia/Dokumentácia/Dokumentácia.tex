@@ -105,6 +105,7 @@
 \usepackage{layout}
 
 \renewcommand\lstlistingname{Ukážka kódu}
+\newcommand{\quotes}[1]{``#1''}
 
 \usepackage{tabto}
 %\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
@@ -1811,7 +1812,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 \section{Štandard ISO7816}
 	Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa štandardu ISO7816. Táto kapitola stručne opisuje najzákladnejšie naimplementované poskytované funkcionality.
 	
-	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzií. Identifikácia konverzie prebieha z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako "TS". Jeho hodnoty následovné znamenajú nasledovné. Slúžia aj ako synchronizačné sekvencie:
+	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzií. Identifikácia konverzie prebieha z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako \quotes{TS}. Jeho hodnoty následovné znamenajú nasledovné. Slúžia aj ako synchronizačné sekvencie:
 	\begin{itemize}
 		\item 0x3B: jedná sa o priamu konverziu,
 		\item 0x3F: jedná sa o inverznú konverziu.
@@ -1843,7 +1844,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	
 	Generovanie hodinového signálu je realizované procesorom. Generovanie signálu prebieha automatizovane, čisto prostredníctvom hardvéru. Softvér slúži v tomto prípade iba na nainicializovanie periférií. Toto bolo možné dosiahnuť pomocou časovača Timer2 v 8 bitovom režime, udalostí, úlohy a periférie s názvom PPI (Programmable Peripheral Interface), ktorá poprepájala jednotlivé bloky. Pomocou týchto periférií bolo možné vygenerovať pri frekvencií oscilátora 16MHz, hodinový signál s frekvenciou maximálne 4MHz. Výsledný pracovný cyklus hodín je 50\%. Vo výslednej implementácií je frekvencia externého hodinového signálu CLK 2666666.7 Hz.
 
-	Pri štandardných parametroch označovaných ako "Clock rate conversion factor" = 372 a "Bit rate adjustment factor" = 1, sa výsledná rýchlosť sériovej linky rovná 2666666.7/372 = 7168 bps.
+	Pri štandardných parametroch označovaných ako \quotes{Clock rate conversion factor} = 372 a \quotes{Bit rate adjustment factor} = 1, sa výsledná rýchlosť sériovej linky rovná 2666666.7/372 = 7168 bps.
 
 	Obojsmerná polo-duplexná komunikačná linka označovaná ako IO je pripojená k UART sériovej linke a to spôsobom ako je uvedené na obr. \ref{f:isouart}.
 
@@ -1881,7 +1882,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	Z viacerých zdrojov na internete boli pozbierané štandardné odpovede štandardu ISO7816, spolu s ľudsky čitateľným textom, aký typ odpovede  reprezentujú a čo znamenajú. Tieto odpovede majú veľký význam pri odlaďovaní komunikácie. Odpovede spolu s príslušnými hláškami sú zozbierané v súbore /Keil/ISO7816\_errors.h.h
 
 
-\section{ISO7816 debugger}
+\section{ISO7816 debugger} \label{isodebug}
 	Funkcia odlaďovania slúži na odladenie a testovanie nových typov príkazov bez toho, aby bolo nutné konpilovať a nahrávať nový program na vývojový kit. Slúži aj na vizuálnu verifikáciu komunikácie podľa štandardu ISO7816. 
 	
 	Na využitie tejto fukcionality je potrebné pripojenie vývojovej dosky pomocou technológie RTT, napr. prostredníctvom J-Link Lite a konzolového programu J-Link RTT viewer\footnote{\url{https://www.segger.com/jlink-rtt-viewer.html}}.
@@ -1920,7 +1921,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 		\item 0xFF applet odpovie naspäť 0xAA,
 		\item 0x03 zakryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x03 musí následovať 16 bajtov dát, ktoré sa majú zakryptovať. V odpovedi bude 16 bajtov zakryptovaných dát,
 		\item 0x04 dekryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x04 musí následovať 16 bajtov dát, ktoré sa majú dekryptovať. V odpovedi bude 16 bajtov dekryptovaných dát,
-		\item 0x48 odpovie naspäť text "ALOHA",
+		\item 0x48 odpovie naspäť text \quotes{ALOHA},
 		\item ak príjme čokoľvek iné, pošle v odpovedi rovnaké dáta ako prijal v APDU správe.
 	\end{itemize}
 	
@@ -1934,10 +1935,13 @@ Test sa ukončí po úspešnom vykonaní určitého počtu cyklov odoslaní a pr
 
 Každá prijatá hodnota sa súčasne vykreslí na LED diódy.
 
+
+\newpage
+
 \section{Dosky plošných spojov}
 Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dve dosky plošných spojov. Ich zapojenie a funkcie sú opísané v nasledujúcich kapitolách.
 
-	\subsection{Testovacia doska pre štandard ISO7816}
+	\subsection{Testovacia doska pre štandard ISO7816} \label{isoboard}
 	
 	Prvá navrhnutá a realizovaná doska, slúži v prvom rade na odladenie komunikácie prostredníctvom UART sériovej linky so štandardom ISO7816 a na pozorovanie správania sa komunikácie s rôznym spôsobom pripojenia sériovej linky ku kryptoelementu.
 	
@@ -1953,21 +1957,21 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 	
 	Výsledná doska je zobrazená na obr.  \ref{f:i_board_iso}.
 	
-	\begin{figure*}[h]
+	\begin{figure*}[!htb]
 		\centering
 		\includegraphics[scale=0.7]{Schematics.png}
 		\caption{Testovacia doska pre konverziu UART na štandard ISO7816.}
 		\label{f:board_ISO_schematic}
 	\end{figure*}
 	
-	\begin{figure*}[h]
+	\begin{figure*}[!htb]
 		\centering
 		\includegraphics[scale=1]{Board.png}
 		\caption{Rozloženie súčiastok na doske plošných spojov.}
 		\label{f:board_ISO_layout}
 	\end{figure*}
 	
-	\subsection{Doska pre Slave zariadenie}
+	\subsection{Doska pre Slave zariadenie} \label{slaveboard}
 
 	Hlavný prínos dosky pre Slave zariadenie je v tom, že poskytuje napájanie pre vývojový kit od spoločnosti Nordic. Doska má osadený aj vyhladzovací kondenzátor.
 	Doska je napájaná napätím 3.3V.
@@ -1989,14 +1993,14 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 	Detail zapojenia a pripojenia konektora je zobrazený na obr. \ref{f:i_board2}.
 	Výsledná osadená doska spolu s pripojeným vývojový kitom je zobrazená na obr. \ref{f:i_board_nrf}.
 	
-	\begin{figure*}[h]
+	\begin{figure*}[!htb]
 		\centering
 		\includegraphics[scale=0.7]{test2.png}
 		\caption{Schéma zapojenia a pripojenia slave zariadenia s kryptoelementom.}
 		\label{f:board_slave_schematic}
 	\end{figure*}
 	
-	\begin{figure*}[h]
+	\begin{figure*}[!htb]
 		\centering
 		\includegraphics[scale=1]{test.png}
 		\caption{Rozloženie súčiastok na doske plošných spojov pre slave.}
@@ -2004,41 +2008,39 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 	\end{figure*}
 
 \section{Štruktúra projektu v prostredí Keil}
-	Include obsahuje vsetky hlavickove subory a subory s externym kodom, ktore su potrebne pre dany projekt.
+
+	Projekt vo vývojovom prostredí Keil, má v sebe nakonfigurované jednotlivé rozsahy a veľkosti pamätí pre kód a pre dáta. Má vybratú sériu a typ zariadenia od spoločnosti Nordic. Projekt je nakonfigurovaný pre odlaďovanie v obvode a nahrávanie firmvéru s použitím J-Link hardvéru.
+	Sú nakonfigurované relatívne cesty k všetkým potrebným hlavičkovým súborom a relevantným priečinkom. V nastaveniach projektu sú takisto pre všetky cieľové zariadenia nakonfigurované pred-procesorové definície.
 	
-	Projekt ma v sebe nakonfiguronve , paramtre kompilovanie, pouzity SoftDevice program a data.
-	Nastavenia pre nahratie a odladenie programu s pouzitim Segger programatora. Rozsahy pamati pre 
+	V priečinku s projektom sa nachádza priečinok ./Include/, ktorý obsahuje externé súbory, dôležité pre skompilovanie projektu.
 	
-	Projekt vo vyvojovom prostredi ma predkonfigurovane rozne ciele. Tzn. ze z jedneho projektu je mozne skopilovat rozne a odladovat iba jedntlive izolovane funckionality. Subory, ktore spolu logicky suvisia su spolu zadefinovane  v skupinach.
+	Tento jeden projekt, má predkonfigurované rôzne cieľové zariadenia. Tzn. že z jedného projektu a sady zdrojových súborov, je možné skopilovať programy plniace rôzne funkcie a odlaďovať napr. iba jednotlivé izolované funckionality. 
+	Každý cieľové zariadenie môže mať samostatne nastavené rôzne parametre kompilovania a súbory, ktoré sa majú skopilovať.
+
 	
-	Kazdy target moze mat nastavene rozne parametre kompilovania, subory, ktore sa maju skopilova a aj rozdielne typy includov.
-	
-	\ref{f:keil_project}
+	Súbory, ktoré spolu logicky súvisia, sú zoskupené v skupinách. Príklad zoskupenia a rôznych cieľových zariadení je na obr. \ref{f:keil_project}.
 	
 	Opis typov cieľových zariadení pri kompilácií:
 	\begin{itemize}
-		\item Master
-		\item Slave
-		\item Converter
-		\item Converter
+		\item Master: kompiluje program pre vývojový kit, ktorý je osadený na nRFGo Motherboarde a má pripojené tlačidlá, LED diódy a má pripojenú vyrobenú dosku pre testovanie štandardu ISO7816 viď \ref{isoboard},
+		\item Slave: kompiluje program pre vývojový kit, ktorý je osadený na samostatne vyrobenej doske viď \ref{slaveboard},
+		\item main: slúži na otestovanie správneho fungovanie LED diód a tlačidiel,
+		\item GPIO\_CLK: slúži na overenie správneho nakonfigurovania a fungovanie signálu RST a CLK pre štandardu ISO7816,
+		\item UART\_TEST: slúži na otestovanie správneho fungovania sériovej linky typu UART,
+		\item ISO7816\_Converter: slúži ako samostatná izolovaná funkcionalita, týkajúca sa hlavne štandardu ISO7816 a umožnuje cez konzolu komunikovať so smart kartami, viď kapitolu \ref{isodebug}.
 	\end{itemize}
 	
-	Opis najdoležitejších súborov v projekte:
-	\begin{itemize}
-		\item a
-	\end{itemize}
+%	Opis najdoležitejších súborov v projekte:
+%	\begin{itemize}
+%		\item a
+%	\end{itemize}
 
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.35]{i_projekt1.jpg}
-		\caption{Nahratie appletu na kryptoelement.}
+		\caption{Rozdelenie projektu do skupín a rôzne ciele kompilovania.}
 		\label{f:keil_project}
 	\end{figure*}
-
-%TODO
-%Popisuje vybrané dôležité časti kódu.
-%Štruktúra Certifikátu
-%Použité referenčné softvérové implementácie RSA a AES v jazyku C.
 
 \chapter{Testovanie} \label{s_testing}
 Kapitola testovania sa zaoberá návrhom vhodných testov, vybraním vhodných parametrov, ukazovateľov a samotnou realizáciou testov. Následne sa zaoberá porovnaním a vyhodnotením získaných dát.
