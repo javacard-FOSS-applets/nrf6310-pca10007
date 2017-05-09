@@ -1759,6 +1759,7 @@ V implementácií bol použitý príklad od Nordic-u, ktorý jednosmerne posiela
 	
 	Master je pripojený nRFGo MotherBoard doske a je pripojený k LED diódam a tlačidlám. 
 	Pripojenie periférií je nasledovné:
+	\singlespacing
 	\begin{itemize}
 		\item LED diódy sú pripojené na porte P1,
 		\item tlačidlá sú pripojené na porte P2,
@@ -1768,6 +1769,7 @@ V implementácií bol použitý príklad od Nordic-u, ktorý jednosmerne posiela
 		\item ISO7816 signál TX je pripojený na P0.3,
 		\item ISO7816 signál RX je pripojený na P0.2.
 	\end{itemize}
+	\onehalfspacing
 
 	Master zariadenie umožňuje nakonfigurovať zabezpečenie komunikačného kanála pomocou bootloadera a spustenie automatického testu. 
 	Master reaguje na zmenu na tlačidlách a túto zmenu posiela Slave zariadeniu. 
@@ -1776,7 +1778,7 @@ V implementácií bol použitý príklad od Nordic-u, ktorý jednosmerne posiela
 \subsection{Slave}
 	Slave zariadenie prijíma dáta Master zariadenia. Tieto dáta dekóduje, znovu zakóduje príslušným spôsobom a pošle naspäť Master zariadeniu.
 	
-	
+	\singlespacing
 	Pripojenie periférií je rovnaké ako pri Master zariadení:
 	\begin{itemize}
 		\item ISO7816 signál CLK je pripojený na P0.5,
@@ -1785,17 +1787,19 @@ V implementácií bol použitý príklad od Nordic-u, ktorý jednosmerne posiela
 		\item ISO7816 signál TX je pripojený na P0.3,
 		\item ISO7816 signál RX je pripojený na P0.2.
 	\end{itemize}
+	\onehalfspacing
 
 \section{SW AES}
 Za účelom referenčnej softvérovej implementácie AES, bola použitá online dostupná knižnica na GitHube, s názvom Tiny AES128 in C\footnote{\url{https://github.com/kokke/tiny-AES128-C}}. Dĺžka použitého kľúča je 128 bitov. Šifrovanie prebieha v móde CBC.
 
 Kľúč aj inicializačný vektor sú predzdieľané.
 Ich hodnoty sú nasledovné:
+	\singlespacing
 \begin{itemize}
 	\item PSK:    0x2b7e151628aed2a6abf7158809cf4f3c,
 	\item vektor: 0xaa55aa55aa55aa55aa55aa55aa55aa55.
 \end{itemize}
-
+	\onehalfspacing
 
 \section{Bootloader} \label{bootloader}
 	Pri podržaní ktorého-koľvek tlačidla ihneď po zapnutí, je možné na Master zariadení, ktorý je osadený na vývojovej doske nRF6310 (nRF Go MotherBoard), nakonfigurovať zabezpečenie bezdrôtového komunikačného kanála. Následne umožňuje zapnutie automatického testu a prejdenie do testovacieho módu na odladenie komunikácie cez štandard ISO7816.
@@ -1812,12 +1816,13 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 \section{Štandard ISO7816}
 	Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa štandardu ISO7816. Táto kapitola stručne opisuje najzákladnejšie naimplementované poskytované funkcionality.
 	
-	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzií. Identifikácia konverzie prebieha z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako \quotes{TS}. Jeho hodnoty následovné znamenajú nasledovné. Slúžia aj ako synchronizačné sekvencie:
+	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzií. Identifikácia konverzie prebieha z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako \quotes{TS}. Slúžia aj ako synchronizačné sekvencie. Hodnoty bajtu TS znamenajú nasledovné:
+	\singlespacing	
 	\begin{itemize}
-		\item 0x3B: jedná sa o priamu konverziu,
-		\item 0x3F: jedná sa o inverznú konverziu.
+		\item 0x3B: identifikuje priamu konverziu,
+		\item 0x3F: identifikuje inverznú konverziu.
 	\end{itemize}
-	
+	\onehalfspacing
 	
 	Program generuje valídne sekvencie studenej aktivácie karty a deaktivácie karty. Po úspešnom pripojení a aktivačnej sekvencií, karta odpovie správou ATR. To je jediný prípad, kedy karta posiela správu. Smart karta od tejto chvíle čaká správu od terminálu. Komunikácia prebieha v dvojciach príkaz-odpoveď.
 	
@@ -1831,6 +1836,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	\end{figure*}
 
 	Na komunikáciu so štandardom sú použité signály:
+		\singlespacing
 	\begin{itemize}
 		\item GND pripojenie na referenčný potenciál,
 		\item VCC napájanie karty,
@@ -1838,7 +1844,8 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 		\item CLK externý signál hodinového signálu. Niektoré karty, majú zabudovaný interný zdroj hodinového signálu,
 		\item IO: obojsmerná polo-duplexná komunikačná linka.
 	\end{itemize}
-
+	\onehalfspacing
+	
 	Pre generovanie napájania VCC, je signál VCC pripojený na GPIO pin procesora.
 	Signál RST je takisto pripojený na výstupný pin procesora.
 	
@@ -1859,11 +1866,13 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	Po prijatí správy ATR, program umožnuje aj vyjednávanie zmeny protokolu, vo výsledku sa ale nepoužíva a komunikuje sa protokolom, ktorý preferuje daný kryptoelement alebo smart karta.
 	
 	Z ATR správy okrem iných vecí, sa dá identifikovať preferovaný spôsob a nastavenia komunikácie. Boli implementované dve najpoužívanejšie formy komunikácie podľa štandardu ISO7816-3:
+		\singlespacing
 	\begin{itemize}
 		\item Bajtovo orientovaný prenos dát T=0: forma a štruktúra posielaných dát vo forme APDU je na obr. \ref{f:apdu},
 		\item blokovo orientovaný prenos dát T=1: forma a štruktúra posielaných dát vo forme bloku je na obr. \ref{f:tpdu}. Štandardne sa do bloku zabaľujú dáta vo forme APDU správy \ref{f:apdu}. Štandardne je v blokovej komunikácií, použitý spôsob kontrolnej sumy vo forme LRC (longitudinal redundancy check), ktorý vyžaduje jeden bajt. Dvoj-bajtové CRC so špecifickým polynómom nebolo nutné implementovať, keďže žiadne z pripojených zariadení ho nevyžadovalo. Následne je implementované sekvenčné číslo pri komunikácií podľa protokolu T=1.
 	\end{itemize}
-
+	\onehalfspacing
+	
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.2]{apdu.jpg}
@@ -1889,6 +1898,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	
 	Prostredníctvom konzoly používateľ zadáva príkazy, ktoré sa vykonajú (obr. \ref{f:i_iso_dekoder}).
 	Hlavné funkcionality debuggera:
+	\singlespacing
 	\begin{itemize}
 		\item Vypísanie základných podporovaných inštrukcií,
 		\item aktivácia karty/kryptoelementu,
@@ -1906,8 +1916,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 		\item kontinuálny príjem alebo posielanie dát na UART sériovej linke,
 		\item zavolanie metódy, ktorá otestuje komunikáciu s kartou a s appletom na karte.
 	\end{itemize}
-
-
+		\onehalfspacing
 
 \section{Applet}
 	Applet sa sám nainicializuje počas inštrukcie SELECT. Následne po prijatí správy, vyberie prvý bajt z dátovej časti. Na základe nej sa zistí, čo sa má ďalej s prijatými dátami spraviť. Po spracovaní dát sa vygeneruje a pošle odpoveď. Applet musí odpovedať naspäť do časového okamžiku zodpovedajúcemu maximálne 45000*ETU (Elementary Time Unit).
@@ -1917,6 +1926,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	Na kompiláciu kódu do CAP súboru boli vyskúšané rôzne nastavenia kompilácie, verzie vývojového prostredia Eclipse, JRE, JCDK, JCKIT a rôzne typy konvertorov na výsledný CAP súbor. Tieto kryptoelementy boli dosť citlivé na kompilačný proces a nedovolili inštaláciu CAP súboru s nekompatibilnými verziami. Preto je odporúčané použiť nástroje a verzie opísané v návode. Výsledný funkčný overený postup je opísaný v kapitole \ref{s_applet_compile}.
 	
 	Po nahratí, nainštalovaní a vybratí appletu je applet pripravený na použitie. Inicializácia HW kryptovania je zobrazená v príklade \ref{lst:hwinit}. Príklad zavolania metódy na zakryptovanie je zobrazené na \ref{lst:hwuse}.  Applet odpovedá na správy v dátovej časti APDU následovne. Na parametroch APDU správy ako inštrukcia, parametre P1 a P2 nezáleží, neberú sa do úvahy.
+	\singlespacing
 	\begin{itemize}
 		\item 0xFF: applet odpovie naspäť 0xAA,
 		\item 0x03: zakryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x03 musí následovať 16 bajtov dát, ktoré sa majú zakryptovať. V odpovedi bude 16 bajtov zakryptovaných dát,
@@ -1924,7 +1934,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 		\item 0x48: odpovie naspäť text \quotes{ALOHA},
 		\item ak príjme čokoľvek iné, pošle v odpovedi rovnaké dáta ako prijal v APDU správe.
 	\end{itemize}
-	
+		\onehalfspacing
 	
 	\begin{lstlisting}[caption={Inicializácia HW AES.}, label={lst:hwinit}, language=java] 
 AES_Key = (AESKey) KeyBuilder.buildKey(
@@ -2038,6 +2048,7 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 	Súbory, ktoré spolu logicky súvisia, sú zoskupené v skupinách. Príklad zoskupenia a rôznych cieľových zariadení je na obr. \ref{f:keil_project}.
 	
 	Opis typov cieľových zariadení pri kompilácií:
+		\singlespacing
 	\begin{itemize}
 		\item Master: kompiluje program pre vývojový kit, ktorý je osadený na nRFGo Motherboarde a má pripojené tlačidlá, LED diódy a má pripojenú vyrobenú dosku pre testovanie štandardu ISO7816 viď \ref{isoboard},
 		\item Slave: kompiluje program pre vývojový kit, ktorý je osadený na samostatne vyrobenej doske viď \ref{slaveboard},
@@ -2046,6 +2057,7 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 		\item UART\_TEST: slúži na otestovanie správneho fungovania sériovej linky typu UART,
 		\item ISO7816\_Converter: slúži ako samostatná izolovaná funkcionalita, týkajúca sa hlavne štandardu ISO7816 a umožnuje cez konzolu komunikovať so smart kartami, viď kapitolu \ref{isodebug}.
 	\end{itemize}
+		\onehalfspacing
 	
 %	Opis najdoležitejších súborov v projekte:
 %	\begin{itemize}
@@ -2061,6 +2073,8 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 
 \chapter{Testovanie} \label{s_testing}
 Kapitola testovania sa zaoberá návrhom vhodných testov, vybraním vhodných parametrov, ukazovateľov a samotnou realizáciou testov. Následne sa zaoberá porovnaním a vyhodnotením získaných dát.
+
+\section{Návrh}
 Pri navrhovaní testov boli uvažované viaceré metriky: rýchlosť kryptovania a dekryptovania, prúdová spotreba zariadenia a výdrž zariadenia napájeného batériou. Doba odozvy, dáta prenesené navyše po sieti, nároky na prenosové komunikačné pásmo, odozvu a oneskorenie zariadenia od prijatia požiadavky až po jej vykonanie a spracovanie, zabezpečenie kvality služieb, pamäťové nároky na rôzne typy pamäti ako ROM, RAM.
 Veľkosti pamäťových nárokov sa zisťujú priamo z výstupu kompilátora. Nároky na sieť sú vypočítané z veľkosti dát a štruktúr, ktoré sú potrebné pri naviazaní a zabezpečení spojenia medzi uzlami.
 Prúdová spotreba je meraná externým DMU s rozumnou precíznosťou a kalibráciou.
@@ -2068,6 +2082,7 @@ Prúdová spotreba je meraná externým DMU s rozumnou precíznosťou a kalibrá
 
 %\section{}
 Realizovanie testov prebieha v troch hlavných fázach, ktoré sú medzi sebou porovnané:
+\singlespacing
 \begin{itemize}
 	\item bez zabezpečenia: dáta sú po sieti prenášané bez akéhokoľvek zabezpečenia, autentifikácie zariadení a podobne,
 	\item so softvérovým zabezpečením: kryptografické algoritmy sú realizované referenčnými implementáciami pre jazyk C,
@@ -2076,6 +2091,7 @@ Realizovanie testov prebieha v troch hlavných fázach, ktoré sú medzi sebou p
 \onehalfspacing
 
 Testovanie zabezpečenia prebieha pomocou troch rôznych spôsobov kryptovania:
+\singlespacing
 \begin{itemize}
 	\item čistá symetrická kryptografia: zabezpečuje dôvernosť a integritu ale nie autentifikáciu,
 	\item čistá asymetrická kryptografia: realizovaná napr. pomocou RSA alebo eliptických kriviek, ktorá už dokáže zabezpečiť aj autentifikáciu zariadení,
@@ -2088,27 +2104,86 @@ Aby sa zabezpečila relevantnosť výsledkov, je vykonaných niekoľko opakovan�
 
 Porovnanie medzi hardvérovými a softvérovými implementáciami bude prebiehať nad rovnakým objemom a obsahom dát. Mení sa iba spôsob implementácie zabezpečenia siete.
 
-Výsledky meraní sú zapísané do tabuľky \ref{t:t_testovanie} a následne vyhodnotené.
+\section{Realizácia testovania}
+
+Prvé pozorované parametre, sú jednotlivé veľkosti pamäťových nárokov, ktoré boli získané priamo z výstupu kompilátora tab. \ref{t:t_memory}. V poslednom a predposlednom riadku tabuľky sa spomínajú reťazce. Jedná sa o ľudsky čitateľné správy, ktoré sa používajú pri analyzovaní odpovedí podľa štandardu ISO7816. Názvy jednotlivých stĺpcov a ich vysvetlenie je následovné:
+\singlespacing
+\begin{itemize}
+	\item Kód: identifikuje veľkosť samotného skompilovaného kódu v kódovom sektore, bez premených,
+	\item RO (Read only): identifikuje zvyčajne konštanty, určené iba na čítanie, napríklad znakové reťazce,
+	\item RW (Read/write): identifikuje, koľko je v skompilovanom programe nainicializovaných premenných, nachádzajúcich sa RAM,
+	\item ZI (Zero initialized): identifikuje, koľko sa nachádza v kóde nenainicializovaných premenných, nachádzajúcich sa RAM pamäti,
+	\item Flash: definuje veľkosť pamäte potrebnú pre pamäť typu flash. Veľkosť vznikla spočítaním CODE+RO+RW,
+	\item SRAM: identifikuje celkovú veľkosť dát nachádzajúcich sa v pamäti RAM. Výsledok bol získaný z výpočtu RW+ZI.
+\end{itemize}
+\onehalfspacing
+
+Ďalším parametrom je prúdová spotreba. Prúd bol meraný na zariadení Slave, ktorý bol napájaný napätím 3.3V. Prúd bol meraný multimetrom medzi zdrojom a zariadením. Namerané hodnoty  boli neskôr spriemerované.
+
+Parameter čas 200 interakcií, hovorí o tom, ako dlho trvalo úspešne vymeniť 200 správ od Mastra k Slave zariadeniu a naspäť, v automatickom testovacom režime. Z týchto hodnôt, boli následne vypočítané priemerné dĺžky jednej bezdrôtovej interakcie, medzi Master-\textgreater Slave, Slave-\textgreater Master zariadeniami ako je zobrazené na obr. \ref{f:mssequence}.
+
+Posledný stĺpec počet správ, hovorí o tom koľko správ sa musí poslať na to, aby sa preniesli všetky potrebné dáta bezdrôtovým komunikačným kanálom. 
+\singlespacing
+\begin{itemize}
+	\item Pri nezabezpečenom prenose, sa v dátovej časti paketu (obr. \ref{f:a_ant_message}) prenáša iba jeden bajt z ôsmych. Správa sa ale musí poslať celá,
+	\item kryptovaná správa je doplnená padding-om na 16 bajtov. Zakryptovaná správa algoritmom AES128 CBC, vráti 16 bajtov. Týchto 16 bajtov sa prenesie 3 správami, keďže sa v správe v dátovej časti prenášajú dodatočné informácie o veľkosti správy.
+\end{itemize}
+\onehalfspacing
+
+Výsledky meraní všetkých meraní sú zapísané do tabuľky \ref{t:t_testovanie}. Testovanie prinieslo predpokladané, aj nepredpokladané zaujímavé výsledky, ktoré ale po hlbšom zamyslení dávajú zmysel.
+
+Použitím SW referenčnej implementácie, sa predĺžil čas potrebný na výmenu správ, keďže sa reálne musí preniesť väčší objem dát. Spotreba mierne stúpla.
+
+Pri použití HW zabezpečenia sa zväčšila náročnosť na pamäťové nároky zariadenia, keďže bolo nutné naimplementovať softvérovo komunikáciu so štandardom ISO7816.
+Rýchlosť komunikácia sa ale predĺžila 3 násobne, oproti SW zabezpečeniu. Pôvodne sa predpokladalo urýchlenie výpočtov a zníženie spotreby. Všetky zvýšenia ale dávajú zmysel. Rýchlosť závisí aj od rýchlosti komunikácie cez štandard ISO7816. V implementácií sa komunikuje baudovou rýchlosťou 7168bps. Rýchlosť hodinového signálu sa taktiež neblíži k dovolenému maximu.
+
+Zvýšenie spotreby dáva takisto zmysel, keďže musia byť aktivované periférie, ktoré by inak boli vypnuté (UART, CLK, GPIO piny). Samotný viac-účelový kryptoelement spotrebováva isté množstvo energie, ktoré sa k výslednej spotrebe pripočíta.
+
+K tak radikálnemu spomaleniu dochádza ale ešte aj kvôli jednému závažnému faktu. Komunikácia s kryptoelementom podľa ISO7816, trvá cez niekoľko komunikačný okien ANT protokolu (obr. \ref{f:reverse_send}), čo má za následok chvíľkové rozsynchronizovanie časovania komunikačnej linky a strate pár správ. Po komunikácií s kryptoelementom sa nútene posiela 5 prázdnych správ, na znovu zosynchronizovanie komunikačnej linky, čo ešte viac spomaľuje vzájomnú komunikáciu.
+
+\begin{table}[h]
+	\centering
+	\caption{Tabuľka so zapísanými pamäťovými nárokmi.}
+	\label{t:t_memory}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+     & \multicolumn{1}{l|}{\textbf{Kód {[}B{]}}} & \multicolumn{1}{l|}{\textbf{RO {[}B{]}}} & \multicolumn{1}{l|}{\textbf{RW  {[}B{]}}} & \multicolumn{1}{l|}{\textbf{ZI  {[}B{]}}} & \multicolumn{1}{l|}{\textbf{Flash}} & \multicolumn{1}{l|}{\textbf{SRAM}} \\ \hline
+	\textbf{bez zabezpečenia} & 6944 & 316 & 48 & 5648 & 7308 & 5696 \\ \hline
+	\textbf{SW} & 10132 & 1144 & 60 & 6044 & 11336 & 6104 \\ \hline
+	\textbf{HW bez reťazcov} & 16302 & 1370 & 740 & 7220 & 18412 & 7960 \\ \hline
+	\textbf{HW s reťazcami} & 16306 & 11110 & 3124 & 7220 & 30540 & 10344 \\ \hline
+\end{tabular}
+\end{table}
+
 
 %\begin{adjustbox}{angle=90}
 
 	\begin{table}[h]
 		\centering
-		\caption{Tabuľka pre zápis výsledkov z testovania.}
+		\caption{Tabuľka so zapísanými výsledkami z testovania.}
 		\label{t:t_testovanie}
 		\Rotatebox{90}{
-			\begin{tabular}{|c|l|l|l|l|l|l|}
-				\hline
-				\multirow{2}{*}{Implementácia} & \multicolumn{1}{c|}{\multirow{2}{*}{Typ zabezpečenia}} & \multicolumn{5}{c|}{Metriky} \\ \cline{3-7} 
-				& \multicolumn{1}{c|}{} & \multicolumn{1}{p{3.1cm}|}{Pamäť programu {[}B{]}} & \multicolumn{1}{p{1cm}|}{RAM {[}B{]}} & \multicolumn{1}{p{3.3cm}|}{Prúdová spotreba {[}mA{]}} & \multicolumn{1}{p{1cm}|}{Čas {[}ms{]}} & \multicolumn{1}{p{3.5cm}|}{Network overhead {[}B{]}} \\ \hline
-				& Žiadne zabezpečenie &  &  &  &  &  \\ \hline
-				\multirow{3}{*}{SW} & AES 128 &  &  &  &  &  \\ \cline{2-2}
-				& RSA/ECC &  &  &  &  &  \\ \cline{2-2}
-				& RSA/ECC + AES &  &  &  &  &  \\ \hline
-				\multirow{3}{*}{HW} & AES 128 &  &  &  &  &  \\ \cline{2-2}
-				& RSA/ECC &  &  &  &  &  \\ \cline{2-2}
-				& RSA/ECC + AES &  &  &  &  &  \\ \hline
-			\end{tabular}
+\begin{tabular}{|l|l|c|c|c|c|c|c|}
+	\hline
+	\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Implementácia}}} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Typ zabezpečenia}}} & \multicolumn{6}{c|}{\textbf{Metriky}} \\ \cline{3-8} 
+	\multicolumn{1}{|p{2cm}|}{} & \multicolumn{1}{p{2.5cm}|}{} & \multicolumn{1}{p{2.5cm}|}{Pamäť programu {[}B{]}} & \multicolumn{1}{p{2cm}|}{RAM {[}B{]}} & \multicolumn{1}{p{2cm}|}{Prúdová spotreba {[}mA{]}} & \multicolumn{1}{p{2cm}|}{Čas 200 interakcií {[}s{]}} & \multicolumn{1}{p{2cm}|}{Čas 1 interakcie {[}s{]}} & \multicolumn{1}{p{2cm}|}{Počet správ {[}B{]}} \\ \hline
+	Ref & Žiadne zabezpečenie & 7308 & 5696 & 1.4 & 258.35 & 1.29 & 1x12 \\ \hline
+	Ref SW & AES 128 CBC & 11336 & 6104 & 5.6 & 546.75 & 2.73 & 3x12 \\ \hline
+	HW  & AES 128 CBC & 18412 & 7960 & 8 & 1638.47 & 8.19 & 3x12 \\ \hline
+\end{tabular}
+
+%\begin{tabular}{|c|l|l|l|l|l|l|}
+%	\hline
+%	\multirow{2}{*}{Implementácia} & \multicolumn{1}{c|}{\multirow{2}{*}{Typ zabezpečenia}} & %\multicolumn{5}{c|}{Metriky} \\ \cline{3-7} 
+%				& \multicolumn{1}{c|}{} & \multicolumn{1}{p{3.1cm}|}{Pamäť programu {[}B{]}} & \multicolumn{1}{p{1cm}|}{RAM {[}B{]}} & \multicolumn{1}{p{3.3cm}|}{Prúdová spotreba {[}mA{]}} & \multicolumn{1}{p{1cm}|}{Čas {[}ms{]}} & \multicolumn{1}{p{3.5cm}|}{Network overhead {[}B{]}} \\ \hline
+%				& Žiadne zabezpečenie &  &  &  &  &  \\ \hline
+%				\multirow{3}{*}{SW} & AES 128 &  &  &  &  &  \\ \cline{2-2}
+%				& RSA/ECC &  &  &  &  &  \\ \cline{2-2}
+%				& RSA/ECC + AES &  &  &  &  &  \\ \hline
+%				\multirow{3}{*}{HW} & AES 128 &  &  &  &  &  \\ \cline{2-2}
+%				& RSA/ECC &  &  &  &  &  \\ \cline{2-2}
+%				& RSA/ECC + AES &  &  &  &  &  \\ \hline
+%			\end{tabular}
 		}
 	\end{table}
 %\end{adjustbox}
