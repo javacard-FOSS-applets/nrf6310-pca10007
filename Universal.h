@@ -10,7 +10,6 @@
 //########################	   DEBUG  		###############################
 
 #define DEGUB_PRINTS
-	#define DEGUB_UART
 
 	#define DEBUG_RETRIEVE_BUFFER
 	#define DEBUG_SEGMENTER_MESSAGES
@@ -20,10 +19,10 @@
 
 //########################	   Compile 		###############################
 // DO NOT MESS WITH THESE SETTINGS, only for getting the idea, of how much memory each module requires during compilation
-//#define COMPILE_SW
+#define COMPILE_SW
 
-//#define COMPILE_HW
-//#define COMPILE_HW_ERRORS
+#define COMPILE_HW
+#define COMPILE_HW_ERRORS
 
 //########################	  Defines  		###############################
 
@@ -73,7 +72,7 @@ typedef enum {MSG_EMPTY=0x00,
 							MSG_SW_SYMM=0x02, MSG_SW_ASYMM=0x03,
 							MSG_HW_SYMM=0x04, MSG_HW_ASYMM=0x05} security_type;
 
-							#define DEFAULT_SECURITY (MSG_HW_SYMM)
+							#define DEFAULT_SECURITY (MSG_UNSECURED)
 							
 							extern security_type Global_Default_Security;
 							extern uint8_t GLobal_Test_Mode_Active;

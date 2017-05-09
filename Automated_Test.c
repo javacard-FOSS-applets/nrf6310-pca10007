@@ -2,7 +2,7 @@
 
 static uint8_t sent_value=0;
 static uint8_t has_recieved_value=0;
-static uint8_t wait_treshold=0;
+static uint16_t wait_treshold=0;
 
 void Test_Compare_Recieved_Value(uint8_t recieved_value) {
 	has_recieved_value=true;
@@ -35,11 +35,19 @@ uint8_t Check_If_Recieved(void) {
 		dataready=1;
 	}
 	
-	
-	if( wait_treshold>TEST_MAX_WAIT_TRESHOLD ){
-		return_value = true;
-		dataready=1;
-		wait_treshold=0;
+	if(Global_Default_Security == MSG_HW_SYMM ) {
+		if( wait_treshold>(TEST_MAX_WAIT_TRESHOLD*5) ){
+			return_value = true;
+			dataready=1;
+			wait_treshold=0;
+		}
+	}
+	else{
+		if( wait_treshold>TEST_MAX_WAIT_TRESHOLD ){
+			return_value = true;
+			dataready=1;
+			wait_treshold=0;
+		}
 	}
 	
 	has_recieved_value=false;
