@@ -108,6 +108,8 @@
 \newcommand{\quotes}[1]{``#1''}
 
 \usepackage{tabto}
+\usepackage{nameref}
+
 %\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
 %\newcommand{\tab}[1]{\hspace{0em}\rlap{#1}}
 
@@ -1935,6 +1937,14 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 		\item ak príjme čokoľvek iné, pošle v odpovedi rovnaké dáta ako prijal v APDU správe.
 	\end{itemize}
 		\onehalfspacing
+		
+	Identifikátory balíka a appletu sú nasledovné:
+	\singlespacing
+	\begin{itemize}
+		\item Package ID: \tabto{2.5cm}0x5555555555,		
+		\item applet ID: \tabto{2.5cm}0x555555555500.
+	\end{itemize}
+		\onehalfspacing
 	
 	\begin{lstlisting}[caption={Inicializácia HW AES.}, label={lst:hwinit}, language=java] 
 AES_Key = (AESKey) KeyBuilder.buildKey(
@@ -2111,8 +2121,8 @@ Prvé pozorované parametre, sú jednotlivé veľkosti pamäťových nárokov, k
 \begin{itemize}
 	\item Kód: identifikuje veľkosť samotného skompilovaného kódu v kódovom sektore, bez premených,
 	\item RO (Read only): identifikuje zvyčajne konštanty, určené iba na čítanie, napríklad znakové reťazce,
-	\item RW (Read/write): identifikuje, koľko je v skompilovanom programe nainicializovaných premenných, nachádzajúcich sa RAM,
-	\item ZI (Zero initialized): identifikuje, koľko sa nachádza v kóde nenainicializovaných premenných, nachádzajúcich sa RAM pamäti,
+	\item RW (Read/write): identifikuje, koľko je v skompilovanom programe nainicializovaných premenných, nachádzajúcich sa v RAM,
+	\item ZI (Zero initialized): identifikuje, koľko sa nachádza v kóde nenainicializovaných premenných, nachádzajúcich sa v RAM pamäti,
 	\item Flash: definuje veľkosť pamäte potrebnú pre pamäť typu flash. Veľkosť vznikla spočítaním CODE+RO+RW,
 	\item SRAM: identifikuje celkovú veľkosť dát nachádzajúcich sa v pamäti RAM. Výsledok bol získaný z výpočtu RW+ZI.
 \end{itemize}
@@ -2227,10 +2237,43 @@ Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v príloh
 
 
 \section{Zhodnotenie tretej fázy vypracovania projektu}
-nepodarilo sa mi nasjt a spojazdnit sw knizcniu pre vypocet. Hladal som specificku, taku, ktora bude jednoducha v zmysle pouzivania statickym poli a nie dynamickej alokacie pocas behu programu, 
+V tretej fáze vypracovania projektu sa podarilo úspešne doimplementovať obojsmernú komunikáciu s použitím ANT protokolu. Nad dátovou časťou protokolu bola implementovaná funkcionalita, ktorá dokáže posielať správy logicky väčšie ako 8 bajtov. Maximálne však 254 bajtov.
+
+Ďalej sa podarilo naimplementovať a odladiť komunikáciu podľa štandardu ISO7816 s využitím UART sériovej linky. Všetky signály sú generované programovo, čiže okrem externého prepojenia pinov RX a TX sériovej linky, nieje nutný žiadny ďalší hardvér.
+Kvôli testovanie štandardu ISO7816, bola implementovaná aj funkcionality čítačky, s použitím technológie RTT.
+
+Bol úspešne implementovaný a skompilovaný applet do špecifického CAP formátu. Ten bol nahratý a nainštalovaný pomocou PS/CS čítačky kariet do kryptoelementu. V applete sa podarilo úspešne volať hardvérovo implementované kryptografické funkcie AES128.
+
+Pre zabezpečenie robustnosti, istej testovateľnosti a odlaďovania, boli navrhnuté, vyrobené a osadené 2 dosky pološných spojov v domácich podmienkach. Dosky slúžia hlavne na prepojenie vývojového kitu s kryptoelementom.
+
+Pre zabezpečenie rovnakých podmienok počas testovania, bola implementovaná funkcionalita automatického testu.
+
+Úspešne bola aj použitá referenčná implementácia algoritmu AES-128 CBC realizovaná softvérovo prostredníctvom knižnice.
+
+V poslednej fáze boli aj dopísané kapitoly \nameref{s_implementation}, \nameref{s_testing}, \ref{s_conclusion}, \nameref{s_manual} a \nameref{s_pictures}. Upravená bola aj príloha \nameref{cd_obsah}.
+
+V poslednej fáze vypracovania, sa aj kvôli technickým problémom, nepodarilo zopár zamýšlaných vecí.
+V prvom rade sa nepodarilo nájsť a spojazdniť softvérovú knižnicu vo vývojovom prostredí Keil, pre výpočty nad PKI infraštruktúrou. Kritéria hľadania boli ale veľmi špecifické. Hľadala sa knižnica, ktorá bude jednoduchá v zmysle používania, implementovaná mala byť  staticky, nie dynamicky počas vykonávania programu a s relatívne malými pamäťovými nárokmi.
+
+Vzhľadom na to, že implementácia a odladenie komunikácie podľa štandardu ISO7816, trvala dlhšie a neskôr sa vyskytli problémy so špecifickou kompiláciou appletu pre kryptoelement  boli použité a overené iba funkcionality s hardvérovou symetrickou kryptografiou. Manažér karty vyžadoval určité verzie prostredia, spôsob kompilácie a kryptoelement odmietal nahrávaný applet pravdepodobne v dôsledku nekompatibilného CAP súboru.
 
 
-Vzhladom na to, ze implementacia a odladenie komunikacie podla standardu ISO7816 trvala dlhsie ako som predpokladal, a neskor sa vyskytli este problemy so specifickou kompilaciu a vyzadovala specificke nastavenia systyemu, aby kryptoelemeny prilaj pri Load instruckii skompilovany applet, 
+\section{Zhodnotenie}
+
+
+Este raz Vyhodnotenie vysledkov.
+
+Aj zvhladom na to, ze neboli fyzicky naimplementovane a vyskusane kryptograficke algoritmy PKI, zo ziskanych vysledkov sa daju odhadnut naroky na zabezpecenie komunikacneho protokolu ANT s pouzitim externeho zariadenia v podobe smart karty alebo kryptolementu. Ktory je pripojeny cez stadnard ISO7816. Po naimplementovani PKI infrasktruktury, by uz bolo pouzitie smart karty alebo kryptoelementu opravnene. 
+
+Použitie smart karty aj bez PKI ma v podstate svoj zmysel. Je to univer
+
+Spociatku som bol skepticky, nakoniec aj pri horšich vysledok. Projekt povazujem za uspesny aj navzdory negativnym vysledkom z testovania.
+
+Boli identifikované slabiny jednotlivých použitých komponentov.
+
+ato komunikacia je standardizovana, pravidelene revidovana, umoznuje v podstate cokolvek co si zmyslyte. Vypocty PKI, ECC, nasobenie velkych cisiel, kryptograficku podporu, externu pamat, koprocesor, viac appletov na danej smart karte, parametrizaciu, bezpecne ukladanie, pristup k dodatocnym rozhraniam ako napr NFC, si myslim, ze v specifickych pripadoch prenositelenost na ostatne zariadenie, ktore dany standard pouzivaju.
+
+
 
 Porovnaj to s hw implementaciou
 
@@ -2240,15 +2283,9 @@ Doimplementovat
 Vyskusat rozne rychlost
 Externe generovanie CLK signal 3.5 5 10 MHz v zavilsto od fyzickych limitov niektorcychsmart kareit
 
-\section{Zhodnotenie}
-Podarilo sa uspense doimplementovat obosmernu komuniaciu pomocou ANT protokolu, naimplelemtntovať a oddebugovat komunikaciu podla standardu ISO7816, naimplementovat a nahrat applet na kryptoelemnt, obashujuci Java VM A vyuzit kryptograficke funkcie tohto appletu na zakodovnaie dát.
-Naimplementovat posielanie sprav cez vaic casovych okien ANT komunikacneho protokolu. Takisto boli navrhnute a vyrobene 2 dosky polosnych spojov pre pripojenei kryptoelementu a nordic vyvojového kitu.
-
-Spociatku som bol skepticky, nakoniec aj pri horšich vysledok, tato komunikacia je standardizovana, pravidelene revidovana, umoznuje v podstate cokolvek co si zmyslyte. Vypocty PKI, ECC, nasobenie velkych cisiel, kryptograficku podporu, externu pamat, koprocesor, viac appletov na danej smart karte, parametrizaciu, bezpecne ukladanie, pristup k dodatocnym rozhraniam ako napr NFC, si myslim, ze v specifickych pripadoch prenositelenost na ostatne zariadenie, ktore dany standard pouzivaju.
-
 Secure messaging medzi zariadenim a smart kartou
 
-Vyhodnotenie vysledkov
+
 
 %\section{Zhodnotenie poslednej fázy vypracovania}
 %Co sa podarilo,
@@ -2310,7 +2347,7 @@ Vyhodnotenie vysledkov
 
 \newpage
 \pagenumbering{bychapter}
-\chapter{Obsah priloženého média}
+\chapter{Obsah priloženého média} \label{cd_obsah}
 Priložené elektronické médium má nasledovný obsah a štruktúru:
 %\begin{verbatim}
 %\end{verbatim}
