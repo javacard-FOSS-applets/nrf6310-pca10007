@@ -454,7 +454,7 @@ Všeobecný a typický priebeh útoku na bezdrôtové komunikačné siete, ale a
 	\item Získanie citlivých dát: pozostáva zo získania prístupu a informácií o ďalších systémoch.
 	\item Zahladenie stôp: spočíva v odstránení inkriminujúcich záznamov, operácií a opustenie systému, aby sme zanechali čo najmenej digitálnych stôp,
 	\item Vytvorenie zadných vrátok: slúži pre možnosť jednoduchého opätovného navrátenia sa do napadnutého systému v budúcnosti,
-	\item Odmietnutie služby: hovorí o vykonaní takých akcií, aby sme zamedzili prítup k zariadeniu alebo cieľovej služby ostatným používateľom a zariadení.
+	\item Odmietnutie služby: hovorí o vykonaní takých akcií, aby sme zamedzili prístup k zariadeniu alebo cieľovej služby ostatným používateľom a zariadení.
 \end{itemize}
 
 Existujú dva hlavné prístupy k riešeniu otázok zabezpečenia:
@@ -596,7 +596,7 @@ Proces šifrovania nad aktuálnym stavom spočíva v 4 operáciach:
 %\subsubsection{3DES} %PGP %KEY %IDEA %blowfist twofisch %Asymetrické šifry: Ruksakový systém, McElieceov, RSA, Rabinov, systémy na
 
 \subsection{Asymetrické šifrovanie}  \label{s_cpyt_asymetric}
-Na rozdiel od symetrického šifrovania, pri asymetrickom šifrovaní existuje pár kľúčov, ktoré sú navzájom na sebe závislé. Tieto kľúče sa nazývajú privátny a verejný. Komunikácia prebieha iba po nezabezpečených komunikačných kanáloch. Používateľ, ktorý zašifroval správu niekoho verejným kľúčom, už ju nevie dešifrovať. Dešifrovať správu vie iba osoba, ktorá vlastní privátny kľúč a pre ktorú je správa určená.  sú označované aj názvom PKI.
+Na rozdiel od symetrického šifrovania, pri asymetrickom šifrovaní existuje pár kľúčov, ktoré sú navzájom na sebe závislé. Tieto kľúče sa nazývajú privátny a verejný. Komunikácia prebieha iba po nezabezpečených komunikačných kanáloch. Používateľ, ktorý zašifroval správu niekoho verejným kľúčom, už ju nevie dešifrovať. Dešifrovať správu vie iba osoba, ktorá vlastní privátny kľúč a pre ktorú je správa určená.  Takéto infraštruktúry sú označované aj názvom PKI.
 
 Problém, ktorý vzniká pri asymetrickej kryptografií je, že ako odosielateľ si nemusíme byť istý, že osoba s ktorou komunikujeme je tá, za ktorú sa vydáva. Od toho vznikajú služby tretích strán s názvom certifikačné autority.
 
@@ -978,7 +978,7 @@ ANT protokol definuje 3 typy sietí, v ktorej každý typ môže definovať sadu
 ANT protokol podporuje 4 typy posielaných správ \cite{ANT}:
 \begin{itemize}
 	\item Broadcast: je najjednoduchší typ správy, ktorý sa posiela od Master zariadenia smerom ku všetkým Slave zariadeniam. Správy typu broadcast nie sú nikdy potvrdzované. Tento mód spotrebováva najmenej elektrickej energie.
-	\item Potvrdzované správy: na obojsmernej linke, zariadenie vie poslať potvrdenie o prijatí správy v ďalšom voľnom časovom slote. Treba však mať napamäti, že správa sa automaticky nepošle znova pri neprijatí správy o úspešnom prijatí. Tento komunikačný mód spotrebováva viac energie a prenosového pásma.
+	\item Potvrdzované správy: na obojsmernej linke, zariadenie vie poslať potvrdenie o prijatí správy v ďalšom voľnom časovom slote. Treba však mať na pamäti, že správa sa automaticky nepošle znova pri neprijatí správy o úspešnom prijatí. Tento komunikačný mód spotrebováva viac energie a prenosového pásma.
 	\item Burst: umožňuje posielať väčšie množstvo dát jednému uzlu v sieti. Tento mód je potvrdzovaný o úspešnom prijatí celého bloku dát.
 	\item Advanced burst je rovnaký ako burst mód, s jediným rozdielom vo väčšej rýchlosti prenosu dát medzi uzlami blížiacich sa až k 60 kbps.
 \end{itemize}
@@ -1053,7 +1053,7 @@ Na väčšie domy s vlastnými farmami, niekoľkými budovami, s veľkými záhr
 Viaceré protokoly sú spolu porovnané v tabuľke \ref{table:Porovnanie protokolov}.
 %Celulárne riešenia sa mi nepacia, potrebujes poskytovatela, musis mu platit za architekturu, nemusi mat pokrytie, handovery, znizena bezpecnosti.
 
-\begin{table}[H]
+\begin{table}[h]
 	\centering
 	\caption{Porovnanie jednotlivých parametrov vybraných protokolov.}
 	\label{table:Porovnanie protokolov}
@@ -1259,7 +1259,7 @@ Vybrané odporúčania pri písaní appletov:
 	\item vkladať náhodné inštrukcie typu nop do vykonávaného programu,
 	\item používať maskovanie hodnôt pri posielaní kritických parametrov funkciám napr. pomocou funkcie xor, bitových rotácií a ich následná rekonštrukcia,
 	\item nepoužívať podmienené vetvenia, tie zvyknú byť náchylné na útoky hodinového signálu,
-	\item pristupovať do ramky, nie do externých pamätí, vykonávanie programu je rýchlejšie a spotrebuje sa pri tom menej energie. Prístup do externých pamätí môže byť viditeľný pri útoku typu na postranný kanál,
+	\item pristupovať do RAM pamätí, nie do externých pamätí, vykonávanie programu je rýchlejšie a spotrebuje sa pri tom menej energie. Prístup do externých pamätí môže byť viditeľný pri útoku typu na postranný kanál,
 	\item používať čo najviac zabudovaných služieb, ktoré sú overené a neimplementovať vlastné softvérové metódy,
 	\item odporúča sa programovať program tak, aby sa kód vykonával rovnaký počet hodinových cyklov v prípade v prípade správne zadanej používateľskej hodnoty aj pri zlej, napr. pri zadávaní pinu na hardvérovej klávesnici.
 \end{itemize}
@@ -1493,7 +1493,7 @@ Návrh nerieši otázky rozmiestnenia, fyzického ani logického zabezpečenie h
 Otázku, ako sa dostanú dáta z jedného koncového uzla do druhého, ak druhý uzol potrebuje jeho dáta, je ponechaný na centralizovanú riadiacu jednotku, ktorý má prehľad o aktuálne pripojených koncových zariadeniach.
 
 \subsection{Certifikačná autorita}
-Vlastná certifikačná autorita zabezpečuje overenie pravosti páru kľúčov pri ich generovaní, programovanie kľúčov do secure elementov, evidenciu používaných a vyradených klúčov, generovanie a podpisovanie certifikátov pre jednotlivé uzly.
+Vlastná certifikačná autorita zabezpečuje overenie pravosti páru kľúčov pri ich generovaní, programovanie kľúčov do secure elementov, evidenciu používaných a vyradených kľúčov, generovanie a podpisovanie certifikátov pre jednotlivé uzly.
 
 \subsection{Koncové zariadenia} 
 Pri návrhu treba brať do úvahy podporu zhlukovania koncových zariadení alebo zariadení tvoriacich sieť do logicky súvisiacich blokov a ich spoločné riadenie, poprípade manažovanie. Napr. na základe rozmiestnenia po miestnostiach, alebo podľa typu uzla. Ponúkajú sa dve riešenia. Rozlišovať zariadenia na vyšších aplikačných vrstvách pomocou algoritmov, alebo logicky závislé prvky budú rozmiestnené na sieťach z rôznym identifikátorov siete. Smerovanie by prebiehalo medzi rôznymi sieťami a broadcast na danej sieti by sa prešíril iba zainteresovaným koncovým zariadeniam.
@@ -1679,7 +1679,7 @@ Komunikačné moduly majú natvrdo naprogramovaný neprepisovateľný SoftDevice
 
 \begin{figure*}[h]
 	\centering
-	\includegraphics[scale=0.05]{i_siet.jpg}
+	\includegraphics[scale=0.15]{i_siet.jpg}
 	\caption{Zariadenia tvoriace zjednodušený model siete.}
 	\label{f:i_devices}
 \end{figure*}
@@ -2312,6 +2312,29 @@ V publikácií s názvom \quotes{AES Data Encryption in a ZigBee Network: Softwa
 \newpage
 \pagenumbering{bychapter}
 
+
+\chapter{Plán práce v DPI}
+	\begin{table}[h]
+		\centering
+		\caption{Plán práce v DPI}
+		\label{t:plan_prace1}
+		\noindent\begin{tabular}{|c|c|c|l|}
+	
+			
+		\end{tabular}
+	\end{table}
+
+\chapter{Plán práce v DPII}
+\begin{table}[h]
+	\centering
+	\caption{Plán práce v DPII}
+	\label{t:plan_prace2}
+	\noindent\begin{tabular}{|c|c|c|l|}
+		
+		
+	\end{tabular}
+\end{table}
+
 \chapter{Plán práce v DPIII}
 \begin{table}[h]
 	\centering
@@ -2487,8 +2510,8 @@ Jednotlivé verzie projektov, históriu, poprípade ich novšie verzie je možn�
 		\item naimportujte projekt nachádzajúci sa v priečinku /Applet/Applet/,
 		\item otvorte projekt,
 		\item pravým tlačidlom myši kliknite na balík \ref{f:applet_compile} krok 1,
-		\item nájdite položku Java Card Tools \ref{f:applet_compile} krok 2,
-		\item kliknite na Convert \ref{f:applet_compile} krok 3.
+		\item nájdite položku \quotes{Java Card Tools} \ref{f:applet_compile} krok 2,
+		\item kliknite na \quotes{Convert} \ref{f:applet_compile} krok 3.
 	\end{enumerate}
 	
 	\begin{figure*}[!htb]
