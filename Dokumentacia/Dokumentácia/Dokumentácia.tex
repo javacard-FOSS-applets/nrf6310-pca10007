@@ -1,5 +1,5 @@
 %\documentclass[12pt,a4wide,twoside,openright]{report}
-\documentclass[12pt,a4wide,oneside,openright]{report}
+\documentclass[12pt,a4paper,oneside,openright]{report}
 %\usepackage[T2A,T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[slovak]{babel} %\usepackage[slovak,english,russian]{babel}
@@ -1138,7 +1138,7 @@ Existujú tri hlavné typy secure elementov:
 %http://www.oracle.com/technetwork/java/index.html
 %http://www.javacardforum.org
 %http://www.gemalto.com/techno/javacard
-Pod označením Java Card sa nachádza priemyselný štandard, ktorý bol vyvinutý spoločnosťou Sun Microsystems (dnešný Oracle). Tento štandard umožňuje aby aplikácie na báze Javy tzv. applety, mohli byť spustené na smart kartách. Výhody takýchto riešení sú v jej interoperabilite, prenositeľnosti kódu a zníženým hardvérovým nákladom pri tvorbe cieľového produktu.
+Pod označením Java Card sa nachádza priemyselný štandard, ktorý bol vyvinutý \\ spoločnosťou Sun Microsystems (dnešný Oracle). Tento štandard umožňuje aby aplikácie na báze Javy tzv. applety, mohli byť spustené na smart kartách. Výhody takýchto riešení sú v jej interoperabilite, prenositeľnosti kódu a zníženým hardvérovým nákladom pri tvorbe cieľového produktu.
 Typické použitia Java Card technológie \cite{jcop}:
 %\singlespacing
 \begin{itemize}
@@ -1155,10 +1155,10 @@ Typické použitia Java Card technológie \cite{jcop}:
 %http://www.smartcardsource.com/contents/en-ca/d9_JCOP-NXP-cards.html
 %http://www.usmartcards.co.uk/cards/java-cards.html
 %http://www.zurich.ibm.com/jcop/
-Pojem JCOP zastrešuje implementáciu vnoreného bezpečnostného operačného systému, ktorý rozširuje funkcionalitu tradičných smart kariet. \cite{jcopz} 
+Pojem JCOP zastrešuje implementáciu vnoreného bezpečnostného operačného \\ systému, ktorý rozširuje funkcionalitu tradičných smart kariet. \cite{jcopz} 
 %ftp://ftp.software.ibm.com/software/pervasive/info/JCOP_Family.pdf
 Základné vlastnosti JCOP operačného systému sú \cite{jcop}:
-\singlespacing
+%\singlespacing
 \begin{itemize}
 	\item Podporuje kompatibilitu s nasledujúcimi štandardami:
 	\subitem JavaCard 2.1.1,
@@ -1206,8 +1206,10 @@ package com.vetilles.helloworld;
 import javacard.framework.*;
 
 public class HelloWorld extends Applet  {
-  private final static byte[] hello = { 0x48, 0x65, 0x6c, 0x6c, 0x6f };
-  public static void install(byte[] buffer, short offset, short length) {
+  private final static byte[] hello = {
+   0x48, 0x65, 0x6c, 0x6c, 0x6f  };
+  public static void install(byte[] buffer, short offset,
+	   short length) {
     (new HelloWorld()).register();
   }
 	
@@ -1690,7 +1692,7 @@ ANT protokolový zásobník verzie 2.0 podporuje funkcionality\cite{SD210}:
 \end{itemize}
 \onehalfspacing
 
-CMSIS\footnote{\url{https://www.arm.com/products/processors/cortex-m/cortex-microcontroller-software-interface-standard.php}} (Cortex Microcontroller Software Interface Standard) je štandard navrhnutý spoločnosťou ARM za účelom zjednodušenia a urýchlenia vývoja softvéru na procesoroch rodiny ARM Cortex. Tento štandard sa skladá z viacerých spolu kompatibilných projektov, ktoré zabezpečujú podporu od RTOS, rozhranie pre ladenie a krokovanie programu, až po abstrakciu hardvéru a tým pádom istú nezávislosť a prenositeľnosť kódu od použitého hardvéru\cite{CMSIS}.
+CMSIS\footnote{\url{www.arm.com/products/processors/cortex-m/cortex-microcontroller-software-interface-standard.php}} (Cortex Microcontroller Software Interface Standard) je štandard navrhnutý spoločnosťou ARM za účelom zjednodušenia a urýchlenia vývoja softvéru na procesoroch rodiny ARM Cortex. Tento štandard sa skladá z viacerých spolu kompatibilných projektov, ktoré zabezpečujú podporu od RTOS, rozhranie pre ladenie a krokovanie programu, až po abstrakciu hardvéru a tým pádom istú nezávislosť a prenositeľnosť kódu od použitého hardvéru\cite{CMSIS}.
 
 \begin{table}[h]
 	\centering
@@ -1724,7 +1726,8 @@ CMSIS\footnote{\url{https://www.arm.com/products/processors/cortex-m/cortex-micr
 	\caption{CMSIS infraštruktúra\cite{CMSIS}.}
 	\label{f:o_CMSIS}
 \end{figure*}
-Pre účely zjednodušenia testovania je jeden z komunikačných modulov osadený na základovej doske od Nordic Semiconductor s názvom nRF6310 rev 1.3.
+
+Pre účely zjednodušenia testovania, je jeden z komunikačných modulov osadený na základ-ovej doske od Nordic Semiconductor s názvom nRF6310 rev 1.3.
 Vývoj kódu pre komunikačné moduly prebieha vo vývojovom prostredí Keil {\textmu}Vision verzie V5.21.1.0 v programovacom jazyku C. Pre vývoj kódu procesorov rodiny ARM je použitý MDK-Lite toolchain\footnote{\url{http://www2.keil.com/mdk5/editions/lite/}}. 
 Programovanie a real-time debugovanie prebieha pomocou programátora v obvode od spoločnosti Segger s označením J-Link Lite. Pre správnu funkčnosť programátora je potrebné nainštalovať príslušný softvérový balíček s ovládačmi\footnote{\url{https://www.segger.com/downloads/jlink?}}. Súčasťou inštalačného balíka je aj terminál s označením L-Link RTT viewer, ktorý slúži ako komunikačné rozhranie na komunikáciu so zariadeniami podporujúcich RTT (Real Time Transmit) technológie\footnote{\url{https://www.segger.com/jlink-rtt.html}}.
 Pre programovanie vývojového kitu sme nainštalovali SDK určené pre radu zariadení nRF51 a nRF52 \footnote{\url{https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF5-SDK}}.
@@ -1815,10 +1818,10 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 \end{figure*}
 
 \section{Štandard ISO7816}
-	Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa štandardu ISO7816. Táto kapitola stručne opisuje najzákladnejšie naimplementované poskytované funkcionality.
+	Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa štandar-du ISO7816. Táto kapitola stručne opisuje najzákladnejšie naimplementované poskytované funkcionality.
 	
 	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzií. Identifikácia konverzie prebieha z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako \quotes{TS}. Slúžia aj ako synchronizačné sekvencie. Hodnoty bajtu TS znamenajú nasledovné:
-	\singlespacing	
+	%\singlespacing	
 	\begin{itemize}
 		\item 0x3B: identifikuje priamu konverziu,
 		\item 0x3F: identifikuje inverznú konverziu.
@@ -1926,12 +1929,12 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	
 	Na kompiláciu kódu do CAP súboru boli vyskúšané rôzne nastavenia kompilácie, verzie vývojového prostredia Eclipse, JRE, JCDK, JCKIT a rôzne typy konvertorov na výsledný CAP súbor. Tieto kryptoelementy boli dosť citlivé na kompilačný proces a nedovolili inštaláciu CAP súboru s nekompatibilnými verziami. Preto je odporúčané použiť nástroje a verzie opísané v návode. Výsledný funkčný overený postup je opísaný v kapitole \ref{s_applet_compile}.
 	
-	Po nahratí, nainštalovaní a vybratí appletu je applet pripravený na použitie. Inicializácia HW kryptovania je zobrazená v príklade \ref{lst:hwinit}. Príklad zavolania metódy na zakryptovanie je zobrazené na \ref{lst:hwuse}.  Applet odpovedá na správy v dátovej časti APDU následovne. Na parametroch APDU správy ako inštrukcia, parametre P1 a P2 nezáleží, neberú sa do úvahy.
-	\singlespacing
+	Po nahratí, nainštalovaní a vybratí appletu je applet pripravený na použitie. Inicializácia HW kryptovania je zobrazená v príklade \ref{lst:hwinit}. Príklad zavolania metódy na zakryptovanie je zobrazený na \ref{lst:hwuse}.  Applet odpovedá na správy v dátovej časti APDU následovne. Na parametroch APDU správy ako inštrukcia, parametre P1 a P2 nezáleží, neberú sa do úvahy.
+	%\singlespacing
 	\begin{itemize}
 		\item 0xFF: applet odpovie naspäť 0xAA,
-		\item 0x03: zakryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x03 musí nasledovať 16 bajtov dát, ktoré sa majú zakryptovať. V odpovedi bude 16 bajtov zakryptovaných dát,
-		\item 0x04: dekryptuje dáta pomocou algoritmu AES. Za identifikátorom 0x04 musí následovať 16 bajtov dát, ktoré sa majú dekryptovať. V odpovedi bude 16 bajtov dekryptovaných dát,
+		\item 0x03: zakryptuje dáta pomocou algoritmu AES. Za identifikátorom kryptovania (0x03), musí nasledovať 16 bajtov dát, ktoré sa majú zakryptovať. V odpovedi bude 16 bajtov zakryptovaných dát,
+		\item 0x04: dekryptuje dáta pomocou algoritmu AES. Za identifikátorom dekryptovania (0x04) musí nasledovať 16 bajtov dát, ktoré sa majú dekryptovať. V odpovedi bude 16 bajtov dekryptovaných dát,
 		\item 0x48: odpovie naspäť text \quotes{ALOHA},
 		\item ak príjme čokoľvek iné, pošle v odpovedi rovnaké dáta ako prijal v APDU správe.
 	\end{itemize}
@@ -2230,7 +2233,7 @@ V nasledujúcej etape dopracujeme vybrané časti analýzy, porovnáme analyzova
 \section{Zhodnotenie druhej fázy vypracovania projektu}
 V druhej časti vypracovania diplomového projektu sme upravili a prerobili niektoré časti vybraných kapitol. Do istej miery bol upravený návrh. Boli dopracované kapitoly týkajúce sa kryptografie, bezdrôtovými komunikačnými protokolmi, implementácie a kapitola týkajúca sa testovaním a vyhodnotením nameraných výsledkov. Navrhli sme spôsob realizovania testovania a overenie riešenia.
 
-Oboznámili sme sa do istej miery s hardvérom a jeho architektúrou. Začali sme s implementáciou od spojazdnenia programátora a vývojových prostredí, cez zabezpečenie odľadovania programu, jednoduchého rozblikania lediek, načítania vstupov z tlačidiel až po štúdium aplikačných rozhraní pre prácu s protokolovým zásobníkom na komunikáciu po bezdrôtovom komunikačnom kanále.
+Oboznámili sme sa do istej miery s hardvérom a jeho architektúrou. Začali sme s implementáciou, od spojazdnenia programátora a vývojových prostredí, cez zabezpečenie odľadova-nia programu, jednoduchého rozblikania lediek, načítania vstupov z tlačidiel až po štúdium aplikačných rozhraní pre prácu s protokolovým zásobníkom na komunikáciu po bezdrôtovom komunikačnom kanále.
 
 Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v prílohe v tabuľke \ref{t:plan_prace}.
 
@@ -2269,7 +2272,7 @@ Spočiatku som bol z použitia komplikovaného hardvéru v podobe kryptoelementu
 
 Projekt považujem za úspešný, aj navzdory negatívnym výsledkom z testovania, keďže rapídne spomalenie komunikácie je spôsobené dočasným rozsynchronizovaním bezdrôtového kanála.
 
-Zvýšiť zabezpečenie bezdrôtových komunikačných sietí sa s aktuálnou implementáciou nepodarilo, keďže nebola overená funkcionalita PKI. Zvýšenie zabezpečenia ale je možné. Boli identifikované jednotlivé slabiny celkovej implementácie. Implementácia štandardu ISO7816 priniesla zvýšené pamäťové nároky. Komunikácia cez štandard je citlivá na časovanie a najväčšie spomalenie pri kryptovaní dát s kryptoelementom predstavuje samotná komunikácia.
+Zvýšiť zabezpečenie bezdrôtových komunikačných sietí sa s aktuálnou implementáciou nepodarilo, keďže nebola overená funkcionalita PKI. Zvýšenie zabezpečenia ale je možné. Boli identifikované jednotlivé slabiny celkovej implementácie. Implementácia štandardu s označením ISO7816, priniesla zvýšené pamäťové nároky. Komunikácia cez štandard je citlivá na časovanie a najväčšie spomalenie pri kryptovaní dát s kryptoelementom predstavuje samotná komunikácia.
 
 Vylepšenia súčasnej implementácie, si viem predstaviť v podobe doimplementovania a otestovania PKI infraštruktúry. Následne doimplementovanie zabezpečenej komunikácie medzi kryptoelementom a zariadením v podobe \quotes{Secure channelu} pre zvýšenie bezpečnosti. Dajú sa doimplementovať a vyskúšať rôzne rýchlosti externého generovaného hodinového signálu pre kryptoelement, tým pádom sa zvýši aj rýchlosť komunikácie s kryptoelementom. Posielanie a prijímanie správ cez komunikačný kanál a komunikácia s kryptoelementom, by sa dala implementovať cez udalosti v systéme, čo ale môže priniesť nové problémy s nekonzistenciou dát na programovej úrovni. Toto vylepšenie by mohlo vyriešiť problém so stratou niekoľkých správ.
 
