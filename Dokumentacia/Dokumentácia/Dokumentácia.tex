@@ -215,9 +215,9 @@ máj 2017 \\
 
 Záverečná práca sa zaoberá širokou problematikou bezpečnosti v bezdrôtových komunikačných sieťach, zameranú hlavne na inteligentné domácnosti. Analyzované a navrhované postupy a riešenia sú však adaptovateľné a použiteľné aj na podobné problémy v iných oblastiach.
 %Práca alebo získanie všeobecného prehľadu z .
-Práca sa zaoberá samotným procesom realizovania kybernetických útokov, analyzovaním najnovších trendov v hardvérovom zabezpečení v podobe smart sd kariet so zabudovanými vnorenými secure elementami. Návrhom architektúry a fungovaním siete so zvýšeným zabezpečením.
-Rozoberáme programovanie a súvisiace otázky týkajúce sa programovania secure elementov.
-Venujeme sa návrhom vhodných testov na overenie zabezpečenia, porovnávame navrhované riešenie s nezabezpečenou realizáciou siete s použitím rovnakých komponentov a implementáciou na overenie navrhovaného riešenia.
+Práca sa zaoberá samotným procesom realizovania kybernetických útokov, analyzovaním najnovších trendov v hardvérovom zabezpečení v podobe smart sd kariet so zabudovanými vnorenými secure elementami a taktiež návrhom architektúry a fungovaním siete so zvýšeným zabezpečením.
+Zaoberá  sa programovaním a súvisiacimi otázkami týkajúcich sa programovania secure elementov.
+Venuje sa návrhom vhodných testov na overenie zabezpečenia a porovnáva navrhované riešenie s nezabezpečenou realizáciou siete s použitím rovnakých komponentov a implementáciou na overenie navrhovaného riešenia.
 Cieľom je zvýšiť zabezpečenie bezdrôtových komunikačných sietí v inteligentných domácnostiach s použitím najnovších dostupných a vyvíjaných technológií.
 %co sa podarili, ak sa podarilo
 \\ \\
@@ -272,16 +272,16 @@ The main goal is to increase the security of wireless communication networks in 
 
 
 \chapter{Úvod}
-Pojem Inteligentné domácnosti označuje predovšetkým vzájomné prepojenie viacerých existujúcich elektronických systémov do jedného s možnosťou riadenia jednotlivých zariadení.
-Inteligentné domácnosti vieme zaradiť do rôznych oblastí v závislosti od toho aké senzory sú použité, od samotných požiadaviek siete, od toho aké dáta generujú a ako sú následne údaje ďalej spracované. Inteligentné domácnosti sú istým spôsobom úzko spojené nasledujúcimi oblasťami: Wireless Sensor Networks (WSN), Smart Utility Network (SUN), Smart Grids, Home automation alebo Internet of things. Spomenuté pomenovania síce pomenúvajú odlišné aplikácie a definujú mierne rozdielne požiadavky na danú infraštruktúru, dajú sa nájsť aj spoločné vlastnosti. Najdôležitejšou z nich je zabezpečenie pred potencionálnymi útočníkmi.
+Pojem Inteligentné domácnosti označuje predovšetkým vzájomné prepojenie viacerých existujúcich elektronických systémov do jedného, s možnosťou riadenia jednotlivých zariadení.
+Inteligentné domácnosti vieme zaradiť do rôznych oblastí v závislosti od toho aké senzory sú použité, od samotných požiadaviek siete, od toho aké dáta generujú a ako sú následne údaje ďalej spracované. Inteligentné domácnosti sú istým spôsobom úzko spojené nasledujúcimi oblasťami: Wireless Sensor Networks (WSN), Smart Utility Network (SUN), Smart Grids, Home automation alebo Internet of things. Spomenuté pomenovania síce pomenúvajú odlišné aplikácie a definujú mierne rozdielne požiadavky na danú infraštruktúru, ale dajú sa nájsť aj spoločné vlastnosti. Najdôležitejšou z nich je zabezpečenie pred potencionálnymi útočníkmi.
 Ďalším spoločným prvkom sú požiadavky kladené na použité zariadenia. Najideálnejšie zariadenia sú malých rozmerov, s nízkou cena a spotrebou elektrickej energie. To má na druhú stranu dopad aj na výslednú bezpečnosť.
 Čoraz častejšie zariadenia, ktoré chcú medzi sebou komunikovať používajú bezdrôtové komunikačné siete, ktoré sa dajú dynamicky upravovať podľa meniacich sa požiadaviek zákazníka a podporujú ľahké pridávanie alebo odoberanie prvkov siete.
 S postupným rozširovaním bezdrôtových sietí sa otvárajú nové možnosti útočníkom ako napádať svoje obete, získavať citlivé informácie, ohrozovať ich aktíva, bez toho aby mali akýkoľvek fyzický prístup k danej sieti. Stačí im, ak sa nachádzajú v jej dostatočnej blízkosti.
 Na bezpečnosť bezdrôtovej komunikačnej siete a systému treba myslieť už pri návrhu od samotných základov a jednotlivých stavebných prvkov siete.
 Útoky vykonávané na infraštruktúru, poskytované služby, dáta alebo digitálne systémy sa nazývajú kybernetické útoky (z angl. Cyber attacks alebo Cybernetic attacks).
-Táto práca je určená hlavne pre ľudí zaujímajúcich sa o problematiku bezpečnosti, ľudí z výskumnej sféry, nadšencov a začiatočníkov, ktorý sa chcú oboznámiť alebo začať s problematikou týkajúcou sa návrhu bezdrôtových sietí so zvýšeným zabezpečením a potrebných znalostí.
+Táto práca je určená hlavne pre ľudí zaujímajúcich sa o problematiku bezpečnosti, ľudí z výskumnej sféry, nadšencov a začiatočníkov, ktorý sa chcú oboznámiť alebo začať s problematikou týkajúcou sa návrhu bezdrôtových sietí so zvýšeným zabezpečením.
 
-Práca sa nezaoberá a nerieši problémy fyzického zabezpečenia objektu, mobilnou aplikáciou, zálohovaním dát ani optimálnym spôsobom uloženia dát v hlavnom centralizovanom uzle. Práca je zameraná hlavne na stranu architektúry, a bezpečnosť samotnej bezdrôtovej siete. Práca čitateľovi pripomína dôležité aspekty, na ktoré treba v budúcnosti pri vytváraní finálneho produktu myslieť a na ktoré by nemal zabúdať.
+Práca sa nezaoberá a nerieši problémy fyzického zabezpečenia objektu, mobilnou aplikáciou, zálohovaním dát ani optimálnym spôsobom uloženia dát v hlavnom centralizovanom uzle. Je zameraná hlavne na stranu architektúry, a bezpečnosť samotnej bezdrôtovej siete. Práca uvádza dôležité aspekty, na ktoré je potrebné pri vytváraní finálneho produktu myslieť v budúcnosti a na ktoré by sa nemalo zabudnúť.
 
 \section{Identifikované ciele}
 Primárny identifikovaný cieľ je, pokúsiť sa zvýšiť zabezpečenie v bezdrôtových komunikačných sieťach proti kybernetickým útokom, zameraných hlavne na inteligentné domácnosti a vyhodnotiť, či dané riešenie poskytuje isté výhody v porovnaní s existujúcimi a používanými riešeniami.
@@ -362,11 +362,11 @@ Primárny identifikovaný cieľ je, pokúsiť sa zvýšiť zabezpečenie v bezdr
 %\end{verbatim}
 
 \chapter{Analýza} \label{s_analyza}
-Kapitola analýza oboznamuje čitateľa s vybranými časťami bezpečnosti \ref{s_security}, základami kryptografie \ref{s_cryptography}, priebehom kybernetického útoku \ref{s_attack}, používanými a dostupnými bezdrôtovými protokolmi\ref{s_protocols} a zariadeniami používanými\ref{s_devices} v inteligentných domácnostiach.
+Kapitola analýza oboznamuje čitateľa s vybranými časťami bezpečnosti v kapitole \ref{s_security}, základmi kryptografie \ref{s_cryptography}, priebehom kybernetického útoku \ref{s_attack}, používanými a dostupnými bezdrôtovými protokolmi \ref{s_protocols} a zariadeniami používanými v inteligentných domácnostiach \ref{s_devices}.
 
 \section{Inteligentné domácnosti} \label{s_inteligent_house}
-Pod pojmom inteligentné domácnosti rozumieme automatizovanú domácnosť, ktorá zjednodušuje, urýchľuje a pomáha efektívnejšie riadiť domácnosť či už v prítomnosti alebo neprítomnosti jej obyvateľov.
-Praktické príklady použitia automatizácie v inteligentných domácnostiach sú napr. pomocou centrálneho riadiaceho systému alebo mobilnej aplikácie: \cite{cleverism}
+Pod pojmom inteligentné domácnosti rozumieme automatizovanú domácnosť, ktorá zjednodušuje, urýchľuje a pomáha efektívnejšie riadiť domácnosť, či už v prítomnosti alebo neprítomnosti jej obyvateľov.
+Praktické príklady použitia automatizácie v inteligentných domácnostiach sú napr. pomocou centrálneho riadiaceho systému alebo mobilnej aplikácie\cite{cleverism}: 
 %\singlespacing
 \begin{itemize}
 	\item Ovládanie teploty, klimatizácie a ventilácie,
