@@ -909,7 +909,7 @@ Typy používaných kľúčov:
 \begin{figure*}[h]
 	\centering
 	\includegraphics[scale=0.4]{a_zigbeepacket.png}
-	\caption{Formát paketu 802.15.4 PPSDU. \cite{zigbeepacket}}
+	\caption{Formát paketu 802.15.4 PPSDU \cite{zigbeepacket}.}
 	\label{f:o_zigbee_packet}
 \end{figure*}
 
@@ -925,7 +925,7 @@ Všetky pásma používajú tzv. DSSS Direct Sequence Spread Spectrum prístup. 
 %TODO Analýzou zraniteľností ZigBee protokolu, bola zistená bezpečnostná slabina ktorá spočíva v nezmenených preddefinovaných kľúčoch, kde útočník zarušením prenosového komunikačného pásma a následneho spárovania cieľového zariadenia s útočníkovým uzlom, vie získať Network Key v nešifrovanej podobe a tým sa pripojiť do cieľovej siete. Tým, že je robená autentizáciu na aplikačnej úrovni pomocou PKI sa vyhneme podvhrnutiu, modifikácií a falšovaniu správ. Útočník však vie realizovať útok na koncové uzly a zahlcovať ich neautentifikovanými správami. V ďalšej fáze sa pozrieme na navrhované bezpečnostné mechanizmy, ktoré by mali predísť tomuto problému. \cite{zigbeeexploit} \footnote{\url{https://www.blackhat.com/docs/us-15/materials/us-15-Zillner-ZigBee-Exploited-The-Good-The-Bad-And-The-Ugly-wp.pdf}}
 
 \subsection{IEEE 802.15}
-Štandardy ako NFC alebo RFID sú použiteľné napr. na identifikáciu ľudí alebo zariadení v objekte. Pomenej sa v inteligentných domácnostiach zvyknú používať aj siete typu MAN alebo UWB (Ultra Wide Band).
+Štandardy ako NFC alebo RFID sú použiteľné napr. na identifikáciu ľudí alebo zariadení v objekte. Menej často sa v inteligentných domácnostiach zvyknú používať aj siete typu MAN alebo UWB (Ultra Wide Band).
 Na aplikačných vrstvách štandardu 802.15 sa zavádzajú rôzne služby ako IPv6 adresovanie, definované podľa štandardu 6LoWPAN. alebo sa snažia zjednodušiť prenos dát v ľudsky čitateľnej forme, ako je tomu pri protokole CoAP (Constrained Application Protocol). Ten umožňuje prenášať dáta vo forme JSON alebo XML. Na zabezpečenie používa mechanizmus DTLS (Datagram Transport Layer Security).
 
 \subsection{X-10}
@@ -945,13 +945,13 @@ Protokol je vyvinutý spoločnosťou Lutron, ktorý slúži hlavne pre automatiz
 \begin{itemize}
 	\item Zariadenia môžu vysielať nepretržite,
 	\item celý systém je riadený udalosťami v systéme,
-	\item architektúra a topológia siete je daná fixne, čím urýchľujú prenos dát v sieti,
+	\item architektúra a topológia siete je daná fixne, čím sa urýchľuje prenos dát v sieti,
 	\item možnosť riadiť a komunikovať s viacerými zariadeniami v skupine.
 \end{itemize}
 \onehalfspacing
 
 \subsection{ANT}
-ANT je bezdrôtový komunikačný protokol na pásme ISM o frekvencií 2.4 GHz. Protokol je navrhnutý pre nízko-napäťové aplikácie, Podporuje niekoľko rôznych topológií. Topológie sú zobrazené na obrázku \ref{f:a_ant_network_types}. Komunikačný protokol je navrhnutý aby odolal elektromagnetickému rušeniu z okolia, aby sa dal ľahko adaptovať a podporuje spoľahlivú komunikáciu.
+ANT je bezdrôtový komunikačný protokol na pásme ISM o frekvencii 2.4 GHz. Protokol je navrhnutý pre nízko-napäťové aplikácie, Podporuje niekoľko rôznych topológií. Topológie sú zobrazené na obrázku \ref{f:a_ant_network_types}. Komunikačný protokol je navrhnutý, aby odolal elektromagnetickému rušeniu z okolia a aby sa dal ľahko adaptovať.
 S ANT modulom sa komunikuje pomocou sériovej komunikácie a na implementáciu architektúry postačuje 8 bitový mikropočítač.
 
 Protokol ANT podporuje niekoľko typov komunikačných kanálov:
@@ -968,24 +968,24 @@ Protokol ANT podporuje niekoľko typov komunikačných kanálov:
 	\label{f:a_ant_network_types}
 \end{figure*}
 
-ANT protokol definuje 3 typy sietí, v ktorej každý typ môže definovať sadu pravidiel, ktoré musia uzly na danej sieti \cite{ANT}:
+ANT protokol definuje 3 typy sietí, v ktorej každý typ môže definovať sadu pravidiel, ktoré musia uzly na danej sieti podporovať \cite{ANT}:
 \begin{itemize}
-	\item verejné: tento typ sietí vie zabezpečiť, že sieť je verejne dostupná, alebo zámerne zdieľaná medzi rôznymi výrobcami.
-	\item privátne siete sa snažia zabezpečiť bezpečnosť siete a obmedzenie prístupu iba vybraných zariadení.%zariadenie mozu byt rozdelene do  kanalov viacerych roznych sieti
+	\item verejné: tento typ sietí vie zabezpečiť, že sieť je verejne dostupná, alebo zámerne zdieľaná medzi rôznymi výrobcami,
+	\item privátne siete sa snažia zabezpečiť bezpečnosť siete a obmedzenie prístupu iba vybraných zariadení,%zariadenie mozu byt rozdelene do  kanalov viacerych roznych sieti
 	\item manažované, ANT+ alebo ANT-FS siete. Zariadenia v tomto type sietí zabezpečujú vzájomnú štandardizáciu, interoperabilitu a kompatibilitu.
 \end{itemize}
 \onehalfspacing
 
 ANT protokol podporuje 4 typy posielaných správ \cite{ANT}:
 \begin{itemize}
-	\item Broadcast: je najjednoduchší typ správy, ktorý sa posiela od Master zariadenia smerom ku všetkým Slave zariadeniam. Správy typu broadcast nie sú nikdy potvrdzované. Tento mód spotrebováva najmenej elektrickej energie.
-	\item Potvrdzované správy: na obojsmernej linke, zariadenie vie poslať potvrdenie o prijatí správy v ďalšom voľnom časovom slote. Treba však mať na pamäti, že správa sa automaticky nepošle znova pri neprijatí správy o úspešnom prijatí. Tento komunikačný mód spotrebováva viac energie a prenosového pásma.
+	\item Broadcast: je najjednoduchší typ správy, ktorý sa posiela od Master zariadenia smerom ku všetkým Slave zariadeniam. Správy typu broadcast nie sú nikdy potvrdzované. Tento mód spotrebováva najmenej elektrickej energie,
+	\item Potvrdzované správy: na obojsmernej linke, zariadenie vie poslať potvrdenie o prijatí správy v ďalšom voľnom časovom slote. Treba však mať na pamäti, že správa sa automaticky nepošle znova pri neprijatí správy o úspešnom prijatí. Tento komunikačný mód spotrebováva viac energie a prenosového pásma,
 	\item Burst: umožňuje posielať väčšie množstvo dát jednému uzlu v sieti. Tento mód je potvrdzovaný o úspešnom prijatí celého bloku dát.
-	\item Advanced burst je rovnaký ako burst mód, s jediným rozdielom vo väčšej rýchlosti prenosu dát medzi uzlami blížiacich sa až k 60 kbps.
+	\item Advanced burst je rovnaký ako burst mód, s jediným rozdielom vo väčšej rýchlosti prenosu dát medzi uzlami, blížiacej sa až k 60 kbps.
 \end{itemize}
 \onehalfspacing
 
-Formát najzákladnejšej správy na ANT protokole je na \ref{f:a_ant_message}. Synchronizačná postupnosť bitov je 10100100. Kontrolná suma je počítaná ako XOR všetkých predošlých bajtov v správe \cite{ANT}.
+Formát najzákladnejšej správy na ANT protokole je na obr. \ref{f:a_ant_message}. Synchronizačná postupnosť bitov je 10100100. Kontrolná suma je počítaná ako XOR všetkých predošlých bajtov v správe \cite{ANT}.
 
 \begin{figure*}[h!]
 	\centering
@@ -995,27 +995,27 @@ Formát najzákladnejšej správy na ANT protokole je na \ref{f:a_ant_message}. 
 \end{figure*}
 
 \subsection{LoRaWAN, LoRa}
-Označenie LoRa (Long Range) definuje spôsob modulácie pre bezdrôtovú komunikáciu, ktorá vznikla za účelom komunikácie na väčšiu vzdialenosť, batériami napájaných zariadení a s podporou veľkého počtu zariadení v sieti. Jedná sa o fyzické rozhrania PHY. Technika modulácie je odvodená od CSS (Chirp Spread Spectrum) a obsahuje doprednú korekciu chyby (FEC). Z takto zakódovaného signálu sme schopný extrahovať informáciu, aj keď je prijatý signál zašumený a oslabený na úroveň -19.5 dB pod hranicou šumu.
+Označenie LoRa (Long Range) definuje spôsob modulácie pre bezdrôtovú komunikáciu, ktorá vznikla za účelom komunikácie na väčšiu vzdialenosť, batériami napájaných zariadení a s podporou veľkého počtu zariadení v sieti. Jedná sa o fyzické rozhrania PHY. Technika modulácie je odvodená od CSS (Chirp Spread Spectrum) a obsahuje doprednú korekciu chyby (FEC). Z takto zakódovaného signálu sme schopní extrahovať informáciu, aj keď je prijatý signál zašumený a oslabený na úroveň -19.5 dB pod hranicou šumu.
 
-Štandardu LoRa je často porovnávaný so sieťou IoT od poskytovateľa s názvom SigFox. Topológia použitá pre štandard LoRa je star. Tým by sa mala zabezpečiť vyššia kapacita siete, nižšia spotreba a väčší dosah\cite{LoRaSpec}\cite{LoRaFAQ}.
+Štandard LoRa je často porovnávaný so sieťou IoT od poskytovateľa s názvom SigFox. Topológia použitá pre štandard LoRa je star. Tým by sa mala zabezpečiť vyššia kapacita siete, nižšia spotreba a väčší dosah \cite{LoRaSpec}\cite{LoRaFAQ}.
 
 Tento štandard sa zaraďuje do kategórie LPWAN Low-Power Wide Area Network. 
 
-Štandard LoRa používa na komunikáciu bezplatné ISM pásmo frekvenčných pásmach Sub-GHz. Tým sa zaručí nižšia cena zariadení, keďže niesú potrebné licenčné poplatky. Navyše sa vyhýbajú frekvenčným pásmam 2.4 GHz, na ktorých operuje v dnešnej dobe veľa zariadení a stávajú sa preplnenými. Vyhradené frekvencie pre jednotlivé regióny sú na obrázku \ref{f:a_LoRaWAN}.
+Štandard LoRa používa na komunikáciu bezplatné ISM pásmo, na frekvenčných pásmach označovaných ako Sub-GHz. Tým sa zaručí nižšia cena zariadení, keďže nie sú potrebné licenčné poplatky. Štandard sa vyhýba frekvenčným pásmam 2.4 GHz, na ktorých operuje v dnešnej dobe veľa zariadení a stávajú sa preplnenými. Vyhradené frekvencie pre jednotlivé regióny sú na obrázku \ref{f:a_LoRaWAN}.
 
 LoRaWAN označuje MAC (Media Access Control) nad fyzickým rozhraním LoRa a definuje komunikačný protokol, formáty posielaných správ a samotnú architektúru siete.
 
-V LoRa sieti zariadenia patria do jednej siete. Odoslaná správa od jedného zariadenia môže byť prijatá a spracovaná viacerými bránami. Pri poruche jednej brány bude správa doručená cez iný, ktorý počúva na tej istej frekvencií, v závislosti od regiónu \ref{f:a_LoRa_Architecture}. Brány sú rozmiestňované tak, aby sa navzájom čiastočne prekrývali.
+V LoRa sieti zariadenia patria do jednej siete. Správa odoslaná z jedného zariadenia môže byť prijatá a spracovaná viacerými bránami. Pri poruche jednej brány bude správa doručená cez inú, ktorá počúva na tej istej frekvencií, v závislosti od regiónu obr. \ref{f:a_LoRa_Architecture}. Brány sú rozmiestňované tak, aby sa navzájom čiastočne prekrývali.
 
-LoRaWAN štandard je orientovaný pre cloudové aplikácie. Správy prijaté v jednotlivých bránach sú ďalej preposielané severu na spracovanie po inom komunikačnom kanále\ref{f:a_LoRa_Architecture}.
+LoRaWAN štandard je orientovaný pre cloudové aplikácie. Správy prijaté v jednotlivých bránach sú ďalej preposielané severu na spracovanie po inom komunikačnom kanále obr. \ref{f:a_LoRa_Architecture}.
 Správy štandardu LoRa sú rôzne pre uplink a downlink.
 
-Štandard používa na zabezpečenie spoľahlivého prijatia metódu ADR (Adaptive data rate)\ref{f:a_LoRa_ADR}. Prenosová rýchlosť a vysielací výkon zariadenia sa prispôsobujú vzdialenosti, alebo počtu zariadení v sieti. Takýmto spôsobom sa dá zaručiť efektívne nakladanie s kapacitou batérie. Prenosové rýchlosti pri modulácií LoRa sa pohybujú v rozmedzí 0.3-50 kbps a pri modulácií GFSK 100 kbps \cite{LoRaFAQ}.
+Štandard používa na zabezpečenie spoľahlivého prijatia metódu ADR (Adaptive data rate) obr. \ref{f:a_LoRa_ADR}. Prenosová rýchlosť a vysielací výkon zariadenia sa prispôsobujú vzdialenosti, alebo počtu zariadení v sieti. Takýmto spôsobom sa dá zaručiť efektívne nakladanie s kapacitou batérie. Prenosové rýchlosti pri modulácií LoRa sa pohybujú v rozmedzí 0.3-50 kbps a pri modulácií GFSK 100 kbps \cite{LoRaFAQ}.
 
 Zariadenia v štandarde LoRa sú rozdelené do troch kategórií, kvôli rôznym nárokom a požiadavkám na uzly:
 \begin{itemize}
-	\item kategória A (All-end devices): uzly tejto kategórie sú napájané batériami. Zvyčajne sa jedná o senzory. Prijímanie správ je možné iba v 2 časových úsekoch po odoslaní dát. Keďže zariadenie sú zvyčajne v režime šetriacom a nemajú zapnuté. Umožňuje im to uspať a prijať dáta, ak si ich zažiadali alebo ich očakávajú.
-	\item kategória B (Beacon): do tejto kategórie patria aktuátory napájané batériami. Komunikácia s takýmito zariadeniami je synchronizovaná v časových úsekoch a umožňuje viac prijímacích okien.
+	\item Kategória A (All-end devices): uzly tejto kategórie sú napájané batériami. Zvyčajne sa jedná o senzory. Prijímanie správ je možné iba v 2 časových úsekoch po odoslaní dát. Keďže zariadenie sú zvyčajne v režime šetriacom a nemajú zapnutý prijímač. Umožňuje im to uspať a prijať dáta, ak si ich zažiadali alebo ich očakávajú,
+	\item kategória B (Beacon): do tejto kategórie patria aktuátory napájané batériami. Komunikácia s takýmito zariadeniami je synchronizovaná v časových úsekoch a umožňuje viac prijímacích okien,
 	\item kategória C (Continuously listening): jedná sa o zariadenia napájané z elektrickej siete, ktoré môžu počúvať na komunikačnom kanále nepretržite s výnimkou vysielania.
 \end{itemize}
 
@@ -1047,9 +1047,8 @@ Pokiaľ je posielaná správa od koncového uzla zachytená aspoň tromi bránam
 \end{figure*}
 
 \section{Porovnanie protokolov}
-%TODO
-V závislosti na veľkosti siete a počtu uzlov v sieti, nie je každý protokol najvhodnejší. Na veľmi malé priestory v podobe malých jednopodlažných firiem sa najviac hodí protokol BLE napr. v prevedení piconet.
-Na malé viacpodlažné domčeky s menšou predzáhradkou, niektorý so štandardov 802.15.4 napr. Zigbee.
+Výber vhodného protokolu je závislý od veľkosti siete a počtu uzlov v sieti. Na veľmi malé priestory v podobe malých jednopodlažných firiem sa najviac hodí protokol BLE napr. v prevedení piconet.
+Na malé, viacpodlažné domčeky s menšou predzáhradkou, niektorý zo štandardov 802.15.4 napr. Zigbee.
 Na väčšie domy s vlastnými farmami, niekoľkými budovami, s veľkými záhradami a poliami a na priemyselné použitie vo veľkých fabrikách sa hodí protokol LoRa.
 Viaceré protokoly sú spolu porovnané v tabuľke \ref{table:Porovnanie protokolov}.
 %Celulárne riešenia sa mi nepacia, potrebujes poskytovatela, musis mu platit za architekturu, nemusi mat pokrytie, handovery, znizena bezpecnosti.
@@ -1078,10 +1077,10 @@ Viaceré protokoly sú spolu porovnané v tabuľke \ref{table:Porovnanie protoko
 \newpage
 
 \section{Používané technológie v inteligentných \\ domácnostiach} \label{s_solutions}
-Táto kapitola sa zaoberá dostupnými a používanými technológiami používanými v technologických riešeniach inteligentných domácností.  \ref{s_smarthubs} a \ref{s_devices}
+Táto kapitola sa zaoberá dostupnými technológiami používanými v technologických riešeniach inteligentných domácností.  \ref{s_smarthubs} a \ref{s_devices}
 
 \subsection{Smart gateways} \label{s_smarthubs}
-Smart gateways, často označované a dostupné na internete aj pod názvom Smart Things Hubs, označujú zariadenia, ktoré sú pripojené k internetu a poskytujú konektivitu pripojeným senzorom, ktoré nemajú priamo zabudované pripojenie k internetu. Takýmto spôsobom je možné monitorovať a ovládať dianie v inteligentnej domácnosti pomocou vzdialeného prístupu, posielať namerané dáta von z privátnej siete napr. do cloudu na následné spracovanie alebo notifikovať vlastníka objektu o narušiteľovi, poprípade o spustení požiarneho alarmu. Okrem pridanej konektivity často vedia komunikovať a prepájať zariadenia nachádzajúce sa na rôznych bezdrôtových komunikačných protokoloch.
+Pojmom smart gateways, na internete nazývané aj Smart Things Hubs, sa označujú zariadenia, ktoré sú pripojené k internetu a poskytujú konektivitu pripojeným senzorom, ktoré nemajú priamo zabudované pripojenie k internetu. Takýmto spôsobom je možné monitorovať a ovládať dianie v inteligentnej domácnosti pomocou vzdialeného prístupu, posielať namerané dáta von z privátnej siete napr. do cloudu na následné spracovanie alebo notifikovať vlastníka objektu o narušiteľovi, poprípade o spustení požiarneho alarmu. Okrem pridanej konektivity často vedia komunikovať a prepájať zariadenia nachádzajúce sa na rôznych bezdrôtových komunikačných protokoloch.
 Vybrané najrozšírenejšie dostupné produkty:
 %\singlespacing
 \begin{itemize}
@@ -1122,11 +1121,11 @@ Pre priblíženie spomenieme zopár zariadení spolu so stručným popisom ponú
 %QOS
 %Detekcia compromitovaneho sensoru, observeri, watchdog
 \subsection{Smart SD karty}
-Nasledujúca podkapitola sa venuje opisu rozširujúcich sa hardvérových zariadení, ktoré ponúkajú funkcionalitu prevážne z oblasti zabezpečenia a konektivity, akými sú bezpečné ukladanie kryptografických kľúčov alebo citlivých dát.
-Existujú aj SD karty, ktoré neponúkajú zvýšené služby zabezpečenia ale iba bezdrôtovú komunikáciu prostredníctvom Wi-Fi protokolu a úložisko. Príkladmi daných kariet sú napr. SD karty s názvom Eyefi\footnote{\url{http://www.eyefi.com/}} a Transcend\footnote{\url{http://www.transcend-info.com/Products/No-401}}. Na trh sa snaží dostať aj spoločnosť Toshiba s NFC SDHC  kartou\footnote{\url{http://www.toshiba.com/taec/adinfo/technologymoves/pdfs/2015/World's\%20First\%20NFC\%20Built-in\%20SDHC\%20Memory\%20Card.pdf}}.
+Nasledujúca podkapitola sa venuje opisu rozširujúcich sa hardvérových zariadení, ktoré ponúkajú funkcionalitu prevažne z oblasti zabezpečenia a konektivity, akými sú bezpečné ukladanie kryptografických kľúčov alebo citlivých dát.
+Existujú aj SD karty, ktoré neponúkajú zvýšené služby zabezpečenia, ale iba bezdrôtovú komunikáciu prostredníctvom Wi-Fi protokolu a úložisko. Príkladmi daných kariet sú napr. SD karty s názvom Eyefi\footnote{\url{http://www.eyefi.com/}} a Transcend\footnote{\url{http://www.transcend-info.com/Products/No-401}}. Na trh sa snaží dostať aj spoločnosť Toshiba s NFC SDHC  kartou\footnote{\url{http://www.toshiba.com/taec/adinfo/technologymoves/pdfs/2015/World's\%20First\%20NFC\%20Built-in\%20SDHC\%20Memory\%20Card.pdf}}.
 
 \subsubsection{Secure Element} \label{s_se}
-Secure element alebo embedded secure element je zariadenie, ktoré je odolné proti modifikácií. Príklad použitia tejto technológie je napr. pri autentizácií, identifikácií, zabezpečovaní integrity, bezpečnom ukladaní dôverných a kryptografických dát. Rozlišujú sa tri typy secure elementov. Použité sú napr. aj v kreditných a debetných kartách, SIM kartách alebo TV smart kartách. \cite{gp}\cite{gemalto}
+Secure element alebo embedded secure element je zariadenie, ktoré je odolné proti modifikácií. Príklad použitia tejto technológie je napr. pri autentizácií, identifikácií, zabezpečovaní integrity, bezpečnom ukladaní dôverných a kryptografických dát. Použité sú napr. aj v kreditných a debetných kartách, SIM kartách alebo TV smart kartách \cite{gp}\cite{gemalto}.
 Existujú tri hlavné typy secure elementov:
 %\singlespacing
 \begin{itemize}
@@ -1143,7 +1142,7 @@ Existujú tri hlavné typy secure elementov:
 %http://www.oracle.com/technetwork/java/index.html
 %http://www.javacardforum.org
 %http://www.gemalto.com/techno/javacard
-Pod označením Java Card sa nachádza priemyselný štandard, ktorý bol vyvinutý \\ spoločnosťou Sun Microsystems (dnešný Oracle). Tento štandard umožňuje aby aplikácie na báze Javy tzv. applety, mohli byť spustené na smart kartách. Výhody takýchto riešení sú v jej interoperabilite, prenositeľnosti kódu a zníženým hardvérovým nákladom pri tvorbe cieľového produktu.
+Pod označením Java Card sa nachádza priemyselný štandard, ktorý bol vyvinutý  spoločnosťou Sun Microsystems (dnešný Oracle). Tento štandard umožňuje, aby aplikácie na báze Javy tzv. applety, mohli byť spustené na smart kartách. Výhody takýchto riešení sú v jej interoperabilite, prenositeľnosti kódu a zníženým hardvérovým nákladom pri tvorbe cieľového produktu.
 Typické použitia Java Card technológie \cite{jcop}:
 %\singlespacing
 \begin{itemize}
@@ -1152,7 +1151,7 @@ Typické použitia Java Card technológie \cite{jcop}:
 	\item identifikačné karty,
 	\item karty používané vo verejnej preprave,
 	\item telekomunikáciách,
-	\item komunikácia v sieťach typu M2M medzi strojom a strojom bez prítomnosti a asistencie človeka.
+	\item komunikácia v sieťach typu M2M medzi strojom a strojom, bez prítomnosti a asistencie človeka.
 \end{itemize}
 \onehalfspacing
 
@@ -1201,9 +1200,9 @@ Základné vlastnosti JCOP operačného systému sú \cite{jcop}:
 %\end{figure*}
 
 \subsubsection{Programovanie Secure Elementov}
-Na programovanie secure elementov sa používa programovací jazyk so syntaxou Java a istými výraznými limitáciami zo strany inštrukčnej sady, služieb a podpory samotného virtuálneho stroja. Pre skompilovanie programu pre secure elementy je potrebné napr. vývojové štúdio Eclipse\footnote{\url{https://eclipse.org/}} spolu s nainštalovaným balíčkom JavaCard SDK\footnote{\url{http://www.oracle.com/technetwork/java/embedded/javacard/downloads/javacard-sdk-2043229.html}}.
+Na programovanie secure elementov sa používa programovací jazyk so syntaxou Java s istými výraznými limitáciami zo strany inštrukčnej sady, služieb a podpory samotného virtuálneho stroja. Pre skompilovanie programu pre secure elementy je potrebné napr. vývojové štúdio Eclipse\footnote{\url{https://eclipse.org/}} spolu s nainštalovaným balíčkom JavaCard SDK\footnote{\url{http://www.oracle.com/technetwork/java/embedded/javacard/downloads/javacard-sdk-2043229.html}}.
 Základná štruktúra programu je zobrazená na \ref{lst:jcop_program}. Program je nutné skompilovať do CAP formátu\ref{f:applet}.
-Pre nahratie appletu na cieľovú smart kartu je ďalej potrebný manažér appletov napr. program od GlobalPlatform s názvom GPShell\footnote{\url{https://sourceforge.net/p/globalplatform/wiki/GPShell/}}\ref{f:applet_install}. Následne je potrebné zariadenie, pomocou ktorého nahráte skompilovaný applet na smart kartu, napr. PCSC čítačku, ktorá komunikuje so Secure Elementom prostredníctvom štandardu a rozhrania ISO 7816.
+Pre nahratie appletu na cieľovú smart kartu je ďalej potrebný manažér appletov napr. program od GlobalPlatform s názvom GPShell\footnote{\url{https://sourceforge.net/p/globalplatform/wiki/GPShell/}}\ref{f:applet_install}. Následne je potrebné zariadenie, pomocou ktorého sa nahrá skompilovaný applet na smart kartu, napr. PCSC čítačku, ktorá komunikuje so Secure Elementom prostredníctvom štandardu a rozhrania ISO 7816.
 % http://javacard.vetilles.com/2006/09/17/hello-world-smart-card/#sthash.gJ3w69ya.dpuf
 %\singlespacing
 \begin{lstlisting}[caption={Hello World na platforme JCOP. \protect\cite{jchelloworld}}, label={lst:jcop_program}, language=java] 
@@ -1258,18 +1257,18 @@ Vybrané odporúčania pri písaní appletov:
 %\singlespacing
 \begin{itemize}
 	\item vkladať náhodné inštrukcie typu nop do vykonávaného programu,
-	\item používať maskovanie hodnôt pri posielaní kritických parametrov funkciám napr. pomocou funkcie xor, bitových rotácií a ich následná rekonštrukcia,
+	\item používať maskovanie hodnôt pri posielaní kritických parametrov funkciám napr. pomocou funkcie Xor, bitových rotácií a ich následná rekonštrukcia,
 	\item nepoužívať podmienené vetvenia, tie zvyknú byť náchylné na útoky hodinového signálu,
 	\item pristupovať do RAM pamätí, nie do externých pamätí, vykonávanie programu je rýchlejšie a spotrebuje sa pri tom menej energie. Prístup do externých pamätí môže byť viditeľný pri útoku typu na postranný kanál,
 	\item používať čo najviac zabudovaných služieb, ktoré sú overené a neimplementovať vlastné softvérové metódy,
-	\item odporúča sa programovať program tak, aby sa kód vykonával rovnaký počet hodinových cyklov v prípade v prípade správne zadanej používateľskej hodnoty aj pri zlej, napr. pri zadávaní pinu na hardvérovej klávesnici.
+	\item odporúča sa programovať program tak, aby sa kód vykonával rovnaký počet hodinových cyklov v prípade správne zadanej používateľskej hodnoty, aj pri nesprávnej, napr. pri zadávaní pinu na hardvérovej klávesnici.
 \end{itemize}
 \onehalfspacing
 
 Komunikácia s SD kartou pomocou štandardného rozhrania je možná pomocou dvoch hlavných módov\cite{sdio}:
 \singlespacing
 \begin{itemize}
-	\item SD označovaný aj ako SDIO mód slúži na priamu komunikáciu, ten je možné realizovať po zberniciach s rôznou šírkou,
+	\item SD označovaný aj ako SDIO mód, slúži na priamu komunikáciu, ten je možné realizovať po zberniciach s rôznou šírkou,
 	\subitem 1-bitový synchrónny mód, umožňuje pomalší prenos informácií, šetrí sa však miesto na vyvíjanom čipe,
 	\subitem 4-bitový synchrónny mód, rýchlejšia komunikácia s SD kartou,
 	\item SPI mód podporuje jedno master zariadenie a viac slave zariadení. Tento mód podporuje iba menšiu množinu vykonávaných operácií nad SD kartou, ako je tomu pri SD móde.
@@ -1299,9 +1298,9 @@ Komunikácia s SD kartou pomocou štandardného rozhrania je možná pomocou dvo
 %\subsubsection{Podobne implementacie}
 \subsubsection{Google Poject Vault} \label{s_sd_google}
 %Project Vault Demo at Google I/O 2015
-Project Vault je aktuálne vo vývoji, zastrešený spoločnosťou Google, konkrétne skupinou ATAP (Advanced Technology and Projects). Celý projekt je realizovaný ako OpenSource. Dostupné su zdrojové VHDL súbory, kódy pre FPGA čipy \footnote{\url{https://github.com/ProjectVault/orp}}. Procesor na microSD karte je architektúry ARM, na ktorom beží RTOS s názvom mircoSEL. Aj samotný použitý procesor s označením OpenRISC1200 je realizovaný ako OpenSource. Karta sa dá použiť na široké spektrum použitia od IoT, v stolových počítačoch, mobilných aplikáciach, zabezpečenie bezpečnosti komunikácie, bezpečné úložisko citlivých dát, v inteligentných telefónoch, posielaní správ alebo zabezpečenie end-to-end šifrovanej komunikácie.
+Project Vault je aktuálne vo vývoji, zastrešený spoločnosťou Google, konkrétne skupinou ATAP (Advanced Technology and Projects). Celý projekt je realizovaný ako OpenSource. Dostupné su zdrojové VHDL súbory, kódy pre FPGA čipy \footnote{\url{https://github.com/ProjectVault/orp}}. Procesor na microSD karte je architektúry ARM, na ktorom beží RTOS s názvom mircoSEL. Aj samotný použitý procesor s označením OpenRISC1200 je realizovaný ako OpenSource. Karta sa má široké spektrum použitia od IoT, v stolových počítačoch, mobilných aplikáciach, zabezpečenie bezpečnosti komunikácie, bezpečné úložisko citlivých dát, v inteligentných telefónoch, posielaní správ alebo zabezpečenie end-to-end šifrovanej komunikácie.
 Prístup, komunikácia a bezpečnostné služby poskytované SD kartou sú realizované prostredníctvom virtuálneho súborového systému.
-Vyhlásili, že najprv chcú riešenie testovať na enterprise riešeniach a neskôr chcú pôsobenie rozšíriť pre bežných spotrebiteľov v komerčnej sfére so zameraním hlavne na mobilné aplikácie.
+Spoločnosť Google vydala prehlásenie, že najprv chcú riešenie testovať na enterprise riešeniach a neskôr chcú pôsobenie rozšíriť pre bežných spotrebiteľov v komerčnej sfére so zameraním hlavne na mobilné aplikácie.
 Karta disponuje NFC anténou, poskytuje kryptografické služby, generátor náhodných čísiel, hashovacie funkcie, digitálne podpisovanie dokumentov a používateľ má k dispozícií 4 GB izolovanej bezpečnej pamäte\cite{googlevault}.
 %NAND FTL TPS trusted service, Project Vault IDL SD protoco;
 %flash translated layer.
@@ -1431,7 +1430,7 @@ V decentralizovaných architektúrach sa každý prvok v sieti rozhoduje sám za
 Kapitola sa zaoberá návrhom dôležitých častí siete a prideľuje hlavné funkcionality jednotlivým systémom.
 
 \section{Architektúra siete}
-Základná navrhnutá bloková schéma architektúry je zobrazená na \ref{f:o_blok_topology}. Podrobnejšie rozkreslená bloková schéma je zobrazená na diagrame \ref{f:o_advanced_topology}.
+Základná navrhnutá bloková schéma architektúry je zobrazená na obr. \ref{f:o_blok_topology}. Podrobnejšie rozkreslená bloková schéma je zobrazená na diagrame \ref{f:o_advanced_topology}.
 
 Navrhovaná architektúra sa skladá z nasledujúcich základných prvkov:
 \singlespacing
@@ -1445,13 +1444,13 @@ Navrhovaná architektúra sa skladá z nasledujúcich základných prvkov:
 Dodatočné prvky siete zabezpečujúce prídavnú funkcionalitu:
 \singlespacing
 \begin{itemize}
-	\item patria sem dedikované honeypot-ové zariadenia, ktoré by mali generovať náhodnú komunikácie s riadiacou jednotkou, ktoré budú vysielať na vyššom výkone ako ostatné koncové zariadenia a prípadné potencionálne hrozby budú hlásiť centralizovanému uzlu,
-	\item ďalej sem patria špecializované uzly na detekciu kompromitovaných uzlov podľa\cite{compromisedsensors}. Ich implementácia do navrhovanej site nie je možná, keďže by na sieti obchádzali komunikáciu cez centralizovaný uzol a komunikovali by napriamo s ostatnými zariadeniami.
+	\item patria sem dedikované honeypot-ové zariadenia, ktoré by mali generovať náhodné komunikácie s riadiacou jednotkou, ktoré budú vysielať na vyššom výkone ako ostatné koncové zariadenia a prípadné potencionálne hrozby budú hlásiť centralizovanému uzlu,
+	\item ďalej sem patria špecializované uzly na detekciu kompromitovaných uzlov podľa publikácie \cite{compromisedsensors}. Ich implementácia do navrhovanej site nie je možná, keďže by na sieti obchádzali komunikáciu cez centralizovaný uzol a komunikovali by napriamo s ostatnými zariadeniami.
 \end{itemize}
 \onehalfspacing
 %Zabezpecujeme proti jendoltivym utokom a jednotlive kroky ktore vedu ku kompormitacii a process utoku.
 
-Každý prvok v sieti bude mať osadené zariadenie v podobe kryptovacieho elementu, poprípade . Tým sa zabezpečí, že každý prvok v sieti bude zabezpečený na rovnakej úrovni má rovnaké bezpečnostné možnosti, keďže reťaz je tak silná ako jej najslabší článok.
+Každý prvok v sieti bude mať osadené zariadenie v podobe kryptovacieho elementu. Tým sa zabezpečí, že každý prvok v sieti bude zabezpečený na rovnakej úrovni má rovnaké bezpečnostné možnosti, keďže reťaz je tak silná ako jej najslabší článok.
 
 Kryptovanie od uzla k uzlu asi nie je nutné, keďže PKI infraštruktúra spolu s AES kryptovaním by mala poskytovať dostatočne bezpečné end-to-end šifrovanie s autentifikáciou.
 
@@ -1471,7 +1470,7 @@ Systém treba navrhnúť tak aby bol rozšíriteľný a bezpečný. Treba dbať 
 Jednotlivé uzly by mali byť odolné proti istým SW alebo HW chybám a mohli by mať implementované ošetrenia na HW úrovni s možnosťou automatického zotavenia, napr. pomocou implementácie WatchDog časovača. Keďže niektoré koncové zariadenia môžu riadiť kritické a potencionálne nebezpečné zariadenia ako plynové kotle.
 
 \subsection{Centralizovaná riadiaca jednotka} 
-Jednotka je v prvom rade zodpovedná za zber dát zo vstupných senzorov, ich spracovanie, uloženie, kvôli štatistikám a riadení koncových uzlov. Prostredníctvom centralizovanej jednotky používateľ pristupuje k celému systému. Centralizovaná jednotka, ktorá by mala poskytovať nasledovné funkcionality:
+Jednotka je v prvom rade zodpovedná za zber dát zo vstupných senzorov, ich spracovanie, uloženie, kvôli štatistikám a riadenie koncových uzlov. Prostredníctvom centralizovanej jednotky používateľ pristupuje k celému systému. Centralizovaná jednotka, by mala poskytovať nasledovné funkcionality:
 %\singlespacing
 \begin{itemize}
 	\item plní funkciu brány, poskytuje konektivitu na internet, tzn. implementácia firewall-u niekde medzi centralizovanou jednotkou a internetom,
@@ -1497,14 +1496,14 @@ Otázku, ako sa dostanú dáta z jedného koncového uzla do druhého, ak druhý
 Vlastná certifikačná autorita zabezpečuje overenie pravosti páru kľúčov pri ich generovaní, programovanie kľúčov do secure elementov, evidenciu používaných a vyradených kľúčov, generovanie a podpisovanie certifikátov pre jednotlivé uzly.
 
 \subsection{Koncové zariadenia} 
-Pri návrhu treba brať do úvahy podporu zhlukovania koncových zariadení alebo zariadení tvoriacich sieť do logicky súvisiacich blokov a ich spoločné riadenie, poprípade manažovanie. Napr. na základe rozmiestnenia po miestnostiach, alebo podľa typu uzla. Ponúkajú sa dve riešenia. Rozlišovať zariadenia na vyšších aplikačných vrstvách pomocou algoritmov, alebo logicky závislé prvky budú rozmiestnené na sieťach z rôznym identifikátorov siete. Smerovanie by prebiehalo medzi rôznymi sieťami a broadcast na danej sieti by sa prešíril iba zainteresovaným koncovým zariadeniam.
-Treba sa rozhnodnúť, či koncové zariadenia môžu obsahovať malú lokálnu logiku. Napr. v prípade zlyhania centralizovaného uzla, aby mohol používateľ systému v prípade núdze otvoriť dvere ovládané pomocou systému na základe identifikácie napr. pomocou NFC rozhrania na microSD karte.
+Pri návrhu treba brať do úvahy podporu zhlukovania koncových zariadení alebo zariadení tvoriacich sieť do logicky súvisiacich blokov a ich spoločné riadenie, poprípade manažovanie. Napr. na základe rozmiestnenia po miestnostiach, alebo podľa typu uzla. Ponúkajú sa dve riešenia. Rozlišovať zariadenia na vyšších aplikačných vrstvách pomocou algoritmov, alebo logicky závislé prvky budú rozmiestnené na sieťach s rôznymi identifikátormi siete. Smerovanie by prebiehalo medzi rôznymi sieťami a broadcast na danej sieti by sa prešíril iba zainteresovaným koncovým zariadeniam.
+Treba sa rozhondnúť, či koncové zariadenia môžu obsahovať malú lokálnu logiku. Napr. v prípade zlyhania centralizovaného uzla, by mohol používateľ systému v prípade núdze otvoriť dvere ovládané pomocou systému na základe identifikácie napr. pomocou NFC rozhrania na microSD karte.
 V prípade neštandardných situácií, sa treba zamyslieť nad automatickým ohlasovaním vzniknutých udalostí od koncových uzlov centralizovanej riadiacej jednotke.
 % Treba však zvoliť vhodnú implementáciu s obmedzeniami, aby neprišlo k samovoľnému preťaženiu siete a jednotlivých uzlov.
 
 \subsection{Prvky sieťovej architektúry}
 %V závislosti od veľkosti siete, počtu zariadení a požadovaných prevádzkových parametrov siete bude treba vybrať z dostupných možných topológií ZigBee protokolu.
-Primárna funkcia je vytvoriť prepojenú komunikačnú sieť medzi koncovými zariadeniami a centralizovanou riadiacou jednotkou.
+Primárna funkcia prvkov sieťovej architektúry je vytvorenie prepojenej komunikačnej siete, medzi koncovými zariadeniami a centralizovanou riadiacou jednotkou.
 
 %Navrhuta architektura siete
 Zabezpečenie jednotlivých bezpečnostných cieľov pomocou bezpečnostných mechanizmov:
@@ -1532,7 +1531,7 @@ Pre zabezpečenie lepšej čitateľnosti a rozšíriteľnosti v budúcnosti, dá
 % Dáta a formát paketu je zatiaľ navrhovaný tak, aby sa všetky potrebné informácie, ktoré sa majú preniesť, zmestili do jedného paketu.
 
 %Ponúka sa otázka, či chceme mať implementované aj metódy proti reverznému inžinierstvu, na základe deterministických pravidiel, rotovaním dát po bitoch pred zakryptovaním, ktoré sú následne posielané v z Zigbee pakete. Ďalšia z ponúkaných metód je dopĺnať nevyužité miesto v pakete o padding náhodnej dĺžky, ktorý bude obsahovať náhodne vygenerované dáta.
-Posielané dáta budú kryptované pomocou štandardu AES-128 s využitím. Dáta tak budú kryptované dvojúrovňovo.
+Posielané dáta budú kryptovanés využitím štandardu AES-128. Dáta tak budú kryptované dvojúrovňovo.
 
 %ci to chceme zmestit do jedneho, alebo viacerych. Do jedneho, kvoli vypoctovej narocnosti a problemami ak nieco pokazi na niektorej strane, cislovanie jednotlichv paketov
 %Spominany zigbee packet, jeho v kapitole ZigBee.
@@ -1558,7 +1557,7 @@ Navrhované dáta sú zabalené v pakete pre príslušný komunikačný protokol
 
 \section{Formát cerifikátu}
 Aby sme zamedzili útoku Man in the Middle, je nutné používať a implementovať zabezpečenie pomocou  certifikátov. Certifikáty sú generované a distribuované ešte pred nasadením koncového zariadenia do siete, napr. cez komunikačné rozhranie NFC s vlastnou certifikačnou autoritou. Certifikačná autorita pošle koncovému zariadeniu aj vlastný certifikát, aby si ho mohlo zariadenie počas prevádzky porovnať, či naozaj komunikuje s certifikačnou autoritou.
- Pre efektívne využitie prenosového pásma, samotný certifikát bude obsahovať iba najnutnejšie položky. Výmena certifikátu za nový, bude prebiehať použitím zabezpečenej komunikácie, prostredníctvom existujúcej siete. Certifikačná autorita vygeneruje nový certifikát. Ten sa následne na pošle cez komunikačnú sieť koncovému zariadeniu a po úspešnej verifikácií si ho uloží do zabezpečeného úložiska.
+ Pre efektívne využitie prenosového pásma, samotný certifikát bude obsahovať iba najnutnejšie položky. Výmena certifikátu za nový, bude prebiehať použitím zabezpečenej komunikácie, prostredníctvom existujúcej siete. Certifikačná autorita vygeneruje nový certifikát. Ten sa následne pošle cez komunikačnú sieť koncovému zariadeniu a po úspešnej verifikácií si ho uloží do zabezpečeného úložiska.
 
 % (CRC check a verifikácia digitálneho podpisu)
 
@@ -1590,7 +1589,7 @@ Po zapnutí napájania sa vykoná jednoduchý Power on Self test, ktorý otestuj
 	\label{f:n_konvergenica}
 \end{figure*}
 
-Zariadenia sa budú v preddefinovaných pravidelných intervaloch hlásiť centralizovanému uzlu, že sú stále nažive. V prípade že uzol dlhšie neodpovedá, po prekročení nastavenej hraničnej hodnoty, môže centralizovaný uzol notifikovať používateľa o prípadnom probléme.
+Zariadenia sa budú v preddefinovaných pravidelných intervaloch hlásiť centralizovanému uzlu, že sú stále nažive. V prípade, že uzol dlhšie neodpovedá, po prekročení nastavenej hraničnej hodnoty, môže centralizovaný uzol notifikovať používateľa o prípadnom probléme.
 
 %\section{Architektúra}
 %x
@@ -1608,7 +1607,7 @@ Zišlo by sa zamyslieť nad implementáciou bezpečnostých mechanizmov na zákl
 \item nástroje na posúdenie zraniteľností,
 \item ošetrenie výstrah,
 \item odpovede na vzniknuté výstrahy,
-\subitem aktívne: spustia sa preddefinované procesy, programy alebo spustí sa automatická hĺbková analýza siete, zariadenia prestanú vysielať, zmažú sa vybrané citlivé dáta.
+\subitem aktívne: spustia sa preddefinované procesy, programy alebo sa spustí automatická hĺbková analýza siete, zariadenia prestanú vysielať, zmažú sa vybrané citlivé dáta,
 \subitem pasívne.
 \end{itemize}
 \onehalfspacing
@@ -1647,7 +1646,7 @@ Zišlo by sa zamyslieť nad implementáciou bezpečnostých mechanizmov na zákl
 
 \chapter{Implementácia} \label{s_implementation}
 %\section{}
-Za účelom overenia navrhnutého riešenia, boli vybraté zariadenia a protokoly opísané v tejto kapitole. Teoreticky nezáleží na zariadení, jeho architektúre ani na použitom komunikačnom protokole. Najdôležitejším cieľom použitých zariadení je získať kvantitatívne výsledky potrebné pre celkové vyhodnotenie návrhu a samotného projektu.
+V tejto kapitole sú opísané zairadenia a protokoly zvolené za účelom overenia navhrnutého riešenia. Teoreticky nezáleží na zariadení, jeho architektúre ani na použitom komunikačnom protokole. Najdôležitejším cieľom použitých zariadení je získať kvantitatívne výsledky potrebné pre celkové vyhodnotenie návrhu a samotného projektu.
 
 Overenie zabezpečenia komunikačnej sieti prebieha nad zmenšeným zjednodušeným modelom navrhnutej siete tvoreným iba z dvoch uzlov v sieti. Vybrané komunikačné moduly sa zaraďujú do produkčnej rady s označením nRF51 od firmy Nordic Semiconductor. Vývojový kit má osadený Arm Cortex-M0 mikroprocesor s označením nRF51422-QFAAC. Bloková schéma procesora je zobrazená na obrázku \ref{f:o_i_nrf51blockdiagram}. Základné vybrané parametre ktorými sa procesor vyznačuje sú\cite{nRF51}:
 \begin{itemize}
@@ -1701,7 +1700,7 @@ CMSIS\footnote{\url{www.arm.com/products/processors/cortex-m/cortex-microcontrol
 
 \begin{table}[h]
 	\centering
-	\caption{Začiatky spolu s veľkosťami jednotlivých pamäťových blokov pre program a dáta.}
+	\caption{Začiatky s veľkosťami jednotlivých pamäťových blokov pre program a dáta.}
 	\label{t:s210_memory}
 	\begin{tabular}{|c|c|c|c|}
 		\hline
@@ -1739,9 +1738,9 @@ Pre programovanie vývojového kitu sme nainštalovali SDK určené pre radu zar
 
 \section{Bezdrôtová komunikácia}
 Komunikácia medzi zariadeniami je realizovaná prostredníctvom broadcastov. 
-ANT protokol komunikuje vo vyhradených časových intervaloch \ref{f:reverse_send}. Takisto umožňuje obojsmernú komunikáciu. Komunikácia smerom naspäť, od Slave zariadenia k Mastrovi, je možná iba vo vyhradenom krátkom časovom úseku. Pokiaľ výpočet nezbehne počas daného krátkeho časového úseku, je nutné dáta poslať v niektorých ďalších časových úsekoch.
+ANT protokol komunikuje vo vyhradených časových intervaloch obr. \ref{f:reverse_send}. Takisto umožňuje obojsmernú komunikáciu. Komunikácia smerom naspäť, od Slave zariadenia k Mastrovi, je možná iba vo vyhradenom krátkom časovom úseku. Pokiaľ výpočet nezbehne počas daného krátkeho časového úseku, je nutné dáta poslať v niektorých ďalších časových úsekoch.
 
-Implementovaná komunikácia medzi Mastrom a Slavom prebieha v princípe ako na obr. \ref{f:mssequence}. Keď Master deteguje zmenu na pripojených tlačidlách, tieto dáta zakóduje príslušným nakonfigurovaným zabezpečením \ref{bootloader}. Dáta pošle Slave zariadeniu. Ten ich dekóduje, znova zakóduje a pošle naspäť vo vyhradenom časovom okne Mastrovi. Master prijaté dáta dekóduje a pošle na ich na LED diódy.
+Implementovaná komunikácia medzi Mastrom a Slavom prebieha v princípe ako na obr. \ref{f:mssequence}. Keď Master deteguje zmenu na pripojených tlačidlách, tieto dáta zakóduje príslušným nakonfigurovaným zabezpečením obr. \ref{bootloader}. Dáta pošle Slave zariadeniu. Ten ich dekóduje, znova zakóduje a pošle naspäť vo vyhradenom časovom okne Mastrovi. Master prijaté dáta dekóduje a pošle na ich na LED diódy.
 
 ANT protokol podporuje v jednom pakete maximálne 8 bajtov používateľských dát. O posielanie správ väčších ako 8 bajtov, sa v projekte starajú funkcie obsiahnuté v súbore Segmenter.c. Na posielanie týchto správ sa nevyužíva Burst mód.
 
