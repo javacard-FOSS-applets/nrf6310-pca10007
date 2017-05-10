@@ -1740,7 +1740,7 @@ Pre programovanie vývojového kitu sme nainštalovali SDK určené pre radu zar
 Komunikácia medzi zariadeniami je realizovaná prostredníctvom broadcastov. 
 ANT protokol komunikuje vo vyhradených časových intervaloch obr. \ref{f:reverse_send}. Takisto umožňuje obojsmernú komunikáciu. Komunikácia smerom naspäť, od Slave zariadenia k Mastrovi, je možná iba vo vyhradenom krátkom časovom úseku. Pokiaľ výpočet nezbehne počas daného krátkeho časového úseku, je nutné dáta poslať v niektorých ďalších časových úsekoch.
 
-Implementovaná komunikácia medzi Mastrom a Slavom prebieha v princípe ako na obr. \ref{f:mssequence}. Keď Master deteguje zmenu na pripojených tlačidlách, tieto dáta zakóduje príslušným nakonfigurovaným zabezpečením obr. \ref{bootloader}. Dáta pošle Slave zariadeniu. Ten ich dekóduje, znova zakóduje a pošle naspäť vo vyhradenom časovom okne Mastrovi. Master prijaté dáta dekóduje a pošle na ich na LED diódy.
+Implementovaná komunikácia medzi Master a Slave zariadením prebieha ako na obr. \ref{f:mssequence}. Keď Master deteguje zmenu na pripojených tlačidlách, tieto dáta zakóduje príslušným nakonfigurovaným zabezpečením obr. \ref{bootloader}. Dáta pošle Slave zariadeniu. Ten ich dekóduje, znova zakóduje a pošle naspäť vo vyhradenom časovom okne Mastrovi. Master prijaté dáta dekóduje a pošle na ich na LED diódy.
 
 ANT protokol podporuje v jednom pakete maximálne 8 bajtov používateľských dát. O posielanie správ väčších ako 8 bajtov, sa v projekte starajú funkcie obsiahnuté v súbore Segmenter.c. Na posielanie týchto správ sa nevyužíva Burst mód.
 
@@ -1765,7 +1765,7 @@ V implementácií bol použitý príklad od Nordic-u, ktorý jednosmerne posiela
 	Komunikácia je iniciovaná zariadením, ktoré je nakonfigurované ako Master.
 	V periodických časových intervaloch posiela pomocou broadcastov dáta prostredníctvom komunikačného protokolu ANT.
 	
-	Master je pripojený nRFGo MotherBoard doske a je pripojený k LED diódam a tlačidlám. 
+	Master je osadený na nRFGo MotherBoard doske a je pripojený k LED diódam a tlačidlám. 
 	Pripojenie periférií je nasledovné:
 	\singlespacing
 	\begin{itemize}
@@ -1810,8 +1810,8 @@ Ich hodnoty sú nasledovné:
 	\onehalfspacing
 
 \section{Bootloader} \label{bootloader}
-	Pri podržaní ktorého-koľvek tlačidla ihneď po zapnutí, je možné na Master zariadení, ktorý je osadený na vývojovej doske nRF6310 (nRF Go MotherBoard), nakonfigurovať zabezpečenie bezdrôtového komunikačného kanála. Následne umožňuje zapnutie automatického testu a prejdenie do testovacieho módu na odladenie komunikácie cez štandard ISO7816.
-Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootloader}.
+	Na Master zariadení, ktoré je osadené na vývojovej doske nRF6310 (nRF Go MotherBoard), je možné ihneď po zapnutí, pri podržaní ktoréhokoľvek tlačidla, nakonfigurovať zabezpečenie bezdrôtového komunikačného kanála. Následne umožňuje aj zapnutie automatického testu a prejdenie do testovacieho módu na odladenie komunikácie cez štandard ISO7816.
+Pre namapovanie týchto funkcií na príslušné tlačidlá pozri obr. \ref{f:o_bootloader}.
 	
 	Slave zariadenie na sieti sa automaticky prispôsobí nastavenému typu zabezpečenia komunikačného protokolu.
 \begin{figure*}[!htb]
@@ -1824,7 +1824,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 \section{Štandard ISO7816}
 	Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa~ štandardu ISO7816. Táto kapitola stručne opisuje najzákladnejšie naimplementované poskytované funkcionality.
 	
-	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzií. Identifikácia konverzie prebieha z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako \quotes{TS}. Slúžia aj ako synchronizačné sekvencie. Hodnoty bajtu TS znamenajú nasledovné:
+	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzii. Typ konverzie sa zisťuje z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako \quotes{TS}. Slúži aj ako synchronizačná sekvencia. Hodnoty bajtu TS nadobúdajú dve hodnoty:
 	%\singlespacing	
 	\begin{itemize}
 		\item 0x3B: identifikuje priamu konverziu,
@@ -1832,7 +1832,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	\end{itemize}
 	\onehalfspacing
 	
-	Program generuje valídne sekvencie studenej aktivácie karty a deaktivácie karty. Po úspešnom pripojení a aktivačnej sekvencií, karta odpovie správou ATR. To je jediný prípad, kedy karta posiela správu. Smart karta od tejto chvíle čaká správu od terminálu. Komunikácia prebieha vo dvojiciach príkaz-odpoveď.
+	Program generuje sekvenciu studenej aktivácie karty a deaktivácie karty. Po úspešnom pripojení a aktivačnej sekvencii, karta odpovie správou ATR. To je jediný prípad, kedy karta posiela správu. Smart karta od tejto chvíle čaká správu od terminálu. Komunikácia prebieha vo dvojiciach príkaz-odpoveď.
 	
 	Program dokáže rozanalyzovať prijatú ATR správu, podľa normy ISO7816 obr. \ref{f:atr}, nie všetky hodnoty sa však používajú.
 
@@ -1857,7 +1857,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	Pre generovanie napájania VCC, je signál VCC pripojený na GPIO pin procesora.
 	Signál RST je takisto pripojený na výstupný pin procesora.
 	
-	Generovanie hodinového signálu je realizované procesorom. Generovanie signálu prebieha automatizovane, čisto prostredníctvom hardvéru. Softvér slúži v tomto prípade iba na nainicializovanie periférií. Toto bolo možné dosiahnuť pomocou časovača Timer2 v 8 bitovom režime, udalostí, úlohy a periférie s názvom PPI (Programmable Peripheral Interface), ktorá poprepájala jednotlivé bloky. Pomocou týchto periférií bolo možné vygenerovať pri frekvencií oscilátora 16MHz, hodinový signál s frekvenciou maximálne 4MHz. Výsledný pracovný cyklus hodín je 50\%. Vo výslednej implementácií je frekvencia externého hodinového signálu CLK 2666666.7 Hz.
+	Generovanie hodinového signálu je realizované procesorom. Generovanie signálu prebieha automatizovane, čisto prostredníctvom hardvéru. Softvér slúži v tomto prípade iba na nainicializovanie periférií. Toto je možné dosiahnuť pomocou časovača Timer2 v 8 bitovom režime, udalostí, úlohy a periférie s názvom PPI (Programmable Peripheral Interface), ktorá poprepájala jednotlivé bloky. Pomocou týchto periférií bolo možné vygenerovať pri frekvencii oscilátora 16MHz, hodinový signál s frekvenciou maximálne 4MHz. Výsledný pracovný cyklus hodín je 50\%. Vo výslednej implementácií je frekvencia externého hodinového signálu CLK 2666666.7 Hz.
 
 	Pri štandardných parametroch označovaných ako \quotes{Clock rate conversion factor} = 372 a \quotes{Bit rate adjustment factor} = 1, sa výsledná rýchlosť sériovej linky rovná 2666666.7/372 = 7168 bps.
 
@@ -1877,7 +1877,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 		\singlespacing
 	\begin{itemize}
 		\item Bajtovo orientovaný prenos dát T=0: forma a štruktúra posielaných dát vo forme APDU je na obr. \ref{f:apdu},
-		\item blokovo orientovaný prenos dát T=1: forma a štruktúra posielaných dát vo forme bloku je na obr. \ref{f:tpdu}. Štandardne sa do bloku zabaľujú dáta vo forme APDU správy \ref{f:apdu}. Štandardne je v blokovej komunikácií, použitý spôsob kontrolnej sumy vo forme LRC (longitudinal redundancy check), ktorý vyžaduje jeden bajt. Dvoj-bajtové CRC so špecifickým polynómom nebolo nutné implementovať, keďže žiadne z pripojených zariadení ho nevyžadovalo. Následne je implementované sekvenčné číslo pri komunikácií podľa protokolu T=1.
+		\item blokovo orientovaný prenos dát T=1: forma a štruktúra posielaných dát vo forme bloku je na obr. \ref{f:tpdu}. Štandardne sa do bloku zabaľujú dáta vo forme APDU správy  obr. \ref{f:apdu}. Štandardne je v blokovej komunikácií, použitý spôsob kontrolnej sumy vo forme LRC (longitudinal redundancy check), ktorý vyžaduje jeden bajt. Dvoj-bajtové CRC so špecifickým polynómom nebolo nutné implementovať, keďže žiadne z pripojených zariadení ho nevyžadovalo. Následne je implementované sekvenčné číslo pri komunikácií podľa protokolu T=1.
 	\end{itemize}
 	\onehalfspacing
 	
@@ -1896,11 +1896,11 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	\end{figure*}
 
 
-	Z viacerých zdrojov na internete boli pozbierané štandardné odpovede štandardu ISO7816, spolu s ľudsky čitateľným textom, aký typ odpovede  reprezentujú a čo znamenajú. Tieto odpovede majú veľký význam pri odlaďovaní komunikácie. Odpovede spolu s príslušnými hláškami sú zozbierané v súbore /Keil/ISO7816\_errors.h.h
+	Z viacerých zdrojov na internete boli pozbierané štandardné odpovede štandardu ISO7816, spolu s ľudsky čitateľným textom, aký typ odpovede  reprezentujú a čo znamenajú. Tieto odpovede majú veľký význam pri odlaďovaní komunikácie. Odpovede spolu s príslušnými hláškami sú zozbierané v súbore /Keil/ISO7816\_errors.h.
 
 
 \section{ISO7816 debugger} \label{isodebug}
-	Funkcia odlaďovania slúži na odladenie a testovanie nových typov príkazov bez toho, aby bolo nutné kompilovať a nahrávať nový program na vývojový kit. Slúži aj na vizuálnu verifikáciu komunikácie podľa štandardu ISO7816. 
+	Funkcia odlaďovania slúži na testovanie nových typov príkazov bez toho, aby bolo nutné kompilovať a nahrávať nový program na vývojový kit. Slúži aj na vizuálnu verifikáciu komunikácie podľa štandardu ISO7816. 
 	
 	Na využitie tejto funkcionality je potrebné pripojenie vývojovej dosky pomocou technológie RTT, napr. prostredníctvom J-Link Lite a konzolového programu J-Link RTT viewer\footnote{\url{https://www.segger.com/jlink-rtt-viewer.html}}.
 	
@@ -1931,9 +1931,9 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	
 	Applet bol nahratý a otestovaný na dvoch typoch kryptoelementov od spoločnosti NXP. Prvý s označením P5CN145 a druhý P5CN080.
 	
-	Na kompiláciu kódu do CAP súboru boli vyskúšané rôzne nastavenia kompilácie, verzie vývojového prostredia Eclipse, JRE, JCDK, JCKIT a rôzne typy konvertorov na výsledný CAP súbor. Tieto kryptoelementy boli dosť citlivé na kompilačný proces a nedovolili inštaláciu CAP súboru s nekompatibilnými verziami. Preto je odporúčané použiť nástroje a verzie opísané v návode. Výsledný funkčný overený postup je opísaný v kapitole \ref{s_applet_compile}.
+	Na kompiláciu kódu do CAP súboru boli vyskúšané rôzne nastavenia kompilácie, verzie vývojového prostredia Eclipse, JRE, JCDK, JCKIT a rôzne typy konvertorov na výsledný CAP súbor. Tieto kryptoelementy boli dosť citlivé na kompilačný proces a nedovolili inštaláciu CAP súboru s nekompatibilnými verziami. Preto je odporúčané použiť nástroje a verzie opísané v návode. Výsledný overený a funkčný postup je opísaný v kapitole \ref{s_applet_compile}.
 	
-	Po nahratí, nainštalovaní a vybratí appletu je applet pripravený na použitie. Inicializácia HW kryptovania je zobrazená v príklade \ref{lst:hwinit}. Príklad zavolania metódy na zakryptovanie je zobrazený na \ref{lst:hwuse}.  Applet odpovedá na správy v dátovej časti APDU následovne. Na parametroch APDU správy ako inštrukcia, parametre P1 a P2 nezáleží, neberú sa do úvahy.
+	Po nahratí, nainštalovaní a vybratí appletu je applet pripravený na použitie. Inicializácia HW kryptovania je zobrazená v príklade \ref{lst:hwinit}. Príklad zavolania metódy na zakryptovanie je zobrazený na \ref{lst:hwuse}.  Applet odpovedá na správy v dátovej časti APDU nasledovne. Na parametroch APDU správy ako inštrukcia, parametre P1 a P2 nezáleží, neberú sa do úvahy.
 	%\singlespacing
 	\begin{itemize}
 		\item 0xFF: applet odpovie naspäť 0xAA,
@@ -1976,7 +1976,7 @@ Počas automatického testovania, Master zariadenie neprijíma udalosti z tlači
 
 Test sa ukončí po úspešnom vykonaní určitého počtu cyklov odoslaní a prijatí, ktorý sa nastavuje parametrom TEST\_MAX\_VALUE počas kompilácie.
 
-Každá prijatá hodnota sa súčasne vykreslí na LED diódy.
+Každá prijatá hodnota sa zobrazí na ôsmich LED diódách.
 
 
 \newpage
