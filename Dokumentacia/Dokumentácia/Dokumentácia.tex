@@ -220,7 +220,7 @@ Venujeme sa návrhom vhodných testov na overenie zabezpečenia, porovnávame na
 Cieľom je zvýšiť zabezpečenie bezdrôtových komunikačných sietí v inteligentných domácnostiach s použitím najnovších dostupých a vyvíjaných technológií.
 %co sa podarili, ak sa podarilo
 \\ \\
-Kľúčové slová: Informačná bezpečnosť, Wireless PAN Networks, kryptografia, Secure Elements, Java Card, inteligentné domácnosti
+%Kľúčové slová: Informačná bezpečnosť, Wireless PAN Networks, kryptografia, Secure Elements, Java Card, inteligentné domácnosti
 %ciele a vylsedky
 
 %\newpage
@@ -244,7 +244,7 @@ The thesis deals with the taxonomy of realizing wireless cyber attacks, analyzes
 Part of thesis is dedicated for designing appropriate tests to verify increased security, comparing the proposed solution with unsecured implementation of the network and by verification by simplified implementation.
 The main goal is to increase the security of wireless communication networks in Smart Homes using available and being developed state of the art technologies.
 \\ \\
-Keywords: Information Security, Wireless PAN Networks, Cryptography, Secure Elements, Java Card, Intelligent House
+%Keywords: Information Security, Wireless PAN Networks, Cryptography, Secure Elements, Java Card, Intelligent House
 
 \newpage
 %\end{multicols}
@@ -1956,7 +1956,7 @@ AES_CBC = Cipher.getInstance(
 	Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
 		\end{lstlisting}
 	
-	\begin{lstlisting}[caption={Zavolanie HW kryptovania.}, label={lst:hwuse}, language=java] 
+	\begin{lstlisting}[caption={Zavolanie metódy HW kryptovania.}, label={lst:hwuse}, language=java] 
 AES_CBC.init(AES_Key, Cipher.MODE_ENCRYPT);
 AES_CBC.doFinal(RecievedStatic,
 	 (short) 1, (short) 16, SendStatic, (short) 0);
@@ -2140,11 +2140,11 @@ Posledný stĺpec počet správ, hovorí o tom koľko správ sa musí poslať na
 \end{itemize}
 \onehalfspacing
 
-Výsledky meraní všetkých meraní sú zapísané do tabuľky \ref{t:t_testovanie}. Testovanie prinieslo predpokladané, aj nepredpokladané zaujímavé výsledky, ktoré ale po hlbšom zamyslení dávajú zmysel.
+Výsledky všetkých meraní, sú zapísané do tabuľky \ref{t:t_testovanie}. Testovanie prinieslo predpokladané, aj nepredpokladané zaujímavé výsledky, ktoré ale po hlbšom zamyslení dávajú zmysel.
 
-Použitím SW referenčnej implementácie, sa predĺžil čas potrebný na výmenu správ, keďže sa reálne musí preniesť väčší objem dát. Spotreba mierne stúpla.
+Použitím SW referenčnej implementácie, sa predĺžil čas potrebný na výmenu správ, keďže sa reálne musí preniesť väčší objem dát. Prúdová spotreba mierne stúpla.
 
-Pri použití HW zabezpečenia sa zväčšila náročnosť na pamäťové nároky zariadenia, keďže bolo nutné naimplementovať softvérovo komunikáciu so štandardom ISO7816.
+Pri použití HW zabezpečenia sa zväčšila náročnosť na pamäťové nároky zariadenia, keďže bolo nutné softvérovo naimplementovať komunikáciu podľa štandardu ISO7816.
 Rýchlosť komunikácia sa ale predĺžila 3 násobne, oproti SW zabezpečeniu. Pôvodne sa predpokladalo urýchlenie výpočtov a zníženie spotreby. Všetky zvýšenia ale dávajú zmysel. Rýchlosť závisí aj od rýchlosti komunikácie cez štandard ISO7816. V implementácií sa komunikuje baudovou rýchlosťou 7168bps. Rýchlosť hodinového signálu sa taktiež neblíži k dovolenému maximu.
 
 Zvýšenie spotreby dáva takisto zmysel, keďže musia byť aktivované periférie, ktoré by inak boli vypnuté (UART, CLK, GPIO piny). Samotný viac-účelový kryptoelement spotrebováva isté množstvo energie, ktoré sa k výslednej spotrebe pripočíta.
@@ -2240,7 +2240,7 @@ Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v príloh
 V tretej fáze vypracovania projektu sa podarilo úspešne doimplementovať obojsmernú komunikáciu s použitím ANT protokolu. Nad dátovou časťou protokolu bola implementovaná funkcionalita, ktorá dokáže posielať správy logicky väčšie ako 8 bajtov. Maximálne však 254 bajtov.
 
 Ďalej sa podarilo naimplementovať a odladiť komunikáciu podľa štandardu ISO7816 s využitím UART sériovej linky. Všetky signály sú generované programovo, čiže okrem externého prepojenia pinov RX a TX sériovej linky, nieje nutný žiadny ďalší hardvér.
-Kvôli testovanie štandardu ISO7816, bola implementovaná aj funkcionality čítačky, s použitím technológie RTT.
+Kvôli testovanie štandardu ISO7816, bola implementovaná aj funkcionalita čítačky smart kariet, s použitím technológie RTT.
 
 Bol úspešne implementovaný a skompilovaný applet do špecifického CAP formátu. Ten bol nahratý a nainštalovaný pomocou PS/CS čítačky kariet do kryptoelementu. V applete sa podarilo úspešne volať hardvérovo implementované kryptografické funkcie AES128.
 
@@ -2260,32 +2260,21 @@ Vzhľadom na to, že implementácia a odladenie komunikácie podľa štandardu I
 
 \section{Zhodnotenie}
 
+Z testovania, boli získané cenné výsledky. Použitie smart karty v ANT sieti je možné, ale viac by sa toto použitie hodilo do sietí, ktoré nepoužívajú pravidelné, periodické vyhradené časové okná na komunikáciu.
 
-Este raz Vyhodnotenie vysledkov. a porovnaj
+Aj vzhľadom na to, ze neboli fyzicky naimplementované a vyskúšané kryptografické algoritmy PKI, zo získaných výsledkov sa dajú odhadnúť potrebné nároky, s použitím externého zariadenia v podobe kryptoelementu, ktorý je pripojený štandardom ISO7816. Z časového aj pamäťového hľadiska, by boli výsledky pri implementácií PKI, veľmi podobné, ako pri použití hardvérového AES. Po naimplementovaní PKI infrašktruktúry, by bolo použitie smart karty alebo kryptoelementu oprávnené. 
 
+Použitie kryptoelementu, aj bez PKI má svoj zmysel. Jedná sa o univerzálny, viacúčelový, preprogramovateľný hardvér, ktorý komunikuje štandardizovaným protokolom, ktorý je pravidelne revidovaný. Tento externý hardvér je jednoducho zameniteľný za novší, dajú sa ním realizovať výpočty PKI, ECC a násobenia veľkých čísiel. Aplikovanie kryptoelementu má hranice iba vo fantázií. Dá sa použiť ako externá pamäť, koprocesor alebo ako pridaná periféria v podobe NFC. Je persnonalizovateľný a na smart karte môže byť naprogramovaných niekoľko appletov súčasne.
 
-Aj zvhladom na to, ze neboli fyzicky naimplementovane a vyskusane kryptograficke algoritmy PKI, zo ziskanych vysledkov sa daju odhadnut naroky na zabezpecenie komunikacneho protokolu ANT s pouzitim externeho zariadenia v podobe smart karty alebo kryptolementu. Ktory je pripojeny cez stadnard ISO7816. Po naimplementovani PKI infrasktruktury, by uz bolo pouzitie smart karty alebo kryptoelementu opravnene. 
+Spočiatku som bol z použitia komplikovaného hardvéru v podobe kryptoelementu trochu skeptický, keďže sa predlžuje čas vývoja, je nutný aj istý hardvérový návrh, súčasne sa zvyšuje aj cena výsledného produktu. Ale aj po získaní horších výsledok z testovania, použitie v istých aplikáciach má svoj zmysel.
 
-Použitie smart karty aj bez PKI ma v podstate svoj zmysel. Je to univer
+Projekt považujem za úspešný, aj navzdory negatívnym výsledkom z testovania, keďže rapídne spomalenie komunikácie je spôsobené dočasným rozsynchronizovaním bezdrôtového kanála.
 
-Spociatku som bol skepticky, nakoniec aj pri horšich vysledok. Projekt povazujem za uspesny aj navzdory negativnym vysledkom z testovania.
+Zvýšiť zabezpečenie bezdrôtových komunikačných sietí sa s aktuálnou implementáciou nepodarilo, keďže nebola overená funkcionalita PKI. Zvýšenie zabezpečenia ale je možné. Boli identifikované jednotlivé slabiny celkovej implementácie. Implementácia štandardu ISO7816 priniesla zvýšené pamäťové nároky. Komunikácia cez štandard je citlivá na časovanie a najväčšie spomalenie pri kryptovaní dát s kryptoelementom predstavuje samotná komunikácia.
 
-Boli identifikované slabiny jednotlivých použitých komponentov.
+Vylepšenia súčasnej implementácie, si viem predstaviť v podobe doimplementovania a otestovania PKI infraštruktúry. Následne doimplementovanie zabezpečenej komunikácie medzi kryptoelementom a zariadením v podobe \quotes{Secure channelu} pre zvýšenie bezpečnosti. Dajú sa doimplementovať a vyskúšať rôzne rýchlosti externého generovaného hodinového signálu pre kryptoelement, tým pádom sa zvýši aj rýchlosť komunikácie s kryptoelementom. Posielanie a prijímanie správ cez komunikačný kanál a komunikácia s kryptoelementom, by sa dala implementovať cez udalosti v systéme, čo ale môže priniesť nové problémy s nekonzistenciou dát na programovej úrovni. Toto vylepšenie by mohlo vyriešiť problém so stratou niekoľkých správ.
 
-ato komunikacia je standardizovana, pravidelene revidovana, umoznuje v podstate cokolvek co si zmyslyte. Vypocty PKI, ECC, nasobenie velkych cisiel, kryptograficku podporu, externu pamat, koprocesor, viac appletov na danej smart karte, parametrizaciu, bezpecne ukladanie, pristup k dodatocnym rozhraniam ako napr NFC, si myslim, ze v specifickych pripadoch prenositelenost na ostatne zariadenie, ktore dany standard pouzivaju.
-
-
-V článku s názvom \quotes{AES Data Encryption in a ZigBee Network:
-Software or Hardware?}, tvrdia, že použitie HW kryptovania s použitím FPGA čipu v ZigBee sieti, veľa na rýchlosti nezískajú, ale že je možné získať relatívne až 20\% energie pri samotnom kryptovaní \cite{Ottoy2010}.
-
-zavisi od ryclhosti seriovej linky
-
-Doimplementovat 
-Vyskusat rozne rychlost
-Externe generovanie CLK signal 3.5 5 10 MHz v zavilsto od fyzickych limitov niektorcychsmart kareit
-
-Secure messaging medzi zariadenim a smart kartou
-
+V publikácií s názvom \quotes{AES Data Encryption in a ZigBee Network: Software or Hardware?}, tvrdia, že s použitím HW kryptovania vo forme FPGA čipu v ZigBee sieti, veľa na rýchlosti nezískali, ale zistili, že je možné znížiť spotrebu až o 20\% a to pri kryptovaní \cite{Ottoy2010}. V porovnaní so získanými výsledkami, sa jedná o pravý opak. Komunikácia bola spomalená, aj prúdová spotreba sa mierne zvýšila.
 
 
 %\section{Zhodnotenie poslednej fázy vypracovania}
