@@ -293,6 +293,7 @@ Primárny identifikovaný cieľ je, pokúsiť sa zvýšiť zabezpečenie v bezdr
 	\item HVAC: Heating, Venting and Cooling.
 	\item ECC: Error Correction Code.
 	\item ECDH: Elliptic curve Diffie Hellman.
+	\item MAN: Metropolitan area network.
 	\item DH: Diffie Hellman key-exchange.
 	\item CoAP: Constrained Application Protocol.
 	\item WPAN: Wireless Personal Area Network.
@@ -388,35 +389,35 @@ Praktické príklady použitia automatizácie v inteligentných domácnostiach s
 %Automation and centralized control have serious benefits for family caregivers. By integrating home healthcare equipment, such as monitoring and diagnostic tools, smart homes could simplify the caregiving process for the hundreds of millions of adults worldwide who care for an elderly, ailing, or infirm parent or relative. For example, a smart home might allow you to monitor the movements of a relative suffering from dementia
 
 \section{Bezpečnosť}  \label{s_security}
-Autor Bidgoli, H. zadefinoval vo svojej knihe, Handbook of Information Security, Information Warfare, Social, Legal, and International Issues and Security Foundations\cite{bidgoli2006handbook}, informačnú bezpečnosť ako základné opatrenia, ktoré slúžia na to, aby nepriateľ nebol schopný určiť naše schopnosti a zámery. To je aplikovateľné priamo v podobe ochranných protiopatrení, ako je tomu pri zaisťovaní informačnej bezpečnosti, ktorej cieľom je zabrániť priamy prístup k bezdrôtovým alebo drôtovým sieťam, alebo nepriamo aplikovateľné na komunikačnú bezpečnosť (COMSEC) a kontrarozviedku (CI Counter Intelligence).
+Autor Bidgoli, H. zadefinoval vo svojej knihe, Handbook of Information Security, Information Warfare, Social, Legal, and International Issues and Security Foundations\cite{bidgoli2006handbook}, informačnú bezpečnosť ako základné opatrenia, ktoré slúžia na to, aby nepriateľ nebol schopný určiť naše schopnosti a zámery. To je aplikovateľné priamo a nepriamo. Priamo v  podobe ochranných protiopatrení, ako je tomu pri zaisťovaní informačnej bezpečnosti, ktorej cieľom je zabrániť priamy prístup k bezdrôtovým alebo drôtovým sieťam a nepriamo aplikovateľné na komunikačnú bezpečnosť (COMSEC) a kontrarozviedku (CI Counter Intelligence).
 
-Druhá uvedená definícia definuje informačnú bezpečnosť ako ochranu informácií pred neoprávneným zverejnením, prenosom, modifikáciou a zničením či už úmyselným alebo neúmyselným spôsobom počas uloženia, spracovania alebo prenosu tak, aby neprišlo k odmietnutiu služby pre autorizovaného používateľa.\cite{bidgoli2006handbook}
+Druhá uvedená definícia definuje informačnú bezpečnosť ako ochranu informácií pred neoprávneným zverejnením, prenosom, modifikáciou a zničením či už úmyselným alebo neúmyselným spôsobom počas uloženia, spracovania alebo prenosu tak, aby neprišlo k odmietnutiu služby pre autorizovaného používateľa \cite{bidgoli2006handbook}.
 
-Implementácia bezpečnostných opatrení do bezdrôtových senzorových sietí prináša nové problémy v porovnaní s tradičnými sieťami. Škálovateľnosť a obmedzené zdroje predstavujú výzvu pri implementácií bezpečnostných riešení. Kryptografia totiž vyžaduje komplexné výpočtové nároky, aby bola schopná zabezpečiť šifrovanie prenášaných dát. Aj otázky ako bezpečné smerovanie, verifikácia lokácie, výmena kľúčov, nadviazanie dôvery, bezpečné manažovanie skupiny zariadení sú netriviálne.
-Pre úspešné navrhnutie bezpečnostných opatrení a adaptovanie existujúcich riešení je nutné chápať dané obmedzenia\cite{bidgoli2006handbook}.
+Implementácia bezpečnostných opatrení do bezdrôtových senzorových sietí prináša nové problémy v porovnaní s tradičnými sieťami. Škálovateľnosť a obmedzené zdroje predstavujú výzvu pri implementácií bezpečnostných riešení. Kryptografia totiž vyžaduje komplexné výpočtové nároky, aby bola schopná zabezpečiť šifrovanie prenášaných dát. Aj otázky ako: bezpečné smerovanie, verifikácia lokácie, výmena kľúčov, nadviazanie dôvery, bezpečné manažovanie skupiny zariadení sú netriviálne.
+Pre úspešné navrhnutie bezpečnostných opatrení a adaptovanie existujúcich riešení je nutné chápať dané obmedzenia \cite{bidgoli2006handbook}.
 
 %cryptography and network security principles and practice 5th edition
 \begin{figure*}[h]
 	\centering
 	\includegraphics[scale=0.35]{a_attacks.png}
-	\caption{Základné kategórie útokov. \cite{StallingsCryptographyandnetworksecurity}}
+	\caption{Základné kategórie útokov \cite{StallingsCryptographyandnetworksecurity}.}
 	\label{f:o_attacks}
 \end{figure*}
 
 \begin{figure*}[h]
 	\centering
 	\includegraphics[scale=0.35]{a_CIA.png}
-	\caption{Základné bezpečnostné ciele pre dáta a služby.\cite{StallingsCryptographyandnetworksecurity}}
+	\caption{Základné bezpečnostné ciele pre dáta a služby \cite{StallingsCryptographyandnetworksecurity}.}
 	\label{f:o_cia}
 \end{figure*}
 
 %cite netowrk security
-Keď vytvárame bezpečnú sieť, mali by sme brať do úvahy následovné\cite{bidgoli2006handbook}:
+Keď vytvárame bezpečnú sieť, mali by sme brať do úvahy \cite{bidgoli2006handbook}:
 \singlespacing
 \begin{itemize}
-\item riadenie prístupu: autorizovaný používatelia majú možnosť komunikovať na príslušnej sieti, 
-\item zabezpečiť dôvernosť: informácie na sieti ostanú utajené, 
-\item zabezpečiť autentifikáciu: verifikovať, že používatelia sú tý, za ktorých sa vydávajú,
+\item riadenie prístupu: autorizovaní používatelia majú možnosť komunikovať na príslušnej sieti, 
+\item zabezpečenie dôvernosti: informácie na sieti ostanú utajené, 
+\item zabezpečenie autentifikácie: verifikovať, že používatelia sú naozaj tí, za ktorých sa vydávajú,
 \item integritu: zabezpečiť, že správa nebola zmenená, modifikovaná alebo poškodená počas prenosu,
 \item nepopierateľnosť: používateľ nemôže poprieť, že sieť použil.
 \end{itemize}
@@ -440,9 +441,9 @@ Keď vytvárame bezpečnú sieť, mali by sme brať do úvahy následovné\cite{
 %Non-repudiation - Ensure the user does not refute that he used the network
 
 \subsection{Priebeh útoku} \label{s_attack}
-Pre dostatočné zabezpečenie akéhokoľvek zariadenia alebo systému, je nutné rozumieť proti komu stojíte, chápať ich mentalitu, motiváciu, procesy a metódy, akými útočníci vyhľadávajú bezpečnostné slabiny ako ich zneužívajú a ako realizujú jednotlivé útoky. Týmito otázkami sa zaoberáme v kapitole.
+Pre dostatočné zabezpečenie akéhokoľvek zariadenia alebo systému, je nutné porozumieť proti komu stojíme, chápať mentalitu, motiváciu, procesy a metódy, akými útočníci vyhľadávajú bezpečnostné slabiny ako ich zneužívajú a ako realizujú jednotlivé útoky. Týmito otázkami sa zaoberáme v tejto kapitole.
 
-Všeobecný a typický priebeh útoku na bezdrôtové komunikačné siete, ale aj na iné systémy je zobrazený na \ref{f:o_attack}. Zvyčajne sa skladá z nasledujúcich etáp \cite{bidgoli2006handbook}:
+Všeobecný a typický priebeh útoku na bezdrôtové komunikačné siete, ale aj na iné systémy je zobrazený na obr. \ref{f:o_attack}. Zvyčajne sa skladá z nasledujúcich etáp \cite{bidgoli2006handbook}:
 
 \singlespacing
 \begin{itemize}
@@ -450,26 +451,26 @@ Všeobecný a typický priebeh útoku na bezdrôtové komunikačné siete, ale a
 	\item Scanning: vyhľadávanie vhodných cieľov, vyhľadávanie bežiacich služieb a možných bezpečnostných slabín.
 	\item Enumeration: podrobnejšie skúmanie vybraných zariadení a služieb.
 	\item Získanie prístupu: zneužitie bezpečnostných slabín pre získanie prístupu k zariadeniu.
-	\item Eskalácia privilégií: tento krok obnáša získanie dostatočných oprávnení na to, aby sme boli schopný získať úroveň prístupu potrebnú pre získanie citlivých dát a čo najvyšších oprávnení v systéme, keďže využitie slabín zvyčajne vedie k odkrytiu nových bezpečnostných slabín,
+	\item Eskalácia privilégií: tento krok obnáša získanie dostatočných oprávnení na to, aby sme boli schopní získať úroveň prístupu potrebnú pre získanie citlivých dát a čo najvyšších oprávnení v systéme, keďže využitie slabín zvyčajne vedie k odkrytiu nových bezpečnostných slabín,
 	\item Získanie citlivých dát: pozostáva zo získania prístupu a informácií o ďalších systémoch.
 	\item Zahladenie stôp: spočíva v odstránení inkriminujúcich záznamov, operácií a opustenie systému, aby sme zanechali čo najmenej digitálnych stôp,
 	\item Vytvorenie zadných vrátok: slúži pre možnosť jednoduchého opätovného navrátenia sa do napadnutého systému v budúcnosti,
-	\item Odmietnutie služby: hovorí o vykonaní takých akcií, aby sme zamedzili prístup k zariadeniu alebo cieľovej služby ostatným používateľom a zariadení.
+	\item Odmietnutie služby: hovorí o vykonaní takých akcií, aby sme zamedzili prístupu k zariadeniu alebo cieľovej služby ostatným používateľom a zariadeniam.
 \end{itemize}
 
 Existujú dva hlavné prístupy k riešeniu otázok zabezpečenia:
 \singlespacing
 \begin{itemize}
 	\item Prevencia: správnym a vhodným spôsobom navrhnutá infraštruktúra, implementované bezpečnostné mechanizmy, smernice, správne a dostatočné fyzické zabezpečenie a podobné opatrenia,
-	\item detekcia: cieľom detekcie je minimalizovať škody dôsledkom neošetrených hrozieb. Niektoré bezpečnostné situácie sa ošetriť nedajú, dajú sa iba detegovať. V takýchto prípadoch treba viesť evidenciu o vzniknutých situáciach pomocou auditných záznamov, logovaním kritických prístupov, vzniknutých chýb, môžu byť aj implementované metriky na zistenie neštandardného správania sa systému napr. dlhšia odozva zariadenia ako je normálne a im podobné.
+	\item detekcia: cieľom detekcie je minimalizovať škody dôsledkom neošetrených hrozieb. Niektoré bezpečnostné situácie sa ošetriť nedajú, dajú sa iba detegovať. V takýchto prípadoch treba viesť evidenciu o vzniknutých situáciách pomocou auditných záznamov, logovaním kritických prístupov a vzniknutých chýb. Môžu byť aj implementované metriky na zistenie neštandardného správania sa systému napr. dlhšia odozva zariadenia ako je normálne.
 \end{itemize}
 \onehalfspacing
 
 \begin{figure*}[h]
 	\centering
 	\includegraphics[scale=0.5]{a_attack.png}
-	\caption{Všeobecný priebeh útoku.
-	\cite{bidgoli2006handbook}}
+	\caption{Všeobecný priebeh útoku 
+	\cite{bidgoli2006handbook}.}
 	\label{f:o_attack}
 \end{figure*}
 
@@ -493,9 +494,9 @@ Základné rozdelenie kryptografických opatrení:
 	\item podľa spôsobu transformácie nezašifrovaného textu na zašifrovaný text:
 		\subitem substitučné šifry: nahrádzajú symboly z nezašifrovaného textu za nové,
 		\subitem transpozičné metódy: poprehadzujú existujúce symboly medzi sebou na základe dopredu známych dohodnutých pravidiel,
-	\item Podľa počtu spracovávaných dát:
+	\item podľa počtu spracovávaných dát:
 		\subitem blokové: blokové šifrovacie algoritmy sú založené na šifrovaní dát po blokoch dopredu stanovenej pevnej dĺžky.
-		\subitem prúdové: prúdové šifrátory sú založené na šifrovaní dát prichádzajúcich do zariadenia bajt po bajtoch.
+		\subitem prúdové: prúdové šifrátory sú založené na šifrovaní dát prichádzajúcich do zariadenia bajt po bajte.
 \end{itemize}
 \onehalfspacing
 
@@ -520,29 +521,29 @@ Princíp fungovania symetrických šifier je zobrazený na obrázku \ref{f:o_sym
 \begin{figure*}[!hbt]
 	\centering
 	\includegraphics[scale=0.45]{a_symetric.png}
-	\caption{Princíp fungovania symetrických šifier. \cite{cryptographyhandbook}}
+	\caption{Princíp fungovania symetrických šifier \cite{cryptographyhandbook}.}
 	\label{f:o_symetric}
 \end{figure*}
 
-Komunikácia následne prebieha po bežnom nezabezpečenom kanále, ale šifrovane. Jediný nedostatok pri riešeniach problémov pomocou symetrických šifier je výmena kryptovacieho kľúča a komunikácia s viacerými používateľmi na naraz.
+Komunikácia následne prebieha po bežnom nezabezpečenom kanále, ale šifrovane. Jediný nedostatok pri riešeniach problémov pomocou symetrických šifier je výmena kryptovacieho kľúča a komunikácia s viacerými používateľmi naraz.
 
 \subsubsection{AES} %DES,3DES,
-Kryptovací štandard AES (Advanced Encryption System) vychádza z algoritmu s názvom Rijndael\footnote{\url{http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf}}. Jedná sa o symetrickú blokovú šifru. Dĺžka spracovaváného bloku je pevne stanovený na 128 bitov, aj keď pôvodný navrhnutý algoritmus podporuje bloky s rôznou dĺžkou. Štandard dĺžky kľúčov 128, 192 a 256 bitov. Veľkosť vstupného a výstupného bloku je 128 bitov. Šifra sa zaraďuje medzi substitučno permutačné šifry.
+Kryptovací štandard AES (Advanced Encryption System) vychádza z algoritmu s názvom Rijndael\footnote{\url{http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf}}. Jedná sa o symetrickú blokovú šifru. Dĺžka spracovávaného bloku je pevne stanovená na 128 bitov, aj keď pôvodný navrhnutý algoritmus podporuje bloky s rôznou dĺžkou. Štandardné dĺžky kľúčov: 128, 192 a 256 bitov. Veľkosť vstupného a výstupného bloku je 128 bitov. Šifra sa zaraďuje medzi substitučno permutačné šifry.
 
 Pre jednotlivé iterácie šifrovania sa z hlavného kľúča vygenerujú sub-kľúče, pomocou algoritmu key expansion, ktoré sú rôzne v iteráciách algoritmu.
 
 Pre proces šifrovania je zadefinovaný pojem stav. Jedná sa o maticu o 4 riadkoch a 4 stĺpcoch a o veľkosti bunky 1 bajt. Nad touto maticou sa vykonáva celý proces šifrovania.
 
-Operácie sčítania a multiplikácia sa vykonáva nad konečným poľom GF($2^8$).
+Operácia sčítania a multiplikácia sa vykonáva nad konečným poľom GF($2^8$).
 %operácia násobenia a sčítania XOR Binárnymi ireducibilným polynómom rádu menším ako 8
 Výhoda AES štandardu je v jeho rýchlosti, ľahkej hardvérovej  implementovateľnosti. Zložitosť AES spočíva v nelineárnej operácií SubBytes a v permutáciách realizovaných rotáciou riadkov a transformáciou stĺpcov.
 
 Proces šifrovania nad aktuálnym stavom spočíva v 4 operáciach:
 
 \begin{itemize}
-	\item \textbf{AddRoundKey}: k aktuálnemu stavu sa pripočíta, priXOR-uje, aktuálna hodnota vygenerovaného pod-kľúča \ref{f:a_AES_round},
+	\item \textbf{AddRoundKey}: k aktuálnemu stavu sa pripočíta, priXOR-uje, aktuálna hodnota vygenerovaného pod-kľúča  obr. \ref{f:a_AES_round},
 	\item \textbf{SubBytes}: realizuje nelineárnu transformáciu, ktorá nahradí každú hodnotu zo stavu inou hodnotou z inicializovanej lookup tabuľky,
-	\item \textbf{ShiftRows}: realizuje posun riadku doľava po bajtoch, na základe indexu riadku, ktorý začína od nuly \ref{f:a_AES_shift},
+	\item \textbf{ShiftRows}: realizuje posun riadku doľava po bajtoch, na základe indexu riadku, ktorý začína od nuly obr. \ref{f:a_AES_shift},
 	\item \textbf{MixColumns}: transformácia sa aplikuje na celý stĺpec aktuálneho stavu\ref{f:a_AES_columns}.
 \end{itemize}
 
@@ -551,14 +552,14 @@ Proces šifrovania nad aktuálnym stavom spočíva v 4 operáciach:
 \begin{figure*}[!htb]
 	\centering
 	\includegraphics[scale=0.2]{c_AES_alg.png}
-	\caption{Algoritmus štandardu AES\cite{AESAnimation}.}
+	\caption{Algoritmus štandardu AES \cite{AESAnimation}.}
 	\label{f:a_AES_animation}
 \end{figure*}
 
 \begin{figure*}[!htb]
 	\centering
 	\includegraphics[scale=0.2]{c_aes_roundkey.png}
-	\caption{AddRoundKey\cite{AES}.}
+	\caption{AddRoundKey \cite{AES}.}
 	\label{f:a_AES_round}
 \end{figure*}
 
@@ -572,7 +573,7 @@ Proces šifrovania nad aktuálnym stavom spočíva v 4 operáciach:
 \begin{figure*}[!htb]
 	\centering
 	\includegraphics[scale=0.35]{c_aes_collumns.png}
-	\caption{MixColumns\cite{AES}.}
+	\caption{MixColumns \cite{AES}.}
 	\label{f:a_AES_columns}
 \end{figure*}
 
@@ -596,14 +597,14 @@ Proces šifrovania nad aktuálnym stavom spočíva v 4 operáciach:
 %\subsubsection{3DES} %PGP %KEY %IDEA %blowfist twofisch %Asymetrické šifry: Ruksakový systém, McElieceov, RSA, Rabinov, systémy na
 
 \subsection{Asymetrické šifrovanie}  \label{s_cpyt_asymetric}
-Na rozdiel od symetrického šifrovania, pri asymetrickom šifrovaní existuje pár kľúčov, ktoré sú navzájom na sebe závislé. Tieto kľúče sa nazývajú privátny a verejný. Komunikácia prebieha iba po nezabezpečených komunikačných kanáloch. Používateľ, ktorý zašifroval správu niekoho verejným kľúčom, už ju nevie dešifrovať. Dešifrovať správu vie iba osoba, ktorá vlastní privátny kľúč a pre ktorú je správa určená.  Takéto infraštruktúry sú označované aj názvom PKI.
+Na rozdiel od symetrického šifrovania, pri asymetrickom šifrovaní existuje pár kľúčov, ktoré sú navzájom na sebe závislé. Tieto kľúče sa nazývajú privátny a verejný. Komunikácia prebieha iba po nezabezpečených komunikačných kanáloch. Používateľ, ktorý zašifroval správu niekoho verejným kľúčom, ju už nevie dešifrovať. Dešifrovať správu vie iba osoba, ktorá vlastní privátny kľúč a pre ktorú je správa určená.  Takéto infraštruktúry sú označované aj názvom PKI.
 
-Problém, ktorý vzniká pri asymetrickej kryptografií je, že ako odosielateľ si nemusíme byť istý, že osoba s ktorou komunikujeme je tá, za ktorú sa vydáva. Od toho vznikajú služby tretích strán s názvom certifikačné autority.
+Problém, ktorý vzniká pri asymetrickej kryptografií je, že ako odosielateľ si nemusíme byť istý, že osoba s ktorou komunikujeme je tá, za ktorú sa vydáva. Preto vznikajú služby tretích strán s názvom certifikačné autority.
 
 \begin{figure*}[!htb]
 	\centering
 	\includegraphics[scale=0.5]{a_asymetric.png}
-	\caption{Princíp fungovania asymetrických šifier. \cite{cryptographyhandbook}}
+	\caption{Princíp fungovania asymetrických šifier \cite{cryptographyhandbook}.}
 	\label{f:o_asymetric}
 \end{figure*}
 
@@ -657,17 +658,17 @@ Ak sa sčítavajú dva rôzne body, výpočet prebieha pomocou vzorca: $\alpha =
 $x_{R}$ = $\alpha ^2 - x_{P} - x_{Q}$ a 
 $y_{R}$ = $\alpha (x_{R} - x_{P}) + y_{P}$ \cite{ecclesson}.
 
-Multiplikácia bodu P k-krát: $k\times P$ nieje nič iné, ako k-krát vykonané sčítanie bodu P $P+P+...P$ a označuje sa aj ako point doubling. $2\times P = P+P$\cite{ecclesson}.
+Multiplikácia bodu P k-krát: $k\times P$ nie je nič iné, ako k-krát vykonané sčítanie bodu P $P+P+...P$ a označuje sa aj ako point doubling. $2\times P = P+P$\cite{ecclesson}.
 
-Pri dostatočne veľkom konečnom poli (parameter p), nie sme schopný v reálnom čase zistiť, koľko-krát sme vykonali operáciu point doubling z počiatočného bodu generátora grupy pri privátnom kľúči k.
+Pri dostatočne veľkom konečnom poli (parameter p), nie sme schopný v reálnom čase zistiť, koľkokrát sme vykonali operáciu point doubling z počiatočného bodu generátora grupy pri privátnom kľúči k.
 
-Je dokázané, že akákoľvek priamka ktorá pretína graf krivky, pretne graf práve v troch bodoch. Ak priamka krivku nepretne, definuje sa výsledný bod v nekonečne $O$.
+Je dokázané, že akákoľvek priamka, ktorá pretína graf krivky, pretne graf práve v troch bodoch. Ak priamka krivku nepretne, definuje sa výsledný bod v nekonečne $O$.
 
-Pre prácu s PKI infraštruktúrou bol zadefinovaný privátny kľúč, ktorý je tvorený práve jedným parametrom $k$, ktorý určuje, koľko-krát sme vykonali operáciu point doubling nad generátorom cyklickej grupy. Privátny kľúč by mal spĺňať podmienku $1<k<n-1$. Verejný kľúč pre eliptickej kryptografií je tvorený doménovým parametrom a výsledným bodom $C$ po vykonaní operácií point doubling $C=kG$.
+Pre prácu s PKI infraštruktúrou bol zadefinovaný privátny kľúč, ktorý je tvorený práve jedným parametrom $k$, ktorý určuje, koľkokrát sme vykonali operáciu point doubling nad generátorom cyklickej grupy. Privátny kľúč by mal spĺňať podmienku $1<k<n-1$. Verejný kľúč pre eliptickej kryptografií je tvorený doménovým parametrom a výsledným bodom $C$ po vykonaní operácií point doubling $C=kG$.
 
 Pri generovaní certifikátu certifikačnou autoritou, je subjekt nútený dokázať, že je naozaj vlastníkom daného privátneho kľúča $k$, aby mu mohol byť vystavený certifikát\cite{ecclesson}.
 
-Tak isto existuje aj spôsob, ako si vymeniť kľúč, bez toho, aby sme ho mali dopredu dohodnutý. Jedná sa o modifikáciu výmeny kľúča pomocou metódy DH (Diffie Hellman) označovaného ako ECDH. Na podpisovanie dokumentov pomocou ECC sa používa algoritmus označovaný ako ECDSA. Ako aj RSA, tak aj pri ECC fungujú certifikačné autority, ktoré garantujú, že daný subjekt vlastní príslušný verejný kľúč\cite{ecclesson}.
+Takisto existuje aj spôsob, výmeny kľúča, bez toho, aby sme ho mali dopredu dohodnutý. Jedná sa o modifikáciu výmeny kľúča pomocou metódy DH (Diffie Hellman) označovaného ako ECDH. Na podpisovanie dokumentov pomocou ECC sa používa algoritmus označovaný ako ECDSA. Ako aj RSA, tak aj pri ECC fungujú certifikačné autority, ktoré garantujú, že daný subjekt vlastní príslušný verejný kľúč \cite{ecclesson}.
 
 Veľkou výhodou eliptických kriviek, oproti algoritmu RSA je v tom, že poskytujú rovnakú bezpečnosť, pri oveľa menšej dĺžke použitého kľúča. To znižuje nároky aj prenosové pásmo a veľkosť vymieňaných správ. Samotný algoritmus je jednoduchší na implementáciu ale potrebuje dostatočne dobrý generátor náhodných čísiel. Porovnanie bezpečnosti pri rovnakej dĺžke kľúča je v tabuľke \ref{table:PorovnanieDlzkyKlucov}. 
 
@@ -736,9 +737,9 @@ Nasledujúca podkapitola sa snaží čitateľovi poskytnúť porovnanie hardvér
 	\begin{itemize}
 		\item \textbf{Výhody:}
 		\begin{itemize}
-			\item sú ideálne na ukladanie kľúčov, ktoré niesú natvrdo vložené do firmvéru, ale sú bezpečne uložené v špecializovaných registroch a pri nutnej aktualizácií firmvéru sa tieto informácie neprenášajú spolu s novým binárnym súborom,
+			\item sú ideálne na ukladanie kľúčov, ktoré nie sú natvrdo vložené do firmvéru, ale sú bezpečne uložené v špecializovaných registroch a pri nutnej aktualizácií firmvéru sa tieto informácie neprenášajú spolu s novým binárnym súborom,
 			\item zvyčajne poskytujú pridanú hodnotu v podobe overených bezpečnostných služieb, programátori ich nemusia nanovo implementovať softvérovo, 
-			\item nižšia prúdová spotreba,
+			\item nižšia energetická spotreba,
 			\item vyšší výpočtový výkon ako pri rovnocenných softvérových implementáciach,
 			\item riešenia sú dedikované a odlaďované na vykonávanie špecifickej funkcie,
 			\item implementované hardvérové ošetrenia proti čítaniu naprogramovaného firmvéru,
@@ -746,7 +747,7 @@ Nasledujúca podkapitola sa snaží čitateľovi poskytnúť porovnanie hardvér
 			\item dedikovaný hardvér ktorý rieši iba to čo má, často implementuje dodatočné bezpečnostné mechanizmy proti rôznym typom útokom napr. generovanie náhodných hodnôt na nepoužívaných zberniciach alebo vykonávanie nadbytočných náhodných inštrukcií,
 %			\item IP jadrá, zvyšujú bezpečnosť a chránia výrobcu,
 			
-			\item na hardvérové systémy sa ťažšie aplikuje reverzné inžinierstvo, využívajú sa špecializované a alternatívne prístupy napr. pomocou elektronových mikroskopov, röntgenov, presné odfrézovanie vonkajšieho obalu a analýza čipu po jednotlivých vrstvách na samotnom kremíku. Podobne sa dá realizovať aj analýza naprogramovaných ROM pamätí,
+			\item na hardvérové systémy sa ťažšie aplikuje reverzné inžinierstvo, využívajú sa špecializované a alternatívne prístupy napr. pomocou elektrónových mikroskopov, röntgenov, presné odfrézovanie vonkajšieho obalu a analýza čipu po jednotlivých vrstvách na samotnom kremíku. Podobne sa dá realizovať aj analýza naprogramovaných ROM pamätí,
 			\item útoky sú všeobecne náročnejšie na realizáciu. Realizujú sa útoky na časovanie, generujú sa krátke nábežné hrany, neštandardné napäťové úrovne hodinového signálu mimo prevádzkových parametrov,  
 			\item realizujú sa útoky, kde sa monitorujú zmeny, poklesy a výkyvy na napájaní, tzv. side channel monitoring,
 			\item monitorujú sa zmeny v elektromagnetickom vyžarovaní samotného čipu,
@@ -757,7 +758,7 @@ Nasledujúca podkapitola sa snaží čitateľovi poskytnúť porovnanie hardvér
 		\end{itemize}
 		\item \textbf{Nevýhody:}
 		\begin{itemize}
-			\item zvyčajne ťažšie odlaďovanie požadovanej funkcionality. Postupne však dochádza k vylepšovanie simulačných systémov napr. ModelSim,
+			\item zvyčajne ťažšie odlaďovanie požadovanej funkcionality. Postupne však dochádza k vylepšovaniu simulačných systémov napr. ModelSim,
 			\item sú potrebné rozsiahlejšie znalosti na správny návrh a odladenie systému. Správne a vhodné rozmiestnenie súčiastok, potrebné znalosti z rôznych oblastí od problematiky vysokofrekvenčných signálov, šírenie signálov na dlhom vedení, správne impedančné prispôsobenie vstupov a výstupov, elektrotechniky, limity použitých technológií, teplotné závislosti až po distribúciu tepla,
 			\item rozšírenie systému o novú funkcionalitu vyžaduje väčšie množstvo vynaložených nákladov a času,
 			\item čas na nasadenie produktu je n-násobne dlhší ako pri softvérových riešeniach,
@@ -765,7 +766,7 @@ Nasledujúca podkapitola sa snaží čitateľovi poskytnúť porovnanie hardvér
 			\item výskyt špecifických chýb sa často odhalí až pri reálnej prevádzke, alebo až po istom čase,
 			\item následná ťažšia celková systémová údržba a opravy,
 			\item riešenia pre kritické operácie v podobe bezpečného návrhu, verifikácie a systémy odolné voči poruchám realizované pomocou informačných, hardvérových alebo časových redundancií sú drahšie v podobe vynaložených prostriedkov,
-			\item pokiaľ je dedikovaný hardvér oddelený od ostatných komponentov systému a nieje všetko vnorené na jednom čipe, pri komunikácií s hardvérovým zariadením môže prísť k odchyteniu nešifrovaných dát alebo komunikácie pri nedostatočnom fyzickom zabezpečení zariadenia alebo objektu.
+			\item pokiaľ je dedikovaný hardvér oddelený od ostatných komponentov systému a nie je všetko vnorené na jednom čipe, pri komunikácií s hardvérovým zariadením môže prísť k odchyteniu nešifrovaných dát alebo komunikácie pri nedostatočnom fyzickom zabezpečení zariadenia alebo objektu.
 			
 			%Ak má niekto prostredky tak ho nezastavíte, môžte ho len spomaliť. často navyše špecializované zariadenia a tým sa predražuje a predlžuje aj čas potrebný
 		\end{itemize}
@@ -786,14 +787,14 @@ Prvý štandard z rodiny sietí WPAN je známy pod označením Bluetooth
 \footnote{\url{https://www.inf.ethz.ch/personal/hvogt/proj/btmp3/Datasheets/Bluetooth_11_Specifications_Book.pdf}}. Za pár rokov existencie bolo vydaných pár verzií štandardu, ktoré sú postupne vylepšované a prispôsobované požiadavkám trhu.
 Bluetooth 2 označovaný aj BR/EDR (Basic Rate/Enhanced Data Rate) podporuje v štandardnú rýchlosť 1 Mbps a v rozšírenej verzii rýchlosť až 2 Mbps.
 Bluetooth 3 HS (High Speed) je určený hlavne pre streamovanie audia s prenosovou rýchlosťou do 24 Mbps.
-Bluetooth 4 je označovaný aj ako LE (Low Energy). Disponuje kryptovaním 128-bit AES a bol vytvorený tak aby mal malú spotrebu energie. Najnovšia verzia jadra 4.2 \footnote{\url{https://www.bluetooth.com/specifications/adopted-specifications}} umožňuje komunikovať zariadeniam cez bránu s internetom a podporuje adresovanie IPv6 označované ako 6LoWPAN.
+Bluetooth 4 je označovaný aj ako LE (Low Energy). Disponuje kryptovaním 128-bit AES a bol vytvorený tak, aby mal malú spotrebu energie. Najnovšia verzia jadra 4.2 \footnote{\url{https://www.bluetooth.com/specifications/adopted-specifications}} umožňuje komunikovať zariadeniam cez bránu s internetom a podporuje adresovanie IPv6 označované ako 6LoWPAN.
 %\footnote{\url{https://www.bluetooth.org/DocMan/handlers/DownloadDoc.ashx?doc_id=286439&_ga=1.129180943.2007277090.1462873055}}
 Dosah Bluetooth zariadení je udávaný vo výkonových triedach Class 1-0.1W, Class 2-2.5 mW a Class 3-1 mW.
 %\subsubsection{Bluetooth}
 %\subsubsection{Bluetooth SMART, BLE}
 
 \subsection{IEEE 802.15.3}
-V štandarde 802.15.3 boli zadefinované požiadavky na fyzickú vrstvu a vrstvu MAC (Media Access Control) tak aby bolo možné prenášať dáta väčšou rýchlosťou. Tieto siete sa označujú HR-WPAN (High Rate).
+V štandarde 802.15.3 boli zadefinované požiadavky na fyzickú vrstvu a vrstvu MAC (Media Access Control) tak, aby bolo možné prenášať dáta väčšou rýchlosťou. Tieto siete sa označujú HR-WPAN (High Rate).
 
 \subsection{IEEE 802.15.4}
 Štandardy pod týmto identifikátorom sú označované ako LR-WPAN (Low Rate). Nad týmto štandardom sú postavené protokoly známe pod názvom Zigbee, Z-Wave alebo Thread.
@@ -823,7 +824,7 @@ Typy uzlov v ZigBee sieti:
 Typy používaných kľúčov:
 \singlespacing
 \begin{itemize}
-	\item Network key: rovnaký na celej sieti,
+	\item Network key: rovnaký v celej sieti,
 	\item link Key: je zdieľaný iba medzi dvoma komunikujúcimi zariadeniami.
 \end{itemize}
 \onehalfspacing
@@ -842,15 +843,15 @@ Typy používaných kľúčov:
 \begin{figure*}[h]
 	\centering
 	\includegraphics[scale=0.6]{a_zigbee.png}
-	\caption{Zásobník ZigBee architektúry.
-	\cite{gislason2008zigbee}}
+	\caption{Zásobník ZigBee architektúry
+	\cite{gislason2008zigbee}.}
 	\label{f:o_zigbee_stack}
 \end{figure*}
 
 \begin{figure*}[h]
 	\centering
 	\includegraphics[scale=0.4]{a_zigbee_topologies.png}
-	\caption{Možné topológie sietí s použitím ZigBee protokolu. \cite{faludi2010building}}
+	\caption{Možné topológie sietí s použitím ZigBee protokolu \cite{faludi2010building}.}
 	\label{f:o_zigbee_topology}
 \end{figure*}
 
@@ -868,7 +869,7 @@ Typy používaných kľúčov:
 		\begin{itemize}
 			\item Jednoduchá synchronizácia,
 			\item podpora nízkeho výkonu,
-			\item malá odozva,
+			\item kratšie časové odozvy,
 		\end{itemize}
 		&  
 		\begin{itemize}
@@ -885,7 +886,7 @@ Typy používaných kľúčov:
 		&
 		\begin{itemize}
 			\item Rekonštrukcia cesty je náročnejšia na prostriedky,
-			\item môžu vznikať väčšie odozvy.
+			\item môžu vznikať dlhšie časové odozvy.
 		\end{itemize}
 		\\
 		\hline
@@ -893,7 +894,7 @@ Typy používaných kľúčov:
 		\begin{itemize}
 			\item Robustná multi-hop komunikácia,
 			\item sieť je pružnejšia na prispôsobenie,
-			\item malé odozvy.
+			\item krátke časové odozvy.
 		\end{itemize} & 
 		\begin{itemize}
 			\item Nemožnosť vytvárať superframy, nepodporuje ani sleep režim,
@@ -928,7 +929,7 @@ Všetky pásma používajú tzv. DSSS Direct Sequence Spread Spectrum prístup. 
 Na aplikačných vrstvách štandardu 802.15 sa zavádzajú rôzne služby ako IPv6 adresovanie, definované podľa štandardu 6LoWPAN. alebo sa snažia zjednodušiť prenos dát v ľudsky čitateľnej forme, ako je tomu pri protokole CoAP (Constrained Application Protocol). Ten umožňuje prenášať dáta vo forme JSON alebo XML. Na zabezpečenie používa mechanizmus DTLS (Datagram Transport Layer Security).
 
 \subsection{X-10}
-X-10 je komunikačný protokol, ktorý bol pôvodne navrhnutý na prenos signálov prenášaných po napäťovej elektroinštalácii s napätím 120 V. Protokol X-10 používa 120 kHz dávky, ktoré sú synchronizované na prechod fázy nulou\footnote{\url{http://www.johnloomis.org/ece445/topics/x-10/x10.html}} s elektrickým vedením, tak aby reprezentovali digitálnu informáciu. Dostupné sú produkty od rôznych výrobcov, ktoré spolu navzájom vedia komunikovať a umožňujú automatizáciu.\cite{x10mi}
+X-10 je komunikačný protokol, ktorý bol pôvodne navrhnutý na prenos signálov prenášaných po elektrickom vedení s napätím 120 V. Protokol X-10 používa 120 kHz dávky, ktoré sú synchronizované na prechod fázy nulou\footnote{\url{http://www.johnloomis.org/ece445/topics/x-10/x10.html}} s elektrickým vedením, tak aby reprezentovali digitálnu informáciu. Dostupné sú produkty od rôznych výrobcov, ktoré spolu navzájom vedia komunikovať a umožňujú automatizáciu.\cite{x10mi}
 Neskôr sa protokol presunul aj na bezdrôtový komunikačný kanál. Štandard funguje na dvoch frekvenčných pásmach: 433.29 MHz a 310 MHz. \cite{x10freq}
 
 \subsection{Insteon}
@@ -939,7 +940,7 @@ Po stránke zabezpečenia ponúka maskovanie adries, čím schováva topológiu 
 %\subsection{UPB} universla power line buss
 
 \subsection{Lutron ClearConnect RF}
-Protokol je vyvinutý spoločnosťou Lutron, ktorý slúži hlavne pre automatizáciu a poprepájanie osvetlenia so zabezpečením maximálnej možnej spoľahlivosti. Protokol využíva prenosové pásmo na frekvencií 400 MHz. Systém podporuje obojsmernú RF komunikáciu, Dual frequency. Základné udávané parametre protokolu \cite{lutron}:
+Protokol je vyvinutý spoločnosťou Lutron, ktorý slúži hlavne pre automatizáciu a riadenie osvetlenia so zabezpečením maximálnej možnej spoľahlivosti. Protokol využíva prenosové pásmo na frekvencií 400 MHz. Systém podporuje obojsmernú RF komunikáciu, Dual frequency. Základné udávané parametre protokolu \cite{lutron}:
 %\singlespacing
 \begin{itemize}
 	\item Zariadenia môžu vysielať nepretržite,
@@ -1445,14 +1446,14 @@ Dodatočné prvky siete zabezpečujúce prídavnú funkcionalitu:
 \singlespacing
 \begin{itemize}
 	\item patria sem dedikované honeypot-ové zariadenia, ktoré by mali generovať náhodnú komunikácie s riadiacou jednotkou, ktoré budú vysielať na vyššom výkone ako ostatné koncové zariadenia a prípadné potencionálne hrozby budú hlásiť centralizovanému uzlu,
-	\item ďalej sem patria špecializované uzly na detekciu kompromitovaných uzlov podľa\cite{compromisedsensors}. Ich implementácia do navrhovanej site nieje možná, keďže by na sieti obchádzali komunikáciu cez centralizovaný uzol a komunikovali by napriamo s ostatnými zariadeniami.
+	\item ďalej sem patria špecializované uzly na detekciu kompromitovaných uzlov podľa\cite{compromisedsensors}. Ich implementácia do navrhovanej site nie je možná, keďže by na sieti obchádzali komunikáciu cez centralizovaný uzol a komunikovali by napriamo s ostatnými zariadeniami.
 \end{itemize}
 \onehalfspacing
 %Zabezpecujeme proti jendoltivym utokom a jednotlive kroky ktore vedu ku kompormitacii a process utoku.
 
 Každý prvok v sieti bude mať osadené zariadenie v podobe kryptovacieho elementu, poprípade . Tým sa zabezpečí, že každý prvok v sieti bude zabezpečený na rovnakej úrovni má rovnaké bezpečnostné možnosti, keďže reťaz je tak silná ako jej najslabší článok.
 
-Kryptovanie od uzla k uzlu asi nieje nutné, keďže PKI infraštruktúra spolu s AES kryptovaním by mala poskytovať dostatočne bezpečné end-to-end šifrovanie s autentifikáciou.
+Kryptovanie od uzla k uzlu asi nie je nutné, keďže PKI infraštruktúra spolu s AES kryptovaním by mala poskytovať dostatočne bezpečné end-to-end šifrovanie s autentifikáciou.
 
 Pre správne bezpečnostné zabezpečenie je nutné myslieť aj na zber dát v podobe auditných záznamov, samozrejme na prijateľnej úrovni v závislosti od použitých architektúr a možností hardvéru, napr. v podobe číselníkov, ktoré budú preddefinované, aby sa šetrilo miesto v pamäti a bola možná realizácia aj na menších 8-bitových architektúrach. Aby v prípade vzniku bezpečnostnej udalosti, bolo možné vykonať dostatočnú post-mortem analýzu stavu siete a jednotlivých uzlov v sieti. Na tento účel môže poslúžiť aj vnútorná zabezpečená pamäť microSD karty, ktorá nám zabezpečuje, že dáta nemôžu byť  modifikované ani manipulované bez patričných oprávnení. Pristúpiť k nim bude môcť iba autorizovaná osoba. Dáta by mali byť uchovávané spolu s časovou značkou. Pri preplnení pamäte sa môžu začať prepisovať najstaršie dáta.
 Ilustračný príklad preddefinovaného číselníka:
@@ -1763,7 +1764,7 @@ V implementácií bol použitý príklad od Nordic-u, ktorý jednosmerne posiela
 
 \subsection{Master}
 	Komunikácia je iniciovaná zariadením, ktoré je nakonfigurované ako Master.
-	V periodických časových intervaloch posiela pomocou broadcastov dáta po ANT komunikačnom protokole.
+	V periodických časových intervaloch posiela pomocou broadcastov dáta prostredníctvom komunikačného protokolu ANT.
 	
 	Master je pripojený nRFGo MotherBoard doske a je pripojený k LED diódam a tlačidlám. 
 	Pripojenie periférií je nasledovné:
@@ -1982,7 +1983,7 @@ Každá prijatá hodnota sa súčasne vykreslí na LED diódy.
 \newpage
 
 \section{Dosky plošných spojov}
-Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dve dosky plošných spojov. Ich zapojenie a funkcie sú opísané v nasledujúcich kapitolách.
+Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dve testovacie dosky plošných spojov. Ich zapojenie a funkcie sú opísané v nasledujúcich kapitolách.
 
 	\subsection{Testovacia doska pre štandard ISO7816} \label{isoboard}
 	
@@ -1990,13 +1991,13 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 	
 	Konektor vľavo (obr. \ref{f:board_ISO_schematic}) slúži na pripojenie pinov procesora. Na konektor vpravo sa pripojuje kryptoelement alebo smart karta štandardom ISO7816.
 	
-	Prvý jumper vľavo (\ref{f:board_ISO_schematic})  umožňuje odpojiť a pripojiť signál TX, na signál RX sériovej linky. A to buď cez rezistor alebo diódu.
-	Pomocou druhého jumpra je možné odpojiť alebo pripojiť dva typy pull-up rezistorov na I/O linku. Hodnoty osadených rezistorov sú 10k a 3k3. 
+	Jumper \quotes{SV3} (obr. \ref{f:board_ISO_schematic}) umožňuje odpojiť a pripojiť signál TX, na signál RX sériovej linky. A to buď cez rezistor alebo diódu.
+	Pomocou jumpra \quotes{SV4} je možné odpojiť alebo pripojiť dva typy pull-up rezistorov na I/O linku. Hodnoty osadených rezistorov sú 10k a 3k3. 
 	Väčšina literatúry, týkajúca sa zapojenia a komunikácie so smart kartami, odporúča mať pripojený  pull-up odpor na komunikačnú linku. Hodnota napájania na pull-up odporoch, by mala odpovedať maximálnemu dovolenému napätiu, ktoré smart karta podporuje: 1.8V, 3.3V alebo 5V.
 	
 	Pomocou týchto jumprov je možné testovať rôzne kombinácie zapojení. Vo výslednom zapojení, aj na druhej doske bolo použité zapojenie zobrazené na obr. \ref{f:isouart}.
 	
-	 V rozložení súčiastok na doske, obr. \ref{f:board_ISO_layout}, boli pridané testovacie body, napr. pre pripojenie multimetrov a osciloskopu.
+	 V rozložení súčiastok na doske, obr. \ref{f:board_ISO_layout}, boli pridané meracie body, napr. pre pripojenie osciloskopu apod.
 	
 	Výsledná doska je zobrazená na obr.  \ref{f:i_board_iso}.
 	
@@ -2014,39 +2015,38 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 		\label{f:board_ISO_layout}
 	\end{figure*}
 	
-	\subsection{Doska pre Slave zariadenie} \label{slaveboard}
+	\subsection{Doska pre Slave zariadenie s kryptoelementom} \label{slaveboard}
 
-	Hlavný prínos dosky pre Slave zariadenie je v tom, že poskytuje napájanie pre vývojový kit od spoločnosti Nordic. Doska má osadený aj vyhladzovací kondenzátor.
-	Doska je napájaná napätím 3.3V.
-	
-	Druhá funkcionalita, ktorú doska poskytuje je pripojenie UART sériovej linky k štandardu ISO7816, podľa schémy zapojenia, ako je na obr. \ref{f:isouart}. Všetky signály potrebné pre komunikáciu podľa štandardu ISO7816, ktoré procesor generuje, sú pripojené k portu P0 a vyvedené k príslušnému konektoru.
+	Táto doska poskytuje je pripojenie UART sériovej linky k štandardu ISO7816, podľa schémy zapojenia, ako je na obr. \ref{f:isouart}. Všetky signály potrebné pre komunikáciu podľa štandardu ISO7816, ktoré procesor generuje, sú pripojené k portu P0 a vyvedené k príslušnému konektoru.
 	Schéma zapojenia dosky pre Slave zariadenie je na obr. \ref{f:board_slave_schematic}. 
+
+	Hlavný prínos dosky pre Slave zariadenie je v tom, že poskytuje napájanie pre vývojový kit od spoločnosti Nordic. Doska je napájaná napätím 3.3V.
 	
 	Vývojový kit Nordic, má použité menej tradičné konektory, na pripojenie sa k rozširujúcej doske nRF Go Motherboard. To sťažilo pripojenie kryptoelementu k vývojovému kitu. Protichodný konektor nebol dostupný v bežných predajniach a vyskytoval sa iba v prevedeniach SMD. 
-	Rozteč medzi jednotlivými pinmi konektoru je dosť malá (1.27mm), aby sa s nimi dalo efektívne pracovať v domácich podmienkach. Pri výrobe totiž nemusí prísť k dokonalému preneseniu stôp z prenosového média (papier), na dosku plošných spojov. V domácich podmienkach takisto veľmi ľahko môže prísť k podleptaniu a súčasne aj k nedostatočnému odleptaniu medenej vrstvy. Bolo teda nutné vymyslieť vlastný konektor.	
+	Rozteč medzi jednotlivými pinmi konektoru je dosť malá (1.27mm), aby sa s nimi dalo efektívne pracovať v domácich podmienkach. Bolo nutné vymyslieť vlastnú konštrukciu konektorá.	
 	
 	Vo vývojovom nástroji Eagle, bola vytvorená vlastná knižnica, pre daný konektor (2x20 pinov), ktorá slúži hlavne ako vodítko, v akých vzdialenostiach sa majú konektory nachádzať a ďalej vyznačuje miesta, kde majú byť odvŕtané diery a pripojené vodiče.
 	
-	Vodiče sú v konektore uložené voľne. Vodiče sú následne v dostatočnej vzdialenosti naspájkované k správnym cestám. Najideálnejšie pasovali do protichodného konektora na Nordic doske, jednožilové medené vodiče z eternetového kábla.
+	Vodiče sú v konektore uložené voľne. Vodiče sú následne v dostatočnej vzdialenosti naspájkované k príslušným pinom. Najideálnejšie pasovali do protichodného konektora na Nordic doske, jednožilové medené vodiče z eternetového kábla.
 	
 	Týmto štýlom je privedené napájanie a zem k doske, spolu so signálmi pre štandard ISO7816. 
 	
-	Výsledné cesty spolu s osadením súčiastok sú na obr. \ref{f:board_slave_layout}.
+	Doska plošných spojov spolu s osadením súčiastok je na obr. \ref{f:board_slave_layout}.
 	
-	Detail zapojenia a pripojenia konektora je zobrazený na obr. \ref{f:i_board2}.
+	Detail pripojenia konektora je zobrazený na obr. \ref{f:i_board2}.
 	Výsledná osadená doska spolu s pripojeným vývojový kitom je zobrazená na obr. \ref{f:i_board_nrf}.
 	
 	\begin{figure*}[!htb]
 		\centering
 		\includegraphics[scale=0.7]{test2.png}
-		\caption{Schéma zapojenia a pripojenia slave zariadenia s kryptoelementom.}
+		\caption{Schéma zapojenia a pripojenia slave zariadenie s kryptoelementom.}
 		\label{f:board_slave_schematic}
 	\end{figure*}
 	
 	\begin{figure*}[!htb]
 		\centering
 		\includegraphics[scale=1]{test.png}
-		\caption{Rozloženie súčiastok na doske plošných spojov pre slave.}
+		\caption{Rozloženie súčiastok na doske plošných spojov pre slave zariadenie s kryptoelementom.}
 		\label{f:board_slave_layout}
 	\end{figure*}
 
@@ -2083,7 +2083,7 @@ Počas vypracovania záverečnej práce boli navrhnuté, vyrobené a osadené dv
 	\begin{figure*}[h]
 		\centering
 		\includegraphics[scale=0.35]{i_projekt1.jpg}
-		\caption{Rozdelenie projektu do skupín a rôzne ciele kompilovania.}
+		\caption{Rozdelenie projektu do skupín a rôzne cieľové zariadenia.}
 		\label{f:keil_project}
 	\end{figure*}
 
@@ -2093,7 +2093,7 @@ Kapitola testovania sa zaoberá návrhom vhodných testov, vybraním vhodných p
 \section{Návrh}
 Pri navrhovaní testov boli uvažované viaceré metriky: rýchlosť kryptovania a dekryptovania, prúdová spotreba zariadenia a výdrž zariadenia napájaného batériou. Doba odozvy, dáta prenesené navyše po sieti, nároky na prenosové komunikačné pásmo, odozvu a oneskorenie zariadenia od prijatia požiadavky až po jej vykonanie a spracovanie, zabezpečenie kvality služieb, pamäťové nároky na rôzne typy pamäti ako ROM, RAM.
 Veľkosti pamäťových nárokov sa zisťujú priamo z výstupu kompilátora. Nároky na sieť sú vypočítané z veľkosti dát a štruktúr, ktoré sú potrebné pri naviazaní a zabezpečení spojenia medzi uzlami.
-Prúdová spotreba je meraná externým DMU s rozumnou precíznosťou a kalibráciou.
+Prúdová spotreba je meraná externým multimetrom s rozumnou precíznosťou a kalibráciou.
 Čas vykonávania programu je meraný externe, počítadlom impulzov alebo frekvencie a následne porovnaním s dĺžkou vykonávania programu získanou priamo z meraného obvodu, z príslušného časovača alebo hodín reálneho času napr. cez rozhranie UART alebo RTT.
 
 %\section{}
@@ -2122,7 +2122,7 @@ Porovnanie medzi hardvérovými a softvérovými implementáciami bude prebieha�
 
 \section{Realizácia testovania}
 
-Prvé pozorované parametre, sú jednotlivé veľkosti pamäťových nárokov, ktoré boli získané priamo z výstupu kompilátora tab. \ref{t:t_memory}. V poslednom a predposlednom riadku tabuľky sa spomínajú reťazce. Jedná sa o ľudsky čitateľné správy, ktoré sa používajú pri analyzovaní odpovedí podľa štandardu ISO7816. Názvy jednotlivých stĺpcov a ich vysvetlenie je následovné:
+Prvé pozorované parametre, sú jednotlivé veľkosti pamäťových nárokov, ktoré boli získané priamo z výstupu kompilátora tab. \ref{t:t_memory}. V poslednom a predposlednom riadku tabuľky sa spomínajú reťazce. Jedná sa o ľudsky čitateľné správy, ktoré sa používajú pri analyzovaní odpovedí podľa štandardu ISO7816. Názvy jednotlivých stĺpcov a ich vysvetlenie je nasledovné:
 %\singlespacing
 \begin{itemize}
 	\item Kód: identifikuje veľkosť samotného skompilovaného kódu v kódovom sektore, bez premených,
@@ -2146,12 +2146,12 @@ Posledný stĺpec počet správ, hovorí o tom koľko správ sa musí poslať na
 \end{itemize}
 \onehalfspacing
 
-Výsledky všetkých meraní, sú zapísané do tabuľky \ref{t:t_testovanie}. Testovanie prinieslo predpokladané, aj nepredpokladané zaujímavé výsledky, ktoré ale po hlbšom zamyslení dávajú zmysel.
+Výsledky všetkých meraní, sú uvedené v tabuľke \ref{t:t_testovanie}. Testovanie prinieslo predpokladané, aj nepredpokladané zaujímavé výsledky, ktoré ale po hlbšom zamyslení dávajú zmysel.
 
 Použitím SW referenčnej implementácie, sa predĺžil čas potrebný na výmenu správ, keďže sa reálne musí preniesť väčší objem dát. Prúdová spotreba mierne stúpla.
 
 Pri použití HW zabezpečenia sa zväčšila náročnosť na pamäťové nároky zariadenia, keďže bolo nutné softvérovo naimplementovať komunikáciu podľa štandardu ISO7816.
-Rýchlosť komunikácia sa ale predĺžila 3 násobne, oproti SW zabezpečeniu. Pôvodne sa predpokladalo urýchlenie výpočtov a zníženie spotreby. Všetky zvýšenia ale dávajú zmysel. Rýchlosť závisí aj od rýchlosti komunikácie cez štandard ISO7816. V implementácií sa komunikuje baudovou rýchlosťou 7168bps. Rýchlosť hodinového signálu sa taktiež neblíži k dovolenému maximu.
+Rýchlosť komunikácia sa predĺžila 3 násobne, oproti SW zabezpečeniu. Pôvodne sa predpokladalo urýchlenie výpočtov a zníženie spotreby. Všetky zvýšenia ale dávajú zmysel. Rýchlosť závisí aj od rýchlosti komunikácie cez štandard ISO7816. V implementácií sa komunikuje baudovou rýchlosťou 7168bps. Rýchlosť hodinového signálu sa taktiež neblíži k dovolenému maximu.
 
 Zvýšenie spotreby dáva takisto zmysel, keďže musia byť aktivované periférie, ktoré by inak boli vypnuté (UART, CLK, GPIO piny). Samotný viac-účelový kryptoelement spotrebováva isté množstvo energie, ktoré sa k výslednej spotrebe pripočíta.
 
@@ -2211,7 +2211,7 @@ K tak radikálnemu spomaleniu dochádza ale ešte aj kvôli jednému závažném
 Zhodnotenie sa venuje vyhodnoteniu jednotlivých fáz vypracovania záverečného projektu. Uvádzajú sa vzniknuté problémy počas jednotlivých fáz vypracovania, stručné zhodnotenie, čo sa podarilo, nepodarilo a aké sú možnosti a priestory na vylepšenia.
 
 \section{Zhodnotenie prvej fázy vypracovania projektu}
-V prvej časti vypracovania záverečného projektu sme sa zamerali na čo najširšie zanalyzovanie a oboznámenie sa s komplexnou problematikou spojenou s bezpečnosťou. Študovali sme motiváciu, rozmýšľanie rôznych typov útočníkov, analyzovali sme ich metódy a nástroje. Zaoberali sme sa taxonómiou realizovania aktívnych útokov na rôzne typy systémov, nielen bezdrôtové komunikačné siete. Následne oblasťami ako informačná bezpečnosť, aktuálnym trendom hardvérového zabezpečenia v rôznych oblastiach a riešeniami od dodávateľov ako Microchip\footnote{\url{http://www.microchip.com/design-centers/internet-of-things}} alebo Atmel\footnote{\url{http://blog.atmel.com/2015/11/09/develop-secure-iot-apps-with-the-atmel-certified-id-platform/}} pre oblasti ako IoT. Zamerali sme sa aj na aktuálne vyvíjané technológie, bezpečnostnými slabinami systémov, získavaním root oprávnení rôznych zariadení, kryptografickými algoritmami, dostupnými bezdrôtovými komunikačnými protokolmi a používanými zariadeniami v inteligentných domácnostiach.
+V prvej časti vypracovania diplomového projektu sme sa zamerali na čo najširšie zanalyzovanie a oboznámenie sa s komplexnou problematikou spojenou s bezpečnosťou. Študovali sme motiváciu, rozmýšľanie rôznych typov útočníkov, analyzovali sme ich metódy a nástroje. Zaoberali sme sa taxonómiou realizovania aktívnych útokov na rôzne typy systémov, nielen bezdrôtové komunikačné siete. Následne oblasťami ako informačná bezpečnosť, aktuálnym trendom hardvérového zabezpečenia v rôznych oblastiach a riešeniami od dodávateľov ako Microchip\footnote{\url{http://www.microchip.com/design-centers/internet-of-things}} alebo Atmel\footnote{\url{http://blog.atmel.com/2015/11/09/develop-secure-iot-apps-with-the-atmel-certified-id-platform/}} pre oblasti ako IoT. Zamerali sme sa aj na aktuálne vyvíjané technológie, bezpečnostnými slabinami systémov, získavaním root oprávnení rôznych zariadení, kryptografickými algoritmami, dostupnými bezdrôtovými komunikačnými protokolmi a používanými zariadeniami v inteligentných domácnostiach.
 
 %Bola analyzovana do istej miery bezpocnost spojena s bezdorovymi komunikacnymi sietami
 
@@ -2245,12 +2245,12 @@ Predpokladaný plán práce a rozloženie úloh v ďalšom semestri je v príloh
 \section{Zhodnotenie tretej fázy vypracovania projektu}
 V tretej fáze vypracovania projektu sa podarilo úspešne doimplementovať obojsmernú komunikáciu s použitím ANT protokolu. Nad dátovou časťou protokolu bola implementovaná funkcionalita, ktorá dokáže posielať správy logicky väčšie ako 8 bajtov. Maximálne však 254 bajtov.
 
-Ďalej sa podarilo naimplementovať a odladiť komunikáciu podľa štandardu ISO7816 s využitím UART sériovej linky. Všetky signály sú generované programovo, čiže okrem externého prepojenia pinov RX a TX sériovej linky, nieje nutný žiadny ďalší hardvér.
+Ďalej sa podarilo naimplementovať a odladiť komunikáciu podľa štandardu ISO7816 s využitím UART sériovej linky. Všetky signály sú generované programovo, čiže okrem externého prepojenia pinov RX a TX sériovej linky, nie je nutný žiadny ďalší hardvér.
 Kvôli testovanie štandardu ISO7816, bola implementovaná aj funkcionalita čítačky smart kariet, s použitím technológie RTT.
 
 Bol úspešne implementovaný a skompilovaný applet do špecifického CAP formátu. Ten bol nahratý a nainštalovaný pomocou PS/CS čítačky kariet do kryptoelementu. V applete sa podarilo úspešne volať hardvérovo implementované kryptografické funkcie AES128.
 
-Pre zabezpečenie robustnosti, istej testovateľnosti a odlaďovania, boli navrhnuté, vyrobené a osadené 2 dosky plošných spojov v domácich podmienkach. Dosky slúžia hlavne na prepojenie vývojového kitu s kryptoelementom.
+Pre zabezpečenie robustnosti, istej testovateľnosti a odlaďovania, boli navrhnuté, vyrobené a osadené 2 testovacie dosky plošných spojov v domácich podmienkach. Dosky slúžia hlavne na prepojenie vývojového kitu s kryptoelementom.
 
 Pre zabezpečenie rovnakých podmienok počas testovania, bola implementovaná funkcionalita automatického testu.
 
@@ -2276,11 +2276,11 @@ Spočiatku som bol z použitia komplikovaného hardvéru v podobe kryptoelementu
 
 Projekt považujem za úspešný, aj navzdory negatívnym výsledkom z testovania, keďže rapídne spomalenie komunikácie je spôsobené dočasným rozsynchronizovaním bezdrôtového kanála.
 
-Zvýšiť zabezpečenie bezdrôtových komunikačných sietí sa s aktuálnou implementáciou nepodarilo, keďže nebola overená funkcionalita PKI. Zvýšenie zabezpečenia ale je možné. Boli identifikované jednotlivé slabiny celkovej implementácie. Implementácia štandardu s označením ISO7816, priniesla zvýšené pamäťové nároky. Komunikácia cez štandard je citlivá na časovanie a najväčšie spomalenie pri kryptovaní dát s kryptoelementom predstavuje samotná komunikácia.
+Zvýšiť zabezpečenie bezdrôtových komunikačných sietí sa s aktuálnou implementáciou nepodarilo, keďže nebola overená funkcionalita PKI. Zvýšenie zabezpečenia je ale možné. Boli identifikované jednotlivé slabiny celkovej implementácie. Implementácia štandardu s označením ISO7816, priniesla zvýšené pamäťové nároky. Komunikácia cez štandard je citlivá na časovanie a najväčšie spomalenie pri kryptovaní dát s kryptoelementom predstavuje samotná komunikácia.
 
 Vylepšenia súčasnej implementácie, si viem predstaviť v podobe doimplementovania a otestovania PKI infraštruktúry. Následne doimplementovanie zabezpečenej komunikácie medzi kryptoelementom a zariadením v podobe \quotes{Secure channelu} pre zvýšenie bezpečnosti. Dajú sa doimplementovať a vyskúšať rôzne rýchlosti externého generovaného hodinového signálu pre kryptoelement, tým pádom sa zvýši aj rýchlosť komunikácie s kryptoelementom. Posielanie a prijímanie správ cez komunikačný kanál a komunikácia s kryptoelementom, by sa dala implementovať cez udalosti v systéme, čo ale môže priniesť nové problémy s nekonzistenciou dát na programovej úrovni. Toto vylepšenie by mohlo vyriešiť problém so stratou niekoľkých správ.
 
-V publikácií s názvom \quotes{AES Data Encryption in a ZigBee Network: Software or Hardware?}, tvrdia, že s použitím HW kryptovania vo forme FPGA čipu v ZigBee sieti, veľa na rýchlosti nezískali, ale zistili, že je možné znížiť spotrebu až o 20\% a to pri kryptovaní \cite{Ottoy2010}. V porovnaní so získanými výsledkami, sa jedná o pravý opak. Komunikácia bola spomalená, aj prúdová spotreba sa mierne zvýšila.
+V publikácií s názvom \quotes{AES Data Encryption in a ZigBee Network: Software or Hardware?}, tvrdia, že s použitím HW kryptovania vo forme FPGA čipu v ZigBee sieti, veľa na rýchlosti nezískali, ale zistili, že je možné znížiť spotrebu až o 20\% a to pri kryptovaní \cite{Ottoy2010}. V porovnaní so získanými výsledkami, sa jedná o pravý opak. Komunikácia bola spomalená, aj prúdová spotreba sa bola vyššia.
 
 
 %\section{Zhodnotenie poslednej fázy vypracovania}
