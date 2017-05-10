@@ -150,6 +150,7 @@
 \graphicspath{{./Obrazky/}}
 
 \begin{document}
+	\sloppy
 %	\begin{otherlanguage*}{slovak}
 %\renewcommand{\chaptername}[1]{}
 \titleformat{\chapter}[hang]{\bf\huge}{\thechapter}{2pc}{}
@@ -1073,8 +1074,11 @@ Viaceré protokoly sú spolu porovnané v tabuľke \ref{table:Porovnanie protoko
 
 %http://www.sharetechnote.com/html/Handbook_LTE.html
 
-\section{Používané technológie v inteligentných domácnostiach} \label{s_solutions}
+\newpage
+
+\section{Používané technológie v inteligentných \\ domácnostiach} \label{s_solutions}
 Táto kapitola sa zaoberá dostupnými a používanými technológiami používanými v technologických riešeniach inteligentných domácností.  \ref{s_smarthubs} a \ref{s_devices}
+
 \subsection{Smart gateways} \label{s_smarthubs}
 Smart gateways, často označované a dostupné na internete aj pod názvom Smart Things Hubs, označujú zariadenia, ktoré sú pripojené k internetu a poskytujú konektivitu pripojeným senzorom, ktoré nemajú priamo zabudované pripojenie k internetu. Takýmto spôsobom je možné monitorovať a ovládať dianie v inteligentnej domácnosti pomocou vzdialeného prístupu, posielať namerané dáta von z privátnej siete napr. do cloudu na následné spracovanie alebo notifikovať vlastníka objektu o narušiteľovi, poprípade o spustení požiarneho alarmu. Okrem pridanej konektivity často vedia komunikovať a prepájať zariadenia nachádzajúce sa na rôznych bezdrôtových komunikačných protokoloch.
 Vybrané najrozšírenejšie dostupné produkty:
@@ -1818,7 +1822,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 \end{figure*}
 
 \section{Štandard ISO7816}
-	Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa štandar-du ISO7816. Táto kapitola stručne opisuje najzákladnejšie naimplementované poskytované funkcionality.
+	Pre komunikáciu s kryptoelementom bolo nutné naimplementovať rozhranie podľa~ štandardu ISO7816. Táto kapitola stručne opisuje najzákladnejšie naimplementované poskytované funkcionality.
 	
 	Implementované rozhranie dokáže komunikovať iba s protokolom, ktorý je kódovaný v priamej konverzií. Identifikácia konverzie prebieha z prvého bajtu ATR správy. Jedná sa o bajt označovaný ako \quotes{TS}. Slúžia aj ako synchronizačné sekvencie. Hodnoty bajtu TS znamenajú nasledovné:
 	%\singlespacing	
@@ -1828,7 +1832,7 @@ Pre namapovanie týchto funkcií na príslušné tlačidlá viď. \ref{f:o_bootl
 	\end{itemize}
 	\onehalfspacing
 	
-	Program generuje valídne sekvencie studenej aktivácie karty a deaktivácie karty. Po úspešnom pripojení a aktivačnej sekvencií, karta odpovie správou ATR. To je jediný prípad, kedy karta posiela správu. Smart karta od tejto chvíle čaká správu od terminálu. Komunikácia prebieha v dvojiciach príkaz-odpoveď.
+	Program generuje valídne sekvencie studenej aktivácie karty a deaktivácie karty. Po úspešnom pripojení a aktivačnej sekvencií, karta odpovie správou ATR. To je jediný prípad, kedy karta posiela správu. Smart karta od tejto chvíle čaká správu od terminálu. Komunikácia prebieha vo dvojiciach príkaz-odpoveď.
 	
 	Program dokáže rozanalyzovať prijatú ATR správu, podľa normy ISO7816 obr. \ref{f:atr}, nie všetky hodnoty sa však používajú.
 
