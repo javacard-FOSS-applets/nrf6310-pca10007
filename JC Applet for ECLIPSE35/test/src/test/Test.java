@@ -15,9 +15,11 @@ import javacardx.crypto.Cipher;
 
 public class Test extends Applet {
 	// ############################			CONSTATNTS			###########################
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = 	false;
 	public final static boolean TYPE2SEND = true; // Conclusion IF YOU WANT TO INTERFACE ISO7816 
 												  //BY YOURSELF, KEEP IT SIMPLE && DONT ASSEMBLE APDU BY YOUR SELF. USE ATOMI INSTRUCTION 
+	public static boolean RSA_NOPAD = 		true;
+	
 	
 	public final static byte MASTER = 0x00;
 	public final static byte SLAVE =  0x01;
@@ -26,8 +28,11 @@ public class Test extends Applet {
 
 	private final static byte[] HELLO_STRING = new byte[]{'A', 'l', 'o', 'h', 'a'};
 	
+	static final byte RSA_TYPE_CONFI = (byte)  0x00;
+	
 	static final byte HW_AES_ENCRYPT = (byte)  0x03;
     static final byte HW_AES_DECRYPT = (byte)  0x04;
+    
     static final byte HW_RSA_ENCRYPT = (byte)  0x05;
     static final byte HW_RSA_DECRYPT = (byte)  0x06;
     
@@ -36,7 +41,7 @@ public class Test extends Applet {
     static final byte TEST_INPUTHEAD = (byte)  0xff;
     
     static final byte AES_MESSAGE_LGTH = (byte) 0x10;
-    static final byte RSA_MESSAGE_LGTH = (byte) 0x11;
+    static final byte RSA_MESSAGE_LGTH = (byte) 128; //with 1024
 
 	
 	//############################			CONFIG				###########################
@@ -59,9 +64,10 @@ public class Test extends Applet {
 		//RSA
 	    	private Cipher 			RSA_ECB;
     	//RSA Master
-		    private Key 	RSA_Master_Private;
-		    private Key 	RSA_Master_Public;
+		    private Key 			RSA_Master_Private;
+		    private Key 			RSA_Master_Public;
 		    private KeyPair 		RSA_Key_Pair;
+		    
     	//RSA Slave
 		   // private RSAPrivateKey RSA_Slave_Private;
 		   // private RSAPublicKey RSA_Slave_Public;
@@ -80,12 +86,17 @@ public class Test extends Applet {
 		RSA_Key_Pair = new KeyPair(KeyPair.ALG_RSA, (short) RSA_Master_Private.getSize() );
 		RSA_Key_Pair.genKeyPair();
 		
-		RSA_ECB = Cipher.getInstance(Cipher.ALG_RSA_PKCS1, false);
-		/*
-		 GP 2.2.2 supports this standards
+		if(RSA_NOPAD) {
+			RSA_ECB = Cipher.getInstance(Cipher.ALG_RSA_NOPAD, false);
+		}
+		else {
+			RSA_ECB = Cipher.getInstance(Cipher.ALG_RSA_PKCS1, false);
+		}
+			 
+		/* GP 2.2.2 supports this standards
 		 	 Size of block, depends on the leght of the keysize 1024[b]/8=128[B] 
 		 	 
-			 ALG_RSA_ISO14888	-do not use signiture usage
+			 ALG_RSA_ISO14888	-do not use, signature usage
 			 ALG_RSA_ISO9796	-should not be used since 2000
 			 ALG_RSA_PKCS1		-padding, scheme PKCS#1
 			 ALG_RSA_PKCS1_OAEP	-padding, scheme PKCS#1-OAEP
@@ -286,8 +297,15 @@ public class Test extends Applet {
 		        	//Call encrypt over data N bytov
 		        	try {
 			        	RSA_ECB.init(RSA_Key_Pair.getPublic(), Cipher.MODE_ENCRYPT);
-			        	short var = RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) (Data_Lenght-1), SendStatic, (short) 0);
-			        	SendResponse(apdu, (short) var);
+			        	short var;
+			        	if(RSA_NOPAD) {
+			        		var = RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) 0x80, SendStatic, (short) 0);
+			        		SendResponse(apdu, (short) var); //(Data_Lenght-1)
+			        	}
+			        	else {
+			        		var = RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) (Data_Lenght-1), SendStatic, (short) 0);
+			        		SendResponse(apdu, (short) var);
+			        	}
 		        	}
 		        	catch (ISOException e) {
 	        	   	    short reason = e.getReason();
@@ -302,8 +320,17 @@ public class Test extends Applet {
 		        	//Call decrypt over data N bytov
 		        	try {
 			        	RSA_ECB.init(RSA_Key_Pair.getPrivate(), Cipher.MODE_DECRYPT);
-			        	short var = RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) (Data_Lenght-1), SendStatic, (short) 0);
-			        	SendResponse(apdu, (short) var);
+
+			        	short var;
+			        	
+			        	if(RSA_NOPAD) {
+			        		var = RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) (Data_Lenght-1), SendStatic, (short) 0);
+				        	SendResponse(apdu, (short) var); //(Data_Lenght-1)
+			        	}
+			        	else {
+			        		var = RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) (Data_Lenght-1), SendStatic, (short) 0);
+			        		SendResponse(apdu, (short) var);
+			        	}
 		        	}
 		        	catch (ISOException e) {
 		    	   	    short reason = e.getReason();
@@ -317,6 +344,22 @@ public class Test extends Applet {
 		        		RSA_DUMMY(RSA_MESSAGE_LGTH, RecievedStatic);
 		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
 		        	}*/
+		        	break;
+		        	
+		        case RSA_TYPE_CONFI:
+		        	app_initialized=0;
+		        	Init();
+		        	
+		        	if(RSA_NOPAD) {
+		        		RSA_NOPAD=false;
+		        		SendStatic[0] = (byte) 0;
+		        	}
+		        	else {
+		        		RSA_NOPAD=true;
+		        		SendStatic[0] = (byte) 1;
+		        	}
+		        	
+		        	SendResponse(apdu, (short) 1);
 		        	break;
 		        	
 		        case GET_RANDOM:

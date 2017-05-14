@@ -1,5 +1,5 @@
 // converted by version 1.3
-// on Sun May 14 12:43:52 CEST 2017
+// on Sun May 14 15:30:14 CEST 2017
 
 .package test {
 	.aid 0x55:0x55:0x55:0x55:0x55;
@@ -48,86 +48,100 @@
 		// 12
 		virtualMethodRef 2.16.1()V;		// genKeyPair()V
 		// 13
-		staticFieldRef byte[] Test/AESPSKKey;
+		staticFieldRef boolean Test/RSA_NOPAD;
 		// 14
-		classRef 0.7;		// javacard/framework/ISOException
+		staticFieldRef byte[] Test/AESPSKKey;
 		// 15
-		classRef 2.12;		// javacard/security/CryptoException
+		classRef 2.8;		// javacard/security/RSAPrivateKey
 		// 16
-		staticMethodRef Test/AES_init()V;
+		classRef 2.9;		// javacard/security/RSAPublicKey
 		// 17
-		staticMethodRef Test/RSA_init()V;
+		staticFieldRef byte[] Test/rsaPrivateKeyExponent;
 		// 18
-		staticFieldRef byte Test/app_initialized;
+		staticFieldRef byte[] Test/rsaPrivateKeyModulus;
 		// 19
-		virtualMethodRef 0.7.1()S;		// getReason()S
+		staticFieldRef byte[] Test/rsaPublicKeyExponent;
 		// 20
-		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
-		// 21
-		virtualMethodRef 2.12.1()S;		// getReason()S
-		// 22
-		staticMethodRef 2.14.0(B)Ljavacard/security/RandomData;;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
-			.descriptor	Ljavacard/security/RandomData;	2.14;
-
-		// 23
-		virtualMethodRef 2.14.1([BSS)V;		// generateData([BSS)V
-		// 24
-		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
-		// 25
-		virtualMethodRef Test/Init()V;
-		// 26
-		classRef Test;
-		// 27
-		staticMethodRef Test/<init>()V;
-		// 28
-		virtualMethodRef 0.3.1()V;		// register()V
-		// 29
-		virtualMethodRef 0.10.7()S;		// setOutgoing()S
-		// 30
-		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
-		// 31
-		virtualMethodRef 0.10.4(SS)V;		// sendBytes(SS)V
-		// 32
-		staticFieldRef byte[] Test/SendStatic;
-		// 33
-		virtualMethodRef 0.10.5([BSS)V;		// sendBytesLong([BSS)V
-		// 34
-		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
-		// 35
-		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
-		// 36
-		virtualMethodRef 0.10.8(SS)V;		// setOutgoingAndSend(SS)V
-		// 37
-		virtualMethodRef Test/Send_Type2(Ljavacard/framework/APDU;S)V;
-			.descriptor	Ljavacard/framework/APDU;	0.10;
-
-		// 38
-		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
-		// 39
-		staticFieldRef byte[] Test/RecievedStatic;
-		// 40
-		staticFieldRef byte[] Test/HELLO_STRING;
-		// 41
-		virtualMethodRef Test/SendResponse(Ljavacard/framework/APDU;S)V;
-			.descriptor	Ljavacard/framework/APDU;	0.10;
-
-		// 42
 		virtualMethodRef 1.1.3(Ljavacard/security/Key;B)V;		// init(Ljavacard/security/Key;B)V
 			.descriptor	Ljavacard/security/Key;	2.0;
 
-		// 43
+		// 21
+		staticMethodRef 2.14.0(B)Ljavacard/security/RandomData;;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
+			.descriptor	Ljavacard/security/RandomData;	2.14;
+
+		// 22
+		virtualMethodRef 2.14.1([BSS)V;		// generateData([BSS)V
+		// 23
 		virtualMethodRef 1.1.1([BSS[BS)S;		// doFinal([BSS[BS)S
+		// 24
+		classRef 0.7;		// javacard/framework/ISOException
+		// 25
+		classRef 2.12;		// javacard/security/CryptoException
+		// 26
+		staticMethodRef Test/AES_init()V;
+		// 27
+		staticMethodRef Test/RSA_init()V;
+		// 28
+		staticFieldRef byte Test/app_initialized;
+		// 29
+		virtualMethodRef 0.7.1()S;		// getReason()S
+		// 30
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 31
+		virtualMethodRef 2.12.1()S;		// getReason()S
+		// 32
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 33
+		virtualMethodRef Test/Init()V;
+		// 34
+		classRef Test;
+		// 35
+		staticMethodRef Test/<init>()V;
+		// 36
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 37
+		virtualMethodRef 0.10.7()S;		// setOutgoing()S
+		// 38
+		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
+		// 39
+		virtualMethodRef 0.10.4(SS)V;		// sendBytes(SS)V
+		// 40
+		staticFieldRef byte[] Test/SendStatic;
+		// 41
+		virtualMethodRef 0.10.5([BSS)V;		// sendBytesLong([BSS)V
+		// 42
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 43
+		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 		// 44
+		virtualMethodRef 0.10.8(SS)V;		// setOutgoingAndSend(SS)V
+		// 45
+		virtualMethodRef Test/Send_Type2(Ljavacard/framework/APDU;S)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 46
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+		// 47
+		staticFieldRef byte[] Test/RecievedStatic;
+		// 48
+		staticFieldRef byte[] Test/HELLO_STRING;
+		// 49
+		virtualMethodRef Test/SendResponse(Ljavacard/framework/APDU;S)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 50
 		virtualMethodRef 2.16.3()Ljavacard/security/PublicKey;;		// getPublic()Ljavacard/security/PublicKey;
 			.descriptor	Ljavacard/security/PublicKey;	2.3;
 
-		// 45
+		// 51
 		virtualMethodRef 2.16.2()Ljavacard/security/PrivateKey;;		// getPrivate()Ljavacard/security/PrivateKey;
 			.descriptor	Ljavacard/security/PrivateKey;	2.2;
 
-		// 46
+		// 52
+		virtualMethodRef Test/method()V;
+		// 53
 		staticMethodRef Test/Get_Random()B;
-		// 47
+		// 54
 		virtualMethodRef 0.10.3(S)S;		// receiveBytes(S)S
 	}
 
@@ -142,9 +156,11 @@
 			public static final boolean TYPE2SEND = 1;		// Z
 			public static final byte MASTER = 0;		// B
 			public static final byte SLAVE = 1;		// B
-			public static byte MS_Select 0;		// B
+			public static boolean RSA_NOPAD 0 = 1;		// Z
+			public static byte MS_Select 1;		// B
 			private static final short LENGTH_ECHO_BYTES = 256;		// S
 			private static final byte[] HELLO_STRING = {65,108,111,104,97};		// [B
+			static final byte RSA_TYPE_CONFI = 0;		// B
 			static final byte HW_AES_ENCRYPT = 3;		// B
 			static final byte HW_AES_DECRYPT = 4;		// B
 			static final byte HW_RSA_ENCRYPT = 5;		// B
@@ -153,13 +169,16 @@
 			static final byte HELLOWORLD = 72;		// B
 			static final byte TEST_INPUTHEAD = -1;		// B
 			static final byte AES_MESSAGE_LGTH = 16;		// B
-			static final byte RSA_MESSAGE_LGTH = 17;		// B
+			static final byte RSA_MESSAGE_LGTH = -128;		// B
 			private static byte app_initialized;		// B
 			private static byte[] RecievedStatic = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};		// [B
 			private static byte[] SendStatic = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};		// [B
 			private static 1.1 AES_CBC;		// Ljavacardx/crypto/Cipher;
 			private static 2.20 AES_Key;		// Ljavacard/security/AESKey;
 			private static byte[] AESPSKKey = {43,126,21,22,40,-82,-46,-90,-85,-9,21,-120,9,-49,79,60};		// [B
+			private static final byte[] rsaPrivateKeyModulus = {-66,-33,-45,122,8,-30,-102,88,39,84,42,73,24,-50,-28,26,96,-36,98,117,-67,-80,-115,21,-93,101,-26,123,-87,-36,9,17,95,-97,-65,41,-26,-62,-126,-56,53,107,15,16,-101,25,98,-3,-67,-106,73,33,-28,34,8,8,-128,108,-47,-34,-90,-45,-61,-113};		// [B
+			private static final byte[] rsaPrivateKeyExponent = {-124,33,-2,11,-92,-54,-7,125,-68,-4,14,-87,-69,122,-67,125,101,64,43,8,-58,-33,-55,75,9,106,41,59,-62,66,-120,35,68,-81,8,-126,76,-1,66,-92,-72,-46,-38,-52,-18,-59,52,-19,113,1,-85,59,118,-34,108,-94,-53,124,56,-74,-102,75,40,1};		// [B
+			private static final byte[] rsaPublicKeyExponent = {1,0,1};		// [B
 		}
 
 		.publicMethodTable 7 {
@@ -171,6 +190,7 @@
 			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
 			select()Z;
 			process(Ljavacard/framework/APDU;)V;
+			method()V;
 			Init()V;
 			Send_Type1(Ljavacard/framework/APDU;S)V;
 			Send_Type2(Ljavacard/framework/APDU;S)V;
@@ -192,7 +212,7 @@
 					checkcast 0 7;		// T_CLASSORINTERFACE javacard/security/AESKey
 					putstatic_a 11;		// reference test/Test.AES_Key
 					getstatic_a 11;		// reference test/Test.AES_Key
-					getstatic_a 13;		// reference test/Test.AESPSKKey
+					getstatic_a 14;		// reference test/Test.AESPSKKey
 					sconst_0;
 					invokeinterface 3 7 4;		// javacard/security/AESKey
 					bspush 13;
@@ -228,43 +248,143 @@
 					putfield_a 2;		// reference test/Test.RSA_Key_Pair
 					getfield_a_this 2;		// reference test/Test.RSA_Key_Pair
 					invokevirtual 12;		// genKeyPair()V
-					aload_0;
+					getstatic_b 13;		// boolean test/Test.RSA_NOPAD
+					ifeq L2;
+				L1:	aload_0;
+					bspush 12;
+					sconst_0;
+					invokestatic 4;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+					putfield_a 3;		// reference test/Test.RSA_ECB
+					goto L3;
+				L2:	aload_0;
 					bspush 10;
 					sconst_0;
 					invokestatic 4;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
 					putfield_a 3;		// reference test/Test.RSA_ECB
+				L3:	return;
+		}
+
+		.method public method()V 8 {
+			.stack 6;
+			.locals 7;
+
+				L0:	bspush 12;
+					sconst_0;
+					invokestatic 4;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+					astore_1;
+					sconst_5;
+					sspush 512;
+					sconst_0;
+					invokestatic 6;		// javacard/security/KeyBuilder.buildKey(BSZ)Ljavacard/security/Key;
+					checkcast 0 15;		// T_CLASSORINTERFACE javacard/security/RSAPrivateKey
+					astore_2;
+					sconst_4;
+					sspush 512;
+					sconst_0;
+					invokestatic 6;		// javacard/security/KeyBuilder.buildKey(BSZ)Ljavacard/security/Key;
+					checkcast 0 16;		// T_CLASSORINTERFACE javacard/security/RSAPublicKey
+					astore_3;
+					aload_2;
+					getstatic_a 17;		// reference test/Test.rsaPrivateKeyExponent
+					sconst_0;
+					getstatic_a 17;		// reference test/Test.rsaPrivateKeyExponent
+					arraylength;
+					invokeinterface 4 15 6;		// javacard/security/RSAPrivateKey
+					aload_2;
+					getstatic_a 18;		// reference test/Test.rsaPrivateKeyModulus
+					sconst_0;
+					getstatic_a 18;		// reference test/Test.rsaPrivateKeyModulus
+					arraylength;
+					invokeinterface 4 15 7;		// javacard/security/RSAPrivateKey
+					aload_3;
+					getstatic_a 19;		// reference test/Test.rsaPublicKeyExponent
+					sconst_0;
+					getstatic_a 19;		// reference test/Test.rsaPublicKeyExponent
+					arraylength;
+					invokeinterface 4 16 6;		// javacard/security/RSAPublicKey
+					aload_3;
+					getstatic_a 18;		// reference test/Test.rsaPrivateKeyModulus
+					sconst_0;
+					getstatic_a 18;		// reference test/Test.rsaPrivateKeyModulus
+					arraylength;
+					invokeinterface 4 16 7;		// javacard/security/RSAPublicKey
+					aload_1;
+					aload_3;
+					sconst_2;
+					invokevirtual 20;		// init(Ljavacard/security/Key;B)V
+					bspush 63;
+					newarray 11;
+					astore 4;
+					bspush 64;
+					newarray 11;
+					astore 5;
+					sconst_1;
+					invokestatic 21;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
+					astore 6;
+					aload 6;
+					aload 4;
+					sconst_0;
+					aload 4;
+					arraylength;
+					invokevirtual 22;		// generateData([BSS)V
+					aload_1;
+					aload 4;
+					sconst_0;
+					aload 4;
+					arraylength;
+					aload 5;
+					sconst_0;
+					invokevirtual 23;		// doFinal([BSS[BS)S
+					pop;
+					aload_1;
+					aload_2;
+					sconst_1;
+					invokevirtual 20;		// init(Ljavacard/security/Key;B)V
+					aload 4;
+					arraylength;
+					newarray 11;
+					astore 7;
+					aload_1;
+					aload 5;
+					sconst_0;
+					aload 5;
+					arraylength;
+					aload 7;
+					sconst_0;
+					invokevirtual 23;		// doFinal([BSS[BS)S
+					pop;
 					return;
 		}
 
-		.method public Init()V 8 {
+		.method public Init()V 9 {
 			.stack 1;
 			.locals 2;
 
 				L0:	aload_0;
-					invokespecial 16;		// test/Test.AES_init()V
+					invokespecial 26;		// test/Test.AES_init()V
 					aload_0;
-					invokespecial 17;		// test/Test.RSA_init()V
+					invokespecial 27;		// test/Test.RSA_init()V
 					sconst_1;
-					putstatic_b 18;		// byte test/Test.app_initialized
+					putstatic_b 28;		// byte test/Test.app_initialized
 				L1:	goto L4;
 				L2:	astore_1;
 					aload_1;
-					invokevirtual 19;		// getReason()S
+					invokevirtual 29;		// getReason()S
 					sstore_2;
 					sload_2;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
 					goto L4;
 				L3:	astore_1;
 					aload_1;
-					invokevirtual 21;		// getReason()S
+					invokevirtual 31;		// getReason()S
 					sstore_2;
 					sload_2;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
 				L4:	return;
 			.exceptionTable {
 				// start_block end_block handler_block catch_type_index
-				L0 L1 L2 14;
-				L0 L1 L3 15;
+				L0 L1 L2 24;
+				L0 L1 L3 25;
 			}
 		}
 
@@ -273,7 +393,7 @@
 			.locals 2;
 
 				L0:	sconst_2;
-					invokestatic 22;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
+					invokestatic 21;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
 					astore_1;
 					bspush 16;
 					newarray 11;
@@ -282,7 +402,7 @@
 					aload_2;
 					sconst_0;
 					sconst_1;
-					invokevirtual 23;		// generateData([BSS)V
+					invokevirtual 22;		// generateData([BSS)V
 					aload_2;
 					sconst_0;
 					baload;
@@ -294,9 +414,9 @@
 			.locals 0;
 
 				L0:	aload_0;
-					invokespecial 24;		// javacard/framework/Applet.<init>()V
+					invokespecial 32;		// javacard/framework/Applet.<init>()V
 					aload_0;
-					invokevirtual 25;		// Init()V
+					invokevirtual 33;		// Init()V
 					return;
 		}
 
@@ -304,63 +424,63 @@
 			.stack 2;
 			.locals 0;
 
-				L0:	new 26;		// test/Test
+				L0:	new 34;		// test/Test
 					dup;
-					invokespecial 27;		// test/Test.<init>()V
-					invokevirtual 28;		// register()V
+					invokespecial 35;		// test/Test.<init>()V
+					invokevirtual 36;		// register()V
 					return;
 		}
 
-		.method public Send_Type1(Ljavacard/framework/APDU;S)V 9 {
+		.method public Send_Type1(Ljavacard/framework/APDU;S)V 10 {
 			.stack 4;
 			.locals 0;
 
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 				L0:	aload_1;
-					invokevirtual 29;		// setOutgoing()S
+					invokevirtual 37;		// setOutgoing()S
 					pop;
 					aload_1;
 					sconst_5;
 					sload_2;
 					sadd;
-					invokevirtual 30;		// setOutgoingLength(S)V
+					invokevirtual 38;		// setOutgoingLength(S)V
 					aload_1;
 					sconst_0;
 					sconst_5;
-					invokevirtual 31;		// sendBytes(SS)V
+					invokevirtual 39;		// sendBytes(SS)V
 					aload_1;
-					getstatic_a 32;		// reference test/Test.SendStatic
+					getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
 					sload_2;
-					invokevirtual 33;		// sendBytesLong([BSS)V
+					invokevirtual 41;		// sendBytesLong([BSS)V
 					return;
 		}
 
-		.method public Send_Type2(Ljavacard/framework/APDU;S)V 10 {
+		.method public Send_Type2(Ljavacard/framework/APDU;S)V 11 {
 			.stack 5;
 			.locals 1;
 
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 				L0:	aload_1;
-					invokevirtual 34;		// getBuffer()[B
+					invokevirtual 42;		// getBuffer()[B
 					astore_3;
-					getstatic_a 32;		// reference test/Test.SendStatic
+					getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
 					aload_3;
 					sconst_0;
 					sload_2;
-					invokestatic 35;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					invokestatic 43;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
 					sload_2;
-					invokevirtual 36;		// setOutgoingAndSend(SS)V
+					invokevirtual 44;		// setOutgoingAndSend(SS)V
 					return;
 		}
 
-		.method public SendResponse(Ljavacard/framework/APDU;S)V 11 {
+		.method public SendResponse(Ljavacard/framework/APDU;S)V 12 {
 			.stack 3;
 			.locals 0;
 
@@ -369,11 +489,11 @@
 				L0:	aload_0;
 					aload_1;
 					sload_2;
-					invokevirtual 37;		// Send_Type2(Ljavacard/framework/APDU;S)V
+					invokevirtual 45;		// Send_Type2(Ljavacard/framework/APDU;S)V
 					return;
 		}
 
-		.method public AES_DUMMY(B[B)V 12 {
+		.method public AES_DUMMY(B[B)V 13 {
 			.stack 3;
 			.locals 1;
 
@@ -386,7 +506,7 @@
 					sadd;
 					baload;
 					ifne L3;
-				L2:	getstatic_a 32;		// reference test/Test.SendStatic
+				L2:	getstatic_a 40;		// reference test/Test.SendStatic
 					sload_3;
 					sconst_0;
 					bastore;
@@ -398,7 +518,7 @@
 					baload;
 					bspush 85;
 					if_scmpne L5;
-				L4:	getstatic_a 32;		// reference test/Test.SendStatic
+				L4:	getstatic_a 40;		// reference test/Test.SendStatic
 					sload_3;
 					bspush -86;
 					bastore;
@@ -410,7 +530,7 @@
 					baload;
 					bspush -86;
 					if_scmpne L7;
-				L6:	getstatic_a 32;		// reference test/Test.SendStatic
+				L6:	getstatic_a 40;		// reference test/Test.SendStatic
 					sload_3;
 					bspush 85;
 					bastore;
@@ -432,7 +552,7 @@
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 				L0:	aload_1;
-					invokevirtual 34;		// getBuffer()[B
+					invokevirtual 42;		// getBuffer()[B
 					astore_2;
 					aload_2;
 					sconst_0;
@@ -444,10 +564,10 @@
 					bspush -92;
 					if_scmpne L3;
 				L2:	aload_0;
-					invokevirtual 25;		// Init()V
+					invokevirtual 33;		// Init()V
 					return;
 				L3:	aload_1;
-					invokevirtual 38;		// setIncomingAndReceive()S
+					invokevirtual 46;		// setIncomingAndReceive()S
 					sstore_3;
 					sconst_0;
 					sstore 4;
@@ -456,10 +576,10 @@
 					goto L5;
 				L4:	aload_2;
 					sconst_5;
-					getstatic_a 39;		// reference test/Test.RecievedStatic
+					getstatic_a 47;		// reference test/Test.RecievedStatic
 					sload 4;
 					sload_3;
-					invokestatic 35;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					invokestatic 43;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sload 4;
 					sload_3;
@@ -467,39 +587,39 @@
 					sstore 4;
 					aload_1;
 					sconst_5;
-					invokevirtual 47;		// receiveBytes(S)S
+					invokevirtual 54;		// receiveBytes(S)S
 					sstore_3;
 				L5:	sload_3;
 					ifgt L4;
-				L6:	getstatic_a 39;		// reference test/Test.RecievedStatic
+				L6:	getstatic_a 47;		// reference test/Test.RecievedStatic
 					sconst_0;
 					baload;
 					sstore 5;
 					sload 4;
 					sconst_1;
-					if_scmplt_w L38;
+					if_scmplt_w L43;
 				L7:	sload 5;
-					slookupswitch L34 7 -1 L9 3 L13 4 L19 5 L25 6 L29 72 L8 82 L33;
-				L8:	getstatic_a 40;		// reference test/Test.HELLO_STRING
+					slookupswitch L39 8 -1 L9 0 L37 3 L13 4 L19 5 L25 6 L31 72 L8 82 L38;
+				L8:	getstatic_a 48;		// reference test/Test.HELLO_STRING
 					sconst_0;
-					getstatic_a 32;		// reference test/Test.SendStatic
+					getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
-					getstatic_a 40;		// reference test/Test.HELLO_STRING
+					getstatic_a 48;		// reference test/Test.HELLO_STRING
 					arraylength;
-					invokestatic 35;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					invokestatic 43;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					aload_0;
 					aload_1;
-					getstatic_a 40;		// reference test/Test.HELLO_STRING
+					getstatic_a 48;		// reference test/Test.HELLO_STRING
 					arraylength;
-					invokevirtual 41;		// SendResponse(Ljavacard/framework/APDU;S)V
-					goto_w L38;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+					goto_w L43;
 				L9:	sconst_0;
 					sstore 6;
 					goto L11;
-				L10:	getstatic_a 32;		// reference test/Test.SendStatic
+				L10:	getstatic_a 40;		// reference test/Test.SendStatic
 					sload 6;
-					getstatic_a 39;		// reference test/Test.RecievedStatic
+					getstatic_a 47;		// reference test/Test.RecievedStatic
 					sload 6;
 					baload;
 					bastore;
@@ -511,167 +631,202 @@
 				L11:	sload 6;
 					sload 4;
 					if_scmplt L10;
-				L12:	getstatic_a 32;		// reference test/Test.SendStatic
+				L12:	getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
 					bspush -86;
 					bastore;
 					aload_0;
 					aload_1;
 					sconst_1;
-					invokevirtual 41;		// SendResponse(Ljavacard/framework/APDU;S)V
-					goto_w L38;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+					goto_w L43;
 				L13:	sload 4;
 					bspush 17;
-					if_scmpne_w L38;
+					if_scmpne_w L43;
 				L14:	getstatic_a 5;		// reference test/Test.AES_CBC
 					getstatic_a 11;		// reference test/Test.AES_Key
 					sconst_2;
-					invokevirtual 42;		// init(Ljavacard/security/Key;B)V
+					invokevirtual 20;		// init(Ljavacard/security/Key;B)V
 					getstatic_a 5;		// reference test/Test.AES_CBC
-					getstatic_a 39;		// reference test/Test.RecievedStatic
+					getstatic_a 47;		// reference test/Test.RecievedStatic
 					sconst_1;
 					bspush 16;
-					getstatic_a 32;		// reference test/Test.SendStatic
+					getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
-					invokevirtual 43;		// doFinal([BSS[BS)S
+					invokevirtual 23;		// doFinal([BSS[BS)S
 					pop;
 				L15:	goto L18;
 				L16:	astore 6;
 					aload 6;
-					invokevirtual 19;		// getReason()S
+					invokevirtual 29;		// getReason()S
 					sstore 7;
 					sload 7;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
 					goto L18;
 				L17:	astore 6;
 					aload 6;
-					invokevirtual 21;		// getReason()S
+					invokevirtual 31;		// getReason()S
 					sstore 7;
 					sload 7;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
 				L18:	aload_0;
 					aload_1;
 					bspush 16;
-					invokevirtual 41;		// SendResponse(Ljavacard/framework/APDU;S)V
-					goto_w L38;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+					goto_w L43;
 				L19:	sload 4;
 					bspush 17;
-					if_scmpne_w L38;
+					if_scmpne_w L43;
 				L20:	getstatic_a 5;		// reference test/Test.AES_CBC
 					getstatic_a 11;		// reference test/Test.AES_Key
 					sconst_1;
-					invokevirtual 42;		// init(Ljavacard/security/Key;B)V
+					invokevirtual 20;		// init(Ljavacard/security/Key;B)V
 					getstatic_a 5;		// reference test/Test.AES_CBC
-					getstatic_a 39;		// reference test/Test.RecievedStatic
+					getstatic_a 47;		// reference test/Test.RecievedStatic
 					sconst_1;
 					bspush 16;
-					getstatic_a 32;		// reference test/Test.SendStatic
+					getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
-					invokevirtual 43;		// doFinal([BSS[BS)S
+					invokevirtual 23;		// doFinal([BSS[BS)S
 					pop;
 				L21:	goto L24;
 				L22:	astore 6;
 					aload 6;
-					invokevirtual 19;		// getReason()S
+					invokevirtual 29;		// getReason()S
 					sstore 7;
 					sload 7;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
 					goto L24;
 				L23:	astore 6;
 					aload 6;
-					invokevirtual 21;		// getReason()S
+					invokevirtual 31;		// getReason()S
 					sstore 7;
 					sload 7;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
 				L24:	aload_0;
 					aload_1;
 					bspush 16;
-					invokevirtual 41;		// SendResponse(Ljavacard/framework/APDU;S)V
-					goto_w L38;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+					goto_w L43;
 				L25:	getfield_a_this 3;		// reference test/Test.RSA_ECB
 					getfield_a_this 2;		// reference test/Test.RSA_Key_Pair
-					invokevirtual 44;		// getPublic()Ljavacard/security/PublicKey;
+					invokevirtual 50;		// getPublic()Ljavacard/security/PublicKey;
 					sconst_2;
-					invokevirtual 42;		// init(Ljavacard/security/Key;B)V
-					getfield_a_this 3;		// reference test/Test.RSA_ECB
-					getstatic_a 39;		// reference test/Test.RecievedStatic
+					invokevirtual 20;		// init(Ljavacard/security/Key;B)V
+					getstatic_b 13;		// boolean test/Test.RSA_NOPAD
+					ifeq L27;
+				L26:	getfield_a_this 3;		// reference test/Test.RSA_ECB
+					getstatic_a 47;		// reference test/Test.RecievedStatic
 					sconst_1;
-					sload 4;
-					sconst_1;
-					ssub;
-					getstatic_a 32;		// reference test/Test.SendStatic
+					sspush 128;
+					getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
-					invokevirtual 43;		// doFinal([BSS[BS)S
+					invokevirtual 23;		// doFinal([BSS[BS)S
 					sstore 6;
 					aload_0;
 					aload_1;
 					sload 6;
-					invokevirtual 41;		// SendResponse(Ljavacard/framework/APDU;S)V
-				L26:	goto_w L38;
-				L27:	astore 6;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+					goto_w L43;
+				L27:	getfield_a_this 3;		// reference test/Test.RSA_ECB
+					getstatic_a 47;		// reference test/Test.RecievedStatic
+					sconst_1;
+					sload 4;
+					sconst_1;
+					ssub;
+					getstatic_a 40;		// reference test/Test.SendStatic
+					sconst_0;
+					invokevirtual 23;		// doFinal([BSS[BS)S
+					sstore 6;
+					aload_0;
+					aload_1;
+					sload 6;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+				L28:	goto_w L43;
+				L29:	astore 6;
 					aload 6;
-					invokevirtual 19;		// getReason()S
+					invokevirtual 29;		// getReason()S
 					sstore 7;
 					sload 7;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
-					goto_w L38;
-				L28:	astore 6;
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
+					goto_w L43;
+				L30:	astore 6;
 					aload 6;
-					invokevirtual 21;		// getReason()S
+					invokevirtual 31;		// getReason()S
 					sstore 7;
 					sload 7;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
-					goto_w L38;
-				L29:	getfield_a_this 3;		// reference test/Test.RSA_ECB
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
+					goto_w L43;
+				L31:	getfield_a_this 3;		// reference test/Test.RSA_ECB
 					getfield_a_this 2;		// reference test/Test.RSA_Key_Pair
-					invokevirtual 45;		// getPrivate()Ljavacard/security/PrivateKey;
+					invokevirtual 51;		// getPrivate()Ljavacard/security/PrivateKey;
 					sconst_1;
-					invokevirtual 42;		// init(Ljavacard/security/Key;B)V
-					getfield_a_this 3;		// reference test/Test.RSA_ECB
-					getstatic_a 39;		// reference test/Test.RecievedStatic
+					invokevirtual 20;		// init(Ljavacard/security/Key;B)V
+					getstatic_b 13;		// boolean test/Test.RSA_NOPAD
+					ifeq L33;
+				L32:	getfield_a_this 3;		// reference test/Test.RSA_ECB
+					getstatic_a 47;		// reference test/Test.RecievedStatic
 					sconst_1;
 					sload 4;
 					sconst_1;
 					ssub;
-					getstatic_a 32;		// reference test/Test.SendStatic
+					getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
-					invokevirtual 43;		// doFinal([BSS[BS)S
+					invokevirtual 23;		// doFinal([BSS[BS)S
 					sstore 6;
 					aload_0;
 					aload_1;
 					sload 6;
-					invokevirtual 41;		// SendResponse(Ljavacard/framework/APDU;S)V
-				L30:	goto L38;
-				L31:	astore 6;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+					goto L43;
+				L33:	getfield_a_this 3;		// reference test/Test.RSA_ECB
+					getstatic_a 47;		// reference test/Test.RecievedStatic
+					sconst_1;
+					sload 4;
+					sconst_1;
+					ssub;
+					getstatic_a 40;		// reference test/Test.SendStatic
+					sconst_0;
+					invokevirtual 23;		// doFinal([BSS[BS)S
+					sstore 6;
+					aload_0;
+					aload_1;
+					sload 6;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+				L34:	goto L43;
+				L35:	astore 6;
 					aload 6;
-					invokevirtual 19;		// getReason()S
+					invokevirtual 29;		// getReason()S
 					sstore 7;
 					sload 7;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
-					goto L38;
-				L32:	astore 6;
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
+					goto L43;
+				L36:	astore 6;
 					aload 6;
-					invokevirtual 21;		// getReason()S
+					invokevirtual 31;		// getReason()S
 					sstore 7;
 					sload 7;
-					invokestatic 20;		// javacard/framework/ISOException.throwIt(S)V
-					goto L38;
-				L33:	getstatic_a 32;		// reference test/Test.SendStatic
+					invokestatic 30;		// javacard/framework/ISOException.throwIt(S)V
+					goto L43;
+				L37:	aload_0;
+					invokevirtual 52;		// method()V
+					goto L43;
+				L38:	getstatic_a 40;		// reference test/Test.SendStatic
 					sconst_0;
 					aload_0;
-					invokespecial 46;		// test/Test.Get_Random()B
+					invokespecial 53;		// test/Test.Get_Random()B
 					bastore;
 					aload_0;
 					aload_1;
 					sconst_1;
-					invokevirtual 41;		// SendResponse(Ljavacard/framework/APDU;S)V
-					goto L38;
-				L34:	sconst_0;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+					goto L43;
+				L39:	sconst_0;
 					sstore 6;
-					goto L36;
-				L35:	getstatic_a 32;		// reference test/Test.SendStatic
+					goto L41;
+				L40:	getstatic_a 40;		// reference test/Test.SendStatic
 					sload 6;
-					getstatic_a 39;		// reference test/Test.RecievedStatic
+					getstatic_a 47;		// reference test/Test.RecievedStatic
 					sload 6;
 					baload;
 					bastore;
@@ -680,24 +835,24 @@
 					sadd;
 					s2b;
 					sstore 6;
-				L36:	sload 6;
+				L41:	sload 6;
 					sload 4;
-					if_scmplt L35;
-				L37:	aload_0;
+					if_scmplt L40;
+				L42:	aload_0;
 					aload_1;
 					sload 4;
-					invokevirtual 41;		// SendResponse(Ljavacard/framework/APDU;S)V
-				L38:	return;
+					invokevirtual 49;		// SendResponse(Ljavacard/framework/APDU;S)V
+				L43:	return;
 			.exceptionTable {
 				// start_block end_block handler_block catch_type_index
-				L14 L15 L16 14;
-				L14 L15 L17 15;
-				L20 L21 L22 14;
-				L20 L21 L23 15;
-				L25 L26 L27 14;
-				L25 L26 L28 15;
-				L29 L30 L31 14;
-				L29 L30 L32 15;
+				L14 L15 L16 24;
+				L14 L15 L17 25;
+				L20 L21 L22 24;
+				L20 L21 L23 25;
+				L25 L28 L29 24;
+				L25 L28 L30 25;
+				L31 L34 L35 24;
+				L31 L34 L36 25;
 			}
 		}
 
