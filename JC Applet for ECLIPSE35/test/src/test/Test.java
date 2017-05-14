@@ -30,6 +30,8 @@ public class Test extends Applet {
     static final byte HW_AES_DECRYPT = (byte)  0x04;
     static final byte HW_RSA_ENCRYPT = (byte)  0x05;
     static final byte HW_RSA_DECRYPT = (byte)  0x06;
+    
+    static final byte GET_RANDOM = (byte) 'R';
     static final byte HELLOWORLD	 = (byte)  'H';
     static final byte TEST_INPUTHEAD = (byte)  0xff;
     
@@ -95,6 +97,14 @@ public class Test extends Applet {
    /* private void Set_Master_Slave(byte selector) {
     
     }*/
+    
+    private byte Get_Random() {
+    	RandomData random_Generator;
+    	random_Generator = RandomData.getInstance(RandomData.ALG_SECURE_RANDOM);
+    	byte array[]= new byte[16];
+    	random_Generator.generateData(array, (short)0, (short)1);
+    	return array[0];
+    }
     
 	private Test() {
 		Init();
@@ -261,6 +271,10 @@ public class Test extends Applet {
 		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
 		        	}
 		        	break;*/
+		        case GET_RANDOM:
+		        	SendStatic[0]=Get_Random();
+	        		SendResponse(apdu, (short) 1);
+	        		break;
 		        default: 
 		        	//return 0;
 		        	//Throw EXCEPTION?
