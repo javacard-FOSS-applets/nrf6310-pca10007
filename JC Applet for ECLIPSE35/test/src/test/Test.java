@@ -31,7 +31,7 @@ public class Test extends Applet {
     static final byte HW_RSA_ENCRYPT = (byte)  0x05;
     static final byte HW_RSA_DECRYPT = (byte)  0x06;
     
-    static final byte GET_RANDOM = (byte) 'R';
+    static final byte GET_RANDOM = 	   (byte)  'R';
     static final byte HELLOWORLD	 = (byte)  'H';
     static final byte TEST_INPUTHEAD = (byte)  0xff;
     
@@ -54,19 +54,41 @@ public class Test extends Applet {
 	    	private static byte[] AESPSKKey =	new byte[] { (byte)0x2b, (byte)0x7e, (byte)0x15, (byte)0x16,
 												   			 (byte)0x28, (byte)0xae, (byte)0xd2, (byte)0xa6,
 															 (byte)0xab, (byte)0xf7, (byte)0x15, (byte)0x88,
-															 (byte)0x09, (byte)0xcf, (byte)0x4f, (byte)0x3c };  
-    
-/*
+															 (byte)0x09, (byte)0xcf, (byte)0x4f, (byte)0x3c };
+
 		//RSA
-	    	private Cipher RSA_ECB;
+	    	private Cipher 			RSA_ECB;
     	//RSA Master
-		    private RSAPrivateKey RSA_Master_Private;
-		    private RSAPublicKey RSA_Master_Public;
+		    private Key 	RSA_Master_Private;
+		    private Key 	RSA_Master_Public;
+		    private KeyPair 		RSA_Key_Pair;
     	//RSA Slave
-		    private RSAPrivateKey RSA_Slave_Private;
-		    private RSAPublicKey RSA_Slave_Public;
-*/	
+		   // private RSAPrivateKey RSA_Slave_Private;
+		   // private RSAPublicKey RSA_Slave_Public;
+	
     
+	private void AES_init() {
+		AES_Key = (AESKey) KeyBuilder.buildKey(KeyBuilder.TYPE_AES_TRANSIENT_DESELECT, KeyBuilder.LENGTH_AES_128, false);
+    	AES_Key.setKey(AESPSKKey, (short) 0);
+        AES_CBC = Cipher.getInstance(Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
+	}
+	
+	private void RSA_init() {
+		RSA_Master_Private =  KeyBuilder.buildKey(KeyBuilder.TYPE_RSA_PRIVATE, KeyBuilder.LENGTH_RSA_1024, false);
+		RSA_Master_Public  =  KeyBuilder.buildKey(KeyBuilder.TYPE_RSA_PUBLIC,  KeyBuilder.LENGTH_RSA_1024, false);
+		
+		RSA_Key_Pair = new KeyPair(KeyPair.ALG_RSA, (short) RSA_Master_Private.getSize() );
+		RSA_Key_Pair.genKeyPair();
+		
+		RSA_ECB = Cipher.getInstance(Cipher.ALG_RSA_NOPAD, false);
+		/*ALG_RSA_ISO14888
+		 ALG_RSA_ISO9796
+		 ALG_RSA_PKCS1
+		 ALG_RSA_PKCS1_OAEP
+		 ALG_RSA_NOPAD
+		 */
+	}
+	
     public void Init() {
     	try {
 	    	if(app_initialized==1) {
@@ -78,11 +100,11 @@ public class Test extends Applet {
 						    			 (byte)0x28, (byte)0xae, (byte)0xd2, (byte)0xa6,
 						    			 (byte)0xab, (byte)0xf7, (byte)0x15, (byte)0x88,
 						    			 (byte)0x09, (byte)0xcf, (byte)0x4f, (byte)0x3c };*/  
-			app_initialized=1;
 			
-	   		AES_Key = (AESKey) KeyBuilder.buildKey(KeyBuilder.TYPE_AES_TRANSIENT_DESELECT, KeyBuilder.LENGTH_AES_128, false);
-	    	AES_Key.setKey(AESPSKKey, (short) 0);
-	        AES_CBC = Cipher.getInstance(Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
+	    	AES_init();
+	    	RSA_init();
+	    	
+	    	app_initialized=1;
 		}
 		catch (ISOException e) {
 	   	    short reason = e.getReason();
@@ -257,20 +279,40 @@ public class Test extends Applet {
 		        	}
 		        	break;
 
-		        /*case HW_RSA_ENCRYPT:
+		        case HW_RSA_ENCRYPT:
 		        	//Call encrypt over data N bytov
-		        	if( Offset==RSA_MESSAGE_LGTH + 1 ) {
-		        		RSA_DUMMY(RSA_MESSAGE_LGTH, RecievedStatic);
-		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
+		        	try {
+			        	RSA_ECB.init(RSA_Key_Pair.getPublic(), Cipher.MODE_ENCRYPT);
+			        	RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) 1, SendStatic, (short) 0);
 		        	}
+		        	catch (ISOException e) {
+	        	   	    short reason = e.getReason();
+	        	   	    ISOException.throwIt(reason);
+	           		}
+	           		catch (CryptoException e) {
+	        	   	    short reason = e.getReason();
+	        	   	    ISOException.throwIt(reason);
+	           		}
 		        	break;
 		        case HW_RSA_DECRYPT:
 		        	//Call decrypt over data N bytov
-		        	if( Offset==RSA_MESSAGE_LGTH + 1 ) {
+		        	try {
+			        	RSA_ECB.init(RSA_Key_Pair.getPrivate(), Cipher.MODE_DECRYPT);
+			        	RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) 1, SendStatic, (short) 0);
+		        	}
+		        	catch (ISOException e) {
+		    	   	    short reason = e.getReason();
+		    	   	    ISOException.throwIt(reason);
+		       		}
+		       		catch (CryptoException e) {
+		    	   	    short reason = e.getReason();
+		    	   	    ISOException.throwIt(reason);
+		       		}
+				        	/*if( Offset==RSA_MESSAGE_LGTH + 1 ) {
 		        		RSA_DUMMY(RSA_MESSAGE_LGTH, RecievedStatic);
 		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
-		        	}
-		        	break;*/
+		        	}*/
+		        	break;
 		        case GET_RANDOM:
 		        	SendStatic[0]=Get_Random();
 	        		SendResponse(apdu, (short) 1);
