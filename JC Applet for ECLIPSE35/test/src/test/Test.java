@@ -80,12 +80,16 @@ public class Test extends Applet {
 		RSA_Key_Pair = new KeyPair(KeyPair.ALG_RSA, (short) RSA_Master_Private.getSize() );
 		RSA_Key_Pair.genKeyPair();
 		
-		RSA_ECB = Cipher.getInstance(Cipher.ALG_RSA_NOPAD, false);
-		/*ALG_RSA_ISO14888
-		 ALG_RSA_ISO9796
-		 ALG_RSA_PKCS1
-		 ALG_RSA_PKCS1_OAEP
-		 ALG_RSA_NOPAD
+		RSA_ECB = Cipher.getInstance(Cipher.ALG_RSA_PKCS1, false);
+		/*
+		 GP 2.2.2 supports this standards
+		 	 Size of block, depends on the leght of the keysize 1024[b]/8=128[B] 
+		 	 
+			 ALG_RSA_ISO14888	-do not use signiture usage
+			 ALG_RSA_ISO9796	-should not be used since 2000
+			 ALG_RSA_PKCS1		-padding, scheme PKCS#1
+			 ALG_RSA_PKCS1_OAEP	-padding, scheme PKCS#1-OAEP
+			 ALG_RSA_NOPAD		-text based, not working, needs to be block alligned?
 		 */
 	}
 	
@@ -196,33 +200,32 @@ public class Test extends Applet {
         SendStatic[(short)0] = (byte) 0xaa;
         SendResponse(apdu, (short)1);
         */
-        
-        
+       
         short bytesToRead = apdu.setIncomingAndReceive();
-        short Offset = (short) 0;
-        byte Security = (short) 0;
+        short Data_Lenght = (short) 0;
+        byte 	Operation = (short) 0;
         
         while (bytesToRead > 0) {
-            Util.arrayCopyNonAtomic(recieveBuffer, ISO7816.OFFSET_CDATA, RecievedStatic, Offset, bytesToRead);
-            Offset += bytesToRead;
+            Util.arrayCopyNonAtomic(recieveBuffer, ISO7816.OFFSET_CDATA, RecievedStatic, Data_Lenght, bytesToRead);
+            Data_Lenght += bytesToRead;
             bytesToRead = apdu.receiveBytes(ISO7816.OFFSET_CDATA);
         }
         
-        Security=RecievedStatic[(byte)(0)];
+        Operation=RecievedStatic[(byte)(0)];
         
         /*SendStatic[(short)0] = (byte) Security;
         SendResponse(apdu, (short)1);*/
         
-        
-        if(Offset>=1) {
-	        switch(Security) {
+        if(Data_Lenght>=1) {
+	        switch(Operation) {
 	        	case HELLOWORLD:
 	        		Util.arrayCopyNonAtomic(HELLO_STRING, (short) 0, SendStatic, (short) 0, (short) HELLO_STRING.length);
 	        		SendResponse(apdu, (short) HELLO_STRING.length);
 
 	        		break;
+	        		
 	        	case TEST_INPUTHEAD:
-		        	for(byte iterator=0;iterator<Offset;iterator++){
+		        	for(byte iterator=0; iterator<Data_Lenght; iterator++){
 		        		SendStatic[iterator] = RecievedStatic[iterator];
 		        	}
 	        		SendStatic[0]=(byte)0xAA;
@@ -231,7 +234,7 @@ public class Test extends Applet {
 	        		
 	        	case HW_AES_ENCRYPT:
 		        	//Call encrypt over data 16 bytov
-		        	if( Offset == AES_MESSAGE_LGTH + 1) {
+		        	if( Data_Lenght == AES_MESSAGE_LGTH + 1) {
 		        		
 		        		if(!DEBUG) {
 		        			try {
@@ -256,7 +259,7 @@ public class Test extends Applet {
 		        	break;
 		        case HW_AES_DECRYPT:
 		        	//Call decrypt over data 16 bytov
-		        	if( Offset==AES_MESSAGE_LGTH + 1) {
+		        	if( Data_Lenght==AES_MESSAGE_LGTH + 1) {
 		        		
 		        		if(!DEBUG) {
 		        			try {
@@ -283,7 +286,8 @@ public class Test extends Applet {
 		        	//Call encrypt over data N bytov
 		        	try {
 			        	RSA_ECB.init(RSA_Key_Pair.getPublic(), Cipher.MODE_ENCRYPT);
-			        	RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) 1, SendStatic, (short) 0);
+			        	short var = RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) (Data_Lenght-1), SendStatic, (short) 0);
+			        	SendResponse(apdu, (short) var);
 		        	}
 		        	catch (ISOException e) {
 	        	   	    short reason = e.getReason();
@@ -298,7 +302,8 @@ public class Test extends Applet {
 		        	//Call decrypt over data N bytov
 		        	try {
 			        	RSA_ECB.init(RSA_Key_Pair.getPrivate(), Cipher.MODE_DECRYPT);
-			        	RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) 1, SendStatic, (short) 0);
+			        	short var = RSA_ECB.doFinal(RecievedStatic, (short) 1, (short) (Data_Lenght-1), SendStatic, (short) 0);
+			        	SendResponse(apdu, (short) var);
 		        	}
 		        	catch (ISOException e) {
 		    	   	    short reason = e.getReason();
@@ -313,17 +318,19 @@ public class Test extends Applet {
 		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
 		        	}*/
 		        	break;
+		        	
 		        case GET_RANDOM:
 		        	SendStatic[0]=Get_Random();
 	        		SendResponse(apdu, (short) 1);
 	        		break;
+	        		
 		        default: 
 		        	//return 0;
 		        	//Throw EXCEPTION?
-		        	for(byte iterator=0;iterator<Offset;iterator++){
+		        	for(byte iterator=0;iterator<Data_Lenght; iterator++){
 		        		SendStatic[iterator] = RecievedStatic[iterator];
 		        	}
-		        	SendResponse(apdu, (short) Offset);
+		        	SendResponse(apdu, (short) Data_Lenght);
 		        	break;
 	        }
         }
