@@ -11,6 +11,10 @@ import javacard.security.*;
 //import javacardx.security.*;
 import javacard.security.KeyBuilder;
 import javacardx.crypto.Cipher;
+
+import javacard.security.ECKey;
+import javacard.security.ECPrivateKey;
+import javacard.security.ECPublicKey;
 //import javacardx.crypto.*;
 
 public class Test extends Applet {
@@ -74,11 +78,16 @@ public class Test extends Applet {
 		   // private RSAPrivateKey RSA_Slave_Private;
 		   // private RSAPublicKey RSA_Slave_Public;
 	
+		    private Cipher 			ECC_ECDSA;
     
 	private void AES_init() {
 		AES_Key = (AESKey) KeyBuilder.buildKey(KeyBuilder.TYPE_AES_TRANSIENT_DESELECT, KeyBuilder.LENGTH_AES_128, false);
     	AES_Key.setKey(AESPSKKey, (short) 0);
         AES_CBC = Cipher.getInstance(Cipher.ALG_AES_BLOCK_128_CBC_NOPAD, false);
+	}
+	
+	private void ECC_init() {
+		ECC_ECDSA = Cipher.getInstance(Signature.ALG_ECDSA_SHA, false);
 	}
 	
 	private void RSA_init() {
