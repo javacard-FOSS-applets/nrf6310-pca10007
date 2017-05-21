@@ -29,6 +29,7 @@ public class Test extends Applet {
 	private final static byte[] HELLO_STRING = new byte[]{'A', 'l', 'o', 'h', 'a'};
 	
 	static final byte RSA_TYPE_CONFI = (byte)  0x00;
+	static final byte RSA_INIT	     = (byte)  0x01;
 	
 	static final byte HW_AES_ENCRYPT = (byte)  0x03;
     static final byte HW_AES_DECRYPT = (byte)  0x04;
@@ -46,7 +47,8 @@ public class Test extends Applet {
 	
 	//############################			CONFIG				###########################
 	public static byte MS_Select = MASTER;
-    static private byte app_initialized=(byte) 0;	
+    static private byte app_initialized=(byte) 0;
+    static private byte rsa_initialized=(byte) 0;
 	
 	//############################			VARIABLES			###########################
 		//Buffers
@@ -80,6 +82,10 @@ public class Test extends Applet {
 	}
 	
 	private void RSA_init() {
+		if(rsa_initialized==1) {
+			return;
+		}
+				
 		RSA_Master_Private =  KeyBuilder.buildKey(KeyBuilder.TYPE_RSA_PRIVATE, KeyBuilder.LENGTH_RSA_1024, false);
 		RSA_Master_Public  =  KeyBuilder.buildKey(KeyBuilder.TYPE_RSA_PUBLIC,  KeyBuilder.LENGTH_RSA_1024, false);
 		
@@ -102,6 +108,8 @@ public class Test extends Applet {
 			 ALG_RSA_PKCS1_OAEP	-padding, scheme PKCS#1-OAEP
 			 ALG_RSA_NOPAD		-text based, not working, needs to be block alligned?
 		 */
+		
+		rsa_initialized=1;
 	}
 	
     public void Init() {
@@ -117,7 +125,7 @@ public class Test extends Applet {
 						    			 (byte)0x09, (byte)0xcf, (byte)0x4f, (byte)0x3c };*/  
 			
 	    	AES_init();
-	    	RSA_init();
+	    	//RSA_init();
 	    	
 	    	app_initialized=1;
 		}
@@ -344,6 +352,10 @@ public class Test extends Applet {
 		        		RSA_DUMMY(RSA_MESSAGE_LGTH, RecievedStatic);
 		        		SendResponse(apdu, (short) RSA_MESSAGE_LGTH);
 		        	}*/
+		        	break;
+		        	
+		        case RSA_INIT:
+		        	RSA_init();
 		        	break;
 		        	
 		        case RSA_TYPE_CONFI:
