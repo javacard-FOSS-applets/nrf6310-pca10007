@@ -202,7 +202,7 @@ extern float   work_ETU;
 
 //todo Longer Messages than 254 bytes
 
-// http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0095a/ch03s02s07.html
+//http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0095a/ch03s02s07.html
 //http://www.ruimtools.com/atr.php
 //http://ludovic.rousseau.free.fr/softwares/pcsc-tools/smartcard_list.txt
 
@@ -223,6 +223,10 @@ extern float   work_ETU;
 
 //0x3bh 0xf8h 0x13h 0x00h 0x00h 0x81h 0x31h 0xfeh 0x45h 0x4ch 0x47h 0x4dh 0x43h 0x61h 0x72h 0x64h 0x31h 0xa3h
 	//3b f8 13 00 00 81 31 fe 45 4c 47 4d 43 61 72 64h 31 a3
+
+//https://smartcard-atr.appspot.com/parse?ATR=3b6500002063cbad20
+	//tr card
+	//3B 65 00 00 20 63 CB AD 20
 	
 //apdu error list
 	//https://www.eftlab.co.uk/index.php/site-map/knowledge-base/118-apdu-response-list
